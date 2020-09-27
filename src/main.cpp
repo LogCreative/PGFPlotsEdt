@@ -9,6 +9,7 @@
 #include <QCommandLineOption>
 
 #include "mainwindow.h"
+#include "pdfRender.h"
 
 int main(int argc, char *argv[])
 {

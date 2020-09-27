@@ -384,7 +384,7 @@ void MainWindow::setCurrentFile(const QString &fileName)
 
     QString shownName = curFile;
     if (curFile.isEmpty())
-        shownName = tr("untitled.txt");
+        shownName = tr("untitled.tex");
     setWindowFilePath(QCoreApplication::applicationName() +" - " + shownName);
 }
 //! [47]
