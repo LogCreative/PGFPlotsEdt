@@ -7,6 +7,7 @@
 */
 
 #include<QMainWindow>
+#include <QTranslator>
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -33,6 +34,8 @@ private slots:
     void open();
     bool save();
     bool saveAs();
+    void tr_EN();
+    void tr_CN();
     void about();
     void documentWasModified();
 #ifndef QT_NO_SESSIONMANAGER
@@ -51,6 +54,9 @@ private:
 
     QPlainTextEdit *textEdit;
     QString curFile;
+
+//    QAction *trENAct;
+//    QAction *trCNAct;
 };
 //! [0]
 

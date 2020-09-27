@@ -7,7 +7,6 @@
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
-#include <QTranslator>
 
 #include "mainwindow.h"
 
@@ -15,12 +14,15 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    /* 2020/9/24 Translation Made by Liguist
-     *
+    /* 2020/9/24 Translation Made by Linguist
+     * 2020/9/27 Select Translation Automatically
      */
+
     QTranslator trans;
-    trans.load(":/PGFPlotsEdt_zh_CN.qm");
-    app.installTranslator(&trans);
+    if(QLocale::system().name()=="zh_CN"){
+        trans.load(":/PGFPlotsEdt_zh_CN.qm");
+        app.installTranslator(&trans);
+    }
 
     Q_INIT_RESOURCE(application);
 

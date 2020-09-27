@@ -104,6 +104,16 @@ bool MainWindow::saveAs()
 }
 //! [12]
 
+//void MainWindow::tr_EN()
+//{
+//    trCNAct->setChecked(false);
+//}
+
+//void MainWindow::tr_CN()
+//{
+//    trENAct->setChecked(false);
+//}
+
 //! [13]
 void MainWindow::about()
 //! [13] //! [14]
@@ -207,6 +217,17 @@ void MainWindow::createActions()
 #endif // !QT_NO_CLIPBOARD
 
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
+
+//    trENAct = helpMenu->addAction("English", this, &MainWindow::tr_EN);
+//    trENAct->setStatusTip("Translate User's Interface into English");
+//    trENAct->setCheckable(true);
+
+//    trCNAct = helpMenu->addAction("简体中文", this, &MainWindow::tr_CN);
+//    trCNAct->setStatusTip("将界面语言设置为简体中文");
+//    trCNAct->setCheckable(true);
+
+//    helpMenu->addSeparator();
+
     QAction *aboutAct = helpMenu->addAction(tr("&About"), this, &MainWindow::about);
     aboutAct->setStatusTip(tr("Show About box"));
 
