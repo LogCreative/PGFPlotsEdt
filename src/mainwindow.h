@@ -6,8 +6,8 @@
  * instead of .ui file.
 */
 
-#include<QMainWindow>
-#include <QTranslator>
+#include <QMainWindow>
+#include <QtWidgets>
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -34,8 +34,9 @@ private slots:
     void open();
     bool save();
     bool saveAs();
-    void tr_EN();
-    void tr_CN();
+//    void tr_EN();
+//    void tr_CN();
+    void compile();
     void about();
     void documentWasModified();
 #ifndef QT_NO_SESSIONMANAGER
@@ -52,8 +53,13 @@ private:
     void setCurrentFile(const QString &fileName);
     QString strippedName(const QString &fullFileName);
 
+    QSplitter *sp;
+
     QPlainTextEdit *textEdit;
     QString curFile;
+
+    QGraphicsView *pdfView;
+
 
 //    QAction *trENAct;
 //    QAction *trCNAct;

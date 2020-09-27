@@ -12,17 +12,18 @@
  */
 
 //! [0]
-#include <QtWidgets>
 
 #include "mainwindow.h"
 //! [0]
 
 //! [1]
 MainWindow::MainWindow()
-    : textEdit(new QPlainTextEdit)
+    : sp(new QSplitter(Qt::Horizontal)),textEdit(new QPlainTextEdit),pdfView(new QGraphicsView)
 //! [1] //! [2]
 {
-    setCentralWidget(textEdit);
+    sp->addWidget(textEdit);
+    sp->addWidget(pdfView);
+    setCentralWidget(sp);
 
     createActions();
     createStatusBar();
@@ -113,6 +114,11 @@ bool MainWindow::saveAs()
 //{
 //    trENAct->setChecked(false);
 //}
+
+void MainWindow::compile()
+{
+
+}
 
 //! [13]
 void MainWindow::about()
@@ -215,6 +221,11 @@ void MainWindow::createActions()
     menuBar()->addSeparator();
 
 #endif // !QT_NO_CLIPBOARD
+
+    QMenu *compileMenu = menuBar()->addMenu(tr("&Compile"));
+    QAction *pdfCompileAct = compileMenu->addAction(tr("&Compile"),this,&MainWindow::compile);
+    pdfCompileAct->setStatusTip(tr("Compile current tex file"));
+    pdfCompileAct->setShortcut(QKeySequence::Print);
 
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
 
