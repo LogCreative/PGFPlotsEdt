@@ -14,6 +14,8 @@
 //! [0]
 
 #include "mainwindow.h"
+#include "pdfRender.h"
+
 //! [0]
 
 //! [1]
@@ -115,9 +117,21 @@ bool MainWindow::saveAs()
 //    trENAct->setChecked(false);
 //}
 
+
+/* 2020/9/29 pdf Preview using poppler
+*
+*
+*/
 void MainWindow::compile()
 {
+    pdfRender pdfr("sync.pdf");
+    QImage rPage = pdfr.pdfTest();
+    QGraphicsPixmapItem item(QPixmap::fromImage(rPage));
+    QGraphicsScene* scene = new QGraphicsScene;
+    scene->addItem(&item);
 
+    pdfView->setScene(scene);
+    pdfView->show();
 }
 
 //! [13]
