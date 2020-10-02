@@ -10,15 +10,53 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-    <div id="app">
-        <span>你的名字是：{{1+1}}</span>
-    </div>
     <div class="nav">
-        <div class="fl">
-            <span>PGFPlots 代码生成器</span>
+            <a href="https://logcreative.github.io/LaTeXSparkle/" class="logo"><svg style="fill: black; font-family: Times,'宋体'" width="144" height="35">
+                <text x="0" y="28" style="font-size: x-large">像</text>
+                <text x="21" y="23" style="font-size:large">模</text>
+                <text x="36" y="33" style="font-size: x-large">像</text>
+                <text x="56" y="28" style="font-size:x-large">样</text>
+                <text x="85" y="28" style="font-size:x-large">L</text>
+                <text x="92" y="23" style="font-size:large">A</text>
+                <text x="102" y="28" style="font-size:x-large">T</text>
+                <text x="114" y="33" style="font-size:x-large">E</text>
+                <text x="126" y="28" style="font-size:x-large">X</text>
+                </svg></a> · \(\rm PGFPlots\) 代码生成器
+    </div>
+    <div class="container" id="app">
+        <div class="properties">
+            <details>
+                <summary>
+                    数据
+                </summary>
+                <div>
+                    <input type="text" v-model="series">
+                    <span v-show="series">{{series}}</span>
+                </div>
+            </details>
+            <details>
+                <summary>
+                    坐标
+                </summary>
+                <div>
+                    <input type="text" v-model="axis">
+                    <span v-show="axis">{{axis}}</span>
+                </div>
+            </details>
+            <details>
+                <summary>
+                    参数
+                </summary>
+                <div>
+                    <input type="text" v-model="param">
+                    <span v-show="param">{{param}}</span>
+                </div>
+            </details>
         </div>
-        <div class="fr">
-            <span>像模像样 \(\rm \LaTeX\)</span>
+        <div class="textext">
+            <textarea id="texOutput">\begin{axis}[{{param}}]
+    {{series}}
+\end{axis}</textarea>
         </div>
     </div>
     <script src="web/js/vue.js"></script>

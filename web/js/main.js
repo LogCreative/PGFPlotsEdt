@@ -1,3 +1,8 @@
 var app = new Vue({
-    el: '#app'
+    el: '#app',
+    data:{
+        series: null,
+        axis: null,
+        param: null
+    }
 });

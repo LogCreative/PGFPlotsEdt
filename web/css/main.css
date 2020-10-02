@@ -1,11 +1,24 @@
 .nav{
-    background: gray;
+    background:whitesmoke;
+    margin-bottom: 5px;
+    padding: 5px;
 }
 
-.fl{
+.container{
+    padding: 15px;
+}
+
+.properties{
+    width: 50%;
     float: left;
 }
 
-.fr{
+.textext{
+    width: 50%;
     float: right;
+}
+
+#texOutput{
+    width: 100%;
+    min-height: 100px;
 }

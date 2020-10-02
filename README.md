@@ -12,6 +12,8 @@ Windows/macOS/linux based on Qt.
 Due to the difficulties, master branch will start the 
 web part first (without preview) based on Vue.js.
 
+Home Page: https://logcreative.github.io/PGFPlotsEdt/
+
 Next Stage:(2021/2~)
 A server based ASP.NET website to generate
 LaTeX preview.
