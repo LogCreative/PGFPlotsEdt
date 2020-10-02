@@ -29,6 +29,10 @@
                 <summary>
                     数据
                 </summary>
+                <div class="type">
+                    <button v-on="{mouseenter: onFunctionEnter, mouseleave: onFunctionLeave}">函数</button>
+                    <button v-on="{mouseenter: onPlotEnter, mouseleave: onPlotLeave}">散点</button>
+                </div>
                 <div>
                     <input type="text" v-model="series">
                     <span v-show="series">{{series}}</span>
