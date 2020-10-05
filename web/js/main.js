@@ -17,6 +17,9 @@ var app = new Vue({
         },
         onPlotLeave: function() {
             app.series = null;
+        },
+        compile: function() {
+            
         }
     }
 });

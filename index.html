@@ -56,11 +56,21 @@
                     <span v-show="param">{{param}}</span>
                 </div>
             </details>
+            <button v-on="{click: compile}">编译</button>
         </div>
         <div class="textext">
+            <textarea>\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\begin{document}
+\begin{tikzpicture}
+            </textarea>
             <textarea id="texOutput">\begin{axis}[{{param}}]
     {{series}}
 \end{axis}</textarea>
+<textarea>\end{tikzpicture}
+\end{document}
+</textarea>
         </div>
     </div>
     <script src="web/js/vue.js"></script>

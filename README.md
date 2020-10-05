@@ -14,9 +14,9 @@ web part first (without preview) based on Vue.js.
 
 Home Page: https://logcreative.github.io/PGFPlotsEdt/
 
-Next Stage:(2021/2~)
+<s>Next Stage:(2021/2~)
 A server based ASP.NET website to generate
-LaTeX preview.
+LaTeX preview.</s>
 
 >This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
