@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="nav">
-            <a href="https://logcreative.github.io/LaTeXSparkle/" class="logo"><svg style="fill: black; font-family: Times,'宋体'" width="144" height="35">
+            <a href="https://logcreative.github.io/LaTeXSparkle/" target="_blank" class="logo"><svg style="fill: black; font-family: Times,'宋体'" width="144" height="35">
                 <text x="0" y="28" style="font-size: x-large">像</text>
                 <text x="21" y="23" style="font-size:large">模</text>
                 <text x="36" y="33" style="font-size: x-large">像</text>
@@ -21,7 +21,7 @@
                 <text x="102" y="28" style="font-size:x-large">T</text>
                 <text x="114" y="33" style="font-size:x-large">E</text>
                 <text x="126" y="28" style="font-size:x-large">X</text>
-                </svg></a> · \(\rm PGFPlots\) 代码生成器
+                </svg></a> · <a href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank">\(\rm PGFPlots\) 代码生成器</a>
     </div>
     <div class="container" id="app">
         <div class="properties">
@@ -56,21 +56,16 @@
                     <span v-show="param">{{param}}</span>
                 </div>
             </details>
-            <button v-on="{click: compile}">编译</button>
+            <button v-on="{click: compile}">编译</button><br>
+            <iframe v-bind:src="curl" id="compilePrev"></iframe>
+            <footer>Powered by <a href="https://github.com/aslushnikov/latex-online" target="_blank">LatexOnline</a></footer>
         </div>
         <div class="textext">
-            <textarea>\documentclass[tikz]{standalone}
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.17}
-\begin{document}
-\begin{tikzpicture}
-            </textarea>
-            <textarea id="texOutput">\begin{axis}[{{param}}]
+            <textarea v-model="premable"></textarea>
+            <textarea v-model="content">\begin{axis}[{{param}}]
     {{series}}
 \end{axis}</textarea>
-<textarea>\end{tikzpicture}
-\end{document}
-</textarea>
+<textarea v-model="suffix"></textarea>
         </div>
     </div>
     <script src="web/js/vue.js"></script>
