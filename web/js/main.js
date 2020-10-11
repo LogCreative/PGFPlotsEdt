@@ -1,8 +1,31 @@
+Vue.component('property',{
+    template:'<tr><td>{{chname}}</td><td>{{propkey}}</td><td><input :type="type" v-model="value" @keyup="on_change"></td></tr>',
+    props: ['chname','propkey'],
+    data: function(){
+        return {
+            type: "text",             //属性的数据类型
+            value: "",         //属性的值
+        }
+    },
+    computed:{
+        paramString: function(){
+            return this.propkey + "={" + this.value + "},";
+        }
+    },
+    methods:{
+        on_change: function(){
+            if(this.value!="")
+                app.param = this.paramString;
+            else
+                app.param = "";
+        }
+    }
+});
+
 var app = new Vue({
     el: '#app',
     data:{
         series: "",
-        axis: null,
         param: "",
         premable:"\\documentclass[tikz]{standalone}\n\
 \\usepackage{pgfplots}\n\

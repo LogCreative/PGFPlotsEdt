@@ -40,25 +40,16 @@
             </details>
             <details>
                 <summary>
-                    坐标
-                </summary>
-                <div>
-                    <input type="text" v-model="axis">
-                    <span v-show="axis">{{axis}}</span>
-                </div>
-            </details>
-            <details>
-                <summary>
                     参数
                 </summary>
                 <div>
-                    <input type="text" v-model="param">
-                    <span v-show="param">{{param}}</span>
+                    <table>
+                        <property chname="标题" propkey="title"></property>
+                    </table>
                 </div>
             </details>
             <button v-on="{click: compile}">编译</button><br>
             <iframe v-bind:src="curl" id="compilePrev"></iframe>
-            <footer>Powered by <a href="https://github.com/aslushnikov/latex-online" target="_blank">LatexOnline</a></footer>
         </div>
         <div class="textext">
             <textarea v-model="premable"></textarea>
@@ -68,7 +59,7 @@
 <textarea v-model="suffix"></textarea>
         </div>
     </div>
-    <script src="web/js/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
     <script src="web/js/main.js"></script>
 </body>
 </html>
