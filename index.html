@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="web/css/main.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 </head>
 <body>
     <div class="nav">
@@ -28,6 +27,13 @@
         <div class="properties">
             <details>
                 <summary>
+                    设定
+                </summary>
+                <input id="chn" type="checkbox" onclick="chnClick(this)" checked="true">启用中文</input>
+                <input id="3d" type="checkbox" v-model="td">启用三维</input>
+            </details>
+            <details>
+                <summary>
                     数据
                 </summary>
                 <div class="type">
@@ -44,12 +50,20 @@
                     参数
                 </summary>
                 <div>
-                    <table id="propcon">
+                    <!-- <table id="propcon"> -->
                         <property chname="标题" propkey="title"></property>
                         <tr>x轴</tr>
                         <property chname="最小" propkey="xmin"></property>
                         <property chname="最大" propkey="xmax"></property>
-                    </table>
+                        <tr>y轴</tr>
+                        <property chname="最小" propkey="ymin"></property>
+                        <property chname="最大" propkey="ymax"></property>
+                    <!-- </table> -->
+                    <div v-show="td">
+                        <tr>z轴</tr>
+                        <property chname="最小" propkey="zmin"></property>
+                        <property chname="最大" propkey="zmax"></property>
+                    </div>
                 </div>
             </details>
             <button v-on="{click: compile}">编译</button><br>
