@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="web/css/main.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 </head>
 <body>
     <div class="nav">
@@ -43,8 +44,11 @@
                     参数
                 </summary>
                 <div>
-                    <table>
+                    <table id="propcon">
                         <property chname="标题" propkey="title"></property>
+                        <tr>x轴</tr>
+                        <property chname="最小" propkey="xmin"></property>
+                        <property chname="最大" propkey="xmax"></property>
                     </table>
                 </div>
             </details>
