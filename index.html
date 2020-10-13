@@ -29,21 +29,14 @@
                 <summary>
                     设定
                 </summary>
-                <input id="chn" type="checkbox" onclick="chnClick(this)" checked="true">启用中文</input>
-                <input id="3d" type="checkbox" v-model="td">启用三维</input>
+                <input type="checkbox" onclick="chnClick(this)" checked="true">启用中文</input>
+                <input type="checkbox" v-model="td" onlick="tdClick">启用三维</input>
             </details>
             <details>
                 <summary>
                     数据
                 </summary>
-                <div class="type">
-                    <button v-on="{mouseenter: onFunctionEnter, mouseleave: onFunctionLeave}">函数</button>
-                    <button v-on="{mouseenter: onPlotEnter, mouseleave: onPlotLeave}">散点</button>
-                </div>
-                <div>
-                    <input type="text" v-model="series">
-                    <span v-show="series">{{series}}</span>
-                </div>
+                <expression></expression>
             </details>
             <details>
                 <summary>

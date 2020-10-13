@@ -1,3 +1,21 @@
+Vue.component('expression',{
+    template:'<tr><td>函数</td><td><input type="text" v-model="param" @keyup="on_change"></td><td><input type="text" v-model="expression" @keyup="on_change"></td></tr>',
+    data: function(){
+        return {
+            param: "",
+            expression: "",
+        }
+    },
+    methods:{
+        on_change: function(){
+            if(!app.td)
+                app.series = "\\addplot [" + this.param + "] {" + this.expression + "};";
+            else
+                app.series = "\\addplot3 [" + this.param + "] (" + this.expression + ");";
+        },
+    }
+});
+
 // 参数字典
 var paramDic = new Array();
 
@@ -42,6 +60,10 @@ chnClick = function(obj){
     }
 };
 
+tdClick = function(){
+    
+}
+
 var app = new Vue({
     el: '#app',
     data:{
@@ -61,18 +83,6 @@ var app = new Vue({
         },
     },
     methods:{
-        onFunctionEnter: function(){
-            app.series = "Funtion";
-        },
-        onFunctionLeave: function() {
-            app.series = "";
-        },
-        onPlotEnter: function() {
-            app.series = "Plot";
-        },
-        onPlotLeave: function() {
-            app.series = "";
-        },
         compile: function() {
             // 清除换行无效符号
             app.curl = "https://latexonline.cc/compile?text="+this.file.replace(/[\r\n]/g,"");
