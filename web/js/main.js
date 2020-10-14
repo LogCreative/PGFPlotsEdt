@@ -1,18 +1,77 @@
-Vue.component('expression',{
-    template:'<tr><td>函数</td><td><input type="text" v-model="param" @keyup="on_change"></td><td><input type="text" v-model="expression" @keyup="on_change"></td></tr>',
+var seriesList = new Array();
+
+// 更新数据系列
+var updateSeries = function(){
+    app.series = "";
+    for(var s in seriesList)
+        app.series += ' ' + seriesList[s] + '\n';
+};
+
+// 系列公用属性
+var seriesMixin = {
     data: function(){
         return {
+            etd: false,
             param: "",
+        }
+    },
+    props: {
+        id: Number,
+    }
+};
+
+// 函数组件
+Vue.component('expression',{
+    mixins: [seriesMixin],
+    template:'<tr><td>函数</td><td><input type="checkbox" v-model="etd">3D</td><td><input type="text" v-model="param" @keyup="on_change"></td><td><input type="text" v-model="expression" @keyup="on_change"></td><td v-show="etd"><input type="text" v-model="expression2" @keyup="on_change"></td><td v-show="etd"><input type="text" v-model="expression3" @keyup="on_change"></td></tr>',
+    data: function(){
+        return {
             expression: "",
+            expression2: "",
+            expression3: "",
         }
     },
     methods:{
         on_change: function(){
-            if(!app.td)
-                app.series = "\\addplot [" + this.param + "] {" + this.expression + "};";
-            else
-                app.series = "\\addplot3 [" + this.param + "] (" + this.expression + ");";
+            if(this.etd)
+                seriesList[this.id] = "\\addplot3 [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "});";
+            else seriesList[this.id] = "\\addplot [" + this.param + "] {" + this.expression + "};";
+            updateSeries();
         },
+    }
+});
+
+// 坐标组件
+Vue.component('coordinates',{
+    mixins: [seriesMixin],
+    template:'<tr><td>坐标</td><td><input type="checkbox" v-model="etd">3D</td><td><input type="text" v-model="param" @keyup="on_change"></td><td><input type="text" v-model="data" @keyup="on_change"></td></tr>',
+    data: function() {
+        return {
+            data: "",
+        }
+    },
+    methods:{
+        on_change: function(){
+            seriesList[this.id] = (this.etd?"\\addplot3 [":"\\addplot [") + this.param + "] coordinates {" + this.data + "};";
+            updateSeries();
+        }
+    }
+});
+
+// 文件组件
+Vue.component('tablep',{
+    mixins: [seriesMixin],
+    template: '<tr><td>文件</td><td><input type="checkbox" v-model="etd">3D</td><td><input type="text" v-model="param" @keyup="on_change"></td><td><input type="text" v-model="datat" @keyup="on_change"></td></tr>',
+    data: function() {
+        return {
+            datat: "",
+        }
+    },
+    methods:{
+        on_change: function(){
+            seriesList[this.id] = (this.etd?"\\addplot3 [":"\\addplot [") + this.param + "] table {" + this.datat + "};";
+            updateSeries();
+        }
     }
 });
 
@@ -60,10 +119,6 @@ chnClick = function(obj){
     }
 };
 
-tdClick = function(){
-
-};
-
 var app = new Vue({
     el: '#app',
     data:{
@@ -76,7 +131,7 @@ var app = new Vue({
     },
     computed:{
         content: function(){
-            return "\\begin{tikzpicture}\n\\begin{axis}["+this.param+"]\n "+this.series+"\n\\end{axis}\n\\end{tikzpicture}";
+            return "\\begin{tikzpicture}\n\\begin{axis}["+this.param+"]\n"+this.series+"\n\\end{axis}\n\\end{tikzpicture}";
         },
         file: function(){
             return this.premable+this.content+this.suffix;

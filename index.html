@@ -30,17 +30,21 @@
                     设定
                 </summary>
                 <input type="checkbox" onclick="chnClick(this)" checked="true">启用中文</input>
-                <input type="checkbox" v-model="td" onlick="tdClick">启用三维</input>
+                <input type="checkbox" v-model="td">启用三维</input>
             </details>
             <details>
                 <summary>
                     数据
                 </summary>
-                <expression></expression>
+                <table id="seriestable">
+                    <expression :id="1"></expression>
+                    <coordinates :id="2"></coordinates>
+                    <tablep :id="3"></tablep>
+                </table>
             </details>
             <details>
                 <summary>
-                    参数
+                    坐标系
                 </summary>
                 <div>
                     <!-- <table id="propcon"> -->
