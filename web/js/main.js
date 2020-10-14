@@ -18,6 +18,14 @@ var seriesMixin = {
     props: {
         id: Number,
     },
+    methods:{
+        on_change: function(){
+            this.updater(this.etd);
+        },
+        ontdchange: function(){
+            this.updater(!this.etd);
+        }
+    }
 };
 
 Vue.directive('minimize',function(el,binding){
@@ -33,7 +41,7 @@ Vue.directive('minimize',function(el,binding){
 // 函数组件
 Vue.component('expression',{
     mixins: [seriesMixin],
-    template:'<div><td class="type">函数</td><td><input type="checkbox" class="td" v-model="etd" >3D</td><td><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></td><td><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></td><td v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></td><td v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></td></div>',
+    template:'<div><td class="type">函数</td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd" >3D</td><td><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></td><td><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></td><td v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></td><td v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></td></div>',
     data: function(){
         return {
             expression: "",
@@ -42,9 +50,8 @@ Vue.component('expression',{
         }
     },
     methods:{
-        on_change: function(){
-            if(this.etd)
-                seriesList[this.id] = "\\addplot3 [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "});";
+        updater: function(td){
+            if(td) seriesList[this.id] = "\\addplot3 [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "});";
             else seriesList[this.id] = "\\addplot [" + this.param + "] {" + this.expression + "};";
             updateSeries();
         },
@@ -54,15 +61,15 @@ Vue.component('expression',{
 // 坐标组件
 Vue.component('coordinates',{
     mixins: [seriesMixin],
-    template:'<tr><td class="type">坐标</td><td><input type="checkbox" class="td" v-model="etd">3D</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据"></td></tr>',
+    template:'<tr><td class="type">坐标</td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd" >3D</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据"></td></tr>',
     data: function() {
         return {
             data: "",
         }
     },
     methods:{
-        on_change: function(){
-            seriesList[this.id] = (this.etd?"\\addplot3 [":"\\addplot [") + this.param + "] coordinates {" + this.data + "};";
+        updater: function(td){
+            seriesList[this.id] = (td?"\\addplot3 [":"\\addplot [") + this.param + "] coordinates {" + this.data + "};";
             updateSeries();
         }
     }
@@ -71,15 +78,15 @@ Vue.component('coordinates',{
 // 文件组件
 Vue.component('tablep',{
     mixins: [seriesMixin],
-    template: '<tr><td class="type">文件</td><td><input type="checkbox" class="td" v-model="etd">3D</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表"></td></tr>',
+    template: '<tr><td class="type">文件</td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表"></td></tr>',
     data: function() {
         return {
             datat: "",
         }
     },
     methods:{
-        on_change: function(){
-            seriesList[this.id] = (this.etd?"\\addplot3 [":"\\addplot [") + this.param + "] table {" + this.datat + "};";
+        updater: function(td){
+            seriesList[this.id] = (td?"\\addplot3 [":"\\addplot [") + this.param + "] table {" + this.datat + "};";
             updateSeries();
         }
     }
