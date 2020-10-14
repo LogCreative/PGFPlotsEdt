@@ -17,13 +17,23 @@ var seriesMixin = {
     },
     props: {
         id: Number,
-    }
+    },
 };
+
+Vue.directive('minimize',function(el,binding){
+    if(binding.value){
+        el.style.width = '40px';
+        el.placeholder = 'x轴';
+    } else {
+        el.style.width = '120px';
+        el.placeholder = '函数';
+    }
+});
 
 // 函数组件
 Vue.component('expression',{
     mixins: [seriesMixin],
-    template:'<tr><td>函数</td><td><input type="checkbox" v-model="etd">3D</td><td><input type="text" v-model="param" @keyup="on_change"></td><td><input type="text" v-model="expression" @keyup="on_change"></td><td v-show="etd"><input type="text" v-model="expression2" @keyup="on_change"></td><td v-show="etd"><input type="text" v-model="expression3" @keyup="on_change"></td></tr>',
+    template:'<div><td class="type">函数</td><td><input type="checkbox" class="td" v-model="etd" >3D</td><td><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></td><td><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></td><td v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></td><td v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></td></div>',
     data: function(){
         return {
             expression: "",
@@ -44,7 +54,7 @@ Vue.component('expression',{
 // 坐标组件
 Vue.component('coordinates',{
     mixins: [seriesMixin],
-    template:'<tr><td>坐标</td><td><input type="checkbox" v-model="etd">3D</td><td><input type="text" v-model="param" @keyup="on_change"></td><td><input type="text" v-model="data" @keyup="on_change"></td></tr>',
+    template:'<tr><td class="type">坐标</td><td><input type="checkbox" class="td" v-model="etd">3D</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据"></td></tr>',
     data: function() {
         return {
             data: "",
@@ -61,7 +71,7 @@ Vue.component('coordinates',{
 // 文件组件
 Vue.component('tablep',{
     mixins: [seriesMixin],
-    template: '<tr><td>文件</td><td><input type="checkbox" v-model="etd">3D</td><td><input type="text" v-model="param" @keyup="on_change"></td><td><input type="text" v-model="datat" @keyup="on_change"></td></tr>',
+    template: '<tr><td class="type">文件</td><td><input type="checkbox" class="td" v-model="etd">3D</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表"></td></tr>',
     data: function() {
         return {
             datat: "",

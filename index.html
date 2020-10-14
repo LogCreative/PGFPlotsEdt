@@ -21,7 +21,7 @@
                 <text x="102" y="28" style="font-size:x-large">T</text>
                 <text x="114" y="33" style="font-size:x-large">E</text>
                 <text x="126" y="28" style="font-size:x-large">X</text>
-                </svg></a> · <a href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank">\(\rm PGFPlots\) 代码生成器</a>
+                </svg></a> · <a href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank">\(\rm PGFPlots\) 代码生成器</a> · 正在建设中
     </div>
     <div class="container" id="app">
         <div class="properties">
@@ -30,17 +30,15 @@
                     设定
                 </summary>
                 <input type="checkbox" onclick="chnClick(this)" checked="true">启用中文</input>
-                <input type="checkbox" v-model="td">启用三维</input>
+                <input type="checkbox" v-model="td">启用三维参数</input>
             </details>
             <details>
                 <summary>
                     数据
                 </summary>
-                <table id="seriestable">
-                    <expression :id="1"></expression>
-                    <coordinates :id="2"></coordinates>
-                    <tablep :id="3"></tablep>
-                </table>
+                <expression :id="1"></expression>
+                <coordinates :id="2"></coordinates>
+                <tablep :id="3"></tablep>
             </details>
             <details>
                 <summary>

@@ -37,3 +37,10 @@ footer{
     font-size: small;
 }
 
+.param,.coord{
+    width: 120px;
+}
+
+.coord2,.coord3{
+    width: 40px;
+}
