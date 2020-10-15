@@ -108,7 +108,7 @@ Vue.component('coordinate',{
 // 文件组件
 Vue.component('tablep',{
     mixins: [seriesMixin],
-    template: '<tr><td class="type">文件</td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="fileName" placeholder="数据文件"></td><td><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></td><td><input type="file" id="files" style="display:none" @change="readFile"><button @click="triggerRead">读取</button></td></tr>',
+    template: '<tr><td class="type">文件</td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="fileName" placeholder="数据文件"></td><td><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></td><td><input type="file" id="files" style="display:block" @change="readFile"></td></tr>',
     data: function() {
         return {
             fileName: "",
@@ -119,9 +119,6 @@ Vue.component('tablep',{
         updater: function(td,plus){
             seriesList[this.id] = (td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] table[row sep=crcr] {" + this.datat + "};";
             updateSeries();
-        },
-        triggerRead: function(){
-            document.getElementById("files").click();
         },
         readFile: function(e){
             var selectedFile = e.target.files[0];
