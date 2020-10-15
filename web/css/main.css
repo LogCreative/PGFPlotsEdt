@@ -53,3 +53,8 @@ footer{
     display: block;
     position: absolute;
 }
+
+.fileChooser {
+    display: block;
+    width: 120px;
+}
