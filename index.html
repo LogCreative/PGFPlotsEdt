@@ -31,6 +31,7 @@
                 </summary>
                 <input type="checkbox" onclick="chnClick(this)" checked="true">启用中文</input>
                 <input type="checkbox" v-model="td">启用三维参数</input>
+                <input type="checkbox" v-model="enableLegend">启用图例</input>
             </details>
             <details>
                 <summary>
@@ -67,18 +68,25 @@
                 <div>
                     <!-- <table id="propcon"> -->
                         <property chname="标题" propkey="title"></property>
+                    <div v-show="enableLegend">
+                        <property chname="图例位置" propkey="legend pos"></property>    
+                    </div>
                         <tr>x轴</tr>
+                        <property chname="标签" propkey="xlabel"></property>
                         <property chname="最小" propkey="xmin"></property>
                         <property chname="最大" propkey="xmax"></property>
                         <tr>y轴</tr>
+                        <property chname="标签" propkey="ylabel"></property>
                         <property chname="最小" propkey="ymin"></property>
                         <property chname="最大" propkey="ymax"></property>
                     <!-- </table> -->
                     <div v-show="td">
                         <tr>z轴</tr>
+                        <property chname="标签" propkey="zlabel"></property>
                         <property chname="最小" propkey="zmin"></property>
                         <property chname="最大" propkey="zmax"></property>
                     </div>
+                    <tr><td>增补参数</td><input type="text" v-model="surplusparam"></input></tr>
                 </div>
             </details>
             <button v-on="{click: compile}">编译</button><br>

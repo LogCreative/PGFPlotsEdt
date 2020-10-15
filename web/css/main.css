@@ -58,3 +58,7 @@ footer{
     display: block;
     width: 120px;
 }
+
+.legend {
+    width: 70px;
+}

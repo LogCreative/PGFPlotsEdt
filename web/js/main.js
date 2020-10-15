@@ -5,8 +5,11 @@ var seriescnt = 0;
 // 更新数据系列
 var updateSeries = function(){
     app.series = "";
-    for(var s in seriesList)
-        app.series += ' ' + seriesList[s] + '\n';
+    app.legend = "";
+    for(var s in seriesList){
+        app.series += ' ' + seriesList[s][0] + '\n';
+        app.legend += seriesList[s][1] + ',';
+    }
 };
 
 // 系列公用属性
@@ -19,6 +22,7 @@ var seriesMixin = {
             etd: false,
             plus: false,
             param: "",
+            legend: "",
             enabled: true,
         }
     },
@@ -77,7 +81,7 @@ var addtableClick = function(){
 // 函数组件
 Vue.component('expression',{
     mixins: [seriesMixin],
-    template:'<div v-show="enabled"><td><button class="deleteBut" @click="deleteComp">X</button></td><td class="type">函数</td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></td><td><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></td><td v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></td><td v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></td></div>',
+    template:'<div v-show="enabled"><td><button class="deleteBut" @click="deleteComp">X</button></td><td class="type">函数</td><td><input type="text" class="legend" placeholder="系列名称" v-model="legend" @keyup="on_change"></td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></td><td><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></td><td v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></td><td v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></td></div>',
     data: function(){
         return {
             expression: "",
@@ -87,8 +91,8 @@ Vue.component('expression',{
     },
     methods:{
         updater: function(td,plus){
-            if(td) seriesList[this.id] = "\\addplot3" + (plus?"+":"") +" [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "});";
-            else seriesList[this.id] = "\\addplot" + (plus?"+":"") +" [" + this.param + "] {" + this.expression + "};";
+            if(td) seriesList[this.id] = ["\\addplot3" + (plus?"+":"") +" [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "});", this.legend];
+            else seriesList[this.id] = ["\\addplot" + (plus?"+":"") +" [" + this.param + "] {" + this.expression + "};",this.legend];
             updateSeries();
         },
     }
@@ -97,7 +101,7 @@ Vue.component('expression',{
 // 坐标组件
 Vue.component('coordinate',{
     mixins: [seriesMixin],
-    template:'<tr v-show="enabled"><td><button class="deleteBut" @click="deleteComp">X</button></td><td class="type">坐标</td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd" >3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据"></td></tr>',
+    template:'<tr v-show="enabled"><td><button class="deleteBut" @click="deleteComp">X</button></td><td class="type">坐标</td><td><input type="text" class="legend" placeholder="系列名称" v-model="legend" @keyup="on_change"></td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd" >3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据"></td></tr>',
     data: function() {
         return {
             data: "",
@@ -105,7 +109,7 @@ Vue.component('coordinate',{
     },
     methods:{
         updater: function(td,plus){
-            seriesList[this.id] = (td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] coordinates {" + this.data + "};";
+            seriesList[this.id] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] coordinates {" + this.data + "};",this.legend];
             updateSeries();
         }
     }
@@ -114,7 +118,7 @@ Vue.component('coordinate',{
 // 文件组件
 Vue.component('tablep',{
     mixins: [seriesMixin],
-    template: '<tr v-show="enabled"><td><button class="deleteBut" @click="deleteComp">X</button></td><td class="type">文件</td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="fileName" placeholder="数据文件" style="display:none"></td><td><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></td><td><input type="file" id="files" class="fileChooser" @change="readFile"></td></tr>',
+    template: '<tr v-show="enabled"><td><button class="deleteBut" @click="deleteComp">X</button></td><td class="type">文件</td><td><input type="text" class="legend" placeholder="系列名称" v-model="legend" @keyup="on_change"></td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="fileName" placeholder="数据文件" style="display:none"></td><td><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></td><td><input type="file" id="files" class="fileChooser" @change="readFile"></td></tr>',
     data: function() {
         return {
             fileName: "",
@@ -123,7 +127,7 @@ Vue.component('tablep',{
     },
     methods:{
         updater: function(td,plus){
-            seriesList[this.id] = (td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] table[row sep=crcr] {" + this.datat + "};";
+            seriesList[this.id] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] table[row sep=crcr] {" + this.datat + "};",this.legend];
             updateSeries();
         },
         readFile: function(e){
@@ -189,18 +193,24 @@ var app = new Vue({
     el: '#app',
     data:{
         td: false,
+        enableLegend: false,
         series: "",
         param: "",
+        surplusparam: "",
         premable: s_premable + "\\begin{CJK}{UTF8}{gbsn}\n",
         suffix: "\\end{CJK}\n" + s_suffix,
         curl:"",
         expressions:[],
         coordinates:[],
         tableps:[],
+        legend: "",
     },
     computed:{
         content: function(){
-            return "\\begin{tikzpicture}\n\\begin{axis}["+this.param+"]\n"+this.series+"\\end{axis}\n\\end{tikzpicture}";
+            return "\\begin{tikzpicture}\n\\begin{axis}["+this.param + this.surplusparam +"]\n"
+            + this.series
+            + (this.enableLegend?" \\legend{" + this.legend +"}\n":"")
+            + "\\end{axis}\n\\end{tikzpicture}";
         },
         file: function(){
             return this.premable+this.content+this.suffix;
