@@ -134,7 +134,7 @@ Vue.component('tablep',{
             var that = this;
             reader.onload = function(){
                 // 换行替换为双斜杠，制表符替换为空格
-                that.datat = (this.result.replace(/[\n\r]/g,'\\')).replace(/[\t]/g,' ') + '\\\\';
+                that.datat = (this.result.replace(/[\n\r]/g,'\\')).replace(/[\t|,]/g,' ') + '\\\\';
                 that.updater(that.etd,that.plus);
             };
         }
