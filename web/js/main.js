@@ -17,6 +17,7 @@ var seriesMixin = {
     data: function(){
         return {
             etd: false,
+            plus: false,
             param: "",
         }
     },
@@ -25,10 +26,13 @@ var seriesMixin = {
     },
     methods:{
         on_change: function(){
-            this.updater(this.etd);
+            this.updater(this.etd,this.plus);
         },
         ontdchange: function(){
-            this.updater(!this.etd);
+            this.updater(!this.etd,this.plus);
+        },
+        onpchange: function(){
+            this.updater(this.etd,!this.plus);
         }
     }
 };
@@ -67,7 +71,7 @@ var addtableClick = function(){
 // 函数组件
 Vue.component('expression',{
     mixins: [seriesMixin],
-    template:'<div><td class="type">函数</td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd" >3D</td><td><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></td><td><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></td><td v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></td><td v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></td></div>',
+    template:'<div><td class="type">函数</td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></td><td><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></td><td v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></td><td v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></td></div>',
     data: function(){
         return {
             expression: "",
@@ -76,9 +80,9 @@ Vue.component('expression',{
         }
     },
     methods:{
-        updater: function(td){
-            if(td) seriesList[this.id] = "\\addplot3 [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "});";
-            else seriesList[this.id] = "\\addplot [" + this.param + "] {" + this.expression + "};";
+        updater: function(td,plus){
+            if(td) seriesList[this.id] = "\\addplot3" + (plus?"+":"") +" [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "});";
+            else seriesList[this.id] = "\\addplot" + (plus?"+":"") +" [" + this.param + "] {" + this.expression + "};";
             updateSeries();
         },
     }
@@ -87,15 +91,15 @@ Vue.component('expression',{
 // 坐标组件
 Vue.component('coordinate',{
     mixins: [seriesMixin],
-    template:'<tr><td class="type">坐标</td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd" >3D</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据"></td></tr>',
+    template:'<tr><td class="type">坐标</td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd" >3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据"></td></tr>',
     data: function() {
         return {
             data: "",
         }
     },
     methods:{
-        updater: function(td){
-            seriesList[this.id] = (td?"\\addplot3 [":"\\addplot [") + this.param + "] coordinates {" + this.data + "};";
+        updater: function(td,plus){
+            seriesList[this.id] = (td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] coordinates {" + this.data + "};";
             updateSeries();
         }
     }
@@ -104,16 +108,32 @@ Vue.component('coordinate',{
 // 文件组件
 Vue.component('tablep',{
     mixins: [seriesMixin],
-    template: '<tr><td class="type">文件</td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表"></td></tr>',
+    template: '<tr><td class="type">文件</td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="fileName" placeholder="数据文件"></td><td><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></td><td><input type="file" id="files" style="display:none" @change="readFile"><button @click="triggerRead">读取</button></td></tr>',
     data: function() {
         return {
+            fileName: "",
             datat: "",
         }
     },
     methods:{
-        updater: function(td){
-            seriesList[this.id] = (td?"\\addplot3 [":"\\addplot [") + this.param + "] table {" + this.datat + "};";
+        updater: function(td,plus){
+            seriesList[this.id] = (td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] table[row sep=crcr] {" + this.datat + "};";
             updateSeries();
+        },
+        triggerRead: function(){
+            document.getElementById("files").click();
+        },
+        readFile: function(e){
+            var selectedFile = e.target.files[0];
+            this.fileName = selectedFile.name;
+            var reader = new FileReader();
+            reader.readAsText(selectedFile);
+            var that = this;
+            reader.onload = function(){
+                // 换行替换为双斜杠，制表符替换为空格
+                that.datat = (this.result.replace(/[\n\r]/g,'\\')).replace(/[\t]/g,' ') + '\\\\';
+                that.updater(that.etd,that.plus);
+            };
         }
     }
 });
