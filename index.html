@@ -36,12 +36,27 @@
                 <summary>
                     数据
                 </summary>
-                <button onclick="addClick()">+</button>
-                <div id="comps">
-                    <div v-for="comp in comps">
+                <div id="addtooltip">
+                    <button>+</button>
+                    <div id="addbuttons">
+                        <button onclick="addexprClick()">函数</button><br>
+                        <button onclick="addcoordClick()">坐标</button><br>
+                        <button onclick="addtableClick()">文件</button>
+                    </div>
+                </div>
+                <div id="exprs">
+                    <div v-for="comp in expressions">
                         <expression :id="comp.id"></expression>
-                        <!-- <coordinates :id="2"></coordinates>
-                        <tablep :id="3"></tablep> -->
+                    </div>
+                </div>
+                <div id="coords">
+                    <div v-for="comp in coordinates">
+                        <coordinate :id="comp.id"></coordinate>
+                    </div>
+                </div>
+                <div id="tables">
+                    <div v-for="comp in tableps">
+                        <tablep :id="comp.id"></tablep>
                     </div>
                 </div>
             </details>

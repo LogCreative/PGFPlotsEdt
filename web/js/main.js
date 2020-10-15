@@ -1,11 +1,6 @@
 var seriesList = new Array();
 
-var addClick = function(){
-    var cnt = app.comps.length;
-    app.comps.push({
-        id: ++cnt,
-    });
-};
+var seriescnt = 0;
 
 // 更新数据系列
 var updateSeries = function(){
@@ -16,6 +11,9 @@ var updateSeries = function(){
 
 // 系列公用属性
 var seriesMixin = {
+    created: function(){
+        this.etd = app.td;
+    },
     data: function(){
         return {
             etd: false,
@@ -46,6 +44,26 @@ Vue.directive('minimize',function(el,binding){
     }
 });
 
+var addexprClick = function(){
+    app.expressions.push({
+        id: ++seriescnt,
+    });
+};
+
+var addcoordClick = function(){
+    var cnt = app.coordinates.length;
+    app.coordinates.push({
+        id: ++seriescnt,
+    });
+};
+
+var addtableClick = function(){
+    var cnt = app.tableps.length;
+    app.tableps.push({
+        id: ++seriescnt,
+    });
+};
+
 // 函数组件
 Vue.component('expression',{
     mixins: [seriesMixin],
@@ -67,7 +85,7 @@ Vue.component('expression',{
 });
 
 // 坐标组件
-Vue.component('coordinates',{
+Vue.component('coordinate',{
     mixins: [seriesMixin],
     template:'<tr><td class="type">坐标</td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd" >3D</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据"></td></tr>',
     data: function() {
@@ -153,7 +171,9 @@ var app = new Vue({
         premable: s_premable + "\\begin{CJK}{UTF8}{gbsn}\n",
         suffix: "\\end{CJK}\n" + s_suffix,
         curl:"",
-        comps:[],
+        expressions:[],
+        coordinates:[],
+        tableps:[],
     },
     computed:{
         content: function(){

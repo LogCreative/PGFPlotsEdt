@@ -44,3 +44,12 @@ footer{
 .coord2,.coord3{
     width: 40px;
 }
+
+#addbuttons{
+    display: none;
+}
+
+#addtooltip:hover  #addbuttons{
+    display: block;
+    position: absolute;
+}
