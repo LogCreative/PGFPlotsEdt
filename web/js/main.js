@@ -28,6 +28,7 @@ var seriesMixin = {
     }
 };
 
+// 缩小第一坐标的文本框宽度
 Vue.directive('minimize',function(el,binding){
     if(binding.value){
         el.style.width = '40px';
@@ -148,7 +149,7 @@ var app = new Vue({
     },
     computed:{
         content: function(){
-            return "\\begin{tikzpicture}\n\\begin{axis}["+this.param+"]\n"+this.series+"\n\\end{axis}\n\\end{tikzpicture}";
+            return "\\begin{tikzpicture}\n\\begin{axis}["+this.param+"]\n"+this.series+"\\end{axis}\n\\end{tikzpicture}";
         },
         file: function(){
             return this.premable+this.content+this.suffix;
@@ -156,8 +157,8 @@ var app = new Vue({
     },
     methods:{
         compile: function() {
-            // 清除换行无效符号
-            app.curl = "https://latexonline.cc/compile?text="+this.file.replace(/[\r\n]/g,"");
+            // +属于url保留符号，需要转义为%2B才可以使用。
+            app.curl = "https://latexonline.cc/compile?text="+this.file.replace("+","%2B");
         }
     }
 });
