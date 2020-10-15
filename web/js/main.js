@@ -1,5 +1,12 @@
 var seriesList = new Array();
 
+var addClick = function(){
+    var cnt = app.comps.length;
+    app.comps.push({
+        id: ++cnt,
+    });
+};
+
 // 更新数据系列
 var updateSeries = function(){
     app.series = "";
@@ -146,6 +153,7 @@ var app = new Vue({
         premable: s_premable + "\\begin{CJK}{UTF8}{gbsn}\n",
         suffix: "\\end{CJK}\n" + s_suffix,
         curl:"",
+        comps:[],
     },
     computed:{
         content: function(){

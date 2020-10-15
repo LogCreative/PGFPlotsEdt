@@ -36,9 +36,14 @@
                 <summary>
                     数据
                 </summary>
-                <expression :id="1"></expression>
-                <coordinates :id="2"></coordinates>
-                <tablep :id="3"></tablep>
+                <button onclick="addClick()">+</button>
+                <div id="comps">
+                    <div v-for="comp in comps">
+                        <expression :id="comp.id"></expression>
+                        <!-- <coordinates :id="2"></coordinates>
+                        <tablep :id="3"></tablep> -->
+                    </div>
+                </div>
             </details>
             <details>
                 <summary>
