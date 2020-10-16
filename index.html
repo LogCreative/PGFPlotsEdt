@@ -87,7 +87,7 @@
                         <property chname="最大" propkey="zmax"></property>
                     </div>
                 </div>
-                <tr><td>增补参数</td><input type="text" v-model="surplusparam"></input></tr>
+                <tr><td>增补参数</td><td></td><td><input type="text" v-model="surplusparam" placeholder="参数"></input></td></tr>
             </details>
             <button v-on="{click: compile}">编译</button><br>
             <iframe v-bind:src="curl" id="compilePrev"></iframe>

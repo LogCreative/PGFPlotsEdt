@@ -53,7 +53,7 @@ Vue.directive('minimize',function(el,binding){
         el.style.width = '40px';
         el.placeholder = 'x轴';
     } else {
-        el.style.width = '120px';
+        el.style.width = '80px';
         el.placeholder = '函数';
     }
 });
@@ -81,7 +81,7 @@ var addtableClick = function(){
 // 函数组件
 Vue.component('expression',{
     mixins: [seriesMixin],
-    template:'<div v-show="enabled"><td><button class="deleteBut" @click="deleteComp">X</button></td><td class="type">函数</td><td><input type="text" class="legend" placeholder="系列名称" v-model="legend" @keyup="on_change"></td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></td><td><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></td><td v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></td><td v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></td></div>',
+    template:'<div v-show="enabled"><td><button class="deleteBut" @click="deleteComp">X</button></td><td class="type">函数</td><td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></td><td><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></td><td v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></td><td v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></td></div>',
     data: function(){
         return {
             expression: "",
@@ -101,7 +101,7 @@ Vue.component('expression',{
 // 坐标组件
 Vue.component('coordinate',{
     mixins: [seriesMixin],
-    template:'<tr v-show="enabled"><td><button class="deleteBut" @click="deleteComp">X</button></td><td class="type">坐标</td><td><input type="text" class="legend" placeholder="系列名称" v-model="legend" @keyup="on_change"></td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd" >3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据"></td></tr>',
+    template:'<tr v-show="enabled"><td><button class="deleteBut" @click="deleteComp">X</button></td><td class="type">坐标</td><td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd" >3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据"></td></tr>',
     data: function() {
         return {
             data: "",
@@ -118,7 +118,7 @@ Vue.component('coordinate',{
 // 文件组件
 Vue.component('tablep',{
     mixins: [seriesMixin],
-    template: '<tr v-show="enabled"><td><button class="deleteBut" @click="deleteComp">X</button></td><td class="type">文件</td><td><input type="text" class="legend" placeholder="系列名称" v-model="legend" @keyup="on_change"></td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="fileName" placeholder="数据文件" style="display:none"></td><td><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></td><td><input type="file" id="files" class="fileChooser" @change="readFile"></td></tr>',
+    template: '<tr v-show="enabled"><td><button class="deleteBut" @click="deleteComp">X</button></td><td class="type">文件</td><td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="fileName" placeholder="数据文件" style="display:none"></td><td><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></td><td><input type="file" id="files" class="fileChooser" @change="readFile"></td></tr>',
     data: function() {
         return {
             fileName: "",

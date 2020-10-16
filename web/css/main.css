@@ -42,7 +42,7 @@ footer{
 }
 
 .coord{
-    width: 120px;
+    width: 80px;
 }
 
 .coord2,.coord3{
@@ -60,9 +60,16 @@ footer{
 
 .fileChooser {
     display: block;
-    width: 120px;
+    width: 80px;
 }
 
 .legend {
-    width: 70px;
+    width: 50px;
+}
+
+details {
+    margin: 5px 5px 5px 0px;
+    padding: 5px;
+    background: rgb(250, 250, 250);
+    box-shadow: 1px 1px 1px 1px rgba(129, 129, 129, 0.4);
 }
