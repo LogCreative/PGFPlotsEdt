@@ -25,85 +25,95 @@
     </div>
     <div class="container" id="app">
         <div class="properties">
-            <details>
-                <summary>
-                    设定
-                </summary>
-                <input type="checkbox" onclick="chnClick(this)" checked="true">启用中文</input>
-                <input type="checkbox" v-model="td">启用三维参数</input>
-                <input type="checkbox" v-model="enableLegend">启用图例</input>
-                <div>
-                    <lib :id="1" category="tikz" chname="标记库" libname="plotmarks"></lib>
-                </div>
-            </details>
-            <details>
-                <summary>
-                    数据
-                </summary>
-                <div id="addtooltip">
-                    <button>+ 系列</button>
-                    <div id="addbuttons">
-                        <button onclick="addexprClick()">函数</button><br>
-                        <button onclick="addcoordClick()">坐标</button><br>
-                        <button onclick="addtableClick()">文件</button>
+            <div id="settings">
+                <details>
+                    <summary>
+                        设定
+                    </summary>
+                    <input type="checkbox" onclick="chnClick(this)" checked="true">启用中文</input>
+                    <input type="checkbox" v-model="td">启用三维参数</input>
+                    <input type="checkbox" v-model="enableLegend">启用图例</input>
+                    <div>
+                        <lib :id="1" category="tikz" chname="标记库" libname="plotmarks"></lib>
                     </div>
-                </div>
-                <div id="exprs">
-                    <div v-for="comp in expressions">
-                        <expression :id="comp.id"></expression>
+                </details>
+                <details>
+                    <summary>
+                        数据
+                    </summary>
+                    <div id="addtooltip">
+                        <button>+ 系列</button>
+                        <div id="addbuttons">
+                            <button onclick="addexprClick()">函数</button><br>
+                            <button onclick="addcoordClick()">坐标</button><br>
+                            <button onclick="addtableClick()">文件</button>
+                        </div>
                     </div>
-                </div>
-                <div id="coords">
-                    <div v-for="comp in coordinates">
-                        <coordinate :id="comp.id"></coordinate>
+                    <div id="exprs">
+                        <div v-for="comp in expressions">
+                            <expression :id="comp.id"></expression>
+                        </div>
                     </div>
-                </div>
-                <div id="tables">
-                    <div v-for="comp in tableps">
-                        <tablep :id="comp.id"></tablep>
+                    <div id="coords">
+                        <div v-for="comp in coordinates">
+                            <coordinate :id="comp.id"></coordinate>
+                        </div>
                     </div>
-                </div>
-            </details>
-            <details>
-                <summary>
-                    坐标系
-                </summary>
-                <div>
-                    <!-- <table id="propcon"> -->
-                        <property chname="标题" propkey="title"></property>
-                    <div v-show="enableLegend">
-                        <property chname="图例位置" propkey="legend pos"></property>    
+                    <div id="tables">
+                        <div v-for="comp in tableps">
+                            <tablep :id="comp.id"></tablep>
+                        </div>
                     </div>
-                        <tr>x轴</tr>
-                        <property chname="标签" propkey="xlabel"></property>
-                        <property chname="最小" propkey="xmin"></property>
-                        <property chname="最大" propkey="xmax"></property>
-                        <tr>y轴</tr>
-                        <property chname="标签" propkey="ylabel"></property>
-                        <property chname="最小" propkey="ymin"></property>
-                        <property chname="最大" propkey="ymax"></property>
-                    <!-- </table> -->
-                    <div v-show="td">
-                        <tr>z轴</tr>
-                        <property chname="标签" propkey="zlabel"></property>
-                        <property chname="最小" propkey="zmin"></property>
-                        <property chname="最大" propkey="zmax"></property>
+                </details>
+                <details>
+                    <summary>
+                        坐标系
+                    </summary>
+                    <div>
+                        <tr><td>增补参数</td><td></td><td><input type="text" v-model="surplusparam" placeholder="参数"></input></td></tr>
+                        <!-- <table id="propcon"> -->
+                            <property chname="标题" propkey="title"></property>
+                        <div v-show="enableLegend">
+                            <property chname="图例位置" propkey="legend pos"></property>    
+                        </div>
+                            <tr>x轴</tr>
+                            <property chname="标签" propkey="xlabel"></property>
+                            <property chname="最小" propkey="xmin"></property>
+                            <property chname="最大" propkey="xmax"></property>
+                            <property chname="箭头" propkey="axis x line"></property>
+                            <tr>y轴</tr>
+                            <property chname="标签" propkey="ylabel"></property>
+                            <property chname="最小" propkey="ymin"></property>
+                            <property chname="最大" propkey="ymax"></property>
+                            <property chname="箭头" propkey="axis y line"></property>
+                        <!-- </table> -->
+                        <div v-show="td">
+                            <tr>z轴</tr>
+                            <property chname="标签" propkey="zlabel"></property>
+                            <property chname="最小" propkey="zmin"></property>
+                            <property chname="最大" propkey="zmax"></property>
+                            <property chname="箭头" propkey="axis z line"></property>
+                        </div>
                     </div>
-                </div>
-                <tr><td>增补参数</td><td></td><td><input type="text" v-model="surplusparam" placeholder="参数"></input></td></tr>
-            </details>
-            <button v-on="{click: compile}">编译</button><br>
+                </details>
+            </div>
+            <button v-on="{click: compile}" id="compileBtn">编译</button><br>
             <iframe v-bind:src="curl" id="compilePrev"></iframe>
         </div>
-        <div class="textext">
-            <textarea v-model="premable"></textarea>
-            <textarea v-model="content" id="texContent">\begin{axis}[{{param}}]
-    {{series}}
-\end{axis}</textarea>
-            <textarea v-model="suffix"></textarea>
-            <button v-clipboard:copy="content">复制图表内容</button>
-            <button v-clipboard:copy="file">复制全部内容</button>
+        <div id="textext">
+            <div id="auto">
+                <textarea v-model="premable" readonly="readonly"></textarea>
+                <textarea v-model="content" id="texContent" readonly="readonly">\begin{axis}[{{param}}]
+        {{series}}
+    \end{axis}</textarea>
+                <textarea v-model="suffix" readonly="readonly"></textarea>
+                <button v-clipboard:copy="content">复制绘图代码</button>
+                <button v-clipboard:copy="file">复制全部代码</button>
+                <button onclick="gomanual()">手动编辑</button>
+            </div>
+            <textarea id="manualfile" style="display:none; min-height: 450px;"></textarea>
         </div>
+        
     </div>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue-clipboard2/0.3.1/vue-clipboard.js"></script>

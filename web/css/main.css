@@ -18,7 +18,7 @@ a{
     float: left;
 }
 
-.textext{
+#textext{
     width: 50%;
     float: right;
 }
@@ -26,6 +26,10 @@ a{
 textarea{
     width: 100%;
     min-height: 150px;
+}
+
+#compileBtn{
+    width: 90%;
 }
 
 #compilePrev{
