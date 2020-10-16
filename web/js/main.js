@@ -1,3 +1,33 @@
+var updatePkg = function(){
+    var pkgstr = "";
+    for(pkg in app.packages)
+        pkgstr += app.packages[pkg];
+    app.pkgstr = pkgstr;
+};
+
+Vue.component('lib',{
+    template: '<td><input type="checkbox" v-model="enabled" @change="onlibchange">{{chname}}</input></td>',
+    props: {
+        id: Number,
+        category: String,
+        chname: String,
+        libname: String,
+    },
+    data: function(){
+        return {
+            enabled: false,
+        }
+    },
+    methods: {
+        onlibchange: function(){
+            if(this.enabled)
+                app.packages[this.id] = "\\use" + this.category + "library{" + this.libname + "}\n";
+            else delete app.packages[this.id];
+            updatePkg();
+        }
+    },
+});
+
 var seriesList = new Array();
 
 var seriescnt = 0;
@@ -173,18 +203,18 @@ Vue.component('property',{
 
 var s_premable = "\\documentclass[tikz]{standalone}\n\
 \\usepackage{pgfplots}\n\
-\\usepackage{CJKutf8}\n\
-\\pgfplotsset{compat=1.14}\n\
-\\begin{document}\n";
+\\pgfplotsset{compat=1.14}\n";
 
 var s_suffix = "\\end{document}";
 
 chnClick = function(obj){
     if(obj.checked){
-        app.premable = s_premable + "\\begin{CJK}{UTF8}{gbsn}\n";
+        app.packages[0] = "\\usepackage{CJKutf8}\n";
+        app.e_premable = "\\begin{document}\n\\begin{CJK}{UTF8}{gbsn}\n";
         app.suffix = "\\end{CJK}\n" + s_suffix;
     } else {
-        app.premable = s_premable;
+        delete app.packages[0];
+        app.e_premable = "\\begin{document}\n";
         app.suffix = s_suffix;
     }
 };
@@ -197,7 +227,9 @@ var app = new Vue({
         series: "",
         param: "",
         surplusparam: "",
-        premable: s_premable + "\\begin{CJK}{UTF8}{gbsn}\n",
+        packages: ["\\usepackage{CJKutf8}\n"],
+        pkgstr: "\\usepackage{CJKutf8}\n",
+        e_premable: "\\begin{document}\n\\begin{CJK}{UTF8}{gbsn}\n",
         suffix: "\\end{CJK}\n" + s_suffix,
         curl:"",
         expressions:[],
@@ -206,6 +238,9 @@ var app = new Vue({
         legend: "",
     },
     computed:{
+        premable: function(){
+            return s_premable + this.pkgstr + this.e_premable;
+        },
         content: function(){
             return "\\begin{tikzpicture}\n\\begin{axis}["+this.param + this.surplusparam +"]\n"
             + this.series
@@ -213,7 +248,7 @@ var app = new Vue({
             + "\\end{axis}\n\\end{tikzpicture}";
         },
         file: function(){
-            return this.premable+this.content+this.suffix;
+            return this.premable + this.content + this.suffix;
         },
     },
     methods:{

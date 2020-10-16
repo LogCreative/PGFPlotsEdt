@@ -32,6 +32,9 @@
                 <input type="checkbox" onclick="chnClick(this)" checked="true">启用中文</input>
                 <input type="checkbox" v-model="td">启用三维参数</input>
                 <input type="checkbox" v-model="enableLegend">启用图例</input>
+                <div>
+                    <lib :id="1" category="tikz" chname="标记库" libname="plotmarks"></lib>
+                </div>
             </details>
             <details>
                 <summary>
