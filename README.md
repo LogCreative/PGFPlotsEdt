@@ -6,8 +6,8 @@ Reference: [TikzEdt](http://www.tikzedt.org/)
 This project is still under construction.
 
 Current Stage:(~2021/1)
-To make an executable program on the platforms of
-Windows/macOS/linux based on Qt.
+<s>To make an executable program on the platforms of
+Windows/macOS/linux based on Qt.</s>
 
 Due to the difficulties, master branch will start the 
 web part first (without preview) based on Vue.js.
