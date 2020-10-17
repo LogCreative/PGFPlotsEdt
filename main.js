@@ -193,14 +193,14 @@ Vue.component('tablep',{
 // 参数字典
 var paramDic = new Array();
 
-// 属性组件
-Vue.component('property',{
-    template:'<tr><td>{{chname}}</td><td style="display:none">{{propkey}}</td><td><input type="text" v-model="value" @keyup="on_change"></td></tr>',
-    props: ['chname','propkey'],
+var propMixins = {
+    props: {
+        chname: String,
+        propkey: String
+    },
     data: function(){
         return {
-            // type: "text",             //属性的数据类型
-            value: "",                //属性的值
+            value: "",
         }
     },
     methods:{
@@ -214,6 +214,20 @@ Vue.component('property',{
             
         }
     }
+};
+
+Vue.component('propertyselect',{
+    mixins: [propMixins],
+    template:'<tr><td>{{chname}}</td><td><select v-model="value" @change="on_change"><option v-for="opt in options" :value="opt">{{opt}}</option></select></td></tr>',
+    props:{
+        options: Array,
+    },
+});
+
+// 属性组件
+Vue.component('property',{
+    mixins: [propMixins],
+    template:'<tr><td>{{chname}}</td><td style="display:none">{{propkey}}</td><td><input type="text" v-model="value" @keyup="on_change"></td></tr>',
 });
 
 var s_premable = "\\documentclass[tikz]{standalone}\n\

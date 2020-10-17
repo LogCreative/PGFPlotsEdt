@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PGFPlots 代码生成器</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="web/css/main.css">
+    <link rel="stylesheet" href="main.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
@@ -74,6 +74,8 @@
                     <div>
                         <tr><td>增补参数</td><td></td><td><input type="text" v-model="surplusparam" placeholder="参数"></input></td></tr>
                         <!-- <table id="propcon"> -->
+                            <property chname="宽度" propkey="width"></property>    
+                            <property chname="高度" propkey="height"></property>    
                             <property chname="标题" propkey="title"></property>
                         <div v-show="enableLegend">
                             <property chname="图例位置" propkey="legend pos"></property>    
@@ -82,19 +84,19 @@
                             <property chname="轴题" propkey="xlabel"></property>
                             <property chname="最小" propkey="xmin"></property>
                             <property chname="最大" propkey="xmax"></property>
-                            <property chname="箭头" propkey="axis x line"></property>
+                            <propertyselect chname="箭头" propkey="axis x line" :options="['top','middle','bottom']"></propertyselect>
                             <tr>y轴</tr>
                             <property chname="轴题" propkey="ylabel"></property>
                             <property chname="最小" propkey="ymin"></property>
                             <property chname="最大" propkey="ymax"></property>
-                            <property chname="箭头" propkey="axis y line"></property>
+                            <propertyselect chname="箭头" propkey="axis y line" :options="['left','middle','right']"></propertyselect>
                         <!-- </table> -->
                         <div v-show="td">
                             <tr>z轴</tr>
                             <property chname="轴题" propkey="zlabel"></property>
                             <property chname="最小" propkey="zmin"></property>
                             <property chname="最大" propkey="zmax"></property>
-                            <property chname="箭头" propkey="axis z line"></property>
+                            <propertyselect chname="箭头" propkey="axis z line" :options="['left','middle','right']"></propertyselect>
                         </div>
                     </div>
                 </details>
@@ -119,6 +121,6 @@
     </div>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue-clipboard2/0.3.1/vue-clipboard.js"></script>
-    <script src="web/js/main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
