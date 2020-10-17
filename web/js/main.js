@@ -179,7 +179,11 @@ Vue.component('tablep',{
             var that = this;
             reader.onload = function(){
                 // 换行替换为双斜杠，制表符替换为空格
-                that.datat = (this.result.replace(/[\n\r]/g,'\\')).replace(/[\t|,]/g,' ') + '\\\\';
+                // 适应 CRLF 和 LF 的替换环境
+                that.datat = 
+                    (this.result).replace(/[\r]/g,'')
+                        .replace(/[\n]/g,'\\\\')
+                        .replace(/[\t|,]/g,' ') + '\\\\';
                 that.updater(that.etd,that.plus,that.cycle);
             };
         }
@@ -237,6 +241,7 @@ var gomanual = function(){
     mf.style.display = 'block';
     document.getElementById('settings').style.display = 'none';
     document.getElementById('auto').style.display = 'none';
+    app.manual = true;
 };
 
 var app = new Vue({
@@ -278,7 +283,7 @@ var app = new Vue({
             if(!app.manual)
                 app.curl = "https://latexonline.cc/compile?text="+this.file.replace("+","%2B");
             else
-                app.curl = "https://latexonline.cc/compile?text="+document.getElementById('manualfile').innerHTML.replace("+","%2B");
+                app.curl = "https://latexonline.cc/compile?text="+document.getElementById('manualfile').value.replace("+","%2B");
         }
     }
 });
