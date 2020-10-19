@@ -164,11 +164,12 @@ Vue.component('tablep',{
         return {
             fileName: "",
             datat: "",
+            tableparam: "",
         }
     },
     methods:{
         updater: function(td,plus,cycle){
-            seriesList[this.id] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] table[row sep=crcr] {" + this.datat + "}" + (cycle?" \\closedcycle":"") + ";",this.legend];
+            seriesList[this.id] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] table[row sep=crcr," + this.tableparam + "] {" + this.datat + "}" + (cycle?" \\closedcycle":"") + ";",this.legend];
             updateSeries();
         },
         readFile: function(e){

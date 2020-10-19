@@ -37,6 +37,7 @@
                         <lib :id="1" category="tikz" chname="标记库" libname="plotmarks"></lib>
                         <lib :id="2" category="pgfplots" chname="颜色库" libname="colorbrewer"></lib>
                         <lib :id="3" category="pgfplots" chname="统计库" libname="statistics"></lib>
+                        <lib :id="4" category="pgfplots" chname="间隙填充库" libname="fillbetween"></lib>
                     </div>
                 </details>
                 <details>
@@ -154,6 +155,7 @@
             <td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td>
             <td><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</td>
             <td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td>
+            <td><input type="text" class="param" v-model="tableparam" @keyup="on_change" placeholder="表参数"></td>
             <td><input type="text" class="coord" v-model="fileName" placeholder="数据文件" style="display:none"></td>
             <td><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></td>
             <td><input type="file" id="files" class="fileChooser" @change="readFile"></td>
