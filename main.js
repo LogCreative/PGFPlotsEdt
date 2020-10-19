@@ -8,7 +8,7 @@ var updatePkg = function(){
 
 // 库组件
 Vue.component('lib',{
-    template: '<td><input type="checkbox" v-model="enabled" @change="onlibchange">{{chname}}</input></td>',
+    template: '#libtpl',
     props: {
         id: Number,
         category: String,
@@ -118,7 +118,7 @@ var addtableClick = function(){
 // 函数组件
 Vue.component('expression',{
     mixins: [seriesMixin],
-    template:'<div v-show="enabled"><td><button class="deleteBut" @click="deleteComp">X</button></td><td class="type">函数</td><td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</td><td><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></td><td><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></td><td v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></td><td v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></td></div>',
+    template:'#exprtpl',
     data: function(){
         return {
             expression: "",
@@ -142,7 +142,7 @@ Vue.component('expression',{
 // 坐标组件
 Vue.component('coordinate',{
     mixins: [seriesMixin],
-    template:'<tr v-show="enabled"><td><button class="deleteBut" @click="deleteComp">X</button></td><td class="type">坐标</td><td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd" >3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据"></td></tr>',
+    template:'#coordtpl',
     data: function() {
         return {
             data: "",
@@ -159,7 +159,7 @@ Vue.component('coordinate',{
 // 文件组件
 Vue.component('tablep',{
     mixins: [seriesMixin],
-    template: '<tr v-show="enabled"><td><button class="deleteBut" @click="deleteComp">X</button></td><td class="type">文件</td><td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td><td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td><td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td><td><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</td><td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td><td><input type="text" class="coord" v-model="fileName" placeholder="数据文件" style="display:none"></td><td><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></td><td><input type="file" id="files" class="fileChooser" @change="readFile"></td></tr>',
+    template: '#tableptpl',
     data: function() {
         return {
             fileName: "",
@@ -210,7 +210,7 @@ var propMixins = {
             app.param = "";
             for(var key in paramDic)
                 if(paramDic[key]!="")
-                    app.param += key + "={" + paramDic[key] + "},";
+                    app.param += key + "={" + paramDic[key] + "},\n";
             
         }
     }
@@ -218,7 +218,7 @@ var propMixins = {
 
 Vue.component('propertyselect',{
     mixins: [propMixins],
-    template:'<tr><td>{{chname}}</td><td><select v-model="value" @change="on_change"><option v-for="opt in options" :value="opt">{{opt}}</option></select></td></tr>',
+    template:'#propertyselecttpl',
     props:{
         options: Array,
     },
@@ -227,7 +227,7 @@ Vue.component('propertyselect',{
 // 属性组件
 Vue.component('property',{
     mixins: [propMixins],
-    template:'<tr><td>{{chname}}</td><td style="display:none">{{propkey}}</td><td><input type="text" v-model="value" @keyup="on_change"></td></tr>',
+    template:'#propertytpl',
 });
 
 var s_premable = "\\documentclass[tikz]{standalone}\n\
@@ -285,7 +285,7 @@ var app = new Vue({
             return "\\begin{tikzpicture}\n\\begin{axis}["+this.param + this.surplusparam +"]\n"
             + this.series
             + (this.enableLegend?" \\legend{" + this.legend +"}\n":"")
-            + "\\end{axis}\n\\end{tikzpicture}";
+            + "\\end{axis}\n\\end{tikzpicture}\n";
         },
         file: function(){
             return this.premable + this.content + this.suffix;
@@ -294,10 +294,11 @@ var app = new Vue({
     methods:{
         compile: function() {
             // +属于url保留符号，需要转义为%2B才可以使用。
+            // 全局匹配
             if(!app.manual)
-                app.curl = "https://latexonline.cc/compile?text="+this.file.replace("+","%2B");
+                app.curl = "https://latexonline.cc/compile?text="+this.file.replace(/[+]/g,"%2B");
             else
-                app.curl = "https://latexonline.cc/compile?text="+document.getElementById('manualfile').value.replace("+","%2B");
+                app.curl = "https://latexonline.cc/compile?text="+document.getElementById('manualfile').value.replace(/[+]/g,"%2B");
         }
     }
 });

@@ -21,7 +21,7 @@
                 <text x="102" y="28" style="font-size:x-large">T</text>
                 <text x="114" y="33" style="font-size:x-large">E</text>
                 <text x="126" y="28" style="font-size:x-large">X</text>
-                </svg></a> · <a href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank">\(\rm PGFPlots\) 代码生成器</a> · 招美工
+                </svg></a> · <a href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank">\(\rm PGFPlots\) 代码生成器</a> · 原型机
     </div>
     <div class="container" id="app">
         <div class="properties">
@@ -73,12 +73,12 @@
                     </summary>
                     <div>
                         <tr><td>增补参数</td><td></td><td><input type="text" v-model="surplusparam" placeholder="参数"></input></td></tr>
-                        <!-- <table id="propcon"> -->
                             <property chname="宽度" propkey="width"></property>    
-                            <property chname="高度" propkey="height"></property>    
+                            <property chname="高度" propkey="height"></property>
+                            <propertyselect chname="字号" propkey="font" :options="['\\tiny','\\scriptsize','\\footnotesize','\\small','\\normalsize','\\large','\\Large','\\LARGE','\\huge','\\Huge']"></propertyselect>    
                             <property chname="标题" propkey="title"></property>
                         <div v-show="enableLegend">
-                            <property chname="图例位置" propkey="legend pos"></property>    
+                            <propertyselect chname="图例位置" propkey="legend pos" :options="['south west','south east','north west','north east','outer north east']"></propertyselect>    
                         </div>
                             <tr>x轴</tr>
                             <property chname="轴题" propkey="xlabel"></property>
@@ -90,7 +90,6 @@
                             <property chname="最小" propkey="ymin"></property>
                             <property chname="最大" propkey="ymax"></property>
                             <propertyselect chname="箭头" propkey="axis y line" :options="['left','middle','right']"></propertyselect>
-                        <!-- </table> -->
                         <div v-show="td">
                             <tr>z轴</tr>
                             <property chname="轴题" propkey="zlabel"></property>
@@ -119,6 +118,63 @@
         </div>
         
     </div>
+    <template id="libtpl">
+        <td><input type="checkbox" v-model="enabled" @change="onlibchange">{{chname}}</input></td>
+    </template>
+    <template id="exprtpl">
+        <tr v-show="enabled">
+            <td><button class="deleteBut" @click="deleteComp">X</button></td>
+            <td class="type">函数</td>
+            <td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td>
+            <td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td>
+            <td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td>
+            <td><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</td>
+            <td><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></td>
+            <td><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></td>
+            <td v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></td>
+            <td v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></td>
+        </tr>
+    </template>
+    <template id="coordtpl">
+        <tr v-show="enabled">
+            <td><button class="deleteBut" @click="deleteComp">X</button></td>
+            <td class="type">坐标</td><td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td>
+            <td><input type="checkbox" class="td" @click="ontdchange" v-model="etd" >3D</td>
+            <td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td>
+            <td><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</td>
+            <td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td>
+            <td><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据"></td>
+        </tr>
+    </template>
+    <template id="tableptpl">
+        <tr v-show="enabled">
+            <td><button class="deleteBut" @click="deleteComp">X</button></td>
+            <td class="type">文件</td><td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td>
+            <td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td>
+            <td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td>
+            <td><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</td>
+            <td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td>
+            <td><input type="text" class="coord" v-model="fileName" placeholder="数据文件" style="display:none"></td>
+            <td><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></td>
+            <td><input type="file" id="files" class="fileChooser" @change="readFile"></td>
+        </tr>
+    </template>
+    <template id="propertyselecttpl">
+        <tr>
+            <td>{{chname}}</td>
+            <td>
+                <select v-model="value" @change="on_change">
+                    <option v-for="opt in options" :value="opt">{{opt}}</option>
+                </select>
+            </td>
+        </tr>
+    </template>
+    <template id="propertytpl">
+        <tr>
+            <td>{{chname}}</td>
+            <td style="display:none">{{propkey}}</td><td><input type="text" v-model="value" @keyup="on_change"></td>
+        </tr>
+    </template>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue-clipboard2/0.3.1/vue-clipboard.js"></script>
     <script src="main.js"></script>
