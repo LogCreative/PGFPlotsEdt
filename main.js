@@ -41,7 +41,7 @@ var updateSeries = function(){
     app.legend = "";
     for(var s in seriesList){
         app.series += ' ' + seriesList[s][0] + '\n';
-        app.legend += seriesList[s][1] + ',';
+        app.legend += seriesList[s][1]==""?seriesList[s][1] + ",":"";
     }
 };
 
@@ -102,15 +102,19 @@ var addexprClick = function(){
 };
 
 var addcoordClick = function(){
-    var cnt = app.coordinates.length;
     app.coordinates.push({
         id: ++seriescnt,
     });
 };
 
 var addtableClick = function(){
-    var cnt = app.tableps.length;
     app.tableps.push({
+        id: ++seriescnt,
+    });
+};
+
+var addnodeClick = function(){
+    app.nodeps.push({
         id: ++seriescnt,
     });
 };
@@ -191,6 +195,24 @@ Vue.component('tablep',{
     }
 });
 
+// 标注组件
+Vue.component('node',{
+    mixins: [seriesMixin],
+    template:'#nodetpl',
+    data: function() {
+        return {
+            pin: "",
+            pos: "",
+        }
+    },
+    methods:{
+        updater: function(td,plus,cycle){
+            seriesList[this.id] = ["\\node [small dot,pin=" + this.param + ":{" + this.pin + "}] at (axis description cs:" + this.pos + ") {};",""]; 
+            updateSeries();
+        }
+    }
+});
+
 // 参数字典
 var paramDic = new Array();
 
@@ -250,6 +272,14 @@ chnClick = function(obj){
     updatePkg();
 };
 
+pinClick = function(obj){
+    if(obj.checked){
+        app.t_premable = "\\begin{tikzpicture}\n\\tikzset{\n every pin/.style={fill=yellow!50!white,rectangle,rounded corners=3pt,font=\\tiny},\n small dot/.style={fill=black,circle,scale=0.3},\n}\n\\begin{axis}[";
+    } else {
+        app.t_premable = "\\begin{tikzpicture}\n\\begin{axis}[";
+    }
+};
+
 var gomanual = function(){
     var mf = document.getElementById('manualfile');
     mf.innerHTML = app.file;
@@ -264,6 +294,7 @@ var app = new Vue({
     data:{
         td: false,
         enableLegend: false,
+        enablepin: true,
         manual: false,
         series: "",
         param: "",
@@ -271,11 +302,13 @@ var app = new Vue({
         packages: ["\\usepackage{CJKutf8}\n"],
         pkgstr: "\\usepackage{CJKutf8}\n",
         e_premable: "\\begin{document}\n\\begin{CJK}{UTF8}{gbsn}\n",
+        t_premable: "\\begin{tikzpicture}\n\\tikzset{\n every pin/.style={fill=yellow!50!white,rectangle,rounded corners=3pt,font=\\tiny},\n small dot/.style={fill=black,circle,scale=0.3},\n}\n\\begin{axis}[",
         suffix: "\\end{CJK}\n" + s_suffix,
         curl:"",
         expressions:[],
         coordinates:[],
         tableps:[],
+        nodeps:[],
         legend: "",
     },
     computed:{
@@ -283,7 +316,7 @@ var app = new Vue({
             return s_premable + this.pkgstr + this.e_premable;
         },
         content: function(){
-            return "\\begin{tikzpicture}\n\\begin{axis}["+this.param + this.surplusparam +"]\n"
+            return this.t_premable + this.param + this.surplusparam +"]\n"
             + this.series
             + (this.enableLegend?" \\legend{" + this.legend +"}\n":"")
             + "\\end{axis}\n\\end{tikzpicture}\n";
