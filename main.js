@@ -41,7 +41,8 @@ var updateSeries = function(){
     app.legend = "";
     for(var s in seriesList){
         app.series += ' ' + seriesList[s][0] + '\n';
-        app.legend += seriesList[s][1]==""?seriesList[s][1] + ",":"";
+        if(seriesList[s][1]!=false)
+            app.legend += seriesList[s][1] + ',';
     }
 };
 
@@ -207,7 +208,7 @@ Vue.component('node',{
     },
     methods:{
         updater: function(td,plus,cycle){
-            seriesList[this.id] = ["\\node [small dot,pin=" + this.param + ":{" + this.pin + "}] at (axis description cs:" + this.pos + ") {};",""]; 
+            seriesList[this.id] = ["\\node [small dot,pin=" + this.param + ":{" + this.pin + "}] at (axis description cs:" + this.pos + ") {};",false]; 
             updateSeries();
         }
     }
