@@ -172,10 +172,10 @@
         <tr v-show="enabled">
             <td><button class="deleteBut" @click="deleteComp">X</button></td>
             <td class="type">标注</td><td><input type="text" class="legend" placeholder="标注" v-model="pin" @keyup="on_change"></td>
-            <!-- <td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td>
-            <td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td>
+            <td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">🟨</td>
+            <!-- <td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td>
             <td><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</td> -->
-            <td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="旋转角度"></td>
+            <td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="旋转角度" v-show="etd"></td>
             <td><input type="text" class="coord" v-model="pos" @keyup="on_change" placeholder="标注位置"></td>
         </tr>
     </template>

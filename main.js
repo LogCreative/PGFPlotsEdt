@@ -208,9 +208,11 @@ Vue.component('node',{
     },
     methods:{
         updater: function(td,plus,cycle){
-            seriesList[this.id] = ["\\node [small dot,pin=" + this.param + ":{" + this.pin + "}] at (axis description cs:" + this.pos + ") {};",false]; 
+            if(td)
+                seriesList[this.id] = ["\\node [small dot,pin=" + this.param + ":{" + this.pin + "}] at (axis description cs:" + this.pos + ") {};",false]; 
+            else seriesList[this.id] = ["\\node [font=\\tiny] at (axis description cs:" + this.pos + ") {" + this.pin + "};",false]; 
             updateSeries();
-        }
+        },
     }
 });
 
