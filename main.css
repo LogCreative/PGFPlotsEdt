@@ -9,16 +9,22 @@ a{
     padding: 5px;
 }
 
+#extlinks{
+    float: right;
+    text-align: right;
+}
+
 .container{
     padding: 15px;
 }
 
-.properties{
-    width: 50%;
+#compile{
+    width: 49%;
     float: left;
 }
 
-#textext{
+#properties,
+#code{
     width: 50%;
     float: right;
 }
@@ -29,11 +35,11 @@ textarea{
 }
 
 #compileBtn{
-    width: 90%;
+    width: 101%;
 }
 
 #compilePrev{
-    width: 90%;
+    width: 100%;
     height: 300px;
 }
 
@@ -57,6 +63,11 @@ footer{
     display: none;
 }
 
+#addtooltip button {
+    width: 80px;
+    text-align: right;
+}
+
 #addtooltip:hover  #addbuttons{
     display: block;
     position: absolute;
@@ -77,3 +88,37 @@ details {
     background: rgb(250, 250, 250);
     box-shadow: 1px 1px 1px 1px rgba(129, 129, 129, 0.4);
 }
+
+summary {
+    margin: 5px;
+}
+
+#series .deleteBut {
+    background-color:rgb(255, 25, 25);
+    color: white;
+    border: 1px solid red;
+}
+
+#series .deleteBut:hover{
+    background-color: rgb(255, 111, 111);
+}
+
+#series .type{
+    margin: 10px;
+}
+
+#series .legend {
+    width: 100px;
+}
+
+/* <td><button class="deleteBut" @click="deleteComp">X</button></td>
+<td class="type">函数</td>
+<td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td>
+<td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td>
+<td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td>
+<td><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</td>
+<td><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></td>
+<td><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></td>
+<td v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></td>
+<td v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></td> */
+

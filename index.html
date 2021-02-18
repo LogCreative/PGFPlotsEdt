@@ -22,16 +22,28 @@
                 <text x="114" y="33" style="font-size:x-large">E</text>
                 <text x="126" y="28" style="font-size:x-large">X</text>
                 </svg></a> · <a href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank">\(\rm PGFPlots\) 代码生成器</a> · 原型机
+            <div id="extlinks">
+                <div>
+                    <a href="https://mirrors.rit.edu/CTAN/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf" target="_blank">PGFPlots 手册</a>
+                </div>
+                <div>
+                    <a href="https://logcreative.github.io/PGFPlotsEdt/index.html">中文</a>|<a title="Under Construction">English</a>
+                </div>
+            </div>
     </div>
     <div class="container" id="app">
-        <div class="properties">
+        <div id="compile">
+            <button v-on="{click: compile}" id="compileBtn">编译</button><br>
+            <iframe v-bind:src="curl" id="compilePrev"></iframe>
+        </div>
+        <div id="properties">
             <div id="settings">
                 <details>
                     <summary>
                         设定
                     </summary>
                     <input type="checkbox" onclick="chnClick(this)" checked="true">启用中文</input>
-                    <input type="checkbox" onclick="pinClick(this)" v-model="enablepin">启用标注</input>
+                    <input type="checkbox" v-model="enablepin">启用标注</input>
                     <input type="checkbox" v-model="td">启用三维参数</input>
                     <input type="checkbox" v-model="enableLegend">启用图例</input>
                     <div>
@@ -41,17 +53,17 @@
                         <lib :id="4" category="pgfplots" chname="间隙填充库" libname="fillbetween"></lib>
                     </div>
                 </details>
-                <details>
+                <details open="true" id="series">
                     <summary>
                         数据
                     </summary>
                     <div id="addtooltip">
                         <button>+ 系列</button>
                         <div id="addbuttons">
-                            <button onclick="addexprClick()">函数</button><br>
-                            <button onclick="addcoordClick()">坐标</button><br>
-                            <button onclick="addtableClick()">文件</button>
-                            <button onclick="addnodeClick()" v-show="enablepin">标注</button>
+                            <button onclick="addexprClick()">\(\tiny f(x)\) 函数</button><br>
+                            <button onclick="addcoordClick()">\(\tiny (x,y)\) 坐标</button><br>
+                            <button onclick="addtableClick()">\(\tiny x~~y~~\)文件</button><br>
+                            <button onclick="addnodeClick()" v-show="enablepin">\(\tiny \rm abc~~\)标注</button>
                         </div>
                     </div>
                     <div id="exprs">
@@ -108,30 +120,34 @@
                     </div>
                 </details>
             </div>
-            <button v-on="{click: compile}" id="compileBtn">编译</button><br>
-            <iframe v-bind:src="curl" id="compilePrev"></iframe>
-        </div>
-        <div id="textext">
             <div id="auto">
-                <textarea v-model="premable" readonly="readonly" style="min-height: 130px;"></textarea>
-                <textarea v-model="content" id="texContent" readonly="readonly" style="min-height: 200px;">\begin{axis}[{{param}}]
-        {{series}}
-    \end{axis}</textarea>
-                <textarea v-model="suffix" readonly="readonly" style="min-height: 50px;"></textarea>
+                <details>
+                    <summary>
+                        代码
+                    </summary>
+                    <div>
+                    <textarea v-model="premable" readonly="readonly" style="min-height: 130px;"></textarea>
+                    <textarea v-model="content" id="texContent" readonly="readonly" style="min-height: 200px;">\begin{axis}[{{param}}]
+            {{series}}
+        \end{axis}</textarea>
+                    <textarea v-model="suffix" readonly="readonly" style="min-height: 50px;"></textarea>
+                </div>
+                </details>
                 <button v-clipboard:copy="content">复制绘图代码</button>
                 <button v-clipboard:copy="file">复制全部代码</button>
                 <button onclick="gomanual()">手动编辑⚠</button>
             </div>
+        </div> 
+        <div id="code">
             <textarea id="manualfile" style="display:none; min-height: 450px;"></textarea>
         </div>
-        
     </div>
     <template id="libtpl">
         <td><input type="checkbox" v-model="enabled" @change="onlibchange">{{chname}}</input></td>
     </template>
     <template id="exprtpl">
         <tr v-show="enabled">
-            <td><button class="deleteBut" @click="deleteComp">X</button></td>
+            <td><button class="deleteBut" @click="deleteComp">🗑</button></td>
             <td class="type">函数</td>
             <td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td>
             <td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td>
@@ -145,7 +161,7 @@
     </template>
     <template id="coordtpl">
         <tr v-show="enabled">
-            <td><button class="deleteBut" @click="deleteComp">X</button></td>
+            <td><button class="deleteBut" @click="deleteComp">🗑</button></td>
             <td class="type">坐标</td><td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td>
             <td><input type="checkbox" class="td" @click="ontdchange" v-model="etd" >3D</td>
             <td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td>
@@ -156,7 +172,7 @@
     </template>
     <template id="tableptpl">
         <tr v-show="enabled">
-            <td><button class="deleteBut" @click="deleteComp">X</button></td>
+            <td><button class="deleteBut" @click="deleteComp">🗑</button></td>
             <td class="type">文件</td><td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td>
             <td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td>
             <td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td>
@@ -170,7 +186,7 @@
     </template>
     <template id="nodetpl">
         <tr v-show="enabled">
-            <td><button class="deleteBut" @click="deleteComp">X</button></td>
+            <td><button class="deleteBut" @click="deleteComp">🗑</button></td>
             <td class="type">标注</td><td><input type="text" class="legend" placeholder="标注" v-model="pin" @keyup="on_change"></td>
             <td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">🟨</td>
             <!-- <td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td>
