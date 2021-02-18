@@ -3,20 +3,7 @@ A LaTeX PGFPlots code generator.
 
 Reference: [TikzEdt](http://www.tikzedt.org/)
 
-This project is still under construction.
-
-Current Stage:(~2021/1)
-<s>To make an executable program on the platforms of
-Windows/macOS/linux based on Qt.</s>
-
-Due to the difficulties, master branch will start the 
-web part first (without preview) based on Vue.js.
-
 Home Page: https://logcreative.github.io/PGFPlotsEdt/
-
-<s>Next Stage:(2021/2~)
-A server based ASP.NET website to generate
-LaTeX preview.</s>
 
 >This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
