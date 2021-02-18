@@ -40,7 +40,7 @@ var updateSeries = function(){
     app.series = "";
     app.legend = "";
     for(var s in seriesList){
-        if(seriesList[s][1]!=false || app.enablepin)
+        if(seriesList[s][2]==false || app.enablepin)
             app.series += ' ' + seriesList[s][0] + '\n';
         if(seriesList[s][1]!=false){
             app.legend += seriesList[s][1] + ',';
@@ -136,11 +136,11 @@ Vue.component('expression',{
     methods:{
         updater: function(td,plus,cycle){
             if(!td)
-                seriesList[this.id] = ["\\addplot" + (plus?"+":"") +" [" + this.param + "] {" + this.expression + "}" + (cycle?" \\closedcycle":"") + ";",this.legend];
+                seriesList[this.id] = ["\\addplot" + (plus?"+":"") +" [" + this.param + "] {" + this.expression + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
             else if (this.expression=="" && this.expression2=="")
-                seriesList[this.id] = ["\\addplot3" + (plus?"+":"") +" [" + this.param + "] {" + this.expression3 + "}" + (cycle?" \\closedcycle":"") + ";",this.legend];
+                seriesList[this.id] = ["\\addplot3" + (plus?"+":"") +" [" + this.param + "] {" + this.expression3 + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
             else
-                seriesList[this.id] = ["\\addplot3" + (plus?"+":"") +" [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "})" + (cycle?" \\closedcycle":"") + ";", this.legend];
+                seriesList[this.id] = ["\\addplot3" + (plus?"+":"") +" [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "})" + (cycle?" \\closedcycle":"") + ";", this.legend,false];
             updateSeries();
         },
     }
@@ -157,7 +157,7 @@ Vue.component('coordinate',{
     },
     methods:{
         updater: function(td,plus,cycle){
-            seriesList[this.id] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] coordinates {" + this.data + "}" + (cycle?" \\closedcycle":"") + ";",this.legend];
+            seriesList[this.id] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] coordinates {" + this.data + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
             updateSeries();
         }
     }
@@ -176,7 +176,7 @@ Vue.component('tablep',{
     },
     methods:{
         updater: function(td,plus,cycle){
-            seriesList[this.id] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] table[row sep=crcr," + this.tableparam + "] {" + this.datat + "}" + (cycle?" \\closedcycle":"") + ";",this.legend];
+            seriesList[this.id] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] table[row sep=crcr," + this.tableparam + "] {" + this.datat + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
             updateSeries();
         },
         readFile: function(e){
@@ -212,7 +212,7 @@ Vue.component('node',{
         updater: function(td,plus,cycle){
             if(td)
                 seriesList[this.id] = ["\\node [small dot,pin=" + this.param + ":{" + this.pin + "}] at (axis description cs:" + this.pos + ") {};",false]; 
-            else seriesList[this.id] = ["\\node [font=\\tiny] at (axis description cs:" + this.pos + ") {" + this.pin + "};",false]; 
+            else seriesList[this.id] = ["\\node [font=\\tiny] at (axis description cs:" + this.pos + ") {" + this.pin + "};",false,true]; 
             updateSeries();
         },
     }
@@ -276,6 +276,12 @@ chnClick = function(obj){
     }
     updatePkg();
 };
+
+pinClick = function(obj){
+    app.enablepin = !app.enablepin
+    updateSeries();
+    app.enablepin = !app.enablepin
+}
 
 var gomanual = function(){
     var mf = document.getElementById('manualfile');

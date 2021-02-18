@@ -43,7 +43,7 @@
                         设定
                     </summary>
                     <input type="checkbox" onclick="chnClick(this)" checked="true">启用中文</input>
-                    <input type="checkbox" v-model="enablepin">启用标注</input>
+                    <input type="checkbox" onclick="pinClick(this)" v-model="enablepin">启用标注</input>
                     <input type="checkbox" v-model="td">启用三维参数</input>
                     <input type="checkbox" v-model="enableLegend">启用图例</input>
                     <div>
@@ -53,7 +53,7 @@
                         <lib :id="4" category="pgfplots" chname="间隙填充库" libname="fillbetween"></lib>
                     </div>
                 </details>
-                <details open="true" id="series">
+                <details open="true">
                     <summary>
                         数据
                     </summary>
@@ -66,24 +66,26 @@
                             <button onclick="addnodeClick()" v-show="enablepin">\(\tiny \rm abc~~\)标注</button>
                         </div>
                     </div>
-                    <div id="exprs">
-                        <div v-for="comp in expressions">
-                            <expression :id="comp.id"></expression>
+                    <div id="series">
+                        <div id="exprs">
+                            <div v-for="comp in expressions">
+                                <expression :id="comp.id"></expression>
+                            </div>
                         </div>
-                    </div>
-                    <div id="coords">
-                        <div v-for="comp in coordinates">
-                            <coordinate :id="comp.id"></coordinate>
+                        <div id="coords">
+                            <div v-for="comp in coordinates">
+                                <coordinate :id="comp.id"></coordinate>
+                            </div>
                         </div>
-                    </div>
-                    <div id="tables">
-                        <div v-for="comp in tableps">
-                            <tablep :id="comp.id"></tablep>
+                        <div id="tables">
+                            <div v-for="comp in tableps">
+                                <tablep :id="comp.id"></tablep>
+                            </div>
                         </div>
-                    </div>
-                    <div id="nodes">
-                        <div v-for="comp in nodeps">
-                            <node :id="comp.id"></node>
+                        <div id="nodes">
+                            <div v-for="comp in nodeps">
+                                <node :id="comp.id"></node>
+                            </div>
                         </div>
                     </div>
                 </details>
@@ -146,54 +148,63 @@
         <td><input type="checkbox" v-model="enabled" @change="onlibchange">{{chname}}</input></td>
     </template>
     <template id="exprtpl">
-        <tr v-show="enabled">
-            <td><button class="deleteBut" @click="deleteComp">🗑</button></td>
-            <td class="type">函数</td>
-            <td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td>
-            <td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td>
-            <td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td>
-            <td><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</td>
-            <td><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></td>
-            <td><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></td>
-            <td v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></td>
-            <td v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></td>
-        </tr>
+        <div v-show="enabled" class="seriesitem">
+            <div><button class="deleteBut" @click="deleteComp">🗑</button></div>
+            <div class="type">函数</div>
+            <div><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change" ></div>
+            <br>
+            <div><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</div>
+            <div><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</div>
+            <div><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</div>
+            <div><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></div>
+            <br>
+            <div><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></div>
+            <div v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></td>
+            <div v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></div>
+        </div>
     </template>
     <template id="coordtpl">
-        <tr v-show="enabled">
-            <td><button class="deleteBut" @click="deleteComp">🗑</button></td>
-            <td class="type">坐标</td><td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td>
-            <td><input type="checkbox" class="td" @click="ontdchange" v-model="etd" >3D</td>
-            <td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td>
-            <td><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</td>
-            <td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td>
-            <td><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据"></td>
-        </tr>
+        <div v-show="enabled" class="seriesitem">
+            <div><button class="deleteBut" @click="deleteComp">🗑</button></div>
+            <div class="type">坐标</div>
+            <div><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></div>
+            <br>
+            <div><input type="checkbox" class="td" @click="ontdchange" v-model="etd" >3D</div>
+            <div><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</div>
+            <div><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</div>
+            <div><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></div>
+            <br>
+            <div><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据"></div>
+        </div>
     </template>
     <template id="tableptpl">
-        <tr v-show="enabled">
-            <td><button class="deleteBut" @click="deleteComp">🗑</button></td>
-            <td class="type">文件</td><td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td>
-            <td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td>
-            <td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td>
-            <td><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</td>
-            <td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></td>
-            <td><input type="text" class="param" v-model="tableparam" @keyup="on_change" placeholder="表参数"></td>
-            <td><input type="text" class="coord" v-model="fileName" placeholder="数据文件" style="display:none"></td>
-            <td><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></td>
-            <td><input type="file" id="files" class="fileChooser" @change="readFile"></td>
-        </tr>
+        <div v-show="enabled" class="seriesitem">
+            <div><button class="deleteBut" @click="deleteComp">🗑</button></div>
+            <div class="type">文件</div>
+            <div><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></div>
+            <br>
+            <div><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</div>
+            <div><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</div>
+            <div><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</div>
+            <div><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></div>
+            <div><input type="text" class="param" v-model="tableparam" @keyup="on_change" placeholder="表参数"></div>
+            <div><input type="text" class="coord" v-model="fileName" placeholder="数据文件" style="display:none"></div>
+            <div><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></div>
+            <br>
+            <div><input type="file" id="files" class="fileChooser" @change="readFile"></div>
+        </div>
     </template>
     <template id="nodetpl">
-        <tr v-show="enabled">
-            <td><button class="deleteBut" @click="deleteComp">🗑</button></td>
-            <td class="type">标注</td><td><input type="text" class="legend" placeholder="标注" v-model="pin" @keyup="on_change"></td>
-            <td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">🟨</td>
-            <!-- <td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td>
-            <td><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</td> -->
-            <td><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="旋转角度" v-show="etd"></td>
-            <td><input type="text" class="coord" v-model="pos" @keyup="on_change" placeholder="标注位置"></td>
-        </tr>
+        <div v-show="enabled" class="seriesitem">
+            <div><button class="deleteBut" @click="deleteComp">🗑</button></div>
+            <div class="type">标注</div>
+            <div><input type="text" class="legend" placeholder="标注" v-model="pin" @keyup="on_change"></div>
+            <div><input type="checkbox" class="td" @click="ontdchange" v-model="etd">🟨</div>
+            <!-- <div><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</div>
+            <div><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</div> -->
+            <div><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="旋转角度" v-show="etd"></div>
+            <div><input type="text" class="coord" v-model="pos" @keyup="on_change" placeholder="标注位置"></div>
+        </div>
     </template>
     <template id="propertyselecttpl">
         <tr>

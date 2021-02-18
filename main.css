@@ -93,6 +93,14 @@ summary {
     margin: 5px;
 }
 
+#series .seriesitem div{
+    display: inline;
+}
+
+#series .seriesitem {
+    margin: 10px 0px;
+}
+
 #series .deleteBut {
     background-color:rgb(255, 25, 25);
     color: white;
