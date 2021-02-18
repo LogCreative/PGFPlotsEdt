@@ -74,8 +74,7 @@ footer{
 }
 
 .fileChooser {
-    display: block;
-    width: 80px;
+    width: 20%;
 }
 
 .legend {
@@ -98,7 +97,7 @@ summary {
 }
 
 #series .seriesitem {
-    margin: 10px 0px;
+    margin: 3px 0px;
 }
 
 #series .deleteBut {
@@ -112,7 +111,7 @@ summary {
 }
 
 #series .type{
-    margin: 10px;
+    margin: 3px;
 }
 
 #series .legend {
