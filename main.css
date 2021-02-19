@@ -104,9 +104,15 @@ summary {
     margin: 2px 0px;
 }
 
-/* #series .upBut {
-    
-} */
+#series .upBut {
+    background-color:rgb(255, 95, 95);
+    color: white;
+    border: 1px solid red;
+}
+
+#series .upBut:hover {
+    background-color: rgb(255, 143, 143);
+}
 
 #series .deleteBut {
     background-color:rgb(255, 25, 25);

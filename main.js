@@ -55,7 +55,7 @@ var seriesMixin = {
     },
     data: function(){
         return {
-            idInner: this.id,   // Real Id
+            idInner: this.id,       // Real ID
             etd: false,
             plus: false,
             cycle: false,
@@ -65,7 +65,7 @@ var seriesMixin = {
         }
     },
     props: {
-        id: Number,             // Initial Value Only
+        id: Number,                 // Initial Value Only
         ontd: Boolean,
         onlegend: Boolean,
     },
@@ -78,6 +78,7 @@ var seriesMixin = {
         moveUp: function(){
             delete seriesList[this.idInner];
             this.idInner = ++seriescnt;
+            // this.sortUpdater();
             this.updater(this.etd,this.plus,this.cycle);
         },
         on_change: function(){
@@ -140,6 +141,9 @@ var addnodeClick = function(){
     });
 };
 
+// 排序更新事件
+// var SortEvent = new Vue();
+
 // 函数组件
 Vue.component('expression',{
     mixins: [seriesMixin],
@@ -161,6 +165,11 @@ Vue.component('expression',{
                 seriesList[this.idInner] = ["\\addplot3" + (plus?"+":"") +" [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "})" + (cycle?" \\closedcycle":"") + ";", this.legend,false];
             updateSeries();
         },
+        // sortUpdater: function(){
+        //     this.updater(this.td,this.plus,this.cycle);
+        //     SortEvent.$emit('sort-event',this.$options.name)
+        //     // expressions.sort((a,b) => a.idInner - b.idInner)
+        // }
     }
 });
 
@@ -335,7 +344,18 @@ var app = new Vue({
         nodeps:[],
         legend: "",
     },
+    // mounted: function() {
+    //     var me = this;
+    //     SortEvent.$on('sort-event', function(cate){
+    //         me.expressions.sort((a,b)=> a.innerId - b.innerId);
+            
+    //         console.log(cate);
+    //     });
+    // },
     computed:{
+        // sortedExpressions: function(){
+        //     return this.sortById(this.expressions);
+        // },
         premable: function(){
             return s_premable + this.pkgstr + this.e_premable;
         },
@@ -351,6 +371,9 @@ var app = new Vue({
         },
     },
     methods:{
+        // sortById: function(array) {
+        //     return array.sort((a,b) => a.innerId - b.innerId);
+        // },
         compile: function() {
             // +属于url保留符号，需要转义为%2B才可以使用。
             // 全局匹配

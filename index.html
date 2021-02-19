@@ -68,7 +68,7 @@
                     </div>
                     <div id="series">
                         <div id="exprs">
-                            <div v-for="comp in expressions">
+                            <div v-for="comp in expressions" :key="comp.innerId">
                                 <expression :id="comp.id" :ontd="td" :onlegend="enableLegend"></expression>
                             </div>
                         </div>
