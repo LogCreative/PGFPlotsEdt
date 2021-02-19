@@ -149,8 +149,8 @@
     </template>
     <template id="exprtpl">
         <div v-show="enabled" class="seriesitem">
-            <div><button class="deleteBut" @click="deleteComp">🗑</button></div>
-            <div class="type">函数</div>
+            <div class="type">函数 {{id|addZero}}</div>
+            <div><button class="deleteBut" @click="deleteComp" title="删除系列">🗑</button></div>
             <div v-show="onlegend"><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change" ></div>
             <!-- <br> -->
             <div class="ttd" v-show="ontd">
@@ -171,8 +171,8 @@
     </template>
     <template id="coordtpl">
         <div v-show="enabled" class="seriesitem">
-            <div><button class="deleteBut" @click="deleteComp">🗑</button></div>
-            <div class="type">坐标</div>
+            <div class="type">坐标 {{id|addZero}}</div>
+            <div><button class="deleteBut" @click="deleteComp" title="删除系列">🗑</button></div>
             <div v-show="onlegend"><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></div>
             <!-- <br> -->
             <div class="ttd" v-show="ontd">
@@ -191,8 +191,8 @@
     </template>
     <template id="tableptpl">
         <div v-show="enabled" class="seriesitem">
-            <div><button class="deleteBut" @click="deleteComp">🗑</button></div>
-            <div class="type">文件</div>
+            <div class="type">文件 {{id|addZero}}</div>
+            <div><button class="deleteBut" @click="deleteComp" title="删除系列">🗑</button></div>
             <div v-show="onlegend"><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></div>
             <!-- <br> -->
             <div class="ttd" v-show="ontd">
@@ -214,8 +214,8 @@
     </template>
     <template id="nodetpl">
         <div v-show="enabled" class="seriesitem">
-            <div><button class="deleteBut" @click="deleteComp">🗑</button></div>
-            <div class="type">标注</div>
+            <div class="type">标注 {{id|addZero}}</div>
+            <div><button class="deleteBut" @click="deleteComp" title="删除标注">🗑</button></div>
             <div><input type="text" class="legend" placeholder="标注" v-model="pin" @keyup="on_change"></div>
             <div class="ytd">
                 <input type="checkbox" @click="ontdchange" v-model="etd" title="黄色标注">

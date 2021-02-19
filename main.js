@@ -86,6 +86,16 @@ var seriesMixin = {
         oncchange: function(){
             this.updater(this.etd,this.plus,!this.cycle);
         }
+    },
+    filters:{
+        addZero(value){
+            if(typeof value != 'number')
+                return '';
+            
+            if(value<10)
+                return "0" + value;
+            else return "" + value;
+        },
     }
 };
 
@@ -343,5 +353,5 @@ var app = new Vue({
             else
                 app.curl = "https://latexonline.cc/compile?text="+document.getElementById('manualfile').value.replace(/[+]/g,"%2B");
         }
-    }
+    },
 });

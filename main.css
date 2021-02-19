@@ -114,12 +114,13 @@ summary {
     background-color: rgb(255, 111, 111);
 }
 
-#series .type{
-    margin: 3px;
-}
-
 #series .legend {
     width: 100px;
+}
+
+.seriesitem .type{
+    margin: 3px 3px 5px 0px;
+    color: #666;
 }
 
 .fileChooser {
@@ -134,7 +135,7 @@ input[type=checkbox] {
     height: 17px;
     position: relative;
 }
- 
+
 input[type=checkbox]:after,
 input[type=checkbox]:disabled:after {
     position: absolute;
