@@ -89,7 +89,7 @@ summary {
     margin: 5px;
 }
 
-#series{
+#axis{
     width: 100%;
     max-height: 200px;
     overflow-y: scroll;
@@ -103,6 +103,10 @@ summary {
 #series .seriesitem {
     margin: 2px 0px;
 }
+
+/* #series .upBut {
+    
+} */
 
 #series .deleteBut {
     background-color:rgb(255, 25, 25);

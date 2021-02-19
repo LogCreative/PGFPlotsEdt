@@ -93,7 +93,7 @@
                     <summary>
                         坐标系
                     </summary>
-                    <div>
+                    <div id="axis">
                         <tr><td>增补参数</td><td></td><td><input type="text" v-model="surplusparam" placeholder="参数"></input></td></tr>
                             <property chname="宽度" propkey="width"></property>    
                             <property chname="高度" propkey="height"></property>
@@ -149,7 +149,8 @@
     </template>
     <template id="exprtpl">
         <div v-show="enabled" class="seriesitem">
-            <div class="type">函数 {{id|addZero}}</div>
+            <div class="type">函数 {{idInner|addZero}}</div>
+            <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
             <div><button class="deleteBut" @click="deleteComp" title="删除系列">🗑</button></div>
             <div v-show="onlegend"><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change" ></div>
             <!-- <br> -->
@@ -171,7 +172,8 @@
     </template>
     <template id="coordtpl">
         <div v-show="enabled" class="seriesitem">
-            <div class="type">坐标 {{id|addZero}}</div>
+            <div class="type">坐标 {{idInner|addZero}}</div>
+            <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
             <div><button class="deleteBut" @click="deleteComp" title="删除系列">🗑</button></div>
             <div v-show="onlegend"><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></div>
             <!-- <br> -->
@@ -191,7 +193,8 @@
     </template>
     <template id="tableptpl">
         <div v-show="enabled" class="seriesitem">
-            <div class="type">文件 {{id|addZero}}</div>
+            <div class="type">文件 {{idInner|addZero}}</div>
+            <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
             <div><button class="deleteBut" @click="deleteComp" title="删除系列">🗑</button></div>
             <div v-show="onlegend"><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></div>
             <!-- <br> -->
@@ -214,7 +217,8 @@
     </template>
     <template id="nodetpl">
         <div v-show="enabled" class="seriesitem">
-            <div class="type">标注 {{id|addZero}}</div>
+            <div class="type">标注 {{idInner|addZero}}</div>
+            <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
             <div><button class="deleteBut" @click="deleteComp" title="删除标注">🗑</button></div>
             <div><input type="text" class="legend" placeholder="标注" v-model="pin" @keyup="on_change"></div>
             <div class="ytd">

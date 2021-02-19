@@ -55,6 +55,7 @@ var seriesMixin = {
     },
     data: function(){
         return {
+            idInner: this.id,   // Real Id
             etd: false,
             plus: false,
             cycle: false,
@@ -64,15 +65,20 @@ var seriesMixin = {
         }
     },
     props: {
-        id: Number,
+        id: Number,             // Initial Value Only
         ontd: Boolean,
         onlegend: Boolean,
     },
     methods:{
         deleteComp: function(){
-            delete seriesList[this.id];
+            delete seriesList[this.idInner];
             updateSeries();
             this.enabled = false;
+        },
+        moveUp: function(){
+            delete seriesList[this.idInner];
+            this.idInner = ++seriescnt;
+            this.updater(this.etd,this.plus,this.cycle);
         },
         on_change: function(){
             this.updater(this.etd,this.plus,this.cycle);
@@ -148,11 +154,11 @@ Vue.component('expression',{
     methods:{
         updater: function(td,plus,cycle){
             if(!td)
-                seriesList[this.id] = ["\\addplot" + (plus?"+":"") +" [" + this.param + "] {" + this.expression + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
+                seriesList[this.idInner] = ["\\addplot" + (plus?"+":"") +" [" + this.param + "] {" + this.expression + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
             else if (this.expression=="" && this.expression2=="")
-                seriesList[this.id] = ["\\addplot3" + (plus?"+":"") +" [" + this.param + "] {" + this.expression3 + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
+                seriesList[this.idInner] = ["\\addplot3" + (plus?"+":"") +" [" + this.param + "] {" + this.expression3 + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
             else
-                seriesList[this.id] = ["\\addplot3" + (plus?"+":"") +" [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "})" + (cycle?" \\closedcycle":"") + ";", this.legend,false];
+                seriesList[this.idInner] = ["\\addplot3" + (plus?"+":"") +" [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "})" + (cycle?" \\closedcycle":"") + ";", this.legend,false];
             updateSeries();
         },
     }
@@ -169,7 +175,7 @@ Vue.component('coordinate',{
     },
     methods:{
         updater: function(td,plus,cycle){
-            seriesList[this.id] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] coordinates {" + this.data + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
+            seriesList[this.idInner] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] coordinates {" + this.data + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
             updateSeries();
         }
     }
@@ -188,7 +194,7 @@ Vue.component('tablep',{
     },
     methods:{
         updater: function(td,plus,cycle){
-            seriesList[this.id] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] table[row sep=crcr," + this.tableparam + "] {" + this.datat + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
+            seriesList[this.idInner] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] table[row sep=crcr," + this.tableparam + "] {" + this.datat + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
             updateSeries();
         },
         readFile: function(e){
@@ -223,8 +229,8 @@ Vue.component('node',{
     methods:{
         updater: function(td,plus,cycle){
             if(td)
-                seriesList[this.id] = ["\\node [small dot,pin=" + this.param + ":{" + this.pin + "}] at (axis description cs:" + this.pos + ") {};",false]; 
-            else seriesList[this.id] = ["\\node [font=\\tiny] at (axis description cs:" + this.pos + ") {" + this.pin + "};",false,true]; 
+                seriesList[this.idInner] = ["\\node [small dot,pin=" + this.param + ":{" + this.pin + "}] at (axis description cs:" + this.pos + ") {};",false]; 
+            else seriesList[this.idInner] = ["\\node [font=\\tiny] at (axis description cs:" + this.pos + ") {" + this.pin + "};",false,true]; 
             updateSeries();
         },
     }
