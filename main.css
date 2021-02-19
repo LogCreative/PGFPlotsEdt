@@ -19,13 +19,13 @@ a{
 }
 
 #compile{
-    width: 49%;
+    width: 39%;
     float: left;
 }
 
 #properties,
 #code{
-    width: 50%;
+    width: 60%;
     float: right;
 }
 
@@ -73,10 +73,6 @@ footer{
     position: absolute;
 }
 
-.fileChooser {
-    width: 20%;
-}
-
 .legend {
     width: 50px;
 }
@@ -92,12 +88,19 @@ summary {
     margin: 5px;
 }
 
+#series{
+    width: 100%;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
 #series .seriesitem div{
     display: inline;
+    margin-right: -5px;
 }
 
 #series .seriesitem {
-    margin: 3px 0px;
+    margin: 2px 0px;
 }
 
 #series .deleteBut {
@@ -118,14 +121,75 @@ summary {
     width: 100px;
 }
 
-/* <td><button class="deleteBut" @click="deleteComp">X</button></td>
-<td class="type">函数</td>
-<td><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></td>
-<td><input type="checkbox" class="td" @click="ontdchange" v-model="etd">3D</td>
-<td><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</td>
-<td><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</td>
-<td><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></td>
-<td><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></td>
-<td v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></td>
-<td v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></td> */
+.fileChooser {
+    width: 200px;
+}
 
+input[type=checkbox] {
+    margin-right: 8px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    width: 15px;
+    height: 17px;
+    position: relative;
+}
+ 
+input[type=checkbox]:after,
+input[type=checkbox]:disabled:after {
+    position: absolute;
+    width: 15px;
+    height: 20px;
+    top: 0;
+    content: " ";
+    background-color: #fff;
+    color: #fff;
+    display: inline-block;
+    visibility: visible;
+    border: 1px solid grey;
+    padding: 0 3px;
+    border-radius: 3px;
+}
+
+input[type=checkbox]:disabled:after {
+    background-color: #E9E7E3;
+}
+
+#packages input[type=checkbox]:checked:after {
+    background-color: #0f97e7;
+    content: "✓";
+    font-size: 15px;
+    text-align: center;
+    border: 1px solid blue;
+}
+
+#series .ttd input[type=checkbox]:checked:after {
+    background-color: #1dd60d;
+    border: 1px solid #0e9c01;
+    content: "z";
+    font-size: 15px;
+    text-align: center;
+}
+
+#series .ptd input[type=checkbox]:checked:after {
+    background-color: #ca710b;
+    border: 1px solid red;
+    content: "+";
+    font-size: 15px;
+    text-align: center;
+}
+
+#series .ctd input[type=checkbox]:checked:after {
+    background-color: #2f8b0a;
+    border: 1px solid darkgreen;
+    content: "⇲";
+    font-size: 15px;
+    text-align: center;
+}
+
+#series .ytd input[type=checkbox]:checked:after {
+    background-color: #eeff00;
+    border: 1px solid orange;
+    /* content: "✓";
+    font-size: 15px;
+    text-align: center; */
+}
