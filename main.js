@@ -65,6 +65,8 @@ var seriesMixin = {
     },
     props: {
         id: Number,
+        ontd: Boolean,
+        onlegend: Boolean,
     },
     methods:{
         deleteComp: function(){

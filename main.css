@@ -71,6 +71,7 @@ footer{
 #addtooltip:hover  #addbuttons{
     display: block;
     position: absolute;
+    z-index: 12;
 }
 
 .legend {
@@ -150,10 +151,6 @@ input[type=checkbox]:disabled:after {
     border-radius: 3px;
 }
 
-input[type=checkbox]:disabled:after {
-    background-color: #E9E7E3;
-}
-
 #packages input[type=checkbox]:checked:after {
     background-color: #0f97e7;
     content: "✓";
@@ -186,10 +183,14 @@ input[type=checkbox]:disabled:after {
     text-align: center;
 }
 
+#series .ytd input[type=checkbox]{
+    margin-right: 13px;
+}
+
 #series .ytd input[type=checkbox]:checked:after {
     background-color: #eeff00;
     border: 1px solid orange;
-    /* content: "✓";
-    font-size: 15px;
-    text-align: center; */
+    /* content: "a";
+    text-align: center;
+    color: black; */
 }
