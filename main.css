@@ -167,7 +167,8 @@ input[type=checkbox]:disabled:after {
     border-radius: 3px;
 }
 
-input[type=checkbox]:checked:after {
+#packages input[type=checkbox]:checked:after,
+#series .type input[type=checkbox]:checked:after{
     background-color: #0f97e7;
     content: "✓";
     font-size: 15px;

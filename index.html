@@ -150,9 +150,9 @@
     <template id="exprtpl">
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
-                <label>
+                <label @click="onschange">
                     函数 [{{idInner|addZero}}]
-                    <input type="checkbox" class="showToggle" v-model="show" title="显示图层">
+                    <input type="checkbox" class="showToggle" @click="onschange" v-model="show" title="显示图层">
                 </label>
             </div>
             <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
@@ -178,9 +178,9 @@
     <template id="coordtpl">
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
-                <label>
+                <label @click="onschange" >
                     坐标 [{{idInner|addZero}}]
-                    <input type="checkbox" class="showToggle" v-model="show" title="显示图层">
+                    <input type="checkbox" class="showToggle" v-model="show" @click="onschange" title="显示图层">
                 </label>
             </div>
             <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
@@ -204,9 +204,9 @@
     <template id="tableptpl">
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
-                <label>
+                <label @click="onschange">
                     文件 [{{idInner|addZero}}]
-                    <input type="checkbox" class="showToggle" v-model="show" title="显示图层">
+                    <input type="checkbox" class="showToggle" v-model="show" @click="onschange" title="显示图层">
                 </label>
             </div>
             <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
@@ -233,9 +233,9 @@
     <template id="nodetpl">
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
-                <label>
+                <label @click="onschange">
                     标注 [{{idInner|addZero}}]
-                    <input type="checkbox" class="showToggle" v-model="show" title="显示图层">
+                    <input type="checkbox" class="showToggle" v-model="show" @click="onschange" title="显示图层">
                 </label>
             </div>
             <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
