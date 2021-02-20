@@ -149,7 +149,12 @@
     </template>
     <template id="exprtpl">
         <div v-show="enabled" class="seriesitem">
-            <div class="type">函数 {{idInner|addZero}}</div>
+            <div class="type" v-soutline="show">
+                <label>
+                    函数 [{{idInner|addZero}}]
+                    <input type="checkbox" class="showToggle" v-model="show" title="显示图层">
+                </label>
+            </div>
             <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
             <div><button class="deleteBut" @click="deleteComp" title="删除系列">🗑</button></div>
             <div v-show="onlegend"><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change" ></div>
@@ -172,7 +177,12 @@
     </template>
     <template id="coordtpl">
         <div v-show="enabled" class="seriesitem">
-            <div class="type">坐标 {{idInner|addZero}}</div>
+            <div class="type" v-soutline="show">
+                <label>
+                    坐标 [{{idInner|addZero}}]
+                    <input type="checkbox" class="showToggle" v-model="show" title="显示图层">
+                </label>
+            </div>
             <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
             <div><button class="deleteBut" @click="deleteComp" title="删除系列">🗑</button></div>
             <div v-show="onlegend"><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></div>
@@ -193,7 +203,12 @@
     </template>
     <template id="tableptpl">
         <div v-show="enabled" class="seriesitem">
-            <div class="type">文件 {{idInner|addZero}}</div>
+            <div class="type" v-soutline="show">
+                <label>
+                    文件 [{{idInner|addZero}}]
+                    <input type="checkbox" class="showToggle" v-model="show" title="显示图层">
+                </label>
+            </div>
             <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
             <div><button class="deleteBut" @click="deleteComp" title="删除系列">🗑</button></div>
             <div v-show="onlegend"><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></div>
@@ -217,7 +232,12 @@
     </template>
     <template id="nodetpl">
         <div v-show="enabled" class="seriesitem">
-            <div class="type">标注 {{idInner|addZero}}</div>
+            <div class="type" v-soutline="show">
+                <label>
+                    标注 [{{idInner|addZero}}]
+                    <input type="checkbox" class="showToggle" v-model="show" title="显示图层">
+                </label>
+            </div>
             <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
             <div><button class="deleteBut" @click="deleteComp" title="删除标注">🗑</button></div>
             <div><input type="text" class="legend" placeholder="标注" v-model="pin" @keyup="on_change"></div>
@@ -249,5 +269,6 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue-clipboard2/0.3.1/vue-clipboard.js"></script>
     <script src="main.js"></script>
+    <script src="directive_cn.js"></script>
 </body>
 </html>

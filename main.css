@@ -137,10 +137,15 @@ summary {
     width: 200px;
 }
 
+input[type=checkbox],
+.seriesitem .type label{
+    cursor: pointer;
+}
+
 input[type=checkbox] {
     margin-right: 8px;
     margin-bottom: 5px;
-    cursor: pointer;
+    
     width: 15px;
     height: 17px;
     position: relative;
@@ -162,7 +167,7 @@ input[type=checkbox]:disabled:after {
     border-radius: 3px;
 }
 
-#packages input[type=checkbox]:checked:after {
+input[type=checkbox]:checked:after {
     background-color: #0f97e7;
     content: "✓";
     font-size: 15px;

@@ -40,9 +40,10 @@ var updateSeries = function(){
     app.series = "";
     app.legend = "";
     for(var s in seriesList){
-        if(seriesList[s][2]==false || app.enablepin)
+        if (seriesList[s][2]==true &&                       // 显示
+            (seriesList[s][3]==false || app.enablepin))     // 标注特集
             app.series += ' ' + seriesList[s][0] + '\n';
-        if(seriesList[s][1]!=false){
+        if(seriesList[s][1]!=false){                        // 是否有图例
             app.legend += seriesList[s][1] + ',';
         }
     }
@@ -62,6 +63,7 @@ var seriesMixin = {
             param: "",
             legend: "",
             enabled: true,
+            show: true,
         }
     },
     props: {
@@ -70,16 +72,16 @@ var seriesMixin = {
         onlegend: Boolean,
     },
     methods:{
-        deleteComp: function(){
-            delete seriesList[this.idInner];
-            updateSeries();
-            this.enabled = false;
-        },
         moveUp: function(){
             delete seriesList[this.idInner];
             this.idInner = ++seriescnt;
             // this.sortUpdater();
-            this.updater(this.etd,this.plus,this.cycle);
+            this.on_change();
+        },
+        deleteComp: function(){
+            delete seriesList[this.idInner];
+            updateSeries();
+            this.enabled = false;
         },
         on_change: function(){
             this.updater(this.etd,this.plus,this.cycle);
@@ -105,17 +107,6 @@ var seriesMixin = {
         },
     }
 };
-
-// 缩小第一坐标的文本框宽度
-Vue.directive('minimize',function(el,binding){
-    if(binding.value){
-        el.style.width = '40px';
-        el.placeholder = 'x轴';
-    } else {
-        el.style.width = '80px';
-        el.placeholder = '函数';
-    }
-});
 
 var addexprClick = function(){
     app.expressions.push({
@@ -158,11 +149,11 @@ Vue.component('expression',{
     methods:{
         updater: function(td,plus,cycle){
             if(!td)
-                seriesList[this.idInner] = ["\\addplot" + (plus?"+":"") +" [" + this.param + "] {" + this.expression + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
+                seriesList[this.idInner] = ["\\addplot" + (plus?"+":"") +" [" + this.param + "] {" + this.expression + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
             else if (this.expression=="" && this.expression2=="")
-                seriesList[this.idInner] = ["\\addplot3" + (plus?"+":"") +" [" + this.param + "] {" + this.expression3 + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
+                seriesList[this.idInner] = ["\\addplot3" + (plus?"+":"") +" [" + this.param + "] {" + this.expression3 + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
             else
-                seriesList[this.idInner] = ["\\addplot3" + (plus?"+":"") +" [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "})" + (cycle?" \\closedcycle":"") + ";", this.legend,false];
+                seriesList[this.idInner] = ["\\addplot3" + (plus?"+":"") +" [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "})" + (cycle?" \\closedcycle":"") + ";", this.legend,this.show,false];
             updateSeries();
         },
         // sortUpdater: function(){
@@ -184,7 +175,7 @@ Vue.component('coordinate',{
     },
     methods:{
         updater: function(td,plus,cycle){
-            seriesList[this.idInner] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] coordinates {" + this.data + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
+            seriesList[this.idInner] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] coordinates {" + this.data + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
             updateSeries();
         }
     }
@@ -203,7 +194,7 @@ Vue.component('tablep',{
     },
     methods:{
         updater: function(td,plus,cycle){
-            seriesList[this.idInner] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] table[row sep=crcr," + this.tableparam + "] {" + this.datat + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,false];
+            seriesList[this.idInner] = [(td? ("\\addplot3" + (plus?"+":"") + " ["):("\\addplot"+ (plus?"+":"") +" [")) + this.param + "] table[row sep=crcr," + this.tableparam + "] {" + this.datat + "}" + (cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
             updateSeries();
         },
         readFile: function(e){
@@ -239,7 +230,7 @@ Vue.component('node',{
         updater: function(td,plus,cycle){
             if(td)
                 seriesList[this.idInner] = ["\\node [small dot,pin=" + this.param + ":{" + this.pin + "}] at (axis description cs:" + this.pos + ") {};",false]; 
-            else seriesList[this.idInner] = ["\\node [font=\\tiny] at (axis description cs:" + this.pos + ") {" + this.pin + "};",false,true]; 
+            else seriesList[this.idInner] = ["\\node [font=\\tiny] at (axis description cs:" + this.pos + ") {" + this.pin + "};",false,this.show,true]; 
             updateSeries();
         },
     }
