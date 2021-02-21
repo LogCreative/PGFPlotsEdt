@@ -125,7 +125,7 @@ summary {
 }
 
 #series .legend {
-    width: 100px;
+    width: 60px;
 }
 
 .seriesitem .type{
@@ -137,8 +137,9 @@ summary {
     width: 200px;
 }
 
-input[type=checkbox],
-.seriesitem .type label{
+input[type=checkbox]
+/* ,.seriesitem .type label */
+{
     cursor: pointer;
 }
 

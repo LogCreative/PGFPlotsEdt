@@ -7,17 +7,19 @@ Vue.directive('minimize',function(el,binding){
         el.placeholder = 'x轴';
     } else {
         el.style.width = '80px';
-        el.placeholder = '函数';
+        el.placeholder = '函数式';
     }
 });
 
 // 删除线样式
 Vue.directive('soutline',function(el,binding){
     if(binding.value){
-        el.style['text-decoration'] = 'none';
+        // el.style['text-decoration'] = 'none';
         el.style['color'] = '#666';
+        el.style['opacity'] = '1.0';
     } else {
-        el.style['text-decoration'] = 'line-through';
+        // el.style['text-decoration'] = 'line-through';
         el.style['color'] = '#999';
+        el.style['opacity'] = '0.5';
     }
 });

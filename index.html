@@ -150,15 +150,15 @@
     <template id="exprtpl">
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
-                <label @click="onschange">
-                    函数 [{{idInner|addZero}}]
+                <label>
+                    <div v-show="!onlegend">函数</div>
+                    <div v-show="onlegend"><input type="text" class="legend" placeholder="函数" v-model="legend" @keyup="on_change" ></div>
+                     [{{idInner|addZero}}]
                     <input type="checkbox" class="showToggle" @click="onschange" v-model="show" title="显示图层">
                 </label>
             </div>
             <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
             <div><button class="deleteBut" @click="deleteComp" title="删除系列">🗑</button></div>
-            <div v-show="onlegend"><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change" ></div>
-            <!-- <br> -->
             <div class="ttd" v-show="ontd">
                 <input type="checkbox" @click="ontdchange" v-model="etd" title="三维坐标">
             </div>
@@ -170,7 +170,7 @@
             </div>
             <div><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></div>
             <!-- <br> -->
-            <div><input type="text" class="coord" placeholder="函数" v-model="expression" @keyup="on_change" v-minimize="etd"></div>
+            <div><input type="text" class="coord" placeholder="函数式" v-model="expression" @keyup="on_change" v-minimize="etd"></div>
             <div v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></div>
             <div v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></div>
         </div>
@@ -178,15 +178,15 @@
     <template id="coordtpl">
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
-                <label @click="onschange" >
-                    坐标 [{{idInner|addZero}}]
+                <label>
+                    <div v-show="!onlegend">坐标</div>
+                    <div v-show="onlegend"><input type="text" class="legend" placeholder="坐标" v-model="legend" @keyup="on_change"></div>
+                     [{{idInner|addZero}}]
                     <input type="checkbox" class="showToggle" v-model="show" @click="onschange" title="显示图层">
                 </label>
             </div>
             <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
             <div><button class="deleteBut" @click="deleteComp" title="删除系列">🗑</button></div>
-            <div v-show="onlegend"><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></div>
-            <!-- <br> -->
             <div class="ttd" v-show="ontd">
                 <input type="checkbox" @click="ontdchange" v-model="etd" title="三维坐标">
             </div>
@@ -204,15 +204,15 @@
     <template id="tableptpl">
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
-                <label @click="onschange">
-                    文件 [{{idInner|addZero}}]
+                <label>
+                    <div v-show="!onlegend">文件</div>
+                    <div v-show="onlegend"><input type="text" class="legend" placeholder="文件" v-model="legend" @keyup="on_change"></div>
+                     [{{idInner|addZero}}]
                     <input type="checkbox" class="showToggle" v-model="show" @click="onschange" title="显示图层">
                 </label>
             </div>
             <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
             <div><button class="deleteBut" @click="deleteComp" title="删除系列">🗑</button></div>
-            <div v-show="onlegend"><input type="text" class="legend" placeholder="系列名" v-model="legend" @keyup="on_change"></div>
-            <!-- <br> -->
             <div class="ttd" v-show="ontd">
                 <input type="checkbox" @click="ontdchange" v-model="etd" title="三维坐标">
             </div>
@@ -233,19 +233,18 @@
     <template id="nodetpl">
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
-                <label @click="onschange">
-                    标注 [{{idInner|addZero}}]
+                <label>
+                    <!-- <div v-show="!onlegend">标注</div> -->
+                    <div><input type="text" class="legend" placeholder="标注" v-model="pin" @keyup="on_change"></div>
+                     [{{idInner|addZero}}]
                     <input type="checkbox" class="showToggle" v-model="show" @click="onschange" title="显示图层">
                 </label>
             </div>
             <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
             <div><button class="deleteBut" @click="deleteComp" title="删除标注">🗑</button></div>
-            <div><input type="text" class="legend" placeholder="标注" v-model="pin" @keyup="on_change"></div>
             <div class="ytd">
                 <input type="checkbox" @click="ontdchange" v-model="etd" title="黄色标注">
             </div>
-            <!-- <div><input type="checkbox" class="td" @click="onpchange" v-model="plus">+</div>
-            <div><input type="checkbox" class="cycle" @click="oncchange" v-model="cycle">🔄</div> -->
             <div><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="旋转角度" v-show="etd"></div>
             <div><input type="text" class="coord" v-model="pos" @keyup="on_change" placeholder="标注位置"></div>
         </div>
