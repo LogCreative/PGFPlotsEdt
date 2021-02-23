@@ -298,15 +298,25 @@ Vue.component('tablep',{
             tableparam: "",
         }
     },
+    props:{
+        enablesource: Boolean,
+    },
     mounted: function() {
         me = this;
+        var clearSelect = function(){
+            me.sourceSelect="...";
+            me.updater();
+        };
         SourceUpdateEvent.$on('source-name-change',function(obj){
             me.$set(me.sourceNameList,obj);
         });
         SourceUpdateEvent.$on('source-deleted',function(obj){
             if(me.sourceSelect==obj)
-                me.sourceSelect="...";
-                me.updater();
+                clearSelect();
+        });
+        SourceUpdateEvent.$on('source-disabled',function(obj){
+            if(!obj)
+                clearSelect();
         });
     },
     methods:{
@@ -417,6 +427,7 @@ pinClick = function(obj){
 sourceClick = function(obj){
     app.enablesource = !app.enablesource;
     updateSeries();
+    SourceUpdateEvent.$emit('source-disabled',app.enablesource);
     app.enablesource = !app.enablesource;
 }
 

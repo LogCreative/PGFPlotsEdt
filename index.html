@@ -86,7 +86,7 @@
                         </div>
                         <div id="tables">
                             <div v-for="comp in tableps">
-                                <tablep :id="comp.id" :ontd="td" :onlegend="enableLegend"></tablep>
+                                <tablep :id="comp.id" :ontd="td" :onlegend="enableLegend" :enablesource="enablesource"></tablep>
                             </div>
                         </div>
                         <div id="nodes" v-show="enablepin">
@@ -165,11 +165,6 @@
             </div>
             <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
             <div><button class="deleteBut" @click="deleteComp" title="删除表源">🗑</button></div>
-            <!-- <div class="ytd">
-                <input type="checkbox" @click="ontdchange" v-model="etd" title="黄色标注">
-            </div>
-            <div><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="旋转角度" v-show="etd"></div>
-            <div><input type="text" class="coord" v-model="pos" @keyup="on_change" placeholder="标注位置"></div> -->
             <div><input type="file" id="files" class="fileChooser" @change="readFile"></div>
         </div>
     </template>
@@ -250,7 +245,7 @@
             </div>
             <div><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></div>
             <div><input type="text" class="param" v-model="tableparam" @keyup="on_change" placeholder="表参数"></div>
-            <div>
+            <div v-show="enablesource">
                 <select v-model="sourceSelect" @change="on_change">
                     <option v-for="opt in sourceNameList" :value="opt" v-show="opt!=null">{{opt}}</option>
                 </select>
