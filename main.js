@@ -42,7 +42,8 @@ var updateSeries = function(){
 
     if(app.enablesource)
         for(var s in sourceList)
-            app.series += sourceList[s] + '\n';
+            if(sourceList[s][1])
+                app.series += sourceList[s][0] + '\n';
 
     for(var s in seriesList){
         if (seriesList[s][2]==true &&                       // 显示
@@ -198,20 +199,39 @@ Vue.component('Tsource',{
         }
     },
     methods:{
-        deleteComp: function(){                 // 覆盖父类函数
+        moveUp: function(){
+            delete sourceList[this.idInner];
+            delete sourceNameList[this.idInner];
+            this.idInner = ++sourcecnt;
+            // this.sortUpdater();
+            this.on_change();
+        },
+        deleteCommon: function(){
             SourceUpdateEvent.$emit('source-deleted',sourceNameList[this.idInner]);
             delete sourceList[this.idInner];
             delete sourceNameList[this.idInner];
             updateSeries();
+        },
+        deleteComp: function(){                 // 覆盖父类函数
+            this.deleteCommon();
             this.enabled = false;
         },
         on_change: function(){
             SourceUpdateEvent.$emit('source-name-change',sourceNameList);
             this.updater();
         },
+        onschange: function(){
+            this.show = !this.show;
+            this.on_change();
+            if(this.show)
+                sourceNameList[this.idInner] = this.sourceName;
+            else
+                this.deleteCommon();
+            this.show = !this.show;
+        },
         updater: function(){
             sourceNameList[this.idInner] = this.sourceName;
-            sourceList[this.idInner] = "\\pgfplotstableread [row sep=crcr] {" + this.datat + "}{\\" + this.sourceName + "}";
+            sourceList[this.idInner] = ["\\pgfplotstableread [row sep=crcr] {" + this.datat + "}{\\" + this.sourceName + "}",this.show];
             this.$forceUpdate();
             updateSeries();
         },
@@ -295,8 +315,8 @@ Vue.component('tablep',{
         // },
         on_change: function(){
             console.log(this.sourceSelect);
-            // if(this.sourceSelect=='')
-            //     this.sourceSelect="...";
+            if(this.sourceSelect==null)
+                this.sourceSelect="...";
             this.updater();
         },
         updater: function(){
