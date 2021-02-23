@@ -130,7 +130,7 @@
                 </details>
             </div>
             <div id="auto">
-                <details>
+                <details open>
                     <summary>
                         代码
                     </summary>
@@ -250,10 +250,16 @@
             </div>
             <div><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="参数"></div>
             <div><input type="text" class="param" v-model="tableparam" @keyup="on_change" placeholder="表参数"></div>
-            <div><input type="text" class="coord" v-model="fileName" placeholder="数据文件" style="display:none"></div>
-            <div><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></div>
-            <!-- <br> -->
-            <div><input type="file" id="files" class="fileChooser" @change="readFile"></div>
+            <div>
+                <select v-model="sourceSelect" @change="on_change">
+                    <option v-for="opt in sourceNameList" :value="opt" v-show="opt!=null">{{opt}}</option>
+                </select>
+            </div>
+            <div v-show="sourceSelect=='...'">
+                <div><input type="text" class="coord" v-model="fileName" placeholder="数据文件" style="display:none"></div>
+                <div><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></div>
+                <div><input type="file" id="files" class="fileChooser" @change="readFile"></div>
+            </div>
         </div>
     </template>
     <template id="nodetpl">

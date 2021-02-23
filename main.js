@@ -124,6 +124,8 @@ var seriesMixin = {
     }
 };
 
+// 数据源名表
+var sourceNameList = ['...'];
 // 数据源表
 var sourceList = new Array();
 // 数据源计数
@@ -162,6 +164,9 @@ var addnodeClick = function(){
 // 排序更新事件
 // var SortEvent = new Vue();
 
+// 数据源更新事件
+var SourceUpdateEvent = new Vue();
+
 // 读文件
 var readFile = function(e){
     var selectedFile = e.target.files[0];
@@ -194,12 +199,20 @@ Vue.component('Tsource',{
     },
     methods:{
         deleteComp: function(){                 // 覆盖父类函数
+            SourceUpdateEvent.$emit('source-deleted',sourceNameList[this.idInner]);
             delete sourceList[this.idInner];
+            delete sourceNameList[this.idInner];
             updateSeries();
             this.enabled = false;
         },
+        on_change: function(){
+            SourceUpdateEvent.$emit('source-name-change',sourceNameList);
+            this.updater();
+        },
         updater: function(){
+            sourceNameList[this.idInner] = this.sourceName;
             sourceList[this.idInner] = "\\pgfplotstableread [row sep=crcr] {" + this.datat + "}{\\" + this.sourceName + "}";
+            this.$forceUpdate();
             updateSeries();
         },
         readFile: readFile,
@@ -258,14 +271,37 @@ Vue.component('tablep',{
     template: '#tableptpl',
     data: function() {
         return {
+            sourceNameList: sourceNameList,
+            sourceSelect: "...",
             fileName: "",
             datat: "",
             tableparam: "",
         }
     },
+    mounted: function() {
+        me = this;
+        SourceUpdateEvent.$on('source-name-change',function(obj){
+            me.$set(me.sourceNameList,obj);
+        });
+        SourceUpdateEvent.$on('source-deleted',function(obj){
+            if(me.sourceSelect==obj)
+                me.sourceSelect="...";
+                me.updater();
+        });
+    },
     methods:{
-        updater: function(td,plus,cycle){
-            seriesList[this.idInner] = [(this.etd? ("\\addplot3" + (this.plus?"+":"") + " ["):("\\addplot"+ (this.plus?"+":"") +" [")) + this.param + "] table[row sep=crcr," + this.tableparam + "] {" + this.datat + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
+        // refreshList: function(){         // refresh is so slow.
+        //     this.$set(this.sourceNameList, sourceNameList);
+        // },
+        on_change: function(){
+            console.log(this.sourceSelect);
+            // if(this.sourceSelect=='')
+            //     this.sourceSelect="...";
+            this.updater();
+        },
+        updater: function(){
+            console.log(this.sourceSelect);
+            seriesList[this.idInner] = [(this.etd? ("\\addplot3" + (this.plus?"+":"") + " ["):("\\addplot"+ (this.plus?"+":"") +" [")) + this.param + "] table[" + (this.sourceSelect=="..." ? "row sep=crcr," : "") + this.tableparam + "] {" + (this.sourceSelect=="..." ? this.datat : "\\" + this.sourceSelect) + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
             updateSeries();
         },
         readFile: readFile,
@@ -381,9 +417,9 @@ var app = new Vue({
     el: '#app',
     data:{
         td: false,
-        enableLegend: false,
+        enableLegend: true,
         enablepin: false,
-        enablesource: false,
+        enablesource: true,
         manual: false,
         series: "",
         param: "",
