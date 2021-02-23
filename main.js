@@ -39,6 +39,11 @@ var seriescnt = 0;
 var updateSeries = function(){
     app.series = "";
     app.legend = "";
+
+    if(app.enablesource)
+        for(var s in sourceList)
+            app.series += sourceList[s] + '\n';
+
     for(var s in seriesList){
         if (seriesList[s][2]==true &&                       // 显示
             (seriesList[s][3]==false || app.enablepin))     // 标注特集
@@ -119,6 +124,17 @@ var seriesMixin = {
     }
 };
 
+// 数据源表
+var sourceList = new Array();
+// 数据源计数
+var sourcecnt = 0;
+
+var addsourceClick = function(){
+    app.sources.push({
+        id: ++sourcecnt,
+    });
+};
+
 var addexprClick = function(){
     app.expressions.push({
         id: ++seriescnt,
@@ -145,6 +161,50 @@ var addnodeClick = function(){
 
 // 排序更新事件
 // var SortEvent = new Vue();
+
+// 读文件
+var readFile = function(e){
+    var selectedFile = e.target.files[0];
+    this.fileName = selectedFile.name;
+    var reader = new FileReader();
+    reader.readAsText(selectedFile);
+    var that = this;
+    reader.onload = function(){
+        // 换行替换为双斜杠，制表符替换为空格
+        // 适应 CRLF 和 LF 的替换环境
+        that.datat = 
+            (this.result).replace(/[\r]/g,'')
+                .replace(/[\n]/g,'\\\\')
+                .replace(/[\t|,]/g,' ') + '\\\\';
+        that.updater();
+    };
+};
+
+// 数据源组件
+Vue.component('Tsource',{
+    mixins: [seriesMixin],
+    template:'#sourcetpl',
+    data: function() {
+        return {
+            sourceName: "",
+            fileName: "",
+            datat: "",
+            tableparam: "",
+        }
+    },
+    methods:{
+        deleteComp: function(){                 // 覆盖父类函数
+            delete sourceList[this.idInner];
+            updateSeries();
+            this.enabled = false;
+        },
+        updater: function(){
+            sourceList[this.idInner] = "\\pgfplotstableread [row sep=crcr] {" + this.datat + "}{\\" + this.sourceName + "}";
+            updateSeries();
+        },
+        readFile: readFile,
+    }
+});
 
 // 函数组件
 Vue.component('expression',{
@@ -208,22 +268,7 @@ Vue.component('tablep',{
             seriesList[this.idInner] = [(this.etd? ("\\addplot3" + (this.plus?"+":"") + " ["):("\\addplot"+ (this.plus?"+":"") +" [")) + this.param + "] table[row sep=crcr," + this.tableparam + "] {" + this.datat + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
             updateSeries();
         },
-        readFile: function(e){
-            var selectedFile = e.target.files[0];
-            this.fileName = selectedFile.name;
-            var reader = new FileReader();
-            reader.readAsText(selectedFile);
-            var that = this;
-            reader.onload = function(){
-                // 换行替换为双斜杠，制表符替换为空格
-                // 适应 CRLF 和 LF 的替换环境
-                that.datat = 
-                    (this.result).replace(/[\r]/g,'')
-                        .replace(/[\n]/g,'\\\\')
-                        .replace(/[\t|,]/g,' ') + '\\\\';
-                that.updater(that.etd,that.plus,that.cycle);
-            };
-        }
+        readFile: readFile,
     }
 });
 
@@ -273,6 +318,7 @@ var propMixins = {
     }
 };
 
+// 属性选择器
 Vue.component('propertyselect',{
     mixins: [propMixins],
     template:'#propertyselecttpl',
@@ -307,9 +353,15 @@ chnClick = function(obj){
 };
 
 pinClick = function(obj){
-    app.enablepin = !app.enablepin
+    app.enablepin = !app.enablepin;
     updateSeries();
-    app.enablepin = !app.enablepin
+    app.enablepin = !app.enablepin;
+}
+
+sourceClick = function(obj){
+    app.enablesource = !app.enablesource;
+    updateSeries();
+    app.enablesource = !app.enablesource;
 }
 
 var gomanual = function(){
@@ -331,6 +383,7 @@ var app = new Vue({
         td: false,
         enableLegend: false,
         enablepin: false,
+        enablesource: false,
         manual: false,
         series: "",
         param: "",
@@ -340,6 +393,7 @@ var app = new Vue({
         e_premable: "\\begin{document}\n\\begin{CJK}{UTF8}{gbsn}\n",
         suffix: "\\end{CJK}\n" + s_suffix,
         curl:"",
+        sources:[],
         expressions:[],
         coordinates:[],
         tableps:[],
