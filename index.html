@@ -158,7 +158,8 @@
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
                 <label>
-                    <div><input type="text" class="legend" placeholder="表源" v-model="sourceName" @keyup="on_change"></div>
+                    <!-- 字段验证 -->
+                    <div><input type="text" class="legend" placeholder="表源" v-model="sourceName" @keyup="on_change" v-validate="sourceName"></div>
                      ({{idInner|addZero}})
                     <input type="checkbox" class="showToggle" v-model="show" @click="onschange" title="显示图层">
                 </label>
@@ -250,7 +251,7 @@
                     <option v-for="opt in sourceNameList" :value="opt" v-show="opt!=null">{{opt}}</option>
                 </select>
             </div>
-            <div v-show="sourceSelect=='...'">
+            <div v-show="sourceSelect=='...'||!enablesource">
                 <div><input type="text" class="coord" v-model="fileName" placeholder="数据文件" style="display:none"></div>
                 <div><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></div>
                 <div><input type="file" id="files" class="fileChooser" @change="readFile"></div>

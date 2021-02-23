@@ -23,3 +23,17 @@ Vue.directive('soutline',function(el,binding){
         el.style['opacity'] = '0.5';
     }
 });
+
+Vue.directive('validate',function(el,binding){
+    if(binding.value==''||                      // 是否为空
+        new RegExp("[0-9]").test(binding.value) // 是否存在数字
+        ){
+        // el.style['background-color']= "lightgray";
+        el.style['border']= "2px solid red";
+    }
+    else{ 
+        // el.style['background-color']= "white";
+        el.style['border']= "0.5px solid grey";
+        el.style['padding'] = '1px 3.7px';
+    }
+});
