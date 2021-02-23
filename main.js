@@ -217,7 +217,7 @@ Vue.component('Tsource',{
             this.enabled = false;
         },
         on_change: function(){
-            SourceUpdateEvent.$emit('source-name-change',sourceNameList);
+            SourceUpdateEvent.$emit('source-name-change',sourceNameList,this.idInner);
             this.updater();
         },
         onschange: function(){
@@ -231,7 +231,7 @@ Vue.component('Tsource',{
         },
         updater: function(){
             sourceNameList[this.idInner] = this.sourceName;
-            sourceList[this.idInner] = ["\\pgfplotstableread [row sep=crcr] {" + this.datat + "}{\\" + this.sourceName + "}",this.show];
+            sourceList[this.idInner] = [" \\pgfplotstableread [row sep=crcr] {" + this.datat + "}{\\" + this.sourceName + "}",this.show];
             this.$forceUpdate();
             updateSeries();
         },
@@ -296,6 +296,7 @@ Vue.component('tablep',{
             fileName: "",
             datat: "",
             tableparam: "",
+            ind: 0,
         }
     },
     props:{
@@ -307,8 +308,10 @@ Vue.component('tablep',{
             me.sourceSelect="...";
             me.updater();
         };
-        SourceUpdateEvent.$on('source-name-change',function(obj){
-            me.$set(me.sourceNameList,obj);
+        SourceUpdateEvent.$on('source-name-change',function(molist,id){
+            if(me.sourceSelect==molist[id])
+                clearSelect();
+            me.$set(me.sourceNameList,molist);
         });
         SourceUpdateEvent.$on('source-deleted',function(obj){
             if(me.sourceSelect==obj)
@@ -324,7 +327,6 @@ Vue.component('tablep',{
         //     this.$set(this.sourceNameList, sourceNameList);
         // },
         on_change: function(){
-            console.log(this.sourceSelect);
             if(this.sourceSelect==null)
                 this.sourceSelect="...";
             this.updater();
