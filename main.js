@@ -212,6 +212,7 @@ Vue.component('parambar',{
         return {
             matchedCommands: sparamDic,
             submenu: {},
+            eq: false,
         }
     },
     watch:{
@@ -219,12 +220,14 @@ Vue.component('parambar',{
             this.submenu = {};
             var eq = _command.indexOf('=');
             if(eq!=-1){  // 先看有没有等号
+                this.eq = true;
                 for(var key in this.matchedCommands)    
                     if(key==_command.substring(0,eq))
                         this.submenu = sparamDic[key][1];
             }
             else {      // 否则再刷新列表
-                this.matchedCommands = new Array();
+                this.eq = false;
+                this.matchedCommands = {};
                 for(var key in sparamDic)
                     if(key.indexOf(_command)!=-1)
                         this.matchedCommands[key] = sparamDic[key];

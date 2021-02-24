@@ -168,7 +168,18 @@
     <template id="parambartpl">
         <div class="parambar" style="display: block;">
             <div class="title" style="display: block;">参数设置</div>
-            <div class="params">描述图形的相关参数。{{matchedCommands}} {{submenu}}</div>
+            <div class="params">
+                <div v-for="(value,key,index) in matchedCommands" v-show="!eq">
+                    <tr>
+                        <td>{{key}}</td><td>{{value[0]}}</td><td>{{value[1]!=null}}</td>
+                    </tr><br>
+                </div>
+                <div v-for="(value,key,index) in submenu" v-show="eq">
+                    <tr>
+                        <td>{{key}}</td><td>{{value}}</td>
+                    </tr><br>
+                </div>
+            </div>
         </div>
     </template>
     <template id="exprtpl">
