@@ -70,6 +70,7 @@ var seriesMixin = {
             legend: "",
             enabled: true,
             show: true,
+            paramfoc: false,
         }
     },
     props: {
@@ -111,7 +112,13 @@ var seriesMixin = {
             this.cycle = !this.cycle;
             this.on_change();
             this.cycle = !this.cycle;
-        }
+        },
+        param_focused: function(){
+            this.paramfoc = true;
+        },
+        param_losefocus: function(){
+            this.paramfoc = false;
+        },
     },
     filters:{
         addZero(value){
@@ -186,6 +193,73 @@ var readFile = function(e){
     };
 };
 
+// 参数工具栏（子组件）
+Vue.component('parambar',{
+    template: "#parambartpl",
+});
+
+// 函数组件
+Vue.component('expression',{
+    mixins: [seriesMixin],
+    template:'#exprtpl',
+    data: function(){
+        return {
+            expression: "",
+            expression2: "",
+            expression3: "",
+        }
+    },
+    methods:{
+        updater: function(){
+            if(!this.etd)
+                seriesList[this.idInner] = ["\\addplot" + (this.plus?"+":"") +" [" + this.param + "] {" + this.expression + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
+            else if (this.expression=="" && this.expression2=="")
+                seriesList[this.idInner] = ["\\addplot3" + (this.plus?"+":"") +" [" + this.param + "] {" + this.expression3 + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
+            else
+                seriesList[this.idInner] = ["\\addplot3" + (this.plus?"+":"") +" [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "})" + (this.cycle?" \\closedcycle":"") + ";", this.legend,this.show,false];
+            updateSeries();
+        },
+        // sortUpdater: function(){
+        //     this.updater(this.td,this.plus,this.cycle);
+        //     SortEvent.$emit('sort-event',this.$options.name)
+        //     // expressions.sort((a,b) => a.idInner - b.idInner)
+        // }
+    }
+});
+
+// 坐标数据工具栏（子组件）
+Vue.component('coordbar',{
+    template: "#coordbartpl",
+});
+
+// 坐标组件
+Vue.component('coordinate',{
+    mixins: [seriesMixin],
+    template:'#coordtpl',
+    data: function() {
+        return {
+            data: "",
+            coordbar:false,
+        }
+    },
+    methods:{
+        updater: function(){
+            seriesList[this.idInner] = [(this.etd? ("\\addplot3" + (this.plus?"+":"") + " ["):("\\addplot"+ (this.plus?"+":"") +" [")) + this.param + "] coordinates {" + this.data + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
+            updateSeries();
+        },
+        coord_focused: function(){
+            this.coordbar = true;
+        },
+        coord_losefocus: function(){
+            this.coordbar = false;
+        }
+    }
+});
+
+Vue.component('tableparambar',{
+    template: '#tableparamtpl',
+});
+
 // 数据源组件
 Vue.component('Tsource',{
     mixins: [seriesMixin],
@@ -231,57 +305,11 @@ Vue.component('Tsource',{
         },
         updater: function(){
             sourceNameList[this.idInner] = this.sourceName;
-            sourceList[this.idInner] = [" \\pgfplotstableread [row sep=crcr] {" + this.datat + "}{\\" + this.sourceName + "}",this.show];
+            sourceList[this.idInner] = [" \\pgfplotstableread [row sep=crcr] {" + this.datat + "}{\\" + this.sourceName + "}"+"\t\%" + this.fileName,this.show];
             this.$forceUpdate();
             updateSeries();
         },
         readFile: readFile,
-    }
-});
-
-// 函数组件
-Vue.component('expression',{
-    mixins: [seriesMixin],
-    template:'#exprtpl',
-    data: function(){
-        return {
-            expression: "",
-            expression2: "",
-            expression3: "",
-        }
-    },
-    methods:{
-        updater: function(){
-            if(!this.etd)
-                seriesList[this.idInner] = ["\\addplot" + (this.plus?"+":"") +" [" + this.param + "] {" + this.expression + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
-            else if (this.expression=="" && this.expression2=="")
-                seriesList[this.idInner] = ["\\addplot3" + (this.plus?"+":"") +" [" + this.param + "] {" + this.expression3 + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
-            else
-                seriesList[this.idInner] = ["\\addplot3" + (this.plus?"+":"") +" [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "})" + (this.cycle?" \\closedcycle":"") + ";", this.legend,this.show,false];
-            updateSeries();
-        },
-        // sortUpdater: function(){
-        //     this.updater(this.td,this.plus,this.cycle);
-        //     SortEvent.$emit('sort-event',this.$options.name)
-        //     // expressions.sort((a,b) => a.idInner - b.idInner)
-        // }
-    }
-});
-
-// 坐标组件
-Vue.component('coordinate',{
-    mixins: [seriesMixin],
-    template:'#coordtpl',
-    data: function() {
-        return {
-            data: "",
-        }
-    },
-    methods:{
-        updater: function(){
-            seriesList[this.idInner] = [(this.etd? ("\\addplot3" + (this.plus?"+":"") + " ["):("\\addplot"+ (this.plus?"+":"") +" [")) + this.param + "] coordinates {" + this.data + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
-            updateSeries();
-        }
     }
 });
 
@@ -297,6 +325,7 @@ Vue.component('tablep',{
             datat: "",
             tableparam: "",
             ind: 0,
+            tableparambar:false,
         }
     },
     props:{
@@ -337,6 +366,12 @@ Vue.component('tablep',{
             updateSeries();
         },
         readFile: readFile,
+        tableparam_focused: function(){
+            this.tableparambar = true;
+        },
+        tableparam_losefocus: function(){
+            this.tableparambar = false;
+        }
     }
 });
 

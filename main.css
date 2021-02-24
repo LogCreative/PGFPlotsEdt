@@ -236,8 +236,67 @@ input[type=checkbox]:disabled:after {
 .gutter.gutter-horizontal:hover {
     background-color: lightgray;
 }
-
 #panel-three{
     overflow-x:hidden;
 }
 
+input[type=text]{
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 0.5px solid gray;
+    padding: 2px 1px;
+}
+
+.seriesitem:hover {
+    background-color: rgba(128, 128, 128, 0.1);
+}
+
+.parambar, .coordbar, .tableparambar{
+    width: 100%;
+    margin: 2px 0px 6px 0px;
+}
+
+.parambar {
+    background-color: rgba(173, 216, 230, 0.3);
+    border-top: 1px solid blue;
+    border-bottom: 1px solid blue;
+}
+
+.title {
+    color:white;
+    width: 100%;
+    height: 20px;
+}
+
+.parambar .title{
+    background-color: rgba(0, 0, 255, 0.5);
+}
+
+.coordbar .title{
+    background-color: rgba(0, 128, 0, 0.5);
+}
+
+.tableparambar .title{
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+.parambar .params {
+    margin: 5px 10px;
+    color: rgb(0, 0, 117);
+}
+
+.coordbar {
+    background-color: rgba(144, 238, 144, 0.3);
+    border-top: 1px solid green;
+    border-bottom: 1px solid green;
+}
+
+.tableparambar {
+    background-color: rgba(255, 0, 0, 0.1);
+    border-top: 1px solid red;
+    border-bottom: 1px solid red;
+}
+
+.param:focus,
+.coord:focus {
+    width: 150px;
+}
