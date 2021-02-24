@@ -310,9 +310,18 @@
     <script src="directive_cn.js"></script>
     <!-- <script src="js/drag.js"></script> -->
     <script>
-        Split(['#panel-one','#panel-two','#panel-three'],{
-            minSize: [300,300,0]
-        });
+        if(window.innerWidth>768){
+            // 启用split
+            var sps = document.getElementsByClassName('split');
+            for(var i in [0,1,2]){
+                sps[i].style.float = 'left';
+                sps[i].style.height = '575px';
+            }
+            Split(['#panel-one','#panel-two','#panel-three'],{
+                minSize: [300,300,0],
+                direction: 'horizontal',
+            });
+        }
     </script>
 </body>
 </html>
