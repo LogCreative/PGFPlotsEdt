@@ -32,8 +32,8 @@
                 </div>
             </div>
     </div>
-    <div class="drag-container" id="app">
-        <div id="drag-left" class="panel-one">
+    <div class="container" id="app">
+        <div id="panel-one" class="split">
             <button v-on="{click: compile}" id="compileBtn">编译</button><br>
             <iframe v-bind:src="curl" id="compilePrev"></iframe>
             <details>
@@ -69,8 +69,8 @@
                 </div>
             </details>
         </div>
-        <div class="dragbar" id="dragbar"></div>
-        <div id="drag-right" class="panel-two">
+        <!-- <div class="dragbar" id="dragbar"></div> -->
+        <div id="panel-two" class="split">
             <div id="settings">
                 <details id="packages">
                     <summary>
@@ -133,9 +133,6 @@
             </div>
             
             <div id="auto">
-                <button v-clipboard:copy="content">复制绘图代码</button>
-                <button v-clipboard:copy="file">复制全部代码</button>
-                <button onclick="gomanual()">手动编辑⚠</button>
                 <details>
                     <summary>
                         代码
@@ -148,6 +145,9 @@
                     <textarea v-model="suffix" readonly="readonly" style="min-height: 50px;"></textarea>
                 </div>
                 </details>
+                <button v-clipboard:copy="content">复制绘图代码</button>
+                <button v-clipboard:copy="file">复制全部代码</button>
+                <button onclick="gomanual()">手动编辑⚠</button>
             </div>
             <div id="code">
                 <textarea id="manualfile" style="display:none; min-height: 450px;"></textarea>
@@ -299,6 +299,12 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/vue-clipboard2/0.3.1/vue-clipboard.js"></script>
     <script src="js/main.js"></script>
     <script src="js/directive_cn.js"></script>
-    <script src="js/drag.js"></script>
+    <!-- <script src="js/drag.js"></script> -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/split.js/1.6.2/split.min.js"></script>
+    <script>
+        Split(['#panel-one','#panel-two'],{
+            direction:'horizontal',
+        });
+    </script>
 </body>
 </html>
