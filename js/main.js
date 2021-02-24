@@ -440,6 +440,7 @@ var gomanual = function(){
     document.getElementById('settings').style.display = 'none';
     document.getElementById('auto').style.display = 'none';
     app.manual = true;
+    // Split(['#panel-one','#panel-two']);
 };
 
 const t_premable = "\\begin{tikzpicture}\n\\begin{axis}["

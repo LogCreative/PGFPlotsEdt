@@ -5,14 +5,16 @@ a{
 
 .nav{
     background:whitesmoke;
-    /* margin-bottom: 5px; */
-    padding: 5px;
+    padding: 5px 0px;
 }
 
 #extlinks{
     float: right;
     text-align: right;
-    margin-right: 10px;             /* fix temp */
+}
+
+#title, #extlinks {
+    margin: 0px 5px;
 }
 
 .container{
@@ -28,8 +30,9 @@ a{
     display: inline-block;
 } */
 
-#properties,
-#code{
+#properties
+/* ,#code */
+{
     width: 60%;
     /* float: right; */
 }
@@ -219,6 +222,7 @@ input[type=checkbox]:disabled:after {
     color: black; */
 }
 
+
 .split, .gutter.gutter-horizontal {
     float: left;
     height: 500px;
@@ -226,6 +230,10 @@ input[type=checkbox]:disabled:after {
 .gutter.gutter-horizontal {
     cursor: col-resize;
 }
+/* .gutter.gutter-vertical{
+    display: flexs;
+    width: 300px;
+} */
 
 .split {
     -webkit-box-sizing: border-box;

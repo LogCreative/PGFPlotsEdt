@@ -6,13 +6,13 @@
     <title>PGFPlots 代码生成器</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/drag.css">
+    <!-- <link rel="stylesheet" href="css/drag.css"> -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
     <div class="nav">
-            <a href="https://logcreative.github.io/LaTeXSparkle/" target="_blank" class="logo"><svg style="fill: black; font-family: Times,'宋体'" width="144" height="35">
+            <a id="title" href="https://logcreative.github.io/LaTeXSparkle/" target="_blank" class="logo"><svg style="fill: black; font-family: Times,'宋体'" width="144" height="35">
                 <text x="0" y="28" style="font-size: x-large">像</text>
                 <text x="21" y="23" style="font-size:large">模</text>
                 <text x="36" y="33" style="font-size: x-large">像</text>
@@ -34,40 +34,44 @@
     </div>
     <div class="container" id="app">
         <div id="panel-one" class="split">
-            <button v-on="{click: compile}" id="compileBtn">编译</button><br>
-            <iframe v-bind:src="curl" id="compilePrev"></iframe>
-            <details>
-                <summary>
-                    坐标系
-                </summary>
-                <div id="axis">
-                    <tr><td>增补参数</td><td></td><td><input type="text" v-model="surplusparam" placeholder="参数"></input></td></tr>
-                        <property chname="宽度" propkey="width"></property>    
-                        <property chname="高度" propkey="height"></property>
-                        <propertyselect chname="字号" propkey="font" :options="['\\tiny','\\scriptsize','\\footnotesize','\\small','\\normalsize','\\large','\\Large','\\LARGE','\\huge','\\Huge']"></propertyselect>    
-                        <property chname="标题" propkey="title"></property>
-                    <div v-show="enableLegend">
-                        <propertyselect chname="图例位置" propkey="legend pos" :options="['south west','south east','north west','north east','outer north east']"></propertyselect>    
+            <div id="panel-vone">
+                <button v-on="{click: compile}" id="compileBtn">编译</button><br>
+                <iframe v-bind:src="curl" id="compilePrev"></iframe>
+            </div>
+            <div id="panel-vtwo">
+                <details>
+                    <summary>
+                        坐标系
+                    </summary>
+                    <div id="axis">
+                        <tr><td>增补参数</td><td></td><td><input type="text" v-model="surplusparam" placeholder="参数"></input></td></tr>
+                            <property chname="宽度" propkey="width"></property>    
+                            <property chname="高度" propkey="height"></property>
+                            <propertyselect chname="字号" propkey="font" :options="['\\tiny','\\scriptsize','\\footnotesize','\\small','\\normalsize','\\large','\\Large','\\LARGE','\\huge','\\Huge']"></propertyselect>    
+                            <property chname="标题" propkey="title"></property>
+                        <div v-show="enableLegend">
+                            <propertyselect chname="图例位置" propkey="legend pos" :options="['south west','south east','north west','north east','outer north east']"></propertyselect>    
+                        </div>
+                            <tr>x轴</tr>
+                            <property chname="轴题" propkey="xlabel"></property>
+                            <property chname="最小" propkey="xmin"></property>
+                            <property chname="最大" propkey="xmax"></property>
+                            <propertyselect chname="箭头" propkey="axis x line" :options="['top','middle','bottom']"></propertyselect>
+                            <tr>y轴</tr>
+                            <property chname="轴题" propkey="ylabel"></property>
+                            <property chname="最小" propkey="ymin"></property>
+                            <property chname="最大" propkey="ymax"></property>
+                            <propertyselect chname="箭头" propkey="axis y line" :options="['left','middle','right']"></propertyselect>
+                        <div v-show="td">
+                            <tr>z轴</tr>
+                            <property chname="轴题" propkey="zlabel"></property>
+                            <property chname="最小" propkey="zmin"></property>
+                            <property chname="最大" propkey="zmax"></property>
+                            <propertyselect chname="箭头" propkey="axis z line" :options="['left','middle','right']"></propertyselect>
+                        </div>
                     </div>
-                        <tr>x轴</tr>
-                        <property chname="轴题" propkey="xlabel"></property>
-                        <property chname="最小" propkey="xmin"></property>
-                        <property chname="最大" propkey="xmax"></property>
-                        <propertyselect chname="箭头" propkey="axis x line" :options="['top','middle','bottom']"></propertyselect>
-                        <tr>y轴</tr>
-                        <property chname="轴题" propkey="ylabel"></property>
-                        <property chname="最小" propkey="ymin"></property>
-                        <property chname="最大" propkey="ymax"></property>
-                        <propertyselect chname="箭头" propkey="axis y line" :options="['left','middle','right']"></propertyselect>
-                    <div v-show="td">
-                        <tr>z轴</tr>
-                        <property chname="轴题" propkey="zlabel"></property>
-                        <property chname="最小" propkey="zmin"></property>
-                        <property chname="最大" propkey="zmax"></property>
-                        <propertyselect chname="箭头" propkey="axis z line" :options="['left','middle','right']"></propertyselect>
-                    </div>
-                </div>
-            </details>
+                </details>
+            </div>
         </div>
         <!-- <div class="dragbar" id="dragbar"></div> -->
         <div id="panel-two" class="split">
@@ -132,27 +136,31 @@
                 </details>
             </div>
             
-            <div id="auto">
-                <details>
-                    <summary>
-                        代码
-                    </summary>
-                    <div>
-                    <textarea v-model="premable" readonly="readonly" style="min-height: 130px;"></textarea>
-                    <textarea v-model="content" id="texContent" readonly="readonly" style="min-height: 200px;">\begin{axis}[{{param}}]
-            {{series}}
-        \end{axis}</textarea>
-                    <textarea v-model="suffix" readonly="readonly" style="min-height: 50px;"></textarea>
-                </div>
-                </details>
-                <button v-clipboard:copy="content">复制绘图代码</button>
-                <button v-clipboard:copy="file">复制全部代码</button>
-                <button onclick="gomanual()">手动编辑⚠</button>
-            </div>
+            
             <div id="code">
                 <textarea id="manualfile" style="display:none; min-height: 450px;"></textarea>
             </div>
         </div> 
+        <div id="panel-three" class="split">
+            <div id="auto">
+            <button v-clipboard:copy="content">复制绘图代码</button>
+            <button v-clipboard:copy="file">复制全部代码</button>
+            <button onclick="gomanual()">手动编辑⚠</button>
+            <details open>
+                <summary>
+                    代码
+                </summary>
+                <div>
+                <textarea v-model="premable" readonly="readonly" style="min-height: 130px;"></textarea>
+                <textarea v-model="content" id="texContent" readonly="readonly" style="min-height: 200px;">\begin{axis}[{{param}}]
+        {{series}}
+    \end{axis}</textarea>
+                <textarea v-model="suffix" readonly="readonly" style="min-height: 50px;"></textarea>
+            </div>
+            </details>
+            
+        </div> 
+        </div>
         
         
     </div>
@@ -302,9 +310,10 @@
     <!-- <script src="js/drag.js"></script> -->
     <script src="https://cdn.bootcdn.net/ajax/libs/split.js/1.6.2/split.min.js"></script>
     <script>
-        Split(['#panel-one','#panel-two'],{
-            direction:'horizontal',
-        });
+        Split(['#panel-one','#panel-two','#panel-three']);
+        // Split(['#panel-vone','#panel-vtwo'],{
+        //     direction: 'vertical',
+        // })
     </script>
 </body>
 </html>
