@@ -279,11 +279,6 @@ input[type=text]{
     background-color: rgba(255, 0, 0, 0.5);
 }
 
-.parambar .params {
-    margin: 5px 10px;
-    color: rgb(0, 0, 117);
-}
-
 .coordbar {
     background-color: rgba(144, 238, 144, 0.3);
     border-top: 1px solid green;
