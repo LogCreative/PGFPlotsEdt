@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PGFPlots 代码生成器</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/drag.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
@@ -31,12 +32,45 @@
                 </div>
             </div>
     </div>
-    <div class="container" id="app">
-        <div id="compile">
+    <div class="drag-container" id="app">
+        <div id="drag-left" class="panel-one">
             <button v-on="{click: compile}" id="compileBtn">编译</button><br>
             <iframe v-bind:src="curl" id="compilePrev"></iframe>
+            <details>
+                <summary>
+                    坐标系
+                </summary>
+                <div id="axis">
+                    <tr><td>增补参数</td><td></td><td><input type="text" v-model="surplusparam" placeholder="参数"></input></td></tr>
+                        <property chname="宽度" propkey="width"></property>    
+                        <property chname="高度" propkey="height"></property>
+                        <propertyselect chname="字号" propkey="font" :options="['\\tiny','\\scriptsize','\\footnotesize','\\small','\\normalsize','\\large','\\Large','\\LARGE','\\huge','\\Huge']"></propertyselect>    
+                        <property chname="标题" propkey="title"></property>
+                    <div v-show="enableLegend">
+                        <propertyselect chname="图例位置" propkey="legend pos" :options="['south west','south east','north west','north east','outer north east']"></propertyselect>    
+                    </div>
+                        <tr>x轴</tr>
+                        <property chname="轴题" propkey="xlabel"></property>
+                        <property chname="最小" propkey="xmin"></property>
+                        <property chname="最大" propkey="xmax"></property>
+                        <propertyselect chname="箭头" propkey="axis x line" :options="['top','middle','bottom']"></propertyselect>
+                        <tr>y轴</tr>
+                        <property chname="轴题" propkey="ylabel"></property>
+                        <property chname="最小" propkey="ymin"></property>
+                        <property chname="最大" propkey="ymax"></property>
+                        <propertyselect chname="箭头" propkey="axis y line" :options="['left','middle','right']"></propertyselect>
+                    <div v-show="td">
+                        <tr>z轴</tr>
+                        <property chname="轴题" propkey="zlabel"></property>
+                        <property chname="最小" propkey="zmin"></property>
+                        <property chname="最大" propkey="zmax"></property>
+                        <propertyselect chname="箭头" propkey="axis z line" :options="['left','middle','right']"></propertyselect>
+                    </div>
+                </div>
+            </details>
         </div>
-        <div id="properties">
+        <div class="dragbar" id="dragbar"></div>
+        <div id="drag-right" class="panel-two">
             <div id="settings">
                 <details id="packages">
                     <summary>
@@ -96,41 +130,13 @@
                         </div>
                     </div>
                 </details>
-                <details>
-                    <summary>
-                        坐标系
-                    </summary>
-                    <div id="axis">
-                        <tr><td>增补参数</td><td></td><td><input type="text" v-model="surplusparam" placeholder="参数"></input></td></tr>
-                            <property chname="宽度" propkey="width"></property>    
-                            <property chname="高度" propkey="height"></property>
-                            <propertyselect chname="字号" propkey="font" :options="['\\tiny','\\scriptsize','\\footnotesize','\\small','\\normalsize','\\large','\\Large','\\LARGE','\\huge','\\Huge']"></propertyselect>    
-                            <property chname="标题" propkey="title"></property>
-                        <div v-show="enableLegend">
-                            <propertyselect chname="图例位置" propkey="legend pos" :options="['south west','south east','north west','north east','outer north east']"></propertyselect>    
-                        </div>
-                            <tr>x轴</tr>
-                            <property chname="轴题" propkey="xlabel"></property>
-                            <property chname="最小" propkey="xmin"></property>
-                            <property chname="最大" propkey="xmax"></property>
-                            <propertyselect chname="箭头" propkey="axis x line" :options="['top','middle','bottom']"></propertyselect>
-                            <tr>y轴</tr>
-                            <property chname="轴题" propkey="ylabel"></property>
-                            <property chname="最小" propkey="ymin"></property>
-                            <property chname="最大" propkey="ymax"></property>
-                            <propertyselect chname="箭头" propkey="axis y line" :options="['left','middle','right']"></propertyselect>
-                        <div v-show="td">
-                            <tr>z轴</tr>
-                            <property chname="轴题" propkey="zlabel"></property>
-                            <property chname="最小" propkey="zmin"></property>
-                            <property chname="最大" propkey="zmax"></property>
-                            <propertyselect chname="箭头" propkey="axis z line" :options="['left','middle','right']"></propertyselect>
-                        </div>
-                    </div>
-                </details>
             </div>
+            
             <div id="auto">
-                <details open>
+                <button v-clipboard:copy="content">复制绘图代码</button>
+                <button v-clipboard:copy="file">复制全部代码</button>
+                <button onclick="gomanual()">手动编辑⚠</button>
+                <details>
                     <summary>
                         代码
                     </summary>
@@ -142,14 +148,13 @@
                     <textarea v-model="suffix" readonly="readonly" style="min-height: 50px;"></textarea>
                 </div>
                 </details>
-                <button v-clipboard:copy="content">复制绘图代码</button>
-                <button v-clipboard:copy="file">复制全部代码</button>
-                <button onclick="gomanual()">手动编辑⚠</button>
+            </div>
+            <div id="code">
+                <textarea id="manualfile" style="display:none; min-height: 450px;"></textarea>
             </div>
         </div> 
-        <div id="code">
-            <textarea id="manualfile" style="display:none; min-height: 450px;"></textarea>
-        </div>
+        
+        
     </div>
     <template id="libtpl">
         <td><input type="checkbox" v-model="enabled" @change="onlibchange">{{chname}}</input></td>
@@ -158,7 +163,6 @@
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
                 <label>
-                    <!-- 字段验证 -->
                     <div><input type="text" class="legend" placeholder="表源" v-model="sourceName" @keyup="on_change" v-validate="sourceName"></div>
                      ({{idInner|addZero}})
                     <input type="checkbox" class="showToggle" v-model="show" @click="onschange" title="显示图层">
@@ -191,7 +195,6 @@
                 <input type="checkbox" @click="oncchange" v-model="cycle" title="循环面积">
             </div>
             <div><input type="text" class="param" placeholder="参数" v-model="param" @keyup="on_change"></div>
-            <!-- <br> -->
             <div><input type="text" class="coord" placeholder="函数式" v-model="expression" @keyup="on_change" v-minimize="etd"></div>
             <div v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></div>
             <div v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></div>
@@ -262,7 +265,6 @@
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
                 <label>
-                    <!-- <div v-show="!onlegend">标注</div> -->
                     <div><input type="text" class="legend" placeholder="标注" v-model="pin" @keyup="on_change"></div>
                      [{{idInner|addZero}}]
                     <input type="checkbox" class="showToggle" v-model="show" @click="onschange" title="显示图层">
@@ -295,7 +297,8 @@
     </template>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue-clipboard2/0.3.1/vue-clipboard.js"></script>
-    <script src="main.js"></script>
-    <script src="directive_cn.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/directive_cn.js"></script>
+    <script src="js/drag.js"></script>
 </body>
 </html>

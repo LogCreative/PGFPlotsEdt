@@ -24,16 +24,18 @@ Vue.directive('soutline',function(el,binding){
     }
 });
 
+// 验证名称的合法性
 Vue.directive('validate',function(el,binding){
     if(binding.value==''||                      // 是否为空
         new RegExp("[0-9]").test(binding.value) // 是否存在数字
         ){
         // el.style['background-color']= "lightgray";
         el.style['border']= "2px solid red";
+        el.style['padding'] = '1px 2px';
     }
     else{ 
         // el.style['background-color']= "white";
         el.style['border']= "0.5px solid grey";
-        el.style['padding'] = '1px 3.7px';
+        el.style['padding'] = '1px 3px';
     }
 });
