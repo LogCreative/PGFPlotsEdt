@@ -226,8 +226,7 @@ input[type=checkbox]:disabled:after {
     color: black; */
 }
 
-
-.split, .gutter.gutter-horizontal {
+.gutter.gutter-horizontal {
     float: left;
     height: 575px;
 }
@@ -237,17 +236,8 @@ input[type=checkbox]:disabled:after {
 .gutter.gutter-horizontal:hover {
     background-color: lightgray;
 }
-/* .gutter.gutter-vertical{
-    display: flexs;
-    width: 300px;
-} */
-
-.split {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
 
 #panel-three{
     overflow-x:hidden;
 }
+

@@ -6,7 +6,6 @@
     <title>PGFPlots 代码生成器</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="main.css">
-    <!-- <link rel="stylesheet" href="css/drag.css"> -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
@@ -310,9 +309,18 @@
     <script src="directive_cn.js"></script>
     <!-- <script src="js/drag.js"></script> -->
     <script>
-        Split(['#panel-one','#panel-two','#panel-three'],{
-            minSize: [300,300,0]
-        });
+        if(window.innerWidth>900){
+            // 启用split
+            var sps = document.getElementsByClassName('split');
+            for(var i in [0,1,2]){
+                sps[i].style.float = 'left';
+                sps[i].style.height = '575px';
+            }
+            Split(['#panel-one','#panel-two','#panel-three'],{
+                minSize: [300,300,0],
+                direction: 'horizontal',
+            });
+        }
     </script>
 </body>
 </html>
