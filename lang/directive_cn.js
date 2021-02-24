@@ -31,11 +31,24 @@ Vue.directive('validate',function(el,binding){
         ){
         // el.style['background-color']= "lightgray";
         el.style['border']= "2px solid red";
-        el.style['padding'] = '1px 2px';
+        // el.style['padding'] = '1px 2px';
     }
     else{ 
         // el.style['background-color']= "white";
         el.style['border']= "0.5px solid grey";
-        el.style['padding'] = '1px 3px';
+        // el.style['padding'] = '1px 3px';
     }
 });
+
+// 系列的参数字典
+var sparamDic = {
+    'mark':['散点标记',{
+        '*':'圆点',
+        'o':'圆圈',
+    }],
+    'only marks':['只显示散点标记'],
+    'scatter':['七彩散点标记'],
+    'ybar':['纵向柱形图'],
+    'xbar':['横向柱形图'],
+}
+

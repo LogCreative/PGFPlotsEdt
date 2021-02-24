@@ -71,6 +71,7 @@ var seriesMixin = {
             enabled: true,
             show: true,
             paramfoc: false,
+            command:"",
         }
     },
     props: {
@@ -118,6 +119,14 @@ var seriesMixin = {
         },
         param_losefocus: function(){
             this.paramfoc = false;
+        },
+        onpchange: function(){
+            // 提取最后一个逗号后的command
+            var input = this.param;
+            var index = input.lastIndexOf(',');
+            var _command = input.substring(index+1,input.length);
+            this.command = _command;
+            this.on_change();
         },
     },
     filters:{
@@ -196,6 +205,38 @@ var readFile = function(e){
 // 参数工具栏（子组件）
 Vue.component('parambar',{
     template: "#parambartpl",
+    props:{
+        command:String,
+    },
+    data: function(){
+        return {
+            matchedCommands: sparamDic,
+            submenu: {},
+        }
+    },
+    watch:{
+        command(_command){
+            this.submenu = {};
+            var eq = _command.indexOf('=');
+            if(eq!=-1){  // 先看有没有等号
+                for(var key in this.matchedCommands)    
+                    if(key==_command.substring(0,eq))
+                        this.submenu = sparamDic[key][1];
+            }
+            else {      // 否则再刷新列表
+                this.matchedCommands = new Array();
+                for(var key in sparamDic)
+                    if(key.indexOf(_command)!=-1)
+                        this.matchedCommands[key] = sparamDic[key];
+            }
+        }
+    },
+    // filters:{
+    //     matchCom: function(_command){
+            
+    //         return matchedString;
+    //     },
+    // }
 });
 
 // 函数组件
@@ -477,6 +518,7 @@ var gomanual = function(){
     document.getElementById('panel-vtwo').style.display = 'none';
     document.getElementById('panel-three').style.width = '0px';
     document.getElementById('panel-two').style.width = window.innerWidth - document.getElementById('panel-one').style.width;
+    document.getElementById('compilePrev').style.height = '430px';
     app.manual = true;
     // Split(['#panel-one','#panel-two']);
 };
