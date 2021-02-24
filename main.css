@@ -38,16 +38,20 @@ a{
 }
 
 textarea{
-    width: 100%;
-    min-height: 150px;
+    width: 98%;
+    min-height: 200px;
+}
+
+#texContent {
+    height: 345px;
 }
 
 #compileBtn{
-    width: 101%;
+    width: 100%;
 }
 
 #compilePrev{
-    width: 100%;
+    width: 99%;
     height: 300px;
 }
 
@@ -97,11 +101,11 @@ summary {
     margin: 5px;
 }
 
-/* #axis{
+#axis{
     width: 100%;
     max-height: 200px;
     overflow-y: scroll;
-} */
+}
 
 #series .seriesitem div{
     display: inline;
@@ -225,10 +229,13 @@ input[type=checkbox]:disabled:after {
 
 .split, .gutter.gutter-horizontal {
     float: left;
-    height: 500px;
+    height: 575px;
 }
 .gutter.gutter-horizontal {
     cursor: col-resize;
+}
+.gutter.gutter-horizontal:hover {
+    background-color: lightgray;
 }
 /* .gutter.gutter-vertical{
     display: flexs;
@@ -239,4 +246,8 @@ input[type=checkbox]:disabled:after {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+}
+
+#panel-three{
+    overflow-x:hidden;
 }

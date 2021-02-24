@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PGFPlots 代码生成器</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="main.css">
     <!-- <link rel="stylesheet" href="css/drag.css"> -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -146,10 +146,10 @@
             <button v-clipboard:copy="content">复制绘图代码</button>
             <button v-clipboard:copy="file">复制全部代码</button>
             <button onclick="gomanual()">手动编辑⚠</button>
-            <details open>
+            <!-- <details open>
                 <summary>
                     代码
-                </summary>
+                </summary> -->
                 <div>
                 <textarea v-model="premable" readonly="readonly" style="min-height: 130px;"></textarea>
                 <textarea v-model="content" id="texContent" readonly="readonly" style="min-height: 200px;">\begin{axis}[{{param}}]
@@ -157,7 +157,7 @@
     \end{axis}</textarea>
                 <textarea v-model="suffix" readonly="readonly" style="min-height: 50px;"></textarea>
             </div>
-            </details>
+            <!-- </details> -->
             
         </div> 
         </div>
@@ -305,15 +305,14 @@
     </template>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue-clipboard2/0.3.1/vue-clipboard.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/directive_cn.js"></script>
-    <!-- <script src="js/drag.js"></script> -->
     <script src="https://cdn.bootcdn.net/ajax/libs/split.js/1.6.2/split.min.js"></script>
+    <script src="main.js"></script>
+    <script src="directive_cn.js"></script>
+    <!-- <script src="js/drag.js"></script> -->
     <script>
-        Split(['#panel-one','#panel-two','#panel-three']);
-        // Split(['#panel-vone','#panel-vtwo'],{
-        //     direction: 'vertical',
-        // })
+        Split(['#panel-one','#panel-two','#panel-three'],{
+            minSize: [300,300,0]
+        });
     </script>
 </body>
 </html>

@@ -439,6 +439,9 @@ var gomanual = function(){
     mf.style.display = 'block';
     document.getElementById('settings').style.display = 'none';
     document.getElementById('auto').style.display = 'none';
+    document.getElementById('panel-vtwo').style.display = 'none';
+    document.getElementById('panel-three').style.width = '0px';
+    document.getElementById('panel-two').style.width = window.innerWidth - document.getElementById('panel-one').style.width;
     app.manual = true;
     // Split(['#panel-one','#panel-two']);
 };
