@@ -228,6 +228,7 @@ Vue.component('parambar',{
     },
     data: function(){
         return {
+            bestMatch:["no","no"],
             optionalCommands: {},
             matchedCommands: sparamDic,
             submenu: {},
@@ -260,21 +261,36 @@ Vue.component('parambar',{
             var eq = _command.indexOf('=');
             if(eq!=-1){  // 先看有没有等号
                 this.eq = true;
-                for(var key in this.matchedCommands)    
-                    if(key==_command.substring(0,eq))
-                        for(var subkey in sparamDic[key][1])
-                            if(subkey.indexOf(_command.substring(eq+1,_command.length))!=-1)
-                                this.submenu[subkey] = sparamDic[key][1][subkey];
+                var bm = this.bestMatch[0]
+                if(bm==_command.substring(0,eq))
+                    for(var subkey in sparamDic[bm][1])
+                        if(subkey.indexOf(_command.substring(eq+1,_command.length))!=-1)
+                            this.submenu[subkey] = sparamDic[bm][1][subkey];
             }
             else {      // 否则再刷新列表
                 this.eq = false;
                 this.matchedCommands = {};
-                for(var key in this.optionalCommands)
-                    if(key.indexOf(_command)!=-1)
-                        this.matchedCommands[key] = this.optionalCommands[key];
-                for(var key in sparamDic)
-                    if(key.indexOf(_command)!=-1)
-                        this.matchedCommands[key] = sparamDic[key];
+                this.bestMatch = ["no","no"];
+                var bestMatchNum = 1000;
+                var me = this;
+                var checkingDic = function (dic) {
+                    for(var key in dic)
+                        if(key.indexOf(_command)!=-1){
+                            me.matchedCommands[key] = dic[key];
+                            var matchLeft = key.length - _command.length;
+                            if(matchLeft<bestMatchNum){
+                                var haseq = !(dic[key][1]==null);
+                                me.bestMatch = [key,dic[key],haseq];
+                                bestMatchNum = matchLeft;
+                            }
+                        }   
+                }
+                checkingDic(this.optionalCommands);
+                checkingDic(sparamDic);
+                if(_command=='')
+                    this.bestMatch=["no","no"];
+                if(this.bestMatch!=["no","no"])
+                    delete this.matchedCommands[this.bestMatch[0]];
             }
         }
     }

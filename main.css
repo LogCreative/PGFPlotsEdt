@@ -310,3 +310,7 @@ input[type=text]{
 .matchkey{
     width: 150px;
 }
+
+.matchside{
+    float:right;
+}
