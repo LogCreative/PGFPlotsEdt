@@ -259,7 +259,9 @@ Vue.component('parambar',{
                 this.eq = true;
                 for(var key in this.matchedCommands)    
                     if(key==_command.substring(0,eq))
-                        this.submenu = sparamDic[key][1];
+                        for(var subkey in sparamDic[key][1])
+                            if(subkey.indexOf(_command.substring(eq+1,_command.length))!=-1)
+                                this.submenu[subkey] = sparamDic[key][1][subkey];
             }
             else {      // 否则再刷新列表
                 this.eq = false;
