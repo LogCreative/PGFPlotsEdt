@@ -18,7 +18,7 @@ var colorDic = {
     "orange":"橙色",
     "pink":"粉色",
     "purple":"紫色",
-    "teal":"茶绿色",
+    "teal":"蓝绿色",
     "violet":"紫罗兰色",
 };
 

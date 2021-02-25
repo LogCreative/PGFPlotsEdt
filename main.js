@@ -17,6 +17,7 @@ Vue.component('lib',{
         category: String,
         chname: String,
         libname: String,
+        customized: String,
     },
     data: function(){
         return {
@@ -26,7 +27,9 @@ Vue.component('lib',{
     methods: {
         onlibchange: function(){
             if(this.enabled){
-                app.packages[this.id] = "\\use" + this.category + "library{" + this.libname + "}\n";
+                if(this.customized=="0")
+                    app.packages[this.id] = "\\use" + this.category + "library{" + this.libname + "}\n";
+                else app.packages[this.id] = "\\" + this.category + "{" + this.libname + "}\n";
                 if(this.id==1)
                     for(var key in plotmarksDic)
                         sparamDic["mark"][1][key] = plotmarksDic[key];
