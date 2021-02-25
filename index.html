@@ -201,7 +201,7 @@
             <div class="ctd">
                 <input type="checkbox" @click="oncchange" v-model="cycle" title="循环面积">
             </div>
-            <div><input type="text" class="param" placeholder="参数" v-model="param" @keyup="onpchange" @focus="param_focused" @blur="param_losefocus"></div>
+            <div><input type="text" class="param" placeholder="参数" v-model="param" @keyup="onpachange" @focus="param_focused" @blur="param_losefocus"></div>
             <div><input type="text" class="coord" placeholder="函数式" v-model="expression" @keyup="on_change" v-minimize="etd"></div>
             <div v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></div>
             <div v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></div>
@@ -235,7 +235,7 @@
             <div class="ctd">
                 <input type="checkbox" @click="oncchange" v-model="cycle" title="循环面积">
             </div>
-            <div><input type="text" class="param" v-model="param" @keyup="onpchange" placeholder="参数" @focus="param_focused" @blur="param_losefocus"></div>
+            <div><input type="text" class="param" v-model="param" @keyup="onpachange" placeholder="参数" @focus="param_focused" @blur="param_losefocus"></div>
             <!-- <br> -->
             <div><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据" @focus="coord_focused" @blur="coord_losefocus"></div>
             <parambar v-show="paramfoc" :command="command" :etd="etd"></parambar>
@@ -283,7 +283,7 @@
             <div class="ctd">
                 <input type="checkbox" @click="oncchange" v-model="cycle" title="循环面积">
             </div>
-            <div><input type="text" class="param" v-model="param" @keyup="onpchange" placeholder="参数"  @focus="param_focused" @blur="param_losefocus"></div>
+            <div><input type="text" class="param" v-model="param" @keyup="onpachange" placeholder="参数"  @focus="param_focused" @blur="param_losefocus"></div>
             <div><input type="text" class="coord" v-model="tableparam" @keyup="on_change" placeholder="表参数" @focus="tableparam_focused" @blur="tableparam_losefocus"></div>
             <div v-show="enablesource">
                 <select v-model="sourceSelect" @change="on_change">

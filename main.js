@@ -120,7 +120,7 @@ var seriesMixin = {
         param_losefocus: function(){
             this.paramfoc = false;
         },
-        onpchange: function(){
+        onpachange: function(){
             // 提取最后一个逗号后的command
             var input = this.param;
             var index = input.lastIndexOf(',');
