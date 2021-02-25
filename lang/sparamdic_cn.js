@@ -1,3 +1,27 @@
+// 颜色字典
+var colorDic = {
+    "none":"无颜色",
+    "red":"红色",
+    "green":"绿色",
+    "blue":"蓝色",
+    "cyan":"青色",
+    "magenta":"洋红",
+    "yellow":"黄色",
+    "black":"黑色",
+    "gray":"灰色",
+    "white":"白色",
+    "darkgrey":"深灰",
+    "lightgrey":"浅灰",
+    "brown":"棕色",
+    "lime":"酸橙色",
+    "olive":"橄榄绿",
+    "orange":"橙色",
+    "pink":"粉色",
+    "purple":"紫色",
+    "teal":"茶绿色",
+    "violet":"紫罗兰色",
+};
+
 // 系列的参数字典
 // TODO: 使用 json 读取
 var sparamDic = {
@@ -20,12 +44,29 @@ var sparamDic = {
     "samples":["取样数量",{
         "[数量]":"样本点的取样数量",
     }],
-    "color":["线形颜色",{
-        "[颜色]":"线形颜色",
+    "color":["颜色",colorDic],
+    "draw":["线形颜色",colorDic],
+    "fill":["填充颜色",colorDic],
+    "solid":["实线"],
+    "dotted":["点线"],
+    "densely dotted":["密点线"],
+    "loosely dotted":["疏点线"],
+    "dashed":["虚线"],
+    "densely dashed":["密虚线"],
+    "loosely dashed":["疏虚线"],
+    "dashdotted":["点虚线"],
+    "densely dashdotted":["密点虚线"],
+    "loosely dashdotted":["虚点虚线"],
+    "line width":["线条粗细",{
+        "[点数]pt":"线条粗细",
     }],
-    "fill":["填充颜色",{
-        "[颜色]":"填充颜色",
-    }]
+    "ultra thin":["极细线"],
+    "very thin":["超细线"],
+    "thin":["细线"],
+    "semithick":["半粗线"],
+    "thick":["粗线"],
+    "very thick":["超粗线"],
+    "ultra thick":["极粗线"],
 };
 
 // 三维参数增补字典
