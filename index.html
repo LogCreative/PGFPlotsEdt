@@ -168,11 +168,11 @@
     <template id="parambartpl">
         <div class="parambar" style="display: block;">
             <div class="title" style="display: block;">参数设置</div>
-            <div class="params">
+            <div class="notes">
                 <div v-for="(value,key,index) in matchedCommands" v-show="!eq">
-                    <tr>
-                        <td>{{key}}</td><td>{{value[0]}}</td><td>{{value[1]!=null}}</td>
-                    </tr><br>
+                    <div style="display: block;">
+                        <div class="matchkey">{{key}}</div><div class="matchnote">{{value[0]}}</div>
+                    </div>
                 </div>
                 <div v-for="(value,key,index) in submenu" v-show="eq">
                     <tr>
@@ -207,7 +207,7 @@
             <div><input type="text" class="coord" placeholder="函数式" v-model="expression" @keyup="on_change" v-minimize="etd"></div>
             <div v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></div>
             <div v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></div>
-            <parambar v-show="paramfoc" @click="param_focused" :command="command"></parambar>
+            <parambar v-show="paramfoc" @click="param_focused" :command="command" :etd="etd"></parambar>
         </div>
     </template>
     <template id="coordbartpl">
@@ -240,7 +240,7 @@
             <div><input type="text" class="param" v-model="param" @keyup="onpchange" placeholder="参数" @focus="param_focused" @blur="param_losefocus"></div>
             <!-- <br> -->
             <div><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据" @focus="coord_focused" @blur="coord_losefocus"></div>
-            <parambar v-show="paramfoc" :command="command"></parambar>
+            <parambar v-show="paramfoc" :command="command" :etd="etd"></parambar>
             <coordbar v-show="coordbar"></coordbar>
         </div>
     </template>
@@ -293,11 +293,11 @@
                 </select>
             </div>
             <div v-show="sourceSelect=='...'||!enablesource">
-                <div><input type="text" class="coord" v-model="fileName" placeholder="数据文件" style="display:none"></div>
-                <div><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表" style="display:none"></div>
-                <div><input type="file" id="files" class="fileChooser" @change="readFile"></div>
+                <div style="display:none"><input type="text" class="coord" v-model="fileName" placeholder="数据文件"></div>
+                <div style="display:none"><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表"></div>
+                <div style="display: inline-block; margin-left: -10px;"><input type="file" id="files" class="fileChooser" @change="readFile"></div>
             </div>
-            <parambar v-show="paramfoc" :command="command"></parambar>
+            <parambar v-show="paramfoc" :command="command" :etd="etd"></parambar>
             <tableparambar v-show="tableparambar"></tableparambar>
         </div>
     </template>
@@ -338,6 +338,7 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue-clipboard2/0.3.1/vue-clipboard.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/split.js/1.6.2/split.min.js"></script>
+    <script src="lang/sparamdic_cn.js"></script>
     <script src="lang/directive_cn.js"></script>
     <script src="main.js"></script>
     <script>
@@ -349,7 +350,9 @@
                 sps[i].style.height = '575px';
             }
             var instance = Split(['#panel-one','#panel-two','#panel-three'],{
-                minSize: [300,380,0],
+                sizes:[40,35,25],
+                minSize: [400,400,0],
+                expandToMin: true,
                 direction: 'horizontal',
             });
             instance.collapse(0);

@@ -6,6 +6,7 @@ a{
 .nav{
     background:whitesmoke;
     padding: 5px 0px;
+    margin-bottom: 10px;
 }
 
 #extlinks{
@@ -17,9 +18,9 @@ a{
     margin: 0px 5px;
 }
 
-.container{
+/* .container{
     padding: 15px;
-}
+} */
 
 #compile{
     width: 39%;
@@ -107,7 +108,8 @@ summary {
     overflow-y: scroll;
 }
 
-#series .seriesitem div{
+#series .seriesitem > div,
+#series .seriesitem label > div{
     display: inline;
     margin-right: -5px;
 }
@@ -253,18 +255,12 @@ input[type=text]{
 .parambar, .coordbar, .tableparambar{
     width: 100%;
     margin: 2px 0px 6px 0px;
-}
-
-.parambar {
-    background-color: rgba(173, 216, 230, 0.3);
-    border-top: 1px solid blue;
-    border-bottom: 1px solid blue;
+    font-size: small;
 }
 
 .title {
     color:white;
     width: 100%;
-    height: 20px;
 }
 
 .parambar .title{
@@ -277,6 +273,17 @@ input[type=text]{
 
 .tableparambar .title{
     background-color: rgba(255, 0, 0, 0.5);
+}
+
+.notes {
+    max-height: 125px;
+    overflow-y: auto;
+}
+
+.parambar {
+    background-color: rgba(173, 216, 230, 0.3);
+    border-top: 1px solid blue;
+    border-bottom: 1px solid blue;
 }
 
 .coordbar {
@@ -293,5 +300,13 @@ input[type=text]{
 
 .param:focus,
 .coord:focus {
+    width: 150px;
+}
+
+.matchkey,.matchnote {
+    display: inline-table;
+}
+
+.matchkey{
     width: 150px;
 }

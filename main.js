@@ -207,16 +207,33 @@ Vue.component('parambar',{
     template: "#parambartpl",
     props:{
         command:String,
+        etd:Boolean,
     },
     data: function(){
         return {
+            optionalCommands: {},
             matchedCommands: sparamDic,
             submenu: {},
+            optionalsubmenu: {},
             eq: false,
         }
     },
     watch:{
+        etd(_td){
+            if(_td)
+                for(var k in etdparamDic)
+                    this.optionalCommands[k] = etdparamDic[k];
+            else
+                for(var k in etdparamDic)
+                    delete this.optionalCommands[k];
+            this.refreshList(this.command);
+        },
         command(_command){
+            this.refreshList(_command);
+        }
+    },
+    methods:{
+        refreshList: function(_command) {
             this.submenu = {};
             var eq = _command.indexOf('=');
             if(eq!=-1){  // 先看有没有等号
@@ -228,12 +245,15 @@ Vue.component('parambar',{
             else {      // 否则再刷新列表
                 this.eq = false;
                 this.matchedCommands = {};
+                for(var key in this.optionalCommands)
+                    if(key.indexOf(_command)!=-1)
+                        this.matchedCommands[key] = this.optionalCommands[key];
                 for(var key in sparamDic)
                     if(key.indexOf(_command)!=-1)
                         this.matchedCommands[key] = sparamDic[key];
             }
         }
-    },
+    }
     // filters:{
     //     matchCom: function(_command){
             
