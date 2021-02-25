@@ -6,6 +6,9 @@ var updatePkg = function(){
     app.pkgstr = pkgstr;
 };
 
+// 库更新事件
+var libChangeEvent = new Vue();
+
 // 库组件
 Vue.component('lib',{
     template: '#libtpl',
@@ -22,10 +25,21 @@ Vue.component('lib',{
     },
     methods: {
         onlibchange: function(){
-            if(this.enabled)
+            if(this.enabled){
                 app.packages[this.id] = "\\use" + this.category + "library{" + this.libname + "}\n";
-            else delete app.packages[this.id];
+                if(this.id==1)
+                    for(var key in plotmarksDic)
+                        sparamDic["mark"][1][key] = plotmarksDic[key];
+            }
+            else{
+                delete app.packages[this.id];
+                if(this.id==1)
+                    for(var key in plotmarksDic)
+                        delete sparamDic["mark"][1][key];
+            }
             updatePkg();
+            if(this.id)
+                libChangeEvent.$emit('lib-change');
         }
     },
 });
@@ -214,9 +228,14 @@ Vue.component('parambar',{
             optionalCommands: {},
             matchedCommands: sparamDic,
             submenu: {},
-            optionalsubmenu: {},
             eq: false,
         }
+    },
+    mounted: function (){
+        var me = this;
+        libChangeEvent.$on('lib-change',function () {
+            me.refreshList(me.command);
+        });
     },
     watch:{
         etd(_td){
