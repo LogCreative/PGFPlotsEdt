@@ -179,7 +179,7 @@
                     </div>
                 </div>
                 <div v-for="(value,key,index) in submenu" v-show="eq">
-                    <div class="matchkey">{{key}}</div><div class="matchnote">{{value}}</div>
+                    <div class="matchkey">{{key}}</div><div class="matchnote">{{value[0]}}</div><div class="matchside"><colorbox :color="value[2]" v-show="value[1]=='color'"></colorbox></div>
                 </div>
             </div>
         </div>

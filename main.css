@@ -281,7 +281,8 @@ input[type=text]{
 }
 
 .parambar {
-    background-color: rgba(173, 216, 230, 0.3);
+    /* background-color: rgba(173, 216, 230, 0.3); */
+    background-color: white;
     border-top: 1px solid blue;
     border-bottom: 1px solid blue;
 }
@@ -313,4 +314,10 @@ input[type=text]{
 
 .matchside{
     float:right;
+}
+
+.colorbox{
+    width: 20px;
+    height: 10px;
+    border: 1px solid black;
 }

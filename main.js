@@ -219,6 +219,11 @@ var readFile = function(e){
     };
 };
 
+Vue.component('colorbox',{
+    template: '<div class="colorbox" :style="\'background-color:\' + color + \';\'">&nbsp;</div>',
+    props:['color'],
+});
+
 // 参数工具栏（子组件）
 Vue.component('parambar',{
     template: "#parambartpl",
@@ -262,10 +267,12 @@ Vue.component('parambar',{
             if(eq!=-1){  // 先看有没有等号
                 this.eq = true;
                 var bm = this.bestMatch[0]
-                if(bm==_command.substring(0,eq))
+                if(bm==_command.substring(0,eq)){
                     for(var subkey in sparamDic[bm][1])
                         if(subkey.indexOf(_command.substring(eq+1,_command.length))!=-1)
                             this.submenu[subkey] = sparamDic[bm][1][subkey];
+                }
+                else this.bestMatch = ["no","no"];
             }
             else {      // 否则再刷新列表
                 this.eq = false;
