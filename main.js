@@ -142,7 +142,7 @@ var seriesMixin = {
             var input = this.param;
             var index = input.lastIndexOf(',');
             var _command = input.substring(index+1,input.length);
-            this.command = _command;
+            this.command = _command.trim();          // 清除头尾空格
             this.on_change();
         },
     },
@@ -219,6 +219,7 @@ var readFile = function(e){
     };
 };
 
+// 颜色预览盒
 Vue.component('colorbox',{
     template: '<div class="colorbox" :style="\'background-color:\' + color + \';\'">&nbsp;</div>',
     props:['color'],
