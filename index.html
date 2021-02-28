@@ -157,7 +157,9 @@
             <div id="auto">
             <details id="codedetail">
                 <summary>
-                    代码
+                    代码 <button v-clipboard:copy="content">复制绘图代码</button>
+                    <button v-clipboard:copy="file">复制全部代码</button>
+                    <button onclick="gomanual()">手动编辑⚠</button>
                 </summary>
                 <div>
                 <textarea v-model="premable" readonly="readonly" style="min-height: 130px;"></textarea>
@@ -167,9 +169,6 @@
                 <textarea v-model="suffix" readonly="readonly" style="min-height: 50px;"></textarea>
             </div>
             </details>
-            <button v-clipboard:copy="content">复制绘图代码</button>
-            <button v-clipboard:copy="file">复制全部代码</button>
-            <button onclick="gomanual()">手动编辑⚠</button>
         </div> 
         </div>
         
