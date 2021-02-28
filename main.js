@@ -137,7 +137,12 @@ var seriesMixin = {
         param_losefocus: function(){
             this.paramfoc = false;
         },
-        onpachange: function(){
+        onpachange: function(e){
+            if(e.key=='Enter'){         // 自动填充
+                //得到最佳匹配
+                //定位逗号位
+                //替换 并确定是否需要等号
+            }
             // 提取最后一个逗号后的command
             var input = this.param;
             var index = input.lastIndexOf(',');
@@ -473,7 +478,6 @@ Vue.component('tablep',{
             this.updater();
         },
         updater: function(){
-            console.log(this.sourceSelect);
             seriesList[this.idInner] = [(this.etd? ("\\addplot3" + (this.plus?"+":"") + " ["):("\\addplot"+ (this.plus?"+":"") +" [")) + this.param + "] table[" + (this.sourceSelect=="..." ? "row sep=crcr," : "") + this.tableparam + "] {" + (this.sourceSelect=="..." ? this.datat : "\\" + this.sourceSelect) + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
             updateSeries();
         },
@@ -594,9 +598,9 @@ var gomanual = function(){
     // Split(['#panel-one','#panel-two']);
 };
 
-const t_premable = "\\begin{tikzpicture}\n\\begin{axis}["
+const t_premable = "\\begin{tikzpicture}\n"
 
-const tp_premable = "\\begin{tikzpicture}\n\\tikzset{\n every pin/.style={fill=yellow!50!white,rectangle,rounded corners=3pt,font=\\tiny},\n small dot/.style={fill=black,circle,scale=0.3},\n}\n\\begin{axis}["
+const tp_premable = "\\begin{tikzpicture}\n\\tikzset{\n every pin/.style={fill=yellow!50!white,rectangle,rounded corners=3pt,font=\\tiny},\n small dot/.style={fill=black,circle,scale=0.3},\n}\n"
 
 var app = new Vue({
     el: '#app',
@@ -620,6 +624,7 @@ var app = new Vue({
         tableps:[],
         nodeps:[],
         legend: "",
+        axistype: "0",
     },
     // mounted: function() {
     //     var me = this;
@@ -637,11 +642,19 @@ var app = new Vue({
             return s_premable + this.pkgstr + this.e_premable;
         },
         content: function(){
-            return (this.enablepin ? tp_premable : t_premable) 
+            var axistypename;
+            switch(this.axistype){
+                case "0": axistypename = "axis"; break;
+                case "1": axistypename = "semilogxaxis"; break;
+                case "2": axistypename = "semilogyaxis"; break;
+                case "3": axistypename = "loglogaxis"; break;
+            }
+            return (this.enablepin ? tp_premable : t_premable)
+            + "\\begin{" + axistypename + "}["
             + this.param + this.surplusparam +"]\n"
             + this.series
             + (this.enableLegend?" \\legend{" + this.legend +"}\n":"")
-            + "\\end{axis}\n\\end{tikzpicture}\n";
+            + "\\end{"+ axistypename + "}\n\\end{tikzpicture}\n";
         },
         file: function(){
             return this.premable + this.content + this.suffix;

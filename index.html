@@ -43,7 +43,17 @@
                         坐标系
                     </summary>
                     <div id="axis">
-                        <tr><td>增补参数</td><td></td><td><input type="text" v-model="surplusparam" placeholder="参数"></input></td></tr>
+                        <tr><td>增补参数</td><td><input type="text" v-model="surplusparam" placeholder="参数"></input></td></tr><br>
+                        <tr><td>坐标轴类型</td>
+                            <td>
+                                <select v-model="axistype">
+                                    <option value="0">普通坐标轴</option>
+                                    <option value="1">x对数轴</option>
+                                    <option value="2">y对数轴</option>
+                                    <option value="3">双对数轴</option>
+                                </select>
+                            </td>
+                        </tr>
                             <property chname="宽度" propkey="width"></property>    
                             <property chname="高度" propkey="height"></property>
                             <propertyselect chname="字号" propkey="font" :options="['\\tiny','\\scriptsize','\\footnotesize','\\small','\\normalsize','\\large','\\Large','\\LARGE','\\huge','\\Huge']"></propertyselect>    
@@ -352,12 +362,13 @@
                 sps[i].style.height = '575px';
             }
             var instance = Split(['#panel-one','#panel-two','#panel-three'],{
-                sizes:[40,35,25],
-                minSize: [400,400,0],
-                expandToMin: true,
+                sizes:[30,35,35],
+                // minSize: [400,400,0],
+                minSize: [0,0,0],
+                // expandToMin: true,
                 direction: 'horizontal',
             });
-            instance.collapse(0);
+            // instance.collapse(0);
             document.getElementById('codedetail').open = true;
         }
         else 
