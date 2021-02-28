@@ -38,14 +38,23 @@ a{
     /* float: right; */
 }
 
+.texCode,#texAllCode{
+    border: 2px solid transparent;
+    background-color: white;
+}
+
+code {
+    font-family: 'Consolas','Courier New', Courier, monospace;
+}
+
+pre{
+    margin: 0px;
+}
+
 textarea{
     width: 98%;
     min-height: 200px;
     border-color: grey;
-}
-
-#texContent {
-    height: 315px;
 }
 
 #compileBtn{

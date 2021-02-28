@@ -40,22 +40,21 @@ Vue.directive('validate',function(el,binding){
     }
 });
 
-var highlightCode = function (qselector,bcolor,fcolor) {
+var highlightCode = function (qselector,bcolor) {
     var x = document.querySelectorAll(qselector);
     for(var i = 0; i < x.length; ++i){
-        x[i].style['background-color']=bcolor;
-        x[i].style['color']=fcolor;
+        x[i].style['border']="2px solid " + bcolor;
     }
 }
 
 var hintCode = function (qselector) {
-    highlightCode(qselector,"rgba(0,128,0,0.5)","white");
+    highlightCode(qselector,"green");
 }
 
 var warnCode = function (qselector) {
-    highlightCode(qselector,"rgba(255, 255, 0, 0.5)","black");
+    highlightCode(qselector,"orange");
 }
 
 var blurCode = function (qselector) {
-    highlightCode(qselector,"white","black");
+    highlightCode(qselector,"transparent");
 }

@@ -1,3 +1,5 @@
+Vue.use(hljs.vuePlugin);
+
 // 更新库列表
 var updatePkg = function(){
     var pkgstr = "";
@@ -687,9 +689,9 @@ var app = new Vue({
         // },
         hintDrawCode: function () { hintCode("#texContent"); },
         blurDrawCode: function () { blurCode("#texContent") },
-        hintAllCode: function () { hintCode(".texCode"); },
-        warnAllCode: function () { warnCode(".texCode"); },
-        blurAllCode: function () { blurCode(".texCode") },
+        hintAllCode: function () { hintCode("#texAllCode"); },
+        warnAllCode: function () { warnCode("#texAllCode"); },
+        blurAllCode: function () { blurCode("#texAllCode") },
         compile: function() {
             // +属于url保留符号，需要转义为%2B才可以使用。
             // 全局匹配

@@ -161,12 +161,16 @@
                     <button v-clipboard:copy="file" id="btnAllCode"  @mouseover="hintAllCode" @mouseleave="blurAllCode">复制全部代码</button>
                     <button onclick="gomanual()" @mouseover="warnAllCode" @mouseleave="blurAllCode">手动编辑⚠</button>
                 </summary>
-                <div>
-                <textarea v-model="premable" readonly="readonly" style="min-height: 130px;" class="texCode"></textarea>
-                <textarea v-model="content" id="texContent" class="texCode" readonly="readonly" style="min-height: 200px;">\begin{axis}[{{param}}]
-        {{series}}
-    \end{axis}</textarea>
-                <textarea v-model="suffix" readonly="readonly" style="min-height: 50px;" class="texCode"></textarea>
+                <div id="texAllCode">
+                    <div class="texCode">
+                        <highlightjs language='latex' :code="premable" />
+                    </div>
+                    <div class="texCode" id="texContent">
+                        <highlightjs language='latex' :code="content"/>
+                    </div>
+                    <div class="texCode">
+                        <highlightjs language='latex' :code="suffix"/>
+                    </div>
             </div>
             </details>
         </div> 
@@ -359,6 +363,9 @@
     </template>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue-clipboard2/0.3.1/vue-clipboard.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/languages/latex.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/styles/vs.min.css" rel="stylesheet">
     <script src="https://cdn.bootcdn.net/ajax/libs/split.js/1.6.2/split.min.js"></script>
     <script src="lang/sparamdic_cn.js"></script>
     <script src="lang/directive_cn.js"></script>
