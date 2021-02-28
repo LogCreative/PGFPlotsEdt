@@ -74,13 +74,18 @@ var updateSeries = function(){
 
 // 系列公用属性
 var seriesMixin = {
-    created: function(){
-        this.etd = app.td;
+    // created: function(){
+    //     this.etd = app.td;
+    // },
+    props: {
+        id: Number,                 // Initial Value Only
+        ontd: Boolean,
+        onlegend: Boolean,
     },
     data: function(){
         return {
             idInner: this.id,       // Real ID
-            etd: false,
+            etd: this.ontd,
             plus: false,
             cycle: false,
             param: "",
@@ -90,11 +95,6 @@ var seriesMixin = {
             paramfoc: false,
             command:"",
         }
-    },
-    props: {
-        id: Number,                 // Initial Value Only
-        ontd: Boolean,
-        onlegend: Boolean,
     },
     methods:{
         moveUp: function(){
@@ -234,20 +234,22 @@ Vue.component('colorbox',{
 Vue.component('parambar',{
     template: "#parambartpl",
     props:{
-        command:String,
-        etd:Boolean,
+        command: String,
+        etd: Boolean,
+        global: Boolean,
     },
     data: function(){
         return {
             bestMatch:["no","no"],
-            optionalCommands: {},
+            optionalCommands: (this.global ? globalparamDic : {}),
             matchedCommands: sparamDic,
             submenu: {},
             eq: false,
         }
     },
-    mounted: function (){
+    mounted: function () {
         var me = this;
+        this.refreshList(this.command);
         libChangeEvent.$on('lib-change',function () {
             me.refreshList(me.command);
         });
@@ -264,7 +266,7 @@ Vue.component('parambar',{
         },
         command(_command){
             this.refreshList(_command);
-        }
+        },
     },
     methods:{
         refreshList: function(_command) {
@@ -272,11 +274,18 @@ Vue.component('parambar',{
             var eq = _command.indexOf('=');
             if(eq!=-1){  // 先看有没有等号
                 this.eq = true;
-                var bm = this.bestMatch[0]
-                if(bm==_command.substring(0,eq)){
-                    for(var subkey in sparamDic[bm][1])
+                var bm = this.bestMatch[0];
+                var me = this;
+                var checkingSubDic = function (dic) {
+                    for(var subkey in dic[bm][1])
                         if(subkey.indexOf(_command.substring(eq+1,_command.length))!=-1)
-                            this.submenu[subkey] = sparamDic[bm][1][subkey];
+                            me.submenu[subkey] = dic[bm][1][subkey];
+                };
+                if(bm==_command.substring(0,eq)){
+                    if (this.optionalCommands.hasOwnProperty(bm))
+                        checkingSubDic(this.optionalCommands);
+                    else if (sparamDic.hasOwnProperty(bm))
+                        checkingSubDic(sparamDic);
                 }
                 else this.bestMatch = ["no","no"];
             }
@@ -313,6 +322,18 @@ Vue.component('parambar',{
     //         return matchedString;
     //     },
     // }
+});
+
+// 增补参数组件
+Vue.component('surplus',{
+    mixins: [seriesMixin],
+    template:'#surplustpl',
+    props:['intd'],
+    methods:{
+        updater: function () {
+            app.surplusparam = this.param;
+        },
+    },
 });
 
 // 函数组件

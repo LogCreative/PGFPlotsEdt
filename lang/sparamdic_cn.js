@@ -69,6 +69,29 @@ var sparamDic = {
     "ultra thick":["极粗线"],
 };
 
+var boolDic = {
+    "true":["有","none",""],
+    "false":["无","none",""],
+};
+
+// 全局参数字典
+var globalparamDic = {
+    "ybar stacked":["纵向堆积柱形图"],
+    "xbar stacked":["横向堆积柱形图"],
+    "stack plots":["堆积图", {
+        "y":    ["纵向堆积图","url",""],
+        "x":    ["横向堆积图","url",""],
+    }],
+    "ybar interval":["纵向直方图"],
+    "xticklabel interval boundaries":["直方图横轴数据标签"],
+    "xmajorgrids":["x轴大网格",boolDic],
+    "ymajorgrids":["y轴大网格",boolDic],
+    "zmajorgrids":["z轴大网格",boolDic],
+    "xminorgrids":["x轴小网格",boolDic],
+    "yminorgrids":["y轴小网格",boolDic],
+    "zminorgrids":["z轴小网格",boolDic],
+};
+
 // 三维参数增补字典
 var etdparamDic = {
     "mesh":["曲面线框"],
