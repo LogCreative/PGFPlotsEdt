@@ -443,7 +443,7 @@ Vue.component('Tsource',{
         },
         updater: function(){
             sourceNameList[this.idInner] = this.sourceName;
-            sourceList[this.idInner] = [" \\pgfplotstableread [row sep=crcr] {" + this.datat + "}{\\" + this.sourceName + "}"+"\t\%" + this.fileName,this.show];
+            sourceList[this.idInner] = [" \\pgfplotstableread [row sep=crcr] {" + this.datat + "}{\\" + this.sourceName + "};",this.show];
             this.$forceUpdate();
             updateSeries();
         },
