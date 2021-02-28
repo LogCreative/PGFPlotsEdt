@@ -7,7 +7,7 @@ Vue.directive('minimize',function(el,binding){
         el.placeholder = 'x轴';
     } else {
         el.style.width = '80px';
-        el.placeholder = '函数式';
+        el.placeholder = '函数式(x)';
     }
 });
 
@@ -39,3 +39,23 @@ Vue.directive('validate',function(el,binding){
         // el.style['padding'] = '1px 3px';
     }
 });
+
+var highlightCode = function (qselector,bcolor,fcolor) {
+    var x = document.querySelectorAll(qselector);
+    for(var i = 0; i < x.length; ++i){
+        x[i].style['background-color']=bcolor;
+        x[i].style['color']=fcolor;
+    }
+}
+
+var hintCode = function (qselector) {
+    highlightCode(qselector,"rgba(0,128,0,0.5)","white");
+}
+
+var warnCode = function (qselector) {
+    highlightCode(qselector,"rgba(255, 255, 0, 0.5)","black");
+}
+
+var blurCode = function (qselector) {
+    highlightCode(qselector,"white","black");
+}

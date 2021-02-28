@@ -69,6 +69,7 @@ var sparamDic = {
     "ultra thick":["极粗线"],
 };
 
+// 布林值字典
 var boolDic = {
     "true":["有","none",""],
     "false":["无","none",""],

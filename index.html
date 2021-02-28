@@ -157,16 +157,16 @@
             <div id="auto">
             <details id="codedetail">
                 <summary>
-                    代码 <button v-clipboard:copy="content">复制绘图代码</button>
-                    <button v-clipboard:copy="file">复制全部代码</button>
-                    <button onclick="gomanual()">手动编辑⚠</button>
+                    代码 <button v-clipboard:copy="content" @mouseover="hintDrawCode" @mouseleave="blurDrawCode">复制绘图代码</button>
+                    <button v-clipboard:copy="file" id="btnAllCode"  @mouseover="hintAllCode" @mouseleave="blurAllCode">复制全部代码</button>
+                    <button onclick="gomanual()" @mouseover="warnAllCode" @mouseleave="blurAllCode">手动编辑⚠</button>
                 </summary>
                 <div>
-                <textarea v-model="premable" readonly="readonly" style="min-height: 130px;"></textarea>
-                <textarea v-model="content" id="texContent" readonly="readonly" style="min-height: 200px;">\begin{axis}[{{param}}]
+                <textarea v-model="premable" readonly="readonly" style="min-height: 130px;" class="texCode"></textarea>
+                <textarea v-model="content" id="texContent" class="texCode" readonly="readonly" style="min-height: 200px;">\begin{axis}[{{param}}]
         {{series}}
     \end{axis}</textarea>
-                <textarea v-model="suffix" readonly="readonly" style="min-height: 50px;"></textarea>
+                <textarea v-model="suffix" readonly="readonly" style="min-height: 50px;" class="texCode"></textarea>
             </div>
             </details>
         </div> 
@@ -217,7 +217,7 @@
                 <input type="checkbox" @click="oncchange" v-model="cycle" title="循环面积">
             </div>
             <div><input type="text" class="param" placeholder="参数" v-model="param" @keyup="onpachange" @focus="param_focused" @blur="param_losefocus"></div>
-            <div><input type="text" class="coord" placeholder="函数式" v-model="expression" @keyup="on_change" v-minimize="etd"></div>
+            <div><input type="text" class="coord" placeholder="函数式(x)" v-model="expression" @keyup="on_change" v-minimize="etd"></div>
             <div v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></div>
             <div v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></div>
             <parambar v-show="paramfoc" @click="param_focused" :command="command" :etd="etd" :global="false"></parambar>
@@ -367,7 +367,7 @@
         if(document.body.clientWidth>900){
             // 启用split
             var sps = document.getElementsByClassName('split');
-            for(var i in [0,1,2]){
+            for(var i = 0; i < sps.length; ++i){
                 sps[i].style.float = 'left';
                 sps[i].style.height = '575px';
             }

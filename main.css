@@ -41,6 +41,7 @@ a{
 textarea{
     width: 98%;
     min-height: 200px;
+    border-color: grey;
 }
 
 #texContent {

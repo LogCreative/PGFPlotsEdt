@@ -685,6 +685,11 @@ var app = new Vue({
         // sortById: function(array) {
         //     return array.sort((a,b) => a.innerId - b.innerId);
         // },
+        hintDrawCode: function () { hintCode("#texContent"); },
+        blurDrawCode: function () { blurCode("#texContent") },
+        hintAllCode: function () { hintCode(".texCode"); },
+        warnAllCode: function () { warnCode(".texCode"); },
+        blurAllCode: function () { blurCode(".texCode") },
         compile: function() {
             // +属于url保留符号，需要转义为%2B才可以使用。
             // 全局匹配
