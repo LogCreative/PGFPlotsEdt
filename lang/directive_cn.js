@@ -40,6 +40,8 @@ Vue.directive('validate',function(el,binding){
     }
 });
 
+// 显示复制区域
+
 var highlightCode = function (qselector,bcolor) {
     var x = document.querySelectorAll(qselector);
     for(var i = 0; i < x.length; ++i){

@@ -45,6 +45,8 @@ a{
 
 code {
     font-family: 'Consolas','Courier New', Courier, monospace;
+    white-space:pre-wrap;
+    word-wrap:break-word;
 }
 
 pre{

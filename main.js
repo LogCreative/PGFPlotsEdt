@@ -1,3 +1,4 @@
+// 采用 highlight.js 库
 Vue.use(hljs.vuePlugin);
 
 // 更新库列表
