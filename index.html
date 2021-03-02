@@ -190,11 +190,11 @@
             <div class="notes">
                 <div v-for="(value,key,index) in matchedCommands" v-show="!eq">
                     <div style="display: block;">
-                        <div class="matchkey" v-html="key">{{key}}</div><div class="matchnote">{{value[0]}}</div> 
+                        <div class="matchkey" v-html="key"></div><div class="matchnote">{{value[0]}}</div> 
                     </div>
                 </div>
                 <div v-for="(value,key,index) in submenu" v-show="eq">
-                    <div class="matchkey">{{key}}</div><div class="matchnote">{{value[0]}}</div><div class="matchside"><colorbox :color="value[2]" v-show="value[1]=='color'"></colorbox></div>
+                    <div class="matchkey" v-html="key"></div><div class="matchnote">{{value[0]}}</div><div class="matchside"><colorbox :color="value[2]" v-show="value[1]=='color'"></colorbox></div>
                 </div>
             </div>
         </div>
