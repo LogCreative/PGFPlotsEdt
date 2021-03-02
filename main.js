@@ -75,11 +75,116 @@ var updateSeries = function(){
     }
 };
 
+var getUnwrappedCommand = function (_wrap_comm) {
+    return _wrap_comm.replace(/<\/?.+?\/?>/g,'');
+}
+
+// 参数工具栏（子组件）
+var parambar = Vue.component('parambar',{
+    template: "#parambartpl",
+    props:{
+        command: String,
+        etd: Boolean,
+        global: Boolean,
+    },
+    data: function(){
+        return {
+            bestMatch:["no","no"],
+            optionalCommands: (this.global ? globalparamDic : {}),
+            matchedCommands: sparamDic,
+            submenu: {},
+            eq: false,
+        }
+    },
+    mounted: function () {
+        var me = this;
+        this.refreshList(this.command);
+        libChangeEvent.$on('lib-change',function () {
+            me.refreshList(me.command);
+        });
+    },
+    watch:{
+        etd(_td){
+            if(_td)
+                for(var k in etdparamDic)
+                    this.optionalCommands[k] = etdparamDic[k];
+            else
+                for(var k in etdparamDic)
+                    delete this.optionalCommands[k];
+            this.refreshList(this.command);
+        },
+        command(_command){
+            this.refreshList(_command);
+        },
+    },
+    methods:{
+        refreshList: function(_command) {
+            this.submenu = {};
+            var eq = _command.indexOf('=');
+            var highlightCommand = function (key,_command) {
+                var begin = key.indexOf(_command);
+                if(begin!=-1){
+                    var end = begin + _command.length;
+                    return key.substring(0,begin) + '<b>'
+                    + key.substring(begin,end) + '</b>' 
+                    + key.substring(end,key.length);
+                }
+                return _command;
+            }
+            if(eq!=-1){  // 先看有没有等号
+                this.eq = true;
+                var bm = this.bestMatch[0];
+                var realbm = getUnwrappedCommand(bm);
+                var me = this;
+                var checkingSubDic = function (dic) {
+                    for(var subkey in dic[realbm][1]){
+                        var subcom = _command.substring(eq+1,_command.length);
+                        if(subkey.indexOf(subcom)!=-1)
+                            me.submenu[highlightCommand(subkey,subcom)] = dic[realbm][1][subkey];
+                    }
+                };
+                if(getUnwrappedCommand(bm)==_command.substring(0,eq)){
+                    if (this.optionalCommands.hasOwnProperty(realbm))
+                        checkingSubDic(this.optionalCommands);
+                    else if (sparamDic.hasOwnProperty(realbm))
+                        checkingSubDic(sparamDic);
+                }
+                else this.bestMatch = ["no","no"];
+            }
+            else {      // 否则再刷新列表
+                this.eq = false;
+                this.matchedCommands = {};
+                this.bestMatch = ["no","no"];
+                var bestMatchNum = 1000;
+                var me = this;
+                var checkingDic = function (dic) {
+                    for(var key in dic){
+                        var begin = key.indexOf(_command);
+                        if(begin!=-1){
+                            var newkey = highlightCommand(key,_command);
+                            me.matchedCommands[newkey] = dic[key];
+                            var matchLeft = key.length - _command.length;
+                            if(matchLeft<bestMatchNum){
+                                var haseq = !(dic[key][1]==null);
+                                me.bestMatch = [newkey,dic[key],haseq];
+                                bestMatchNum = matchLeft;
+                            }
+                        }  
+                    } 
+                }
+                checkingDic(this.optionalCommands);
+                checkingDic(sparamDic);
+                if(_command=='')
+                    this.bestMatch=["no","no"];
+                if(this.bestMatch!=["no","no"])
+                    delete this.matchedCommands[this.bestMatch[0]];
+            }
+        }
+    },
+});
+
 // 系列公用属性
 var seriesMixin = {
-    // created: function(){
-    //     this.etd = app.td;
-    // },
     props: {
         id: Number,                 // Initial Value Only
         ontd: Boolean,
@@ -97,7 +202,11 @@ var seriesMixin = {
             show: true,
             paramfoc: false,
             command:"",
+            bestMatch:[],
         }
+    },
+    components:{
+        parambar
     },
     methods:{
         moveUp: function(){
@@ -141,16 +250,23 @@ var seriesMixin = {
             this.paramfoc = false;
         },
         onpachange: function(e){
+            var index = this.param.lastIndexOf(',');
             if(e.key=='Enter'){         // 自动填充
                 //得到最佳匹配
-                //定位逗号位
-                //替换 并确定是否需要等号
+                var subbar = this.$refs.subparambar;
+                var curBestMatch = subbar.bestMatch;
+                if(curBestMatch[0]!="no"){
+                    //替换 并确定是否需要等号
+                    var replace_ = this.param.substring(0,index+1) + getUnwrappedCommand(curBestMatch[0]) + (curBestMatch[2]?"=":",");
+                    var FirstSubKey = Object.keys(subbar.submenu)[0];
+                    if(this.param.substring(index+1,this.param.length).indexOf('=')!=-1 && FirstSubKey)     // 子菜单自动填充
+                        replace_ = replace_ + getUnwrappedCommand(FirstSubKey) + ',';
+                    this.param = replace_;
+                }
             }
             // 提取最后一个逗号后的command
-            var input = this.param;
-            var index = input.lastIndexOf(',');
-            var _command = input.substring(index+1,input.length);
-            this.command = _command.trim();          // 清除头尾空格
+            var comma = this.param.lastIndexOf(',');
+            this.command = this.param.substring(comma+1,this.param.length).trim();          // 清除头尾空格
             this.on_change();
         },
     },
@@ -231,110 +347,6 @@ var readFile = function(e){
 Vue.component('colorbox',{
     template: '<div class="colorbox" :style="\'background-color:\' + color + \';\'">&nbsp;</div>',
     props:['color'],
-});
-
-// 参数工具栏（子组件）
-Vue.component('parambar',{
-    template: "#parambartpl",
-    props:{
-        command: String,
-        etd: Boolean,
-        global: Boolean,
-    },
-    data: function(){
-        return {
-            bestMatch:["no","no"],
-            optionalCommands: (this.global ? globalparamDic : {}),
-            matchedCommands: sparamDic,
-            submenu: {},
-            eq: false,
-        }
-    },
-    mounted: function () {
-        var me = this;
-        this.refreshList(this.command);
-        libChangeEvent.$on('lib-change',function () {
-            me.refreshList(me.command);
-        });
-    },
-    watch:{
-        etd(_td){
-            if(_td)
-                for(var k in etdparamDic)
-                    this.optionalCommands[k] = etdparamDic[k];
-            else
-                for(var k in etdparamDic)
-                    delete this.optionalCommands[k];
-            this.refreshList(this.command);
-        },
-        command(_command){
-            this.refreshList(_command);
-        },
-    },
-    methods:{
-        refreshList: function(_command) {
-            this.submenu = {};
-            var eq = _command.indexOf('=');
-            var highlightCommand = function (key,_command) {
-                var begin = key.indexOf(_command);
-                if(begin!=-1){
-                    var end = begin + _command.length;
-                    return key.substring(0,begin) + '<b>'
-                    + key.substring(begin,end) + '</b>' 
-                    + key.substring(end,key.length);
-                }
-                return _command;
-            }
-            if(eq!=-1){  // 先看有没有等号
-                this.eq = true;
-                var bm = this.bestMatch[0];
-                var realbm = bm.replace(/<\/?.+?\/?>/g,'');
-                var me = this;
-                var checkingSubDic = function (dic) {
-                    for(var subkey in dic[realbm][1]){
-                        var subcom = _command.substring(eq+1,_command.length);
-                        if(subkey.indexOf(subcom)!=-1)
-                            me.submenu[highlightCommand(subkey,subcom)] = dic[realbm][1][subkey];
-                    }
-                };
-                if(bm=='<b>'+_command.substring(0,eq)+'</b>'){
-                    if (this.optionalCommands.hasOwnProperty(realbm))
-                        checkingSubDic(this.optionalCommands);
-                    else if (sparamDic.hasOwnProperty(realbm))
-                        checkingSubDic(sparamDic);
-                }
-                else this.bestMatch = ["no","no"];
-            }
-            else {      // 否则再刷新列表
-                this.eq = false;
-                this.matchedCommands = {};
-                this.bestMatch = ["no","no"];
-                var bestMatchNum = 1000;
-                var me = this;
-                var checkingDic = function (dic) {
-                    for(var key in dic){
-                        var begin = key.indexOf(_command);
-                        if(begin!=-1){
-                            var newkey = highlightCommand(key,_command);
-                            me.matchedCommands[newkey] = dic[key];
-                            var matchLeft = key.length - _command.length;
-                            if(matchLeft<bestMatchNum){
-                                var haseq = !(dic[key][1]==null);
-                                me.bestMatch = [newkey,dic[key],haseq];
-                                bestMatchNum = matchLeft;
-                            }
-                        }  
-                    } 
-                }
-                checkingDic(this.optionalCommands);
-                checkingDic(sparamDic);
-                if(_command=='')
-                    this.bestMatch=["no","no"];
-                if(this.bestMatch!=["no","no"])
-                    delete this.matchedCommands[this.bestMatch[0]];
-            }
-        }
-    },
 });
 
 // 增补参数组件

@@ -126,7 +126,7 @@
                         </div>
                         <div id="exprs">
                             <div v-for="comp in expressions" :key="comp.innerId">
-                                <expression :id="comp.id" :ontd="td" :onlegend="enableLegend"></expression>
+                                <expression :id="comp.id" :ontd="td" :onlegend="enableLegend"  ></expression>
                             </div>
                         </div>
                         <div id="coords">
@@ -224,7 +224,7 @@
             <div><input type="text" class="coord" placeholder="函数式(x)" v-model="expression" @keyup="on_change" v-minimize="etd"></div>
             <div v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></div>
             <div v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></div>
-            <parambar v-show="paramfoc" @click="param_focused" :command="command" :etd="etd" :global="false"></parambar>
+            <parambar ref="subparambar" v-show="paramfoc" @click="param_focused" :command="command" :etd="etd" :globalz="false"></parambar>
         </div>
     </template>
     <template id="coordbartpl">
@@ -257,7 +257,7 @@
             <div><input type="text" class="param" v-model="param" @keyup="onpachange" placeholder="参数" @focus="param_focused" @blur="param_losefocus"></div>
             <!-- <br> -->
             <div><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据" @focus="coord_focused" @blur="coord_losefocus"></div>
-            <parambar v-show="paramfoc" :command="command" :etd="etd" :global="false"></parambar>
+            <parambar ref="subparambar" v-show="paramfoc" :command="command" :etd="etd" :global="false"></parambar>
             <coordbar v-show="coordbar"></coordbar>
         </div>
     </template>
@@ -314,7 +314,7 @@
                 <div style="display:none"><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表"></div>
                 <div style="display: inline-block; margin-left: -10px;"><input type="file" id="files" class="fileChooser" @change="readFile"></div>
             </div>
-            <parambar v-show="paramfoc" :command="command" :etd="etd" :global="false"></parambar>
+            <parambar ref="subparambar" v-show="paramfoc" :command="command" :etd="etd" :global="false"></parambar>
             <tableparambar v-show="tableparambar"></tableparambar>
         </div>
     </template>
@@ -358,7 +358,7 @@
                 <td>增补参数</td>
                 <td><input type="text" class="param" v-model="param" @keyup="onpachange" placeholder="参数"  @focus="param_focused" @blur="param_losefocus"></td>
             </tr>
-            <parambar :global="true" v-show="paramfoc" :command="command" :etd="ontd"></parambar>
+            <parambar ref="subparambar" :global="true" v-show="paramfoc" :command="command" :etd="ontd"></parambar>
         </div>        
     </template>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
