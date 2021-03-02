@@ -278,16 +278,17 @@ Vue.component('parambar',{
             if(eq!=-1){  // 先看有没有等号
                 this.eq = true;
                 var bm = this.bestMatch[0];
+                var realbm = bm.replace(/<\/?.+?\/?>/g,'');
                 var me = this;
                 var checkingSubDic = function (dic) {
-                    for(var subkey in dic[bm][1])
+                    for(var subkey in dic[realbm][1])
                         if(subkey.indexOf(_command.substring(eq+1,_command.length))!=-1)
-                            me.submenu[subkey] = dic[bm][1][subkey];
+                            me.submenu[subkey] = dic[realbm][1][subkey];
                 };
-                if(bm==_command.substring(0,eq)){
-                    if (this.optionalCommands.hasOwnProperty(bm))
+                if(bm=='<b>'+_command.substring(0,eq)+'</b>'){
+                    if (this.optionalCommands.hasOwnProperty(realbm))
                         checkingSubDic(this.optionalCommands);
-                    else if (sparamDic.hasOwnProperty(bm))
+                    else if (sparamDic.hasOwnProperty(realbm))
                         checkingSubDic(sparamDic);
                 }
                 else this.bestMatch = ["no","no"];
@@ -299,16 +300,22 @@ Vue.component('parambar',{
                 var bestMatchNum = 1000;
                 var me = this;
                 var checkingDic = function (dic) {
-                    for(var key in dic)
-                        if(key.indexOf(_command)!=-1){
-                            me.matchedCommands[key] = dic[key];
+                    for(var key in dic){
+                        var begin = key.indexOf(_command);
+                        if(begin!=-1){
+                            var end = begin + _command.length;
+                            var newkey = key.substring(0,begin) + '<b>'
+                            + key.substring(begin,end) + '</b>' 
+                            + key.substring(end,key.length);
+                            me.matchedCommands[newkey] = dic[key];
                             var matchLeft = key.length - _command.length;
                             if(matchLeft<bestMatchNum){
                                 var haseq = !(dic[key][1]==null);
-                                me.bestMatch = [key,dic[key],haseq];
+                                me.bestMatch = [newkey,dic[key],haseq];
                                 bestMatchNum = matchLeft;
                             }
-                        }   
+                        }  
+                    } 
                 }
                 checkingDic(this.optionalCommands);
                 checkingDic(sparamDic);
@@ -318,13 +325,7 @@ Vue.component('parambar',{
                     delete this.matchedCommands[this.bestMatch[0]];
             }
         }
-    }
-    // filters:{
-    //     matchCom: function(_command){
-            
-    //         return matchedString;
-    //     },
-    // }
+    },
 });
 
 // 增补参数组件

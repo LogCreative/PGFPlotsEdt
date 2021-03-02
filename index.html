@@ -185,12 +185,12 @@
         <div class="parambar" style="display: block;">
             <div class="title" style="display: block;">
                 参数设置
-                <div v-show="bestMatch[0]!='no'"><div class="matchkey">{{bestMatch[0]}}</div><div class="matchnote">{{bestMatch[1][0]}}</div><div class="matchside" v-show="bestMatch[2]">=...</div><div class="matchside" v-show="!bestMatch[2]">,</div></div>
+                <div v-show="bestMatch[0]!='no'"><div class="matchkey" v-html="bestMatch[0]"></div><div class="matchnote">{{bestMatch[1][0]}}</div><div class="matchside" v-show="bestMatch[2]">=...</div><div class="matchside" v-show="!bestMatch[2]">,</div></div>
             </div>
             <div class="notes">
                 <div v-for="(value,key,index) in matchedCommands" v-show="!eq">
                     <div style="display: block;">
-                        <div class="matchkey">{{key}}</div><div class="matchnote">{{value[0]}}</div>
+                        <div class="matchkey" v-html="key">{{key}}</div><div class="matchnote">{{value[0]}}</div> 
                     </div>
                 </div>
                 <div v-for="(value,key,index) in submenu" v-show="eq">

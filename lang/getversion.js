@@ -1,8 +1,5 @@
 (
     function(){
-        function _setHtml(dom, h) {
-            dom.innerHTML = h;
-        }
         function _ajaxReq(repo) {
             var xmlhttp;
             if (window.XMLHttpRequest) {
@@ -15,10 +12,7 @@
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     var repo = JSON.parse(xmlhttp.responseText);
-                    console.log(repo);
                     document.getElementById("version").innerHTML = 'v' + Object.keys(repo).length / 100;
-                    //document.getElementById("UpdateDate").innerHTML ='更新时间：'+
-                    //repo.pushed_at.substring(0,10) + ' ' + repo.pushed_at.substring(11,19) + ' UTC';
                 } else {
                 }
             };
