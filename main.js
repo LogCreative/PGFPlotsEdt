@@ -39,6 +39,8 @@ Vue.component('lib',{
                 else if (this.id==4)
                     for(var key in statisticsDic)
                         sparamDic[key] = statisticsDic[key];
+                else if (this.id==6)
+                    app.enablepolar = true;
             }
             else{
                 delete app.packages[this.id];
@@ -48,6 +50,11 @@ Vue.component('lib',{
                 else if(this.id==4)
                     for(var key in statisticsDic)
                         delete sparamDic[key];
+                else if(this.id==6){
+                    if(app.axistype=="4")
+                        app.axistype = "0";
+                    app.enablepolar = false;
+                }
             }
             updatePkg();
             if(this.id)
@@ -661,6 +668,7 @@ var app = new Vue({
         enableLegend: true,
         enablepin: false,
         enablesource: true,
+        enablepolar: false,
         manual: false,
         series: "",
         param: "",
@@ -700,6 +708,8 @@ var app = new Vue({
                 case "1": axistypename = "semilogxaxis"; break;
                 case "2": axistypename = "semilogyaxis"; break;
                 case "3": axistypename = "loglogaxis"; break;
+                case "4": axistypename = "polaraxis";
+                break;
             }
             return (this.enablepin ? tp_premable : t_premable)
             + "\\begin{" + axistypename + "}["

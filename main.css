@@ -341,3 +341,7 @@ input[type=text]{
     height: 10px;
     border: 1px solid black;
 }
+
+.libchecker {
+    display: inline-block;
+}
