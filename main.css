@@ -76,6 +76,10 @@ footer{
     width: 60px;
 }
 
+.surparam{
+    width: 150px;
+}
+
 .coord{
     width: 80px;
 }
@@ -314,6 +318,10 @@ input[type=text]{
 .param:focus,
 .coord:focus {
     width: 150px;
+}
+
+.surparam:focus{
+    width: 250px;
 }
 
 .matchkey,.matchnote {

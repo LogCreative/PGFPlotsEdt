@@ -133,3 +133,17 @@ var plotmarksDic = {
     "cube":                     ["方块","url",""],
     "cube*":                    ["填充方块","url",""],
 };
+
+// 统计库增补字典
+var statisticsDic = {
+    "boxplot":                  ["箱形图"],
+    "boxplot prepared":         ["有标定的箱型图",{
+        "{lower whisker=,lower quartile=,median=,upper quartile=,upper whisker=}":       ["下界,下四分位点,中位数,上四分位点,上界","url",""],
+    }],
+    "hist":                     ["直方图",{
+        "{bins=}":              ["直方箱数","url",""],
+        "{data=}":              ["数据列","none",""],
+        "cumulative":           ["累积直方图","url",""],
+        "density":              ["密度直方图","url",""],
+    }],
+};

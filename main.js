@@ -36,12 +36,18 @@ Vue.component('lib',{
                 if(this.id==1)
                     for(var key in plotmarksDic)
                         sparamDic["mark"][1][key] = plotmarksDic[key];
+                else if (this.id==4)
+                    for(var key in statisticsDic)
+                        sparamDic[key] = statisticsDic[key];
             }
             else{
                 delete app.packages[this.id];
                 if(this.id==1)
                     for(var key in plotmarksDic)
                         delete sparamDic["mark"][1][key];
+                else if(this.id==4)
+                    for(var key in statisticsDic)
+                        delete sparamDic[key];
             }
             updatePkg();
             if(this.id)
@@ -77,7 +83,7 @@ var updateSeries = function(){
 
 var getUnwrappedCommand = function (_wrap_comm) {
     return _wrap_comm.replace(/<\/?.+?\/?>/g,'');
-}
+};
 
 // 参数工具栏（子组件）
 var parambar = Vue.component('parambar',{

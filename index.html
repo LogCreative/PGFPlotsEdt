@@ -356,7 +356,7 @@
         <div>
             <tr>
                 <td>增补参数</td>
-                <td><input type="text" class="param" v-model="param" @keyup="onpachange" placeholder="参数"  @focus="param_focused" @blur="param_losefocus"></td>
+                <td><input type="text" class="surparam" v-model="param" @keyup="onpachange" placeholder="参数"  @focus="param_focused" @blur="param_losefocus"></td>
             </tr>
             <parambar ref="subparambar" :global="true" v-show="paramfoc" :command="command" :etd="ontd"></parambar>
         </div>        
