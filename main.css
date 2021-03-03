@@ -338,8 +338,8 @@ input[type=text]{
 
 .colorbox{
     width: 20px;
-    height: 10px;
-    border: 1px solid black;
+    height: 12px;
+    /* border: 1px solid black; */
 }
 
 .libchecker {

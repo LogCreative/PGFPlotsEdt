@@ -36,6 +36,9 @@ Vue.component('lib',{
                 if(this.id==1)
                     for(var key in plotmarksDic)
                         sparamDic["mark"][1][key] = plotmarksDic[key];
+                else if (this.id==2)
+                    for(var key in colorbrewerDic)
+                        colorDic[key] = colorbrewerDic[key];
                 else if (this.id==4)
                     for(var key in statisticsDic)
                         sparamDic[key] = statisticsDic[key];
@@ -47,6 +50,9 @@ Vue.component('lib',{
                 if(this.id==1)
                     for(var key in plotmarksDic)
                         delete sparamDic["mark"][1][key];
+                else if(this.id==2)
+                    for(var key in colorbrewerDic)
+                        delete colorDic[key];
                 else if(this.id==4)
                     for(var key in statisticsDic)
                         delete sparamDic[key];
@@ -362,6 +368,14 @@ Vue.component('colorbox',{
     props:['color'],
 });
 
+// 渐变预览盒
+Vue.component('colormapbox',{
+    template:'#colormapboxtpl',
+    props:{
+        colormapdic: {},
+    }
+})
+
 // 增补参数组件
 Vue.component('surplus',{
     mixins: [seriesMixin],
@@ -665,9 +679,9 @@ var app = new Vue({
     el: '#app',
     data:{
         td: false,
-        enableLegend: true,
+        enableLegend: false,
         enablepin: false,
-        enablesource: true,
+        enablesource: false,
         enablepolar: false,
         manual: false,
         series: "",

@@ -134,6 +134,55 @@ var plotmarksDic = {
     "cube*":                    ["填充方块","url",""],
 };
 
+// 颜色库增补字典
+var colorbrewerDic = {
+    "BuGn-": ["蓝绿系列渐变","colormap",{
+        "A":"#F7FCFD",
+        "B":"#EDF8FB",
+        "C":"#E5F5F9",
+        "D":"#CCECE6",
+        "E":"#B2E2E2",
+        "F":"#99D8C9",
+        "G":"#66C2A4",
+        "H":"#41AE76",
+        "I":"#2CA25F",
+        "J":"#238B45",
+        "K":"#006D2C",
+        "L":"#005824",
+        "M":"#00441B",
+    }],
+    "BuPu-":["蓝紫系列渐变","colormap",{
+        "A":"#F7FCFD",
+        "B":"#EDF8FB",
+        "C":"#E0ECF4",
+        "D":"#BFD3E6",
+        "E":"#B3CDE3",
+        "F":"#9EBCDA",
+        "G":"#8C96C6",
+        "H":"#8C6BB1",
+        "I":"#8856A7",
+        "J":"#88419D",
+        "K":"#810F7C",
+        "L":"#6E016B",
+        "M":"#4D004B",
+    }],
+    "GnBu-":["绿蓝系列渐变","colormap",{
+        "A":"#F7FCF0",
+        "B":"#F0F9E8",
+        "C":"#E0F3DB",
+        "D":"#CCEBC5",
+        "E":"#BAE4BC",
+        "F":"#A8DDB5",
+        "G":"#7BCCC4",
+        "H":"#4EB3D3",
+        "I":"#43A2CA",
+        "J":"#2B8CBE",
+        "K":"#0868AC",
+        "L":"#08589E",
+        "M":"#084081",
+    }],
+};
+
 // 统计库增补字典
 var statisticsDic = {
     "boxplot":                  ["箱形图"],
