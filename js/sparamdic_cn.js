@@ -214,18 +214,55 @@ var plotmarksDic = {
 //     }]
 // };
 
-var colorbrewerDic = {
-    "BuGn-": ["蓝绿连续渐变","colormap",[
-        "#F7FCFD",
-        "",
-        "#00441B",
-    ]],
-    "BuPu-":["蓝紫连续渐变","colormap",[
-        "#F7FCFD",
-        "",
-        "#4D004B",
-    ]],
-}
+// var colorbrewerDic = {
+//     "BuGn-": ["蓝绿连续渐变","colormap",[
+//         "#F7FCFD",
+//         "",
+//         "#00441B",
+//     ]],
+//     "BuPu-":["蓝紫连续渐变","colormap",[
+//         "#F7FCFD",
+//         "",
+//         "#4D004B",
+//     ]],
+// }
+
+var colorbrewerDic = 
+{
+    "Accent-":              ["", "colormap", "#7FC97F,#BEAED4,#FDC086,#FFFF99,#386CB0,#F0027F,#BF5B17,#666666"],
+    "Blues-":               ["", "colormap", "#F7FBFF,#EFF3FF,#DEEBF7,#C6DBEF,#BDD7E7,#9ECAE1,#6BAED6,#4292C6,#3182BD,#2171B5,#08519C,#084594,#08306B"],
+    "BrBG-":                ["", "colormap", "#543005,#8C510A,#A6611A,#BF812D,#D8B365,#DFC27D,#F6E8C3,#F5F5F5,#C7EAE5,#80CDC1,#5AB4AC,#35978F,#018571,#01665E,#003C30"],
+    "BuGn-":                ["", "colormap", "#F7FCFD,#EDF8FB,#E5F5F9,#CCECE6,#B2E2E2,#99D8C9,#66C2A4,#41AE76,#2CA25F,#238B45,#006D2C,#005824,#00441B"],
+    "BuPu-":                ["", "colormap", "#F7FCFD,#EDF8FB,#E0ECF4,#BFD3E6,#B3CDE3,#9EBCDA,#8C96C6,#8C6BB1,#8856A7,#88419D,#810F7C,#6E016B,#4D004B"],
+    "Dark2-":               ["", "colormap", "#1B9E77,#D95F02,#7570B3,#E7298A,#66A61E,#E6AB02,#A6761D,#666666"],
+    "GnBu-":                ["", "colormap", "#F7FCF0,#F0F9E8,#E0F3DB,#CCEBC5,#BAE4BC,#A8DDB5,#7BCCC4,#4EB3D3,#43A2CA,#2B8CBE,#0868AC,#08589E,#084081"],
+    "Greens-":              ["", "colormap", "#F7FCF5,#EDF8E9,#E5F5E0,#C7E9C0,#BAE4B3,#A1D99B,#74C476,#41AB5D,#31A354,#238B45,#006D2C,#005A32,#00441B"],
+    "Greys-":               ["", "colormap", "#FFFFFF,#F7F7F7,#F0F0F0,#D9D9D9,#CCCCCC,#BDBDBD,#969696,#737373,#636363,#525252,#252525,#252525,#000000"],
+    "OrRd-":                ["", "colormap", "#FFF7EC,#FEF0D9,#FEE8C8,#FDD49E,#FDCC8A,#FDBB84,#FC8D59,#EF6548,#E34A33,#D7301F,#B30000,#990000,#7F0000"],
+    "Oranges-":             ["", "colormap", "#FFF5EB,#FEEDDE,#FEE6CE,#FDD0A2,#FDBE85,#FDAE6B,#FD8D3C,#F16913,#E6550D,#D94701,#A63603,#8C2D04,#7F2704"],
+    "PRGn-":                ["", "colormap", "#40004B,#762A83,#7B3294,#9970AB,#AF8DC3,#C2A5CF,#E7D4E8,#F7F7F7,#D9F0D3,#A6DBA0,#7FBF7B,#5AAE61,#008837,#1B7837,#00441B"],
+    "Paired-":              ["", "colormap", "#A6CEE3,#1F78B4,#B2DF8A,#33A02C,#FB9A99,#E31A1C,#FDBF6F,#FF7F00,#CAB2D6,#6A3D9A,#FFFF99,#B15928"],        "Pastel1-":             ["", "colormap", "#FBB4AE,#B3CDE3,#CCEBC5,#DECBE4,#FED9A6,#FFFFCC,#E5D8BD,#FDDAEC,#F2F2F2"],
+    "Pastel2-":             ["", "colormap", "#B3E2CD,#FDCDAC,#CBD5E8,#F4CAE4,#E6F5C9,#FFF2AE,#F1E2CC,#CCCCCC"],
+    "PiYG-":                ["", "colormap", "#8E0152,#C51B7D,#D01C8B,#DE77AE,#E9A3C9,#F1B6DA,#FDE0EF,#F7F7F7,#E6F5D0,#B8E186,#A1D76A,#7FBC41,#4DAC26,#4D9221,#276419"],
+    "PuBu-":                ["", "colormap", "#FFF7FB,#F1EEF6,#ECE7F2,#D0D1E6,#BDC9E1,#A6BDDB,#74A9CF,#3690C0,#2B8CBE,#0570B0,#045A8D,#034E7B,#023858"],
+    "PuBuGn-":              ["", "colormap", "#FFF7FB,#F6EFF7,#ECE2F0,#D0D1E6,#BDC9E1,#A6BDDB,#67A9CF,#3690C0,#1C9099,#02818A,#016C59,#016450,#014636"],
+    "PuOr-":                ["", "colormap", "#7F3B08,#B35806,#E66101,#E08214,#F1A340,#FDB863,#FEE0B6,#F7F7F7,#D8DAEB,#B2ABD2,#998EC3,#8073AC,#5E3C99,#542788,#2D004B"],
+    "PuRd-":                ["", "colormap", "#F7F4F9,#F1EEF6,#E7E1EF,#D4B9DA,#D7B5D8,#C994C7,#DF65B0,#E7298A,#DD1C77,#CE1256,#980043,#91003F,#67001F"],
+    "Purples-":             ["", "colormap", "#FCFBFD,#F2F0F7,#EFEDF5,#DADAEB,#CBC9E2,#BCBDDC,#9E9AC8,#807DBA,#756BB1,#6A51A3,#54278F,#4A1486,#3F007D"],
+    "RdBu-":                ["", "colormap", "#67001F,#B2182B,#CA0020,#D6604D,#EF8A62,#F4A582,#FDDBC7,#F7F7F7,#D1E5F0,#92C5DE,#67A9CF,#4393C3,#0571B0,#2166AC,#053061"],
+    "RdGy-":                ["", "colormap", "#67001F,#B2182B,#CA0020,#D6604D,#EF8A62,#F4A582,#FDDBC7,#FFFFFF,#E0E0E0,#BABABA,#999999,#878787,#404040,#4D4D4D,#1A1A1A"],
+    "RdPu-":                ["", "colormap", "#FFF7F3,#FEEBE2,#FDE0DD,#FCC5C0,#FBB4B9,#FA9FB5,#F768A1,#DD3497,#C51B8A,#AE017E,#7A0177,#7A0177,#49006A"],
+    "RdYlBu-":              ["", "colormap", "#A50026,#D73027,#D7191C,#F46D43,#FC8D59,#FDAE61,#FEE090,#FFFFBF,#E0F3F8,#ABD9E9,#91BFDB,#74ADD1,#2C7BB6,#4575B4,#313695"],
+    "RdYlGn-":              ["", "colormap", "#A50026,#D73027,#D7191C,#F46D43,#FC8D59,#FDAE61,#FEE08B,#FFFFBF,#D9EF8B,#A6D96A,#91CF60,#66BD63,#1A9641,#1A9850,#006837"],
+    "Reds-":                ["", "colormap", "#FFF5F0,#FEE5D9,#FEE0D2,#FCBBA1,#FCAE91,#FC9272,#FB6A4A,#EF3B2C,#DE2D26,#CB181D,#A50F15,#99000D,#67000D"],
+    "Set1-":                ["", "colormap", "#E41A1C,#377EB8,#4DAF4A,#984EA3,#FF7F00,#FFFF33,#A65628,#F781BF,#999999"],
+    "Set2-":                ["", "colormap", "#66C2A5,#FC8D62,#8DA0CB,#E78AC3,#A6D854,#FFD92F,#E5C494,#B3B3B3"],
+    "Set3-":                ["", "colormap", "#8DD3C7,#FFFFB3,#BEBADA,#FB8072,#80B1D3,#FDB462,#B3DE69,#FCCDE5,#D9D9D9,#BC80BD,#CCEBC5,#FFED6F"],        "Spectral-":            ["", "colormap", "#9E0142,#D53E4F,#D7191C,#F46D43,#FC8D59,#FDAE61,#FEE08B,#FFFFBF,#E6F598,#ABDDA4,#99D594,#66C2A5,#2B83BA,#3288BD,#5E4FA2"],
+    "YlGn-":                ["", "colormap", "#FFFFE5,#FFFFCC,#F7FCB9,#D9F0A3,#C2E699,#ADDD8E,#78C679,#41AB5D,#31A354,#238443,#006837,#005A32,#004529"],
+    "YlGnBu-":              ["", "colormap", "#FFFFD9,#FFFFCC,#EDF8B1,#C7E9B4,#A1DAB4,#7FCDBB,#41B6C4,#1D91C0,#2C7FB8,#225EA8,#253494,#0C2C84,#081D58"],
+    "YlOrBr-":              ["", "colormap", "#FFFFE5,#FFFFD4,#FFF7BC,#FEE391,#FED98E,#FEC44F,#FE9929,#EC7014,#D95F0E,#CC4C02,#993404,#8C2D04,#662506"],
+    "YlOrRd-":              ["", "colormap", "#FFFFCC,#FFFFB2,#FFEDA0,#FED976,#FECC5C,#FEB24C,#FD8D3C,#FC4E2A,#F03B20,#E31A1C,#BD0026,#B10026,#800026"],
+};
 
 // 统计库增补字典
 var statisticsDic = {

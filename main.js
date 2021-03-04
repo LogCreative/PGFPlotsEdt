@@ -418,8 +418,8 @@ Vue.component('colorbox',{
 
 // 渐变预览盒
 Vue.component('colormapbox',{
-    template:'<div class="colormapbox" :style="\'background-image: linear-gradient(to right, \' + start + \', \' + (mid?mid + \', \':\'\') + end + \');\'">&nbsp;</div>',
-    props:['start','mid','end'],
+    template:'<div class="colormapbox" :style="\'background-image: linear-gradient(to right, \' + colormap + \');\'">&nbsp;</div>',
+    props:['colormap'],
 })
 
 // 增补参数组件
@@ -761,7 +761,7 @@ var app = new Vue({
         premable: function(){
             return s_premable + this.pkgstr + this.e_premable;
         },
-        content: function(){
+        content: function(){    // TODO: dynamic cursor here
             var axistypename;
             switch(this.axistype){
                 case "0": axistypename = "axis"; break;
