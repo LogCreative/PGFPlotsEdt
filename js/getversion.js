@@ -12,7 +12,8 @@
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     var repo = JSON.parse(xmlhttp.responseText);
-                    document.getElementById("version").innerHTML = 'v' + Object.keys(repo).length / 100;
+                    // FIX ME
+                    document.getElementById("version").innerHTML = 'v' + (Object.keys(repo).length / 100).toFixed(2);
                 } else {
                 }
             };
