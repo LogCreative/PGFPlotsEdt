@@ -98,6 +98,38 @@ var getUnwrappedCommand = function (_wrap_comm) {
     return _wrap_comm.replace(/<\/?.+?\/?>/g,'');
 };
 
+// ----------------------------------------------------------------------------
+// Code from https://github.com/axismaps/colorbrewer/blob/master/colorbrewer.js
+
+var hexToRgb = function(hex){
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + ( (1 << 24) | (r << 16) | (g << 8) | b ).toString(16).slice(1);
+}
+
+//------------------------------------------------------------------------------
+
+var getGradientColorCode = function (_begin,_mid,_end,_portion) {
+    // if(_mid=""){
+        var begin = hexToRgb(_begin);
+        var end = hexToRgb(_end);
+        // console.log(begin);
+        var result = {
+            r: begin["r"] + (end["r"]-begin["r"])*_portion,
+            g: begin["g"] + (end["g"]-begin["g"])*_portion,
+            b: begin["b"] + (end["b"]-begin["b"])*_portion,
+        };
+        return rgbToHex(result["r"],result["g"],result["b"]);
+    // }
+};
+
 // 参数工具栏（子组件）
 var parambar = Vue.component('parambar',{
     template: "#parambartpl",
@@ -158,8 +190,24 @@ var parambar = Vue.component('parambar',{
                 var checkingSubDic = function (dic) {
                     for(var subkey in dic[realbm][1]){
                         var subcom = _command.substring(eq+1,_command.length);
-                        if(subkey.indexOf(subcom)!=-1)
-                            me.submenu[highlightCommand(subkey,subcom)] = dic[realbm][1][subkey];
+                        if(subkey.indexOf(subcom)!=-1){
+                            var subkeyDic = dic[realbm][1][subkey];
+                            if(subcom.indexOf('-')!=-1 && subkeyDic[1]=='colormap'){ // 产生渐变命令
+                                me.submenu = {};
+                                if(subkeyDic[2][1]==""){
+                                    var genKey = function (_ord) {
+                                        return subkey + _ord;
+                                    }
+                                    var colormapDic = {};
+                                    var MAXRANGE = 12;
+                                    for(var i = 0; i<=MAXRANGE; ++i){
+                                        colormapDic[genKey(String.fromCharCode(65+i))]=["","color",getGradientColorCode(subkeyDic[2][0],subkeyDic[2][1],subkeyDic[2][2],i*1.0/MAXRANGE)];
+                                    }
+                                }
+                                me.submenu = colormapDic;
+                            } 
+                            else me.submenu[highlightCommand(subkey,subcom)] = subkeyDic;
+                        }
                     }
                 };
                 if(getUnwrappedCommand(bm)==_command.substring(0,eq)){
@@ -370,10 +418,8 @@ Vue.component('colorbox',{
 
 // 渐变预览盒
 Vue.component('colormapbox',{
-    template:'#colormapboxtpl',
-    props:{
-        colormapdic: {},
-    }
+    template:'<div class="colormapbox" :style="\'background-image: linear-gradient(to right, \' + start + \', \' + (mid?mid + \', \':\'\') + end + \');\'">&nbsp;</div>',
+    props:['start','mid','end'],
 })
 
 // 增补参数组件

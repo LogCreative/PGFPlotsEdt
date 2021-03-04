@@ -342,6 +342,11 @@ input[type=text]{
     /* border: 1px solid black; */
 }
 
+.colormapbox{
+    width: 20px;
+    height: 12px;
+}
+
 .libchecker {
     display: inline-block;
 }

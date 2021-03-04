@@ -180,13 +180,13 @@
         
         
     </div>
-    <template id="colormapboxtpl">
+    <!-- <template id="colormapboxtpl">
         <div>
             <div v-for="(val,key) in colormapdic">
                 <colorbox :color="val"></colorbox>
             </div>
         </div>
-    </template>
+    </template> -->
     <template id="libtpl">
         <div class="libchecker"><input type="checkbox" v-model="enabled" @change="onlibchange">{{chname}}</input></div>
     </template>
@@ -203,7 +203,7 @@
                     </div>
                 </div>
                 <div v-for="(value,key,index) in submenu" v-show="eq">
-                    <div class="matchkey" v-html="key"></div><div class="matchnote">{{value[0]}}</div><div class="matchside"><colorbox :color="value[2]" v-show="value[1]=='color'"></colorbox><colormapbox :colormapdic="value[2]" v-show="value[1]=='colormap'"></colormapbox></div>
+                    <div class="matchkey" v-html="key"></div><div class="matchnote">{{value[0]}}</div><div class="matchside"><colorbox :color="value[2]" v-show="value[1]=='color'"></colorbox><colormapbox :start="value[2][0]" :mid="value[2][1]" :end="value[2][2]" v-show="value[1]=='colormap'"></colormapbox></div>
                 </div>
             </div>
         </div>
