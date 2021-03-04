@@ -727,6 +727,7 @@ var app = new Vue({
         nodeps:[],
         legend: "",
         axistype: "0",
+        dc_content: "",
     },
     // mounted: function() {
     //     var me = this;
@@ -736,6 +737,28 @@ var app = new Vue({
     //         console.log(cate);
     //     });
     // },
+    mounted:function (){
+        this.dc_content = this.content;
+    },
+    watch:{
+        content(_new,_old){
+            var maxlength = _new.length>_old.length?_old.length:_new.length;
+            for(var i = 0; i < maxlength; ++i)
+                if(_new[i]!=_old[i]){
+                    var split;
+                    var cursor;
+                    if(_new.length>_old.length){
+                        split = i+1;
+                        cursor = '▮';
+                    } else {
+                        split = i;
+                        cursor = '▯';
+                    }
+                    this.dc_content = _new.substring(0,split) + cursor + _new.substring(split,_new.length);
+                    break;
+                }
+        }
+    },
     computed:{
         // sortedExpressions: function(){
         //     return this.sortById(this.expressions);
@@ -743,7 +766,7 @@ var app = new Vue({
         premable: function(){
             return s_premable + this.pkgstr + this.e_premable;
         },
-        content: function(){    // TODO: dynamic cursor here
+        content: function(){
             var axistypename;
             switch(this.axistype){
                 case "0": axistypename = "axis"; break;
@@ -768,11 +791,12 @@ var app = new Vue({
         // sortById: function(array) {
         //     return array.sort((a,b) => a.innerId - b.innerId);
         // },
-        hintDrawCode: function () { hintCode("#texContent"); },
+        hintDrawCode: function () { this.dc_content = this.content; hintCode("#texContent"); },
         blurDrawCode: function () { blurCode("#texContent") },
-        hintAllCode: function () { hintCode("#texAllCode"); },
-        warnAllCode: function () { warnCode("#texAllCode"); },
+        hintAllCode: function () { this.dc_content = this.content; hintCode("#texAllCode"); },
+        warnAllCode: function () { this.dc_content = this.content; warnCode("#texAllCode"); },
         blurAllCode: function () { blurCode("#texAllCode") },
+        // drawHover: function () { this.dc_content = this.content; },
         compile: function() {
             // +属于url保留符号，需要转义为%2B才可以使用。
             // 全局匹配
