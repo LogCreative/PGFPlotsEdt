@@ -33,33 +33,44 @@ Vue.component('lib',{
                 if(this.customized=="0")
                     app.packages[this.id] = "\\use" + this.category + "library{" + this.libname + "}\n";
                 else app.packages[this.id] = "\\" + this.category + "{" + this.libname + "}\n";
-                if(this.id==1)
-                    for(var key in plotmarksDic)
-                        sparamDic["mark"][1][key] = plotmarksDic[key];
-                else if (this.id==2)
-                    for(var key in colorbrewerDic)
-                        colorDic[key] = colorbrewerDic[key];
-                else if (this.id==4)
-                    for(var key in statisticsDic)
-                        sparamDic[key] = statisticsDic[key];
-                else if (this.id==6)
-                    app.enablepolar = true;
+                switch(this.id){
+                    case 1:
+                        for(var key in plotmarksDic)
+                            sparamDic["mark"][1][key] = plotmarksDic[key];
+                        break;
+                    case 2:
+                        for(var key in colorbrewerDic)
+                            colorDic[key] = colorbrewerDic[key];
+                        break;
+                    case 4:
+                        for(var key in statisticsDic)
+                            sparamDic[key] = statisticsDic[key];
+                        break;
+                    case 6:
+                        app.enablepolar = true;
+                        break;
+                }
             }
             else{
                 delete app.packages[this.id];
-                if(this.id==1)
-                    for(var key in plotmarksDic)
-                        delete sparamDic["mark"][1][key];
-                else if(this.id==2)
-                    for(var key in colorbrewerDic)
-                        delete colorDic[key];
-                else if(this.id==4)
-                    for(var key in statisticsDic)
-                        delete sparamDic[key];
-                else if(this.id==6){
-                    if(app.axistype=="4")
-                        app.axistype = "0";
-                    app.enablepolar = false;
+                switch(this.id){
+                    case 1:
+                        for(var key in plotmarksDic)
+                            delete sparamDic["mark"][1][key];
+                        break;
+                    case 2:
+                        for(var key in colorbrewerDic)
+                            delete colorDic[key];
+                        break;
+                    case 4:
+                        for(var key in statisticsDic)
+                            delete sparamDic[key];
+                        break;
+                    case 6:
+                        if(app.axistype=="4")
+                            app.axistype = "0";
+                        app.enablepolar = false;
+                        break;
                 }
             }
             updatePkg();
@@ -96,38 +107,6 @@ var updateSeries = function(){
 
 var getUnwrappedCommand = function (_wrap_comm) {
     return _wrap_comm.replace(/<\/?.+?\/?>/g,'');
-};
-
-// ----------------------------------------------------------------------------
-// Code from https://github.com/axismaps/colorbrewer/blob/master/colorbrewer.js
-
-var hexToRgb = function(hex){
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-    } : null;
-}
-
-function rgbToHex(r, g, b) {
-    return "#" + ( (1 << 24) | (r << 16) | (g << 8) | b ).toString(16).slice(1);
-}
-
-//------------------------------------------------------------------------------
-
-var getGradientColorCode = function (_begin,_mid,_end,_portion) {
-    // if(_mid=""){
-        var begin = hexToRgb(_begin);
-        var end = hexToRgb(_end);
-        // console.log(begin);
-        var result = {
-            r: begin["r"] + (end["r"]-begin["r"])*_portion,
-            g: begin["g"] + (end["g"]-begin["g"])*_portion,
-            b: begin["b"] + (end["b"]-begin["b"])*_portion,
-        };
-        return rgbToHex(result["r"],result["g"],result["b"]);
-    // }
 };
 
 // 参数工具栏（子组件）
@@ -188,25 +167,28 @@ var parambar = Vue.component('parambar',{
                 var realbm = getUnwrappedCommand(bm);
                 var me = this;
                 var checkingSubDic = function (dic) {
+                    var colormapMenu = false;
                     for(var subkey in dic[realbm][1]){
                         var subcom = _command.substring(eq+1,_command.length);
-                        if(subkey.indexOf(subcom)!=-1){
+                        var barIndex = subcom.indexOf('-');
+                        if((barIndex != -1 && subkey.indexOf(subcom.substring(0,barIndex+1)) != -1) || subkey.indexOf(subcom)!=-1){
                             var subkeyDic = dic[realbm][1][subkey];
-                            if(subcom.indexOf('-')!=-1 && subkeyDic[1]=='colormap'){ // 产生渐变命令
+                            if(barIndex!=-1 && subkeyDic[1]=='colormap' && subcom.substring(0,barIndex+1)==subkey){ // 产生渐变命令
+                                colormapMenu = true;
                                 me.submenu = {};
-                                if(subkeyDic[2][1]==""){
-                                    var genKey = function (_ord) {
-                                        return subkey + _ord;
-                                    }
-                                    var colormapDic = {};
-                                    var MAXRANGE = 12;
-                                    for(var i = 0; i<=MAXRANGE; ++i){
-                                        colormapDic[genKey(String.fromCharCode(65+i))]=["","color",getGradientColorCode(subkeyDic[2][0],subkeyDic[2][1],subkeyDic[2][2],i*1.0/MAXRANGE)];
+                                var colorVector = subkeyDic[2].split(",");
+                                if(barIndex==subcom.length-1){
+                                    for(var i = 0; i < colorVector.length; ++i)
+                                        me.submenu["<b>" + subkey + "</b>" +  String.fromCharCode(65+i)] = ["","color",colorVector[i]];
+                                } else {
+                                    var subChar = subcom.substring(barIndex+1,subcom.length);
+                                    for(var i = 0; i < colorVector.length; ++i){
+                                        if(subChar == String.fromCharCode(65+i))
+                                            me.submenu['<b>' + subkey + String.fromCharCode(65+i) + '</b>'] = ["","color",colorVector[i]];
                                     }
                                 }
-                                me.submenu = colormapDic;
                             } 
-                            else me.submenu[highlightCommand(subkey,subcom)] = subkeyDic;
+                            else if (!colormapMenu) me.submenu[highlightCommand(subkey,subcom)] = subkeyDic;
                         }
                     }
                 };
@@ -327,7 +309,7 @@ var seriesMixin = {
                     var replace_ = this.param.substring(0,index+1) + getUnwrappedCommand(curBestMatch[0]) + (curBestMatch[2]?"=":",");
                     var FirstSubKey = Object.keys(subbar.submenu)[0];
                     if(this.param.substring(index+1,this.param.length).indexOf('=')!=-1 && FirstSubKey)     // 子菜单自动填充
-                        replace_ = replace_ + getUnwrappedCommand(FirstSubKey) + ',';
+                        replace_ = replace_ + getUnwrappedCommand(FirstSubKey) + (FirstSubKey.charAt(FirstSubKey.length-1)=='-'?'':',');
                     this.param = replace_;
                 }
             }
