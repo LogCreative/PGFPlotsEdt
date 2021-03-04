@@ -350,3 +350,19 @@ input[type=text]{
 .libchecker {
     display: inline-block;
 }
+
+#texContent{
+    display: block;
+}
+
+#texContent_ndc{
+    display: none;
+}
+
+#texContent:hover {
+    display: none;
+}
+
+#texContent:hover + #texContent_ndc{
+    display: block;
+}
