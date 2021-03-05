@@ -353,20 +353,20 @@ input[type=text]{
 
 #texContent{
     display: block;
-    cursor:default;
+    cursor: default;
 }
 
 #texContent_ndc{
     display: none;
-    cursor:default;
+    cursor: default;
 }
 
 #texContent:hover {
     display: none;
-    cursor:default;
+    cursor: default;
 }
 
 #texContent:hover + #texContent_ndc{
     display: block;
-    cursor:default;
+    cursor: default;
 }
