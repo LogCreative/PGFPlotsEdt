@@ -39,8 +39,11 @@ Vue.component('lib',{
                             sparamDic["mark"][1][key] = plotmarksDic[key];
                         break;
                     case 2:
-                        for(var key in colorbrewerDic)
+                        for(var key in colorbrewerDic){
                             colorDic[key] = colorbrewerDic[key];
+                            keyp = key.substring(0,key.length-1);
+                            globalparamDic["colormap/"][1][keyp] = colorbrewerDic[key];
+                        }
                         break;
                     case 3:
                         for(var key in colormapsDic)
@@ -63,8 +66,11 @@ Vue.component('lib',{
                             delete sparamDic["mark"][1][key];
                         break;
                     case 2:
-                        for(var key in colorbrewerDic)
+                        for(var key in colorbrewerDic){
                             delete colorDic[key];
+                            keyp = key.substring(0,key.length-1);
+                            delete globalparamDic["colormap/"][1][keyp];
+                        }
                         break;
                     case 3:
                         for(var key in colormapsDic)
