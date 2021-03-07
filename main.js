@@ -743,7 +743,7 @@ var app = new Vue({
     watch:{
         content(_new,_old){
             var maxlength = _new.length>_old.length?_old.length:_new.length;
-            for(var i = 0; i < maxlength; ++i)
+            for(var i = 0; i < maxlength; ++i){
                 if(_new[i]!=_old[i]){
                     var split;
                     var cursor;
@@ -757,6 +757,8 @@ var app = new Vue({
                     this.dc_content = _new.substring(0,split) + cursor + _new.substring(split,_new.length);
                     break;
                 }
+            }
+            setSpliterHeight();
         }
     },
     computed:{

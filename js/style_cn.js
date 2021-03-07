@@ -60,3 +60,18 @@ var warnCode = function (qselector) {
 var blurCode = function (qselector) {
     highlightCode(qselector,"transparent");
 }
+
+// 设置分割栏的高度
+var setSpliterHeight = function () {
+    var spliters = document.getElementsByClassName('gutter gutter-horizontal');
+    var pone = document.getElementById('panel-one');
+    var ptwo = document.getElementById('panel-two');
+    var pthree = document.getElementById('panel-three');
+    var spliterHeight = Math.max(  
+        pone.style.width==0? 0 : parseInt(getComputedStyle(pone).height),
+        ptwo.style.width==0? 0 : parseInt(getComputedStyle(ptwo).height),
+        pthree.style.width==0? 0 : parseInt(getComputedStyle(pthree).height)
+    );
+    for(var i = 0; i < spliters.length; ++i)
+        spliters[i].style.setProperty('--spliterHeight', spliterHeight + 'px');
+};

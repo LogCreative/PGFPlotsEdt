@@ -184,13 +184,6 @@
         
         
     </div>
-    <!-- <template id="colormapboxtpl">
-        <div>
-            <div v-for="(val,key) in colormapdic">
-                <colorbox :color="val"></colorbox>
-            </div>
-        </div>
-    </template> -->
     <template id="libtpl">
         <div class="libchecker"><input type="checkbox" v-model="enabled" @change="onlibchange">{{chname}}</input></div>
     </template>
@@ -382,16 +375,11 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/split.js/1.6.2/split.min.js"></script>
     <script src="js/getversion.js"></script>
     <script src="js/sparamdic_cn.js"></script>
-    <script src="js/directive_cn.js"></script>
+    <script src="js/style_cn.js"></script>
     <script src="main.js"></script>
     <script>
         if(document.body.clientWidth>900){
             // 启用split
-            var sps = document.getElementsByClassName('split');
-            for(var i = 0; i < sps.length; ++i){
-                sps[i].style.float = 'left';
-                sps[i].style.height = '575px';
-            }
             var instance = Split(['#panel-one','#panel-two','#panel-three'],{
                 sizes:[30,35,35],
                 // minSize: [400,400,0],
@@ -399,8 +387,8 @@
                 // expandToMin: true,
                 direction: 'horizontal',
             });
-            // instance.collapse(0);
             document.getElementById('codedetail').open = true;
+            setSpliterHeight();
         }
         else 
             document.getElementById('codedetail').open = false;

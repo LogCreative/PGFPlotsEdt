@@ -83,6 +83,7 @@ var globalparamDic = {
         "y":    ["纵向堆积图","url",""],
         "x":    ["横向堆积图","url",""],
     }],
+    "area style":["面积样式"],
     "ybar interval":["纵向直方图"],
     "xticklabel interval boundaries":["直方图横轴数据标签"],
     "xmajorgrids":["x轴大网格",boolDic],
@@ -91,6 +92,8 @@ var globalparamDic = {
     "xminorgrids":["x轴小网格",boolDic],
     "yminorgrids":["y轴小网格",boolDic],
     "zminorgrids":["z轴小网格",boolDic],
+    "colormap/":["渐变"],
+    "colorbar":["色条"],
 };
 
 // 三维参数增补字典

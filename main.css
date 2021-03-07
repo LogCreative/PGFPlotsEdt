@@ -64,7 +64,7 @@ textarea{
 }
 
 #compilePrev{
-    width: 99%;
+    width: calc(100% - 3px);
     height: 300px;
 }
 
@@ -120,8 +120,8 @@ summary {
 
 #axis{
     width: 100%;
-    max-height: 200px;
-    overflow-y: scroll;
+    /* max-height: 200px; */
+    /* overflow-y: scroll; */
 }
 
 #series .seriesitem > div,
@@ -244,9 +244,12 @@ input[type=checkbox]:disabled:after {
     color: black; */
 }
 
+.split{
+    float: left;
+}
 .gutter.gutter-horizontal {
     float: left;
-    height: 575px;
+    height: var(--spliterHeight);
 }
 .gutter.gutter-horizontal {
     cursor: col-resize;
