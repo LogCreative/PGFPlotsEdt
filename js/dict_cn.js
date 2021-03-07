@@ -95,7 +95,8 @@ var globalparamDic = {
     "colormap/":["渐变",{
         "virdis":           ["翠绿渐变","colormap","#440154,#481D6F,#453681,#3C4D8A,#32628D,#2A768E,#23898D,#1E9B89,#28AE7F,#45BF6F,#70CE56,#A2DA37,#D7E219"],
         "hot":              ["热力渐变","colormap","blue,yellow,orange,red"],
-        "hot2":             ["热力渐变2","colormap",""]
+        "hot2":             ["热力渐变2","colormap","#000000 0%,#FF0000 37%,#FFFF00 75%,#FFFFFF 100%"],
+        "jet":              ["喷流渐变","colormap","#000080 0%,#0000FF 12%,#00FFFF 37%,#FFFF00 62%,#FF0000 87%,#800000 100%"],
     }],
     "colorbar":["色条"],
 };

@@ -42,6 +42,10 @@ Vue.component('lib',{
                         for(var key in colorbrewerDic)
                             colorDic[key] = colorbrewerDic[key];
                         break;
+                    case 3:
+                        for(var key in colormapsDic)
+                            globalparamDic["colormap/"][1][key] = colormapsDic[key];
+                        break;
                     case 4:
                         for(var key in statisticsDic)
                             sparamDic[key] = statisticsDic[key];
@@ -61,6 +65,10 @@ Vue.component('lib',{
                     case 2:
                         for(var key in colorbrewerDic)
                             delete colorDic[key];
+                        break;
+                    case 3:
+                        for(var key in colormapsDic)
+                            delete globalparamDic["colormap/"][1][key];
                         break;
                     case 4:
                         for(var key in statisticsDic)
@@ -172,7 +180,6 @@ var parambar = Vue.component('parambar',{
                     var dliin = (eq!=-1?eq:slash)+1;
                     for(var subkey in dic[realbm][1]){
                         var subcom = _command.substring(dliin,_command.length);
-                        console.log(subcom);
                         var barIndex = subcom.indexOf('-');
                         if((barIndex != -1 && subkey.indexOf(subcom.substring(0,barIndex+1)) != -1) || subkey.indexOf(subcom)!=-1){
                             var subkeyDic = dic[realbm][1][subkey];
