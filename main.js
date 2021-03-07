@@ -151,6 +151,7 @@ var parambar = Vue.component('parambar',{
         refreshList: function(_command) {
             this.submenu = {};
             var eq = _command.indexOf('=');
+            var slash = _command.indexOf('/');
             var highlightCommand = function (key,_command) {
                 var begin = key.indexOf(_command);
                 if(begin!=-1){
@@ -161,15 +162,17 @@ var parambar = Vue.component('parambar',{
                 }
                 return _command;
             }
-            if(eq!=-1){  // 先看有没有等号
+            if(eq!=-1 || slash!=-1){  // 先看有没有等号或/号
                 this.eq = true;
                 var bm = this.bestMatch[0];
                 var realbm = getUnwrappedCommand(bm);
                 var me = this;
                 var checkingSubDic = function (dic) {
                     var colormapMenu = false;
+                    var dliin = (eq!=-1?eq:slash)+1;
                     for(var subkey in dic[realbm][1]){
-                        var subcom = _command.substring(eq+1,_command.length);
+                        var subcom = _command.substring(dliin,_command.length);
+                        console.log(subcom);
                         var barIndex = subcom.indexOf('-');
                         if((barIndex != -1 && subkey.indexOf(subcom.substring(0,barIndex+1)) != -1) || subkey.indexOf(subcom)!=-1){
                             var subkeyDic = dic[realbm][1][subkey];
@@ -192,7 +195,8 @@ var parambar = Vue.component('parambar',{
                         }
                     }
                 };
-                if(getUnwrappedCommand(bm)==_command.substring(0,eq)){
+                var dli = (eq!=-1?eq:slash+1);
+                if(getUnwrappedCommand(bm)==_command.substring(0,dli)){
                     if (this.optionalCommands.hasOwnProperty(realbm))
                         checkingSubDic(this.optionalCommands);
                     else if (sparamDic.hasOwnProperty(realbm))
@@ -306,9 +310,10 @@ var seriesMixin = {
                 var curBestMatch = subbar.bestMatch;
                 if(curBestMatch[0]!="no"){
                     //替换 并确定是否需要等号
-                    var replace_ = this.param.substring(0,index+1) + getUnwrappedCommand(curBestMatch[0]) + (curBestMatch[2]?"=":",");
+                    var replace_ = this.param.substring(0,index+1) + getUnwrappedCommand(curBestMatch[0]) + (curBestMatch[0].charAt(curBestMatch[0].length-1)=='/'?'':(curBestMatch[2]?"=":","));
                     var FirstSubKey = Object.keys(subbar.submenu)[0];
-                    if(this.param.substring(index+1,this.param.length).indexOf('=')!=-1 && FirstSubKey)     // 子菜单自动填充
+                    var _command = this.param.substring(index+1,this.param.length);
+                    if((_command.indexOf('=')!=-1 || _command.indexOf('/')!=-1) && FirstSubKey)     // 子菜单自动填充
                         replace_ = replace_ + getUnwrappedCommand(FirstSubKey) + (FirstSubKey.charAt(FirstSubKey.length-1)=='-'?'':',');
                     this.param = replace_;
                 }

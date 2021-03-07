@@ -7,6 +7,8 @@ a{
     background:whitesmoke;
     padding: 5px 0px;
     margin-bottom: 10px;
+    /* position: absolute;
+    width: 100%; */
 }
 
 #extlinks{
@@ -346,7 +348,7 @@ input[type=text]{
 }
 
 .colormapbox{
-    width: 20px;
+    width: 40px;
     height: 12px;
 }
 
