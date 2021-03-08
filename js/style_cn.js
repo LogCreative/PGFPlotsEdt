@@ -1,3 +1,6 @@
+// 采用 highlight.js 库
+Vue.use(hljs.vuePlugin);
+
 // 渲染顺序会导致设定的相反性
 
 // 缩小第一坐标的文本框宽度

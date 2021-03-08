@@ -1,6 +1,3 @@
-// 采用 highlight.js 库
-Vue.use(hljs.vuePlugin);
-
 // 更新库列表
 var updatePkg = function(){
     var pkgstr = "";
@@ -724,7 +721,7 @@ const tp_premable = "\\begin{tikzpicture}\n\\tikzset{\n every pin/.style={fill=y
 var app = new Vue({
     el: '#app',
     data:{
-        td: false,
+        td: false,              // FIX ME: 所有必须引入三维参数，但是可以选择是否参数化
         enableLegend: false,
         enablepin: false,
         enablesource: false,

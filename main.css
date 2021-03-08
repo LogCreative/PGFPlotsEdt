@@ -375,3 +375,7 @@ input[type=text]{
     display: block;
     cursor: default;
 }
+
+.split{
+    width: 99%;
+}

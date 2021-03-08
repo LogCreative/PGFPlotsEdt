@@ -105,6 +105,9 @@ var globalparamDic = {
         "violet":           ["紫罗兰渐变","colormap","#19197A,#FFFFFF,#EE8CEE"],
     }],
     "colorbar":["色条"],
+    "cycle list name":["样式循环列表",{
+        
+    }],
 };
 
 // 三维参数增补字典
