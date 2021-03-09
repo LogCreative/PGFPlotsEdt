@@ -1,6 +1,8 @@
 // 采用 highlight.js 库
 Vue.use(hljs.vuePlugin);
 
+var default_title = "PGFPlots 代码生成器";
+
 // 渲染顺序会导致设定的相反性
 
 // 缩小第一坐标的文本框宽度

@@ -668,6 +668,21 @@ Vue.component('property',{
     template:'#propertytpl',
 });
 
+// 标题组件
+Vue.component('titleproperty',{
+    mixins: [propMixins],
+    template:'#titletpl',
+    methods:{
+        ontichange: function () {
+            if(this.value=="")
+                document.title = default_title;
+            else
+                document.title = this.value;
+            this.on_change();
+        }
+    }
+});
+
 var s_premable = "\\documentclass[tikz]{standalone}\n\
 \\usepackage{pgfplots}\n\
 \\pgfplotsset{compat=1.14}\n";
@@ -808,6 +823,7 @@ var app = new Vue({
         // sortById: function(array) {
         //     return array.sort((a,b) => a.innerId - b.innerId);
         // },
+        titleChange: function () { document.title = '1'; console.log(this.param); },
         hintDrawCode: function () { this.dc_content = this.content; hintCode("#texContent"); },
         blurDrawCode: function () { blurCode("#texContent") },
         hintAllCode: function () { this.dc_content = this.content; hintCode("#texAllCode"); },

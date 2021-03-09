@@ -56,7 +56,7 @@
                                 </select>
                             </td>
                         </tr>
-                            <property chname="标题" propkey="title"></property>
+                            <titleproperty chname="标题" propkey="title"></titleproperty>
                             <property chname="宽度" propkey="width"></property>    
                             <property chname="高度" propkey="height"></property>
                             <propertyselect chname="字号" propkey="font" :options="['\\tiny','\\scriptsize','\\footnotesize','\\small','\\normalsize','\\large','\\Large','\\LARGE','\\huge','\\Huge']"></propertyselect>    
@@ -357,6 +357,12 @@
         <tr>
             <td>{{chname}}</td>
             <td style="display:none">{{propkey}}</td><td><input type="text" v-model="value" @keyup="on_change"></td>
+        </tr>
+    </template>
+    <template id="titletpl">
+        <tr>
+            <td>{{chname}}</td>
+            <td style="display:none">{{propkey}}</td><td><input type="text" v-model="value" @keyup="ontichange"></td>
         </tr>
     </template>
     <template id="surplustpl">
