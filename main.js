@@ -320,7 +320,10 @@ var seriesMixin = {
                 var curBestMatch = subbar.bestMatch;
                 if(curBestMatch[0]!="no"){
                     //替换 并确定是否需要等号
-                    var replace_ = this.param.substring(0,index+1) + getUnwrappedCommand(curBestMatch[0]) + (curBestMatch[0].charAt(curBestMatch[0].length-1)=='/'?'':(curBestMatch[2]?"=":","));
+                    var uncum = getUnwrappedCommand(curBestMatch[0]);
+                    var replace_ = this.param.substring(0,index+1) + uncum + (uncum.charAt(uncum.length-1)=='/'?'':(curBestMatch[2]?"=":","));
+                    if(curBestMatch[2])
+                        curBestMatch[0] = '<b>' + uncum + '</b>';
                     var FirstSubKey = Object.keys(subbar.submenu)[0];
                     var _command = this.param.substring(index+1,this.param.length);
                     if((_command.indexOf('=')!=-1 || _command.indexOf('/')!=-1) && FirstSubKey)     // 子菜单自动填充
