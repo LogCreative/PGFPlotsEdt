@@ -28,8 +28,8 @@ def getColormapString(df):
     output_ = "\t\t[\"\",\"colormap\",\"" + ("".join(i + ',' for i in df['HEX']))[:-1] + "\"]"
     print(output_)
 
-_virdis_data = pd.read_csv(os.path.dirname(__file__) + '/virdis.csv')
-_virdis_degrade_data = pd.read_csv(os.path.dirname(__file__) + '/virdis.csv', skiprows=lambda x: x > 0 and (x-1) % 20 != 0)
+_viridis_data = pd.read_csv(os.path.dirname(__file__) + '/viridis.csv')
+_viridis_degrade_data = pd.read_csv(os.path.dirname(__file__) + '/viridis.csv', skiprows=lambda x: x > 0 and (x-1) % 20 != 0)
 
-getColormapString(_virdis_data)
-getColormapString(_virdis_degrade_data)
+getColormapString(_viridis_data)
+getColormapString(_viridis_degrade_data)

@@ -823,7 +823,6 @@ var app = new Vue({
         // sortById: function(array) {
         //     return array.sort((a,b) => a.innerId - b.innerId);
         // },
-        titleChange: function () { document.title = '1'; console.log(this.param); },
         hintDrawCode: function () { this.dc_content = this.content; hintCode("#texContent"); },
         blurDrawCode: function () { blurCode("#texContent") },
         hintAllCode: function () { this.dc_content = this.content; hintCode("#texAllCode"); },
