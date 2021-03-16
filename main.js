@@ -739,7 +739,7 @@ const tp_premable = "\\begin{tikzpicture}\n\\tikzset{\n every pin/.style={fill=y
 var app = new Vue({
     el: '#app',
     data:{
-        td: false,              // FIX ME: 所有必须引入三维参数，但是可以选择是否参数化
+        td: false,
         enableLegend: false,
         enablepin: false,
         enablesource: false,
@@ -792,7 +792,7 @@ var app = new Vue({
                 }
             }
             setSpliterHeight();
-        }
+        },
     },
     computed:{
         // sortedExpressions: function(){
@@ -838,7 +838,7 @@ var app = new Vue({
             if(!app.manual)
                 app.curl = "https://latexonline.cc/compile?text="+this.file.replace(/[+]/g,"%2B");
             else
-                app.curl = "https://latexonline.cc/compile?text="+document.getElementById('manualfile').value.replace(/[+]/g,"%2B");
+                app.curl = "https://latexonline.cc/compile?command=lualatex&text="+document.getElementById('manualfile').value.replace(/[+]/g,"%2B");
         }
     },
 });
