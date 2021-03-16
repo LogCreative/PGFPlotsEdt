@@ -139,13 +139,21 @@ var parambar = Vue.component('parambar',{
     },
     mounted: function () {
         var me = this;
-        this.refreshList(this.command);
+        this.refresh3D(this.etd);
         libChangeEvent.$on('lib-change',function () {
             me.refreshList(me.command);
         });
     },
     watch:{
         etd(_td){
+           this.refresh3D(_td);
+        },
+        command(_command){
+            this.refreshList(_command);
+        },
+    },
+    methods:{
+        refresh3D: function(_td) {
             if(_td)
                 for(var k in etdparamDic)
                     this.optionalCommands[k] = etdparamDic[k];
@@ -154,11 +162,6 @@ var parambar = Vue.component('parambar',{
                     delete this.optionalCommands[k];
             this.refreshList(this.command);
         },
-        command(_command){
-            this.refreshList(_command);
-        },
-    },
-    methods:{
         refreshList: function(_command) {
             this.submenu = {};
             var eq = _command.indexOf('=');
