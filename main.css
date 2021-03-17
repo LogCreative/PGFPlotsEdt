@@ -420,10 +420,11 @@ input[type=text]{
     margin-bottom: -5px;
 }
 
-.coordtext:focus{
+.coordtextb{
     display: block;
     width: 98.5%;
-    height: 54px;
+    min-height: 40px;
+    height: 40px;
 }
 
 .closeBut {

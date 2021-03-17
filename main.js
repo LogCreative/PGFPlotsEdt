@@ -469,24 +469,35 @@ Vue.component('expression',{
 // 坐标数据工具栏（子组件）
 Vue.component('coordbar',{
     template: "#coordbartpl",
+    props: ["cdata"],
     data: function() {
         return {
             shown: false,
             addtext: "",
+            icdata: this.cdata,
         }
     },
     methods:{
         close: function () {
-            this.shown = false;  
+            this.$parent.cdata = this.icdata;
+            this.$parent.shown = false;
         },
         addcoord: function (e) {
-            if(e.key=='Enter'){
-                this.$parent.cdata += this.addtext.replace(/(\S+)\s+(\S+)/," ($1,$2)");
-                this.addtext = "";
-            }  
+            var me = this;
+            var appender = function () {
+                me.icdata += " " + me.addtext.replace(/(\S+)\s+(\S+)/," ($1,$2)").replace(/\s+/g,"");
+                me.addtext = "";
+            };
+            if(e.key=='Enter')
+                appender();
+            else if(e.key==' '){
+                var matches = /(\S+)\s+(\S+)/.exec(this.addtext);
+                if(matches!=null&&matches[1]!=null&&matches[2]!=null)
+                    appender();
+            }
         },
         sort: function () {
-            var _cdata = this.$parent.cdata;
+            var _cdata = this.icdata;
             var brareg = /\(\S+,\S+\)/g;
             var coordsarray = [];
             while((coord=brareg.exec(_cdata))!=null){
@@ -496,10 +507,9 @@ Vue.component('coordbar',{
             }
             coordsarray.sort((a,b)=>a[0] - b[0]);
             var cdata_ = "";
-            console.log(coordsarray);
             for(var i in coordsarray)
                 cdata_ += " (" + coordsarray[i][0] + "," + coordsarray[i][1] + ")";
-            this.$parent.cdata = cdata_;
+            this.icdata = cdata_;
         },
     }
 });
@@ -512,6 +522,7 @@ Vue.component('coordinate',{
         return {
             prevdata: "",
             cdata: "",               // 可以被坐标数据工具栏改变
+            shown: false,
         }
     },
     watch:{
@@ -526,7 +537,7 @@ Vue.component('coordinate',{
         },
         coord_focused: function(){
             this.prevdata = this.cdata;
-            this.$refs.subcoordbar.shown = true;
+            this.shown = true;
         }, 
         coord_losefocus: function() {
             // if (this.prevdata==this.data)
