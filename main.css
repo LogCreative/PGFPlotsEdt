@@ -427,6 +427,10 @@ input[type=text]{
     height: 40px;
 }
 
+.coordbar button{
+    padding: 0px 3px;
+}
+
 .closeBut {
     float: right;
     height: 14px;
