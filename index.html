@@ -237,7 +237,7 @@
     </template>
     <template id="coordbartpl">
         <div class="coordbar" style="display: block;" v-show="shown">
-            <div class="title" style="display: block;">坐标数据<button class="closeBut" @click="close">√</button></div>
+            <div class="title" style="display: block;">坐标数据<button class="closeBut" @click="close" title="提交坐标数据">√</button></div>
             <input type="text" @keyup="addcoord" placeholder="x y 按回车添加项" v-model="addtext" v-threetip="td">
             <button @click="sort" v-show="!td">排序</button>
             <button @click="group" v-show="td">分组</button>

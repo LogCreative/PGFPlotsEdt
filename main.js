@@ -514,7 +514,32 @@ Vue.component('coordbar',{
             this.icdata = cdata_;
         },
         group: function () {
-            // TODO:
+            var _cdata = this.icdata;
+            var brareg = /\(\S+,\S+,\S+\)/g;
+            var coordsarray = [];
+            while((coord=brareg.exec(_cdata))!=null){
+                var coorreg = /\((\S+),(\S+),(\S+)\)/;
+                var coords = coorreg.exec(coord);
+                coordsarray.push([coords[1],coords[2],coords[3]]);
+            }
+            coordsarray.sort((a,b)=>{
+                if(a[1]==b[1])
+                    return a[0]-b[0];
+                return a[1]-b[1];
+            });
+            var cdata_ = "";
+            var prevy = "";
+            var prevx = "";
+            var first = true;
+            for(var i in coordsarray){
+                if(coordsarray[i][0]==prevx && coordsarray[i][1]==prevy) continue; // 防止重复项
+                if (first) first = false;
+                else if (coordsarray[i][1]!=prevy) cdata_ += "\n\n";
+                cdata_ += " (" + coordsarray[i][0] + "," + coordsarray[i][1] + "," + coordsarray[i][2] + ")";
+                prevx = coordsarray[i][0];
+                prevy = coordsarray[i][1];
+            }
+            this.icdata = cdata_;
         },
     }
 });
