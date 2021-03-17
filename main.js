@@ -534,7 +534,7 @@ Vue.component('coordbar',{
             for(var i in coordsarray){
                 if(coordsarray[i][0]==prevx && coordsarray[i][1]==prevy) continue; // 防止重复项
                 if (first) first = false;
-                else if (coordsarray[i][1]!=prevy) cdata_ += "\n\n";
+                else if (coordsarray[i][1]!=prevy) cdata_ += "\\par\n";             // 回车会被吞掉
                 cdata_ += " (" + coordsarray[i][0] + "," + coordsarray[i][1] + "," + coordsarray[i][2] + ")";
                 prevx = coordsarray[i][0];
                 prevy = coordsarray[i][1];
