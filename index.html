@@ -44,9 +44,9 @@
                     </summary>
                     <div id="axis">
                         <!-- <tr><td>增补参数</td><td><input type="text" v-model="surplusparam" placeholder="参数"></input></td></tr><br><parambar v-show="paramfoc" :command="surplusparam" :etd="td"></parambar> -->
-                        <surplus :id="0" :ontd="td" :onlegend="enableLegend"></surplus>
-                        <tr><td>坐标轴类型</td>
-                            <td>
+                        <surplus :id="0" :ontd="td" :onlegend="enableLegend"></surplus><br>
+                        <div><div class="paramname">轴类型</div>
+                            <div style="display: inline-block;">
                                 <select v-model="axistype">
                                     <option value="0">普通坐标轴</option>
                                     <option value="1">x对数轴</option>
@@ -54,8 +54,9 @@
                                     <option value="3">双对数轴</option>
                                     <option value="4" v-show="enablepolar">极坐标轴</option>
                                 </select>
-                            </td>
-                        </tr>
+                            </div>
+                        </div><br>
+                            <br><div class="paramhead">全局参量</div>
                             <titleproperty chname="标题" propkey="title"></titleproperty>
                             <property chname="宽度" propkey="width"></property>    
                             <property chname="高度" propkey="height"></property>
@@ -64,18 +65,18 @@
                         <div v-show="enableLegend">
                             <propertyselect chname="图例位置" propkey="legend pos" :options="['south west','south east','north west','north east','outer north east']"></propertyselect>    
                         </div>
-                            <tr>x轴</tr>
+                            <br><div class="paramhead">x轴</div>
                             <property chname="轴题" propkey="xlabel"></property>
                             <property chname="最小" propkey="xmin"></property>
                             <property chname="最大" propkey="xmax"></property>
                             <propertyselect chname="箭头" propkey="axis x line" :options="['top','middle','bottom','none']"></propertyselect>
-                            <tr>y轴</tr>
+                            <div class="paramhead">y轴</div>
                             <property chname="轴题" propkey="ylabel"></property>
                             <property chname="最小" propkey="ymin"></property>
                             <property chname="最大" propkey="ymax"></property>
                             <propertyselect chname="箭头" propkey="axis y line" :options="['left','middle','right','none']"></propertyselect>
                         <div v-show="td">
-                            <tr>z轴</tr>
+                            <div class="paramhead">z轴</div>
                             <property chname="轴题" propkey="zlabel"></property>
                             <property chname="最小" propkey="zmin"></property>
                             <property chname="最大" propkey="zmax"></property>
@@ -92,12 +93,12 @@
                     <summary>
                         设定
                     </summary>
-                    <input type="checkbox" onclick="chnClick(this)" checked="true">启用中文</input>
-                    <input type="checkbox" onclick="pinClick(this)" v-model="enablepin">启用标注</input>
-                    <input type="checkbox" v-model="td">启用三维参数</input>
-                    <input type="checkbox" v-model="enableLegend">启用图例</input>
-                    <input type="checkbox" onclick="sourceClick(this)" v-model="enablesource">启用数据源</input>
-                    <div>
+                    <div class="libchecker"><input type="checkbox" onclick="chnClick(this)" checked="true">启用中文</input></div>
+                    <div class="libchecker"><input type="checkbox" onclick="pinClick(this)" v-model="enablepin">启用标注</input></div>
+                    <div class="libchecker"><input type="checkbox" v-model="td">启用三维</input></div>
+                    <div class="libchecker"><input type="checkbox" v-model="enableLegend">启用图例</input></div>
+                    <div class="libchecker"><input type="checkbox" onclick="sourceClick(this)" v-model="enablesource">启用数据源</input></div>
+                    <!-- <div> -->
                         <lib :id="1" category="tikz" chname="标记库" libname="plotmarks" customized="0"></lib>
                         <lib :id="2" category="pgfplots" chname="颜色库" libname="colorbrewer" customized="0"></lib>
                         <lib :id="3" category="pgfplots" chname="渐变库" libname="colormaps" customized="0"></lib>
@@ -106,7 +107,7 @@
                         <lib :id="5" category="pgfplots" chname="间隙填充库" libname="fillbetween" customized="0"></lib>
                         <lib :id="6" category="pgfplots" chname="极坐标库" libname="polar" customized="0"></lib>
                         <lib :id="7" category="pgfplots" chname="日期库" libname="dateplot" customized="0"></lib>
-                    </div>
+                    <!-- </div> -->
                 </details>
                 <details id="data" open="true">
                     <summary>
@@ -345,7 +346,7 @@
     </template>
     <template id="propertyselecttpl">
         <tr>
-            <td>{{chname}}</td>
+            <td class="paramname">{{chname}}</td>
             <td>
                 <select v-model="value" @change="on_change">
                     <option v-for="opt in options" :value="opt">{{opt}}</option>
@@ -355,22 +356,22 @@
     </template>
     <template id="propertytpl">
         <tr>
-            <td>{{chname}}</td>
+            <td class="paramname">{{chname}}</td>
             <td style="display:none">{{propkey}}</td><td><input type="text" v-model="value" @keyup="on_change"></td>
         </tr>
     </template>
     <template id="titletpl">
         <tr>
-            <td>{{chname}}</td>
+            <td class="paramname">{{chname}}</td>
             <td style="display:none">{{propkey}}</td><td><input type="text" v-model="value" @keyup="ontichange"></td>
         </tr>
     </template>
     <template id="surplustpl">
         <div>
-            <tr>
-                <td>增补参数</td>
-                <td><input type="text" class="surparam" v-model="param" @keyup="onpachange" placeholder="参数"  @focus="param_focused" @blur="param_losefocus"></td>
-            </tr>
+            <div>
+                <div>增补参数</div>
+                <div><input type="text" class="surparam" v-model="param" @keyup="onpachange" placeholder="参数"  @focus="param_focused" @blur="param_losefocus"></div>
+            </div>
             <parambar ref="subparambar" :global="true" v-show="paramfoc" :command="command" :etd="ontd"></parambar>
         </div>        
     </template>

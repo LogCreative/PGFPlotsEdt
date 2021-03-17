@@ -181,14 +181,22 @@ input[type=checkbox]
     cursor: pointer;
 }
 
-input[type=checkbox] {
+#settings input[type=checkbox] {
+    margin-right: 10px;
+}
+
+#data input[type=checkbox] {
     margin-right: 8px;
+}
+
+input[type=checkbox] {
     margin-bottom: 5px;
     
     width: 15px;
     height: 17px;
     position: relative;
 }
+
 
 input[type=checkbox]:after,
 input[type=checkbox]:disabled:after {
@@ -359,6 +367,7 @@ input[type=text]{
 
 .libchecker {
     display: inline-block;
+    width: 7em;
 }
 
 #texContent{
@@ -383,4 +392,18 @@ input[type=text]{
 
 .split{
     width: 99%;
+}
+
+#axis > div{
+    display: inline-block;
+}
+.paramname{
+    width: 4.5em;
+    margin: 2px 0px;
+}
+.paramhead{
+    font-size: smaller;
+    margin: 4px 0px;
+    color: gray;
+    display: block;
 }
