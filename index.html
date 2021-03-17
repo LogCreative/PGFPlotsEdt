@@ -236,9 +236,10 @@
         </div>
     </template>
     <template id="coordbartpl">
-        <div class="coordbar" style="display: block;">
+        <div class="coordbar" style="display: block;" v-show="shown">
             <div class="title" style="display: block;">坐标数据</div>
-            坐标数据诸如 (x1,y1) (x2,y2) (x3,y3)
+            <button @click="submit">提交</button>
+            <!-- <button @click="sort">排序</button> -->
         </div>
     </template>
     <template id="coordtpl">
@@ -263,10 +264,11 @@
                 <input type="checkbox" @click="oncchange" v-model="cycle" title="循环面积">
             </div>
             <div><input type="text" class="param" v-model="param" @keyup="onpachange" placeholder="参数" @focus="param_focused" @blur="param_losefocus"></div>
-            <!-- <br> -->
-            <div><input type="text" class="coord" v-model="data" @keyup="on_change" placeholder="坐标数据" @focus="coord_focused" @blur="coord_losefocus"></div>
             <parambar ref="subparambar" v-show="paramfoc" :command="command" :etd="etd" :global="false"></parambar>
-            <coordbar v-show="coordbar"></coordbar>
+            <!-- <br> -->
+            <coordbar ref="subcoordbar"></coordbar>
+            <div><textarea class="coordtext" v-model="data" @keyup="on_change" placeholder="坐标数据" @focus="coord_focused" @blur="coord_losefocus"></textarea></div>
+            
         </div>
     </template>
     <template id="tableparamtpl">

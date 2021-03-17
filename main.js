@@ -469,6 +469,19 @@ Vue.component('expression',{
 // 坐标数据工具栏（子组件）
 Vue.component('coordbar',{
     template: "#coordbartpl",
+    data: function() {
+        return {
+            shown: false,
+        }
+    },
+    methods:{
+        submit: function () {
+            this.shown = false;  
+        },
+        sort: function () {
+            console.log("sort");
+        },
+    }
 });
 
 // 坐标组件
@@ -477,8 +490,8 @@ Vue.component('coordinate',{
     template:'#coordtpl',
     data: function() {
         return {
+            prevdata: "",
             data: "",
-            coordbar:false,
         }
     },
     methods:{
@@ -487,11 +500,13 @@ Vue.component('coordinate',{
             updateSeries();
         },
         coord_focused: function(){
-            this.coordbar = true;
+            this.prevdata = this.data;
+            this.$refs.subcoordbar.shown = true;
+        }, 
+        coord_losefocus: function() {
+            if (this.prevdata==this.data)
+                this.$refs.subcoordbar.shown = false;
         },
-        coord_losefocus: function(){
-            this.coordbar = false;
-        }
     }
 });
 

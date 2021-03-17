@@ -407,3 +407,21 @@ input[type=text]{
     color: gray;
     display: block;
 }
+
+.coordbar{
+    margin-bottom: 0px;
+}
+
+.coordtext{
+    width: 80px;
+    min-height: 18px;
+    height: 18px;
+    display: inline-block;
+    margin-bottom: -5px;
+}
+
+.coordtext:focus{
+    display: block;
+    width: 98.5%;
+    height: 54px;
+}
