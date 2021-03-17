@@ -26,7 +26,7 @@
                 <div>
                     <a href="https://mirrors.rit.edu/CTAN/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf" target="_blank">PGFPlots 手册</a>
                 </div>
-                <div>
+                <div id="lang">
                     <a href="https://logcreative.github.io/PGFPlotsEdt/index.html">中文</a>|<a title="Under Construction">English</a>
                 </div>
             </div>
@@ -397,8 +397,10 @@
             document.getElementById('codedetail').open = true;
             setSpliterHeight();
         }
-        else 
+        else{ 
             document.getElementById('codedetail').open = false;
+            document.getElementById('lang').style['display'] = 'none';
+        }
     </script>
 </body>
 </html>
