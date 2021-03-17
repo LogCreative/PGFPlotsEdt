@@ -469,7 +469,7 @@ Vue.component('expression',{
 // 坐标数据工具栏（子组件）
 Vue.component('coordbar',{
     template: "#coordbartpl",
-    props: ["cdata"],
+    props: ["cdata","td"],
     data: function() {
         return {
             shown: false,
@@ -484,15 +484,17 @@ Vue.component('coordbar',{
         },
         addcoord: function (e) {
             var me = this;
+            var fromreg = (this.td?/(\S+)\s+(\S+)\s+(\S+)/:/(\S+)\s+(\S+)/);
+            var toform = (this.td?" ($1,$2,$3)":" ($1,$2)");
             var appender = function () {
-                me.icdata += " " + me.addtext.replace(/(\S+)\s+(\S+)/," ($1,$2)").replace(/\s+/g,"");
+                me.icdata += " " + me.addtext.replace(fromreg,toform).replace(/\s+/g,"");
                 me.addtext = "";
             };
             if(e.key=='Enter')
                 appender();
             else if(e.key==' '){
-                var matches = /(\S+)\s+(\S+)/.exec(this.addtext);
-                if(matches!=null&&matches[1]!=null&&matches[2]!=null)
+                var matches = fromreg.exec(this.addtext);
+                if(matches!=null&&matches[1]!=null&&matches[2]!=null&&(!this.td||matches[3]!=null))
                     appender();
             }
         },
@@ -510,6 +512,9 @@ Vue.component('coordbar',{
             for(var i in coordsarray)
                 cdata_ += " (" + coordsarray[i][0] + "," + coordsarray[i][1] + ")";
             this.icdata = cdata_;
+        },
+        group: function () {
+            // TODO:
         },
     }
 });

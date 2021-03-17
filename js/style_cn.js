@@ -16,6 +16,12 @@ Vue.directive('minimize',function(el,binding){
     }
 });
 
+Vue.directive('threetip',function (el,binding) {
+    if(binding.value)
+        el.placeholder = 'x y z 按回车添加项';
+    else el.placeholder = 'x y 按回车添加项';
+});
+
 // 删除线样式
 Vue.directive('soutline',function(el,binding){
     if(binding.value){
