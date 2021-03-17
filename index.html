@@ -237,9 +237,9 @@
     </template>
     <template id="coordbartpl">
         <div class="coordbar" style="display: block;" v-show="shown">
-            <div class="title" style="display: block;">坐标数据</div>
-            <button @click="submit">提交</button>
-            <!-- <button @click="sort">排序</button> -->
+            <div class="title" style="display: block;">坐标数据<button class="closeBut" @click="close">X</button></div>
+            <input type="text" @keyup="addcoord" placeholder="x y 按回车键添加项" v-model="addtext">
+            <button @click="sort">排序</button>
         </div>
     </template>
     <template id="coordtpl">
@@ -267,7 +267,7 @@
             <parambar ref="subparambar" v-show="paramfoc" :command="command" :etd="etd" :global="false"></parambar>
             <!-- <br> -->
             <coordbar ref="subcoordbar"></coordbar>
-            <div><textarea class="coordtext" v-model="data" @keyup="on_change" placeholder="坐标数据" @focus="coord_focused" @blur="coord_losefocus"></textarea></div>
+            <div><textarea class="coordtext" v-model="cdata" placeholder="坐标数据" @focus="coord_focused" @blur="coord_losefocus"></textarea></div>
             
         </div>
     </template>

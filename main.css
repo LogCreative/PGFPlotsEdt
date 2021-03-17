@@ -425,3 +425,18 @@ input[type=text]{
     width: 98.5%;
     height: 54px;
 }
+
+.closeBut {
+    float: right;
+    height: 14px;
+    font-size:x-small;
+    padding: 0px 5px;
+    background-color: green;
+    color: white;
+    border: 0px;
+    border-radius: 0px;
+}
+
+.closeBut:hover {
+    background-color: red;
+}

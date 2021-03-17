@@ -472,14 +472,34 @@ Vue.component('coordbar',{
     data: function() {
         return {
             shown: false,
+            addtext: "",
         }
     },
     methods:{
-        submit: function () {
+        close: function () {
             this.shown = false;  
         },
+        addcoord: function (e) {
+            if(e.key=='Enter'){
+                this.$parent.cdata += this.addtext.replace(/(\S+)\s+(\S+)/," ($1,$2)");
+                this.addtext = "";
+            }  
+        },
         sort: function () {
-            console.log("sort");
+            var _cdata = this.$parent.cdata;
+            var brareg = /\(\S+,\S+\)/g;
+            var coordsarray = [];
+            while((coord=brareg.exec(_cdata))!=null){
+                var coorreg = /\((\S+),(\S+)\)/;
+                var coords = coorreg.exec(coord);
+                coordsarray.push([coords[1],coords[2]]);
+            }
+            coordsarray.sort((a,b)=>a[0] - b[0]);
+            var cdata_ = "";
+            console.log(coordsarray);
+            for(var i in coordsarray)
+                cdata_ += " (" + coordsarray[i][0] + "," + coordsarray[i][1] + ")";
+            this.$parent.cdata = cdata_;
         },
     }
 });
@@ -491,21 +511,26 @@ Vue.component('coordinate',{
     data: function() {
         return {
             prevdata: "",
-            data: "",
+            cdata: "",               // 可以被坐标数据工具栏改变
+        }
+    },
+    watch:{
+        cdata(){
+            this.updater();
         }
     },
     methods:{
         updater: function(){
-            seriesList[this.idInner] = [(this.etd? ("\\addplot3" + (this.plus?"+":"") + " ["):("\\addplot"+ (this.plus?"+":"") +" [")) + this.param + "] coordinates {" + this.data + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
+            seriesList[this.idInner] = [(this.etd? ("\\addplot3" + (this.plus?"+":"") + " ["):("\\addplot"+ (this.plus?"+":"") +" [")) + this.param + "] coordinates {" + this.cdata + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
             updateSeries();
         },
         coord_focused: function(){
-            this.prevdata = this.data;
+            this.prevdata = this.cdata;
             this.$refs.subcoordbar.shown = true;
         }, 
         coord_losefocus: function() {
-            if (this.prevdata==this.data)
-                this.$refs.subcoordbar.shown = false;
+            // if (this.prevdata==this.data)
+            //     this.$refs.subcoordbar.shown = false;
         },
     }
 });
