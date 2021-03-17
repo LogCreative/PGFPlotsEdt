@@ -241,6 +241,7 @@
             <input type="text" @keyup="addcoord" placeholder="x y 按回车添加项" v-model="addtext" v-threetip="td">
             <button @click="sort" v-show="!td" title="按自变量升序对坐标进行排序">排序</button>
             <button @click="group" v-show="td" title="按y轴升序对坐标进行分组，配合surf或mesh指令">分组</button>
+            <button @click="format">格式正规化</button>
             <textarea class="coordtextb" v-model="icdata"></textarea>
         </div>
     </template>

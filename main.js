@@ -541,6 +541,13 @@ Vue.component('coordbar',{
             }
             this.icdata = cdata_;
         },
+        format: function() {
+            var _cdata = this.icdata;
+            var fromreg = (this.td?/(\d+)\D+(\d+)\D+(\d+)/gm:/(\d+)\D+(\d+)/gm);
+            var toform = (this.td?"($1,$2,$3)":"($1,$2)");
+            _cdata = _cdata.replace(fromreg,toform);
+            this.icdata = _cdata;
+        }
     }
 });
 
