@@ -484,9 +484,13 @@ Vue.component('coordbar',{
         },
     },
     methods:{
-        close: function () {
+        submit: function () {
             this.$parent.cdata = this.icdata;
             this.$parent.shown = false;
+        },
+        cancel: function () {
+            this.icdata = this.$parent.cdata;
+            this.$parent.shown = false;  
         },
         addcoord: function (e) {
             var me = this;

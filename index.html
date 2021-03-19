@@ -237,12 +237,12 @@
     </template>
     <template id="coordbartpl">
         <div class="coordbar" style="display: block;" v-show="shown">
-            <div class="title" style="display: block;">坐标数据<button class="closeBut" @click="close" title="提交坐标数据">√ 提交</button></div>
+            <div class="title" style="display: block;">坐标数据<button class="closeBut" @click="submit" title="提交坐标数据">√ 提交</button><button class="closeBut" @click="cancel" title="放弃当前更改">× 取消</button></div>
             <input type="text" @keyup="addcoord" placeholder="x y 按回车添加项" v-model="addtext" v-threetip="td">
             <button @click="sort" v-show="!td" title="按自变量升序对坐标进行排序">排序</button>
             <button @click="group" v-show="td" title="按y轴升序对坐标进行分组，配合surf或mesh指令">分组</button>
-            <button @click="format">格式正规化</button>
-            <div v-show="!validation" style="display: inline-block;">⚠不是矩阵</div>
+            <button @click="format" title="按照顺序使用括号标记坐标">格式正规化</button>
+            <div v-show="!validation" style="display: inline-block;" title="绘制曲面图需要网格状的坐标量">⚠不是矩阵</div>
             <textarea class="coordtextb" v-model="icdata"></textarea>
         </div>
     </template>
