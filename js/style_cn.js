@@ -78,11 +78,10 @@ var setSpliterHeight = function () {
     var pone = document.getElementById('panel-one');
     var ptwo = document.getElementById('panel-two');
     var pthree = document.getElementById('panel-three');
-    var spliterHeight = Math.max(  
+    spliters[0].style.setProperty('--spliterHeight', Math.max(  
         pone.style.width==0? 0 : parseInt(getComputedStyle(pone).height),
+        ptwo.style.width==0? 0 : parseInt(getComputedStyle(ptwo).height)) + 'px');
+    spliters[1].style.setProperty('--spliterHeight', Math.max(
         ptwo.style.width==0? 0 : parseInt(getComputedStyle(ptwo).height),
-        pthree.style.width==0? 0 : parseInt(getComputedStyle(pthree).height)
-    );
-    for(var i = 0; i < spliters.length; ++i)
-        spliters[i].style.setProperty('--spliterHeight', spliterHeight + 'px');
+        pthree.style.width==0? 0 : parseInt(getComputedStyle(pthree).height)) + 'px');
 };

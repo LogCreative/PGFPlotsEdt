@@ -490,7 +490,8 @@ Vue.component('coordbar',{
         },
         cancel: function () {
             this.icdata = this.$parent.cdata;
-            this.$parent.shown = false;  
+            this.$parent.shown = false; 
+            this.validation = true; 
         },
         addcoord: function (e) {
             var me = this;
@@ -604,10 +605,6 @@ Vue.component('coordinate',{
         coord_focused: function(){
             this.prevdata = this.cdata;
             this.shown = true;
-        }, 
-        coord_losefocus: function() {
-            // if (this.prevdata==this.data)
-            //     this.$refs.subcoordbar.shown = false;
         },
     }
 });

@@ -269,9 +269,8 @@
             </div>
             <div><input type="text" class="param" v-model="param" @keyup="onpachange" placeholder="参数" @focus="param_focused" @blur="param_losefocus"></div>
             <parambar ref="subparambar" v-show="paramfoc" :command="command" :etd="etd" :global="false"></parambar>
-            <!-- <br> -->
             <coordbar ref="subcoordbar" :cdata="cdata" v-show="shown" :td="etd"></coordbar>
-            <div v-show="!shown"><textarea class="coordtext" v-model="cdata" placeholder="坐标数据" @focus="coord_focused" @blur="coord_losefocus"></textarea></div>
+            <div v-show="!shown"><textarea class="coordtext" v-model="cdata" placeholder="坐标数据" @focus="coord_focused"></textarea></div>
             
         </div>
     </template>
