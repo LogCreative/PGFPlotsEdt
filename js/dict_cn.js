@@ -128,7 +128,13 @@ var globalparamDic = {
         "{at={(0.5,-0.1)},anchor=north},legend columns=3":       ["图例在下方","none",""],
         "{at={(0.5,1.03)},anchor=south},legend columns=3":       ["图例在上方","none",""],
         "{draw=none}":                                           ["没有图例边框","none",""],
-    }]
+    }],
+    "symbolic x coords":["x轴离散坐标",{
+        "{Alice,Bob,Tom}":                              ["离散坐标集合","none",""],
+    }],
+    "symbolic y coords":["y轴离散坐标",{
+        "{Alice,Bob,Tom}":                              ["离散坐标集合","none",""],
+    }],
 };
 
 // 三维参数增补字典

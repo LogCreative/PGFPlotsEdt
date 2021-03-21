@@ -458,11 +458,6 @@ Vue.component('expression',{
                 seriesList[this.idInner] = ["\\addplot3" + (this.plus?"+":"") +" [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "})" + (this.cycle?" \\closedcycle":"") + ";", this.legend,this.show,false];
             updateSeries();
         },
-        // sortUpdater: function(){
-        //     this.updater(this.td,this.plus,this.cycle);
-        //     SortEvent.$emit('sort-event',this.$options.name)
-        //     // expressions.sort((a,b) => a.idInner - b.idInner)
-        // }
     }
 });
 
@@ -705,9 +700,6 @@ Vue.component('tablep',{
         });
     },
     methods:{
-        // refreshList: function(){         // refresh is so slow.
-        //     this.$set(this.sourceNameList, sourceNameList);
-        // },
         on_change: function(){
             if(this.sourceSelect==null)
                 this.sourceSelect="...";
@@ -835,20 +827,6 @@ sourceClick = function(obj){
     app.enablesource = !app.enablesource;
 }
 
-var gomanual = function(){
-    var mf = document.getElementById('manualfile');
-    mf.innerHTML = app.file;
-    mf.style.display = 'block';
-    document.getElementById('settings').style.display = 'none';
-    document.getElementById('auto').style.display = 'none';
-    document.getElementById('panel-vtwo').style.display = 'none';
-    document.getElementById('panel-three').style.width = '0px';
-    document.getElementById('panel-two').style.width = window.innerWidth - document.getElementById('panel-one').style.width;
-    document.getElementById('compilePrev').style.height = '430px';
-    app.manual = true;
-    // Split(['#panel-one','#panel-two']);
-};
-
 const t_premable = "\\begin{tikzpicture}\n"
 
 const tp_premable = "\\begin{tikzpicture}\n\\tikzset{\n every pin/.style={fill=yellow!50!white,rectangle,rounded corners=3pt,font=\\tiny},\n small dot/.style={fill=black,circle,scale=0.3},\n}\n"
@@ -878,15 +856,8 @@ var app = new Vue({
         legend: "",
         axistype: "0",
         dc_content: "",
+        purl:"",
     },
-    // mounted: function() {
-    //     var me = this;
-    //     SortEvent.$on('sort-event', function(cate){
-    //         me.expressions.sort((a,b)=> a.innerId - b.innerId);
-            
-    //         console.log(cate);
-    //     });
-    // },
     mounted:function (){
         this.dc_content = this.content;
     },
@@ -912,9 +883,6 @@ var app = new Vue({
         },
     },
     computed:{
-        // sortedExpressions: function(){
-        //     return this.sortById(this.expressions);
-        // },
         premable: function(){
             return s_premable + this.pkgstr + this.e_premable;
         },
@@ -940,9 +908,6 @@ var app = new Vue({
         },
     },
     methods:{
-        // sortById: function(array) {
-        //     return array.sort((a,b) => a.innerId - b.innerId);
-        // },
         hintDrawCode: function () { this.dc_content = this.content; hintCode("#texContent"); },
         blurDrawCode: function () { blurCode("#texContent") },
         hintAllCode: function () { this.dc_content = this.content; hintCode("#texAllCode"); },

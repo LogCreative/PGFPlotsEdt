@@ -35,7 +35,8 @@
         <div id="panel-one" class="split">
             <div id="panel-vone">
                 <button v-on="{click: compile}" id="compileBtn">编译</button><br>
-                <iframe v-bind:src="curl" id="compilePrev"></iframe>
+                <iframe v-bind:src="purl" id="stylePrev" v-show="purl!=''">样本</iframe>
+                <iframe v-bind:src="curl" id="compilePrev" v-show="purl==''"></iframe>
             </div>
             <div id="panel-vtwo">
                 <details>
