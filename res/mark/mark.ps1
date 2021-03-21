@@ -10,8 +10,8 @@ $premable = '\documentclass[tikz,dvisvgm]{standalone}
 \usetikzlibrary{plotmarks}
 \begin{document}'
 
-$mark_syntax = @('*','x','+')
-$mark_synopsis = @('multi','cross','plus')
+$mark_syntax = @('*','x','+','-','|','o','asterisk','star','10-pointed star','oplus','oplus*','otimes','otimes*','square','square*','triangle','triangle*','diamond','diamond*','halfdiamond','halfdiamond*','halfsquare*','halfsquare right*','halfsquare left*','Mercedes star','Mercedes star flipped','half circle','half circle*','pentagon','pentagon*')
+$mark_synopsis = @('multi','cross','plus','minus','vert','o','asterisk','star','10-pointed star','oplus','oplusm','otimes','otimesm','square','squarem','triangle','trianglem','diamond','diamondm','halfdiamond','halfdiamondm','halfsquarem','halfsquare rightm','halfsquare leftm','Mercedes star','Mercedes star flipped','half circle','half circlem','pentagon','pentagonm')
 
 $setup_first = '\begin{tikzpicture}
 \begin{axis}[axis x line={none},
@@ -24,19 +24,42 @@ $setup_second = ',mark options={scale=2,fill=yellow!80!black},] coordinates {(1,
 \end{tikzpicture}
 '
 
+$mark3_syntax = @('ball','cube','cube*')
+$mark3_synopsis = @('ball','cube','cubem')
+
+$setup3_first = '\begin{tikzpicture}
+\begin{axis}[]
+ \addplot3 [mark='
+
+$setup3_second = ',mark options={scale=2,fill=yellow!80!black},] coordinates {(1,1,1) (2,2,3) (3,3,2) (4,4,4)};
+\end{axis}
+\end{tikzpicture}
+'
+
 $suffix = '\end{document}'
 
 New-Item tex -Type directory
 New-Item svg -Type directory
 New-Item tmp -Type directory
 
-
-for($x=0;$x -lt 3;$x++){
+for($x=0;$x -lt $mark_synopsis.length;$x++){
     $file = $mark_synopsis[$x] + '.tex'
     $premable + $setup_first + $mark_syntax[$x] + $setup_second + $suffix | Out-File tex/$file
     Set-Location tmp/
     $dvifile = $mark_synopsis[$x] + ".dvi"
     $svgfile = $mark_synopsis[$x] + ".svg"
+    pdflatex -output-format=dvi ../tex/$file
+    dvisvgm --zoom=-1 --exact --font-format=woff $dvifile
+    Copy-Item -Path $svgfile -Destination ../svg/$svgfile -Force
+    Set-Location ../
+}
+
+for($x=0;$x -lt $mark3_synopsis.length;$x++){
+    $file = $mark3_synopsis[$x] + '.tex'
+    $premable + $setup3_first + $mark3_syntax[$x] + $setup3_second + $suffix | Out-File tex/$file
+    Set-Location tmp/
+    $dvifile = $mark3_synopsis[$x] + ".dvi"
+    $svgfile = $mark3_synopsis[$x] + ".svg"
     pdflatex -output-format=dvi ../tex/$file
     dvisvgm --zoom=-1 --exact --font-format=woff $dvifile
     Copy-Item -Path $svgfile -Destination ../svg/$svgfile -Force

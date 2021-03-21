@@ -204,7 +204,12 @@ var parambar = Vue.component('parambar',{
                                     }
                                 }
                             } 
-                            else if (!colormapMenu) me.submenu[highlightCommand(subkey,subcom)] = subkeyDic;
+                            else if (!colormapMenu){ 
+                                if(subkeyDic[1]=='url'){
+                                    app.purl = 'https://cdn.jsdelivr.net/gh/LogCreative/PGFPlotsEdt/res/' + subkeyDic[2];
+                                } else app.purl = '';
+                                me.submenu[highlightCommand(subkey,subcom)] = subkeyDic;
+                            }
                         }
                     }
                 };
@@ -218,6 +223,7 @@ var parambar = Vue.component('parambar',{
                 else this.bestMatch = ["no","no"];
             }
             else {      // 否则再刷新列表
+                app.purl = '';
                 this.eq = false;
                 this.matchedCommands = {};
                 this.bestMatch = ["no","no"];
@@ -313,6 +319,7 @@ var seriesMixin = {
             this.paramfoc = true;
         },
         param_losefocus: function(){
+            app.purl = "";
             this.paramfoc = false;
         },
         onpachange: function(e){

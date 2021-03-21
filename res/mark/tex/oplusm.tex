@@ -1,0 +1,12 @@
+\documentclass[tikz,dvisvgm]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\usetikzlibrary{plotmarks}
+\begin{document}\begin{tikzpicture}
+\begin{axis}[axis x line={none},
+axis y line={none},
+]
+ \addplot [mark=oplus*,mark options={scale=2,fill=yellow!80!black},] coordinates {(1,1) (2,2.8) (3,2) (4,4)};
+\end{axis}
+\end{tikzpicture}
+\end{document}
