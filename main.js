@@ -204,14 +204,14 @@ var parambar = Vue.component('parambar',{
                                     }
                                 }
                             } 
-                            else if (!colormapMenu){ 
-                                if(subkeyDic[1]=='url'){
-                                    app.purl = 'https://cdn.jsdelivr.net/gh/LogCreative/PGFPlotsEdt/res/' + subkeyDic[2];
-                                } else app.purl = '';
+                            else if (!colormapMenu)
                                 me.submenu[highlightCommand(subkey,subcom)] = subkeyDic;
-                            }
                         }
                     }
+                    var FirstSubKey = getUnwrappedCommand(Object.keys(me.submenu)[0]);
+                    if(dic[realbm][1][FirstSubKey][1]=='url'){
+                        app.purl = 'https://cdn.jsdelivr.net/gh/LogCreative/PGFPlotsEdt/res/' + dic[realbm][1][FirstSubKey][2];
+                    } else app.purl = '';
                 };
                 var dli = (eq!=-1?eq:slash+1);
                 if(getUnwrappedCommand(bm)==_command.substring(0,dli)){
@@ -223,7 +223,6 @@ var parambar = Vue.component('parambar',{
                 else this.bestMatch = ["no","no"];
             }
             else {      // 否则再刷新列表
-                app.purl = '';
                 this.eq = false;
                 this.matchedCommands = {};
                 this.bestMatch = ["no","no"];
