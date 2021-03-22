@@ -38,8 +38,8 @@ Vue.component('lib',{
                     case 2:
                         for(var key in colorbrewerDic){
                             colorDic[key] = colorbrewerDic[key];
-                            keyp = key.substring(0,key.length-1);
-                            globalparamDic["colormap/"][1][keyp] = colorbrewerDic[key];
+                            globalparamDic["colormap/"][1][key] = colorbrewerDic[key];
+                            globalparamDic["cycle list/"][1][key] = colorbrewerDic[key];
                         }
                         break;
                     case 3:
@@ -65,8 +65,8 @@ Vue.component('lib',{
                     case 2:
                         for(var key in colorbrewerDic){
                             delete colorDic[key];
-                            keyp = key.substring(0,key.length-1);
-                            delete globalparamDic["colormap/"][1][keyp];
+                            delete globalparamDic["colormap/"][1][key];
+                            delete globalparamDic["cycle list/"][1][key];
                         }
                         break;
                     case 3:
@@ -178,6 +178,8 @@ var parambar = Vue.component('parambar',{
             }
             if(eq!=-1 || slash!=-1){  // 先看有没有等号或/号
                 this.eq = true;
+                if(this.global && _command=="cycle list/")         // FIXME: 手动覆写，因为 cycle list 和 cycle list/ 重复
+                    this.bestMatch = ["<b>cycle list</b>/",globalparamDic["cycle list/"],true];
                 var bm = this.bestMatch[0];
                 var realbm = getUnwrappedCommand(bm);
                 var me = this;
@@ -193,13 +195,33 @@ var parambar = Vue.component('parambar',{
                                 colormapMenu = true;
                                 me.submenu = {};
                                 var colorVector = subkeyDic[2].split(",");
-                                if(barIndex==subcom.length-1){
-                                    for(var i = 0; i < colorVector.length; ++i)
-                                        me.submenu["<b>" + subkey + "</b>" +  String.fromCharCode(65+i)] = ["","color",colorVector[i]];
-                                } else {
-                                    var subChar = subcom.substring(barIndex+1,subcom.length);
+                                var subChar = subcom.substring(barIndex+1,subcom.length);
+                                if(slash!=-1){
+                                    var maxt;
+                                    switch(subkeyDic[3]){
+                                        case 'seq': maxt = 9; break;
+                                        case 'div': maxt = 11;break;
+                                        case 'qual': maxt = subkeyDic[4];break;
+                                    }
+
+                                    for(var i = 3; i <= maxt; ++i){
+                                        if(barIndex==subcom.length-1)
+                                            me.submenu["<b>" + subkey + "</b>" + i] = ["","none",""];
+                                        else if(subChar == i)
+                                            me.submenu['<b>' + subkey + i + '</b>'] = ["","none",""];
+                                    }
+
+                                    var suplk = "";
+                                    if(barIndex==subcom.length-1) suplk = "<b>" + subkey + "</b>" + "CM";
+                                    else if(subChar=="C") suplk = "<b>" + subkey + "C</b>" + "M";
+                                    else if(subChar=="CM") suplk = "<b>" + subkey + "CM</b>";
+                                    if(suplk!="") me.submenu[suplk] = ["","none",""];
+                                }
+                                else{
                                     for(var i = 0; i < colorVector.length; ++i){
-                                        if(subChar == String.fromCharCode(65+i))
+                                        if(barIndex==subcom.length-1)
+                                            me.submenu["<b>" + subkey + "</b>" +  String.fromCharCode(65+i)] = ["","color",colorVector[i]];
+                                        else if(subChar == String.fromCharCode(65+i))
                                             me.submenu['<b>' + subkey + String.fromCharCode(65+i) + '</b>'] = ["","color",colorVector[i]];
                                     }
                                 }
@@ -208,13 +230,16 @@ var parambar = Vue.component('parambar',{
                                 me.submenu[highlightCommand(subkey,subcom)] = subkeyDic;
                         }
                     }
-                    var FirstSubKey = getUnwrappedCommand(Object.keys(me.submenu)[0]);
-                    if(dic[realbm][1][FirstSubKey][1]=='url'){
-                        app.purl = 'https://cdn.jsdelivr.net/gh/LogCreative/PGFPlotsEdt/res/' + dic[realbm][1][FirstSubKey][2];
-                    } else app.purl = '';
+                    var FirstSubKey = Object.keys(me.submenu)[0];
+                    if(FirstSubKey){
+                        FirstSubKey = getUnwrappedCommand(FirstSubKey);
+                        if(dic[realbm][1][FirstSubKey] && dic[realbm][1][FirstSubKey][1]=='url'){
+                            app.purl = 'https://cdn.jsdelivr.net/gh/LogCreative/PGFPlotsEdt/res/' + dic[realbm][1][FirstSubKey][2];
+                        } else app.purl = '';
+                    }
                 };
                 var dli = (eq!=-1?eq:slash+1);
-                if(getUnwrappedCommand(bm)==_command.substring(0,dli)){
+                if(realbm==_command.substring(0,dli)){
                     if (this.optionalCommands.hasOwnProperty(realbm))
                         checkingSubDic(this.optionalCommands);
                     else if (sparamDic.hasOwnProperty(realbm))

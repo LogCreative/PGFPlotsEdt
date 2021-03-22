@@ -124,6 +124,7 @@ var globalparamDic = {
         "{[indices of colormap={0,1,2,3}]}":    ["颜色映射中循环颜色组","none",""],
         "{{blue},{red},{dashed}}":              ["自定义样式循环","none",""],
     }],
+    "cycle list/":["颜色库样式循环列表",{}],
     "legend style":["图例样式",{
         "{at={(0.5,-0.1)},anchor=north},legend columns=3":       ["图例在下方","none",""],
         "{at={(0.5,1.03)},anchor=south},legend columns=3":       ["图例在上方","none",""],
@@ -178,6 +179,50 @@ var plotmarksDic = {
     "cube*":                    ["填充方块","url","mark/svg/cubem.svg"],
 };
 
+var colorbrewerArrayDic = {
+    "seq":[
+        [],
+        [],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12],
+        [2,5,8],                                    // 3
+        [1,4,6,9],
+        [1,4,6,8,10],
+        [1,3,5,6,8,10],
+        [1,3,5,6,7,9,11],
+        [0,2,3,5,6,7,9,11],
+        [0,2,3,5,6,7,9,10,12]
+    ],
+    "div":[
+        [],
+        [],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+        [4,7,10],                                   // 3
+        [2,5,9,12],
+        [2,5,7,9,12],
+        [1,4,6,8,10,13],
+        [1,4,6,7,8,10,13],
+        [1,3,5,6,8,9,11,13],
+        [1,3,5,6,7,8,9,11,13],
+        [0,1,3,5,6,8,9,11,13,14],
+        [0,1,3,5,6,7,8,9,11,13,14]
+    ],
+    "qual":[
+        [],
+        [],
+        [0,1,2,3,4,5,6,7,8,9,10,11],
+        [0,1,2],                                    // 3
+        [0,1,2,3],
+        [0,1,2,3,4],
+        [0,1,2,3,4,5],
+        [0,1,2,3,4,5,6],
+        [0,1,2,3,4,5,6,7],
+        [0,1,2,3,4,5,6,7,8],
+        [0,1,2,3,4,5,6,7,8,9],
+        [0,1,2,3,4,5,6,7,8,9,10],
+        [0,1,2,3,4,5,6,7,8,9,10,11]
+    ]
+};
+
 // 颜色库增补字典
 var colorbrewerDic = 
 {
@@ -210,14 +255,14 @@ var colorbrewerDic =
     "RdYlGn-":              ["红黄绿极端渐变", "colormap", "#A50026,#D73027,#D7191C,#F46D43,#FC8D59,#FDAE61,#FEE08B,#FFFFBF,#D9EF8B,#A6D96A,#91CF60,#66BD63,#1A9641,#1A9850,#006837","div"],
     "Spectral-":            ["光谱极端渐变", "colormap", "#9E0142,#D53E4F,#D7191C,#F46D43,#FC8D59,#FDAE61,#FEE08B,#FFFFBF,#E6F598,#ABDDA4,#99D594,#66C2A5,#2B83BA,#3288BD,#5E4FA2","div"],
 
-    "Accent-":              ["强调离散渐变", "colormap", "#7FC97F,#BEAED4,#FDC086,#FFFF99,#386CB0,#F0027F,#BF5B17,#666666","qual"],
-    "Pastel1-":             ["粉笔色离散渐变1", "colormap", "#FBB4AE,#B3CDE3,#CCEBC5,#DECBE4,#FED9A6,#FFFFCC,#E5D8BD,#FDDAEC,#F2F2F2","qual"],
-    "Pastel2-":             ["粉笔色离散渐变2", "colormap", "#B3E2CD,#FDCDAC,#CBD5E8,#F4CAE4,#E6F5C9,#FFF2AE,#F1E2CC,#CCCCCC","qual"],
-    "Dark2-":               ["暗色离散渐变", "colormap", "#1B9E77,#D95F02,#7570B3,#E7298A,#66A61E,#E6AB02,#A6761D,#666666","qual"],
-    "Set1-":                ["集合离散渐变1", "colormap", "#E41A1C,#377EB8,#4DAF4A,#984EA3,#FF7F00,#FFFF33,#A65628,#F781BF,#999999","qual"],
-    "Set2-":                ["集合离散渐变2", "colormap", "#66C2A5,#FC8D62,#8DA0CB,#E78AC3,#A6D854,#FFD92F,#E5C494,#B3B3B3","qual"],
-    "Set3-":                ["集合离散渐变3", "colormap", "#8DD3C7,#FFFFB3,#BEBADA,#FB8072,#80B1D3,#FDB462,#B3DE69,#FCCDE5,#D9D9D9,#BC80BD,#CCEBC5,#FFED6F","qual"],
-    "Paired-":              ["成对离散渐变", "colormap", "#A6CEE3,#1F78B4,#B2DF8A,#33A02C,#FB9A99,#E31A1C,#FDBF6F,#FF7F00,#CAB2D6,#6A3D9A,#FFFF99,#B15928","qual"],
+    "Accent-":              ["强调离散渐变", "colormap", "#7FC97F,#BEAED4,#FDC086,#FFFF99,#386CB0,#F0027F,#BF5B17,#666666","qual",8],
+    "Pastel1-":             ["粉笔色离散渐变1", "colormap", "#FBB4AE,#B3CDE3,#CCEBC5,#DECBE4,#FED9A6,#FFFFCC,#E5D8BD,#FDDAEC,#F2F2F2","qual",9],
+    "Pastel2-":             ["粉笔色离散渐变2", "colormap", "#B3E2CD,#FDCDAC,#CBD5E8,#F4CAE4,#E6F5C9,#FFF2AE,#F1E2CC,#CCCCCC","qual",8],
+    "Dark2-":               ["暗色离散渐变", "colormap", "#1B9E77,#D95F02,#7570B3,#E7298A,#66A61E,#E6AB02,#A6761D,#666666","qual",8],
+    "Set1-":                ["集合离散渐变1", "colormap", "#E41A1C,#377EB8,#4DAF4A,#984EA3,#FF7F00,#FFFF33,#A65628,#F781BF,#999999","qual",9],
+    "Set2-":                ["集合离散渐变2", "colormap", "#66C2A5,#FC8D62,#8DA0CB,#E78AC3,#A6D854,#FFD92F,#E5C494,#B3B3B3","qual",8],
+    "Set3-":                ["集合离散渐变3", "colormap", "#8DD3C7,#FFFFB3,#BEBADA,#FB8072,#80B1D3,#FDB462,#B3DE69,#FCCDE5,#D9D9D9,#BC80BD,#CCEBC5,#FFED6F","qual",12],
+    "Paired-":              ["成对离散渐变", "colormap", "#A6CEE3,#1F78B4,#B2DF8A,#33A02C,#FB9A99,#E31A1C,#FDBF6F,#FF7F00,#CAB2D6,#6A3D9A,#FFFF99,#B15928","qual",12],
 };
 
 // 渐变库增补字典
