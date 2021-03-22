@@ -190,6 +190,13 @@
     <template id="libtpl">
         <div class="libchecker"><input type="checkbox" v-model="enabled" @change="onlibchange">{{chname}}</input></div>
     </template>
+    <template id="colorsboxtpl">
+        <div>
+            <div v-for="color in colors" style="display: inline-block;">
+                <div class="colorbox" :style="[{background:color},{display:'inline-block'}]">&nbsp;</div>
+            </div>
+        </div>
+    </template>
     <template id="parambartpl">
         <div class="parambar" style="display: block;">
             <div class="title" style="display: block;">
@@ -203,7 +210,7 @@
                     </div>
                 </div>
                 <div v-for="(value,key,index) in submenu" v-show="eq">
-                    <div class="matchkey" v-html="key"></div><div class="matchnote">{{value[0]}}</div><div class="matchside"><colorbox :color="value[2]" v-show="value[1]=='color'"></colorbox><colormapbox :colormap="value[2]" v-show="value[1]=='colormap'"></colormapbox></div>
+                    <div class="matchkey" v-html="key"></div><div class="matchnote">{{value[0]}}<colorsbox :colors="value[2]" v-show="value[1]=='colors'"></div><div class="matchside"><colorbox :colors="value[2]" v-show="value[1]=='color'"></colorbox><colormapbox :colormap="value[2]" v-show="value[1]=='colormap'"></colormapbox></div>
                 </div>
             </div>
         </div>

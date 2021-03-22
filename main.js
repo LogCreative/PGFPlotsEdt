@@ -204,18 +204,30 @@ var parambar = Vue.component('parambar',{
                                         case 'qual': maxt = subkeyDic[4];break;
                                     }
 
+                                    var generateColors = function(indexArray) {
+                                        var colors = [];
+                                        for(var i in indexArray)
+                                            colors.push(colorVector[indexArray[i]]);
+                                        return colors;
+                                    }
+
                                     for(var i = 3; i <= maxt; ++i){
                                         if(barIndex==subcom.length-1)
-                                            me.submenu["<b>" + subkey + "</b>" + i] = ["","none",""];
+                                            me.submenu["<b>" + subkey + "</b>" + i] = ["","colors",generateColors(colorbrewerArrayDic[subkeyDic[3]][i])];
                                         else if(subChar == i)
-                                            me.submenu['<b>' + subkey + i + '</b>'] = ["","none",""];
+                                            me.submenu['<b>' + subkey + i + '</b>'] = ["","colors",generateColors(colorbrewerArrayDic[subkeyDic[3]][i])];
                                     }
 
                                     var suplk = "";
                                     if(barIndex==subcom.length-1) suplk = "<b>" + subkey + "</b>" + "CM";
                                     else if(subChar=="C") suplk = "<b>" + subkey + "C</b>" + "M";
                                     else if(subChar=="CM") suplk = "<b>" + subkey + "CM</b>";
-                                    if(suplk!="") me.submenu[suplk] = ["","none",""];
+                                    if(suplk!=""){
+                                        var indexArray = [];
+                                        for(var i = 0; i<=maxt; ++i)
+                                            indexArray.push(i);
+                                        me.submenu[suplk] = ["","colors",generateColors(indexArray)];
+                                    }
                                 }
                                 else{
                                     for(var i = 0; i < colorVector.length; ++i){
@@ -454,7 +466,13 @@ Vue.component('colorbox',{
 Vue.component('colormapbox',{
     template:'<div class="colormapbox" :style="\'background-image: linear-gradient(to right, \' + colormap + \');\'">&nbsp;</div>',
     props:['colormap'],
-})
+});
+
+// 颜色序列预览盒
+Vue.component('colorsbox',{
+    template:'#colorsboxtpl',
+    props:['colors'],
+});
 
 // 增补参数组件
 Vue.component('surplus',{
