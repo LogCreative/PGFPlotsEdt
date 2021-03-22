@@ -490,8 +490,7 @@ Vue.component('coordbar',{
     },
     methods:{
         barfocus: function (e) {
-            this.$parent.shown = true;
-            if(!this.$parent.shown) this.barfocus();
+            this.$refs.coordtextb.focus();
         },
         barblur: function (e) {
             this.$parent.shown = false;

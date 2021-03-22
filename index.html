@@ -244,7 +244,7 @@
             <button @click="group" v-show="td" title="按y轴升序对坐标进行分组，配合surf或mesh指令">分组</button>
             <button @click="format" title="按照顺序使用括号标记坐标">格式正规化</button>
             <div v-show="!validation" style="display: inline-block;" title="绘制曲面图需要网格状的坐标量">⚠不是矩阵</div>
-            <textarea class="coordtextb" v-model="icdata"></textarea>
+            <textarea ref="coordtextb" class="coordtextb" v-model="icdata"></textarea>
         </div>
     </template>
     <template id="coordtpl">
