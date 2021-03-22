@@ -249,6 +249,7 @@ var parambar = Vue.component('parambar',{
                     this.bestMatch=["no","no"];
                 if(this.bestMatch!=["no","no"])
                     delete this.matchedCommands[this.bestMatch[0]];
+                //app.purl = "";
             }
         }
     },
@@ -483,16 +484,17 @@ Vue.component('coordbar',{
         td(){
             this.validation = true;
         },
+        icdata(_newdata){
+            this.$parent.cdata = _newdata;
+        }
     },
     methods:{
-        submit: function () {
-            this.$parent.cdata = this.icdata;
-            this.$parent.shown = false;
+        barfocus: function (e) {
+            this.$parent.shown = true;
+            if(!this.$parent.shown) this.barfocus();
         },
-        cancel: function () {
-            this.icdata = this.$parent.cdata;
-            this.$parent.shown = false; 
-            this.validation = true; 
+        barblur: function (e) {
+            this.$parent.shown = false;
         },
         addcoord: function (e) {
             var me = this;
