@@ -245,11 +245,11 @@ var parambar = Vue.component('parambar',{
                 }
                 checkingDic(this.optionalCommands);
                 checkingDic(sparamDic);
+                if(app) app.purl="";
                 if(_command=='')
                     this.bestMatch=["no","no"];
                 if(this.bestMatch!=["no","no"])
                     delete this.matchedCommands[this.bestMatch[0]];
-                //app.purl = "";
             }
         }
     },
@@ -284,7 +284,6 @@ var seriesMixin = {
         moveUp: function(){
             delete seriesList[this.idInner];
             this.idInner = ++seriescnt;
-            // this.sortUpdater();
             this.on_change();
         },
         deleteComp: function(){
@@ -632,7 +631,6 @@ Vue.component('Tsource',{
             delete sourceList[this.idInner];
             delete sourceNameList[this.idInner];
             this.idInner = ++sourcecnt;
-            // this.sortUpdater();
             this.on_change();
         },
         deleteCommon: function(){
@@ -922,6 +920,7 @@ var app = new Vue({
         blurAllCode: function () { blurCode("#texAllCode") },
         // drawHover: function () { this.dc_content = this.content; },
         compile: function() {
+            app.purl="";
             // +属于url保留符号，需要转义为%2B才可以使用。
             // 全局匹配
             if(!app.manual)
