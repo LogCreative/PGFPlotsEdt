@@ -1,0 +1,20 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\begin{document}\begin{tikzpicture}
+\begin{axis}[axis x line={none},
+axis y line={none},
+cycle list name=exotic,]
+ \addplot+ [] coordinates { (0,0) (1,0)};
+ \addplot+ [] coordinates { (0,0) (0.9,0.1)};
+ \addplot+ [] coordinates { (0,0) (0.8,0.2)};
+ \addplot+ [] coordinates { (0,0) (0.7,0.3)};
+ \addplot+ [] coordinates { (0,0) (0.6,0.4)};
+ \addplot+ [] coordinates { (0,0) (0.5,0.5)};
+ \addplot+ [] coordinates { (0,0) (0.4,0.6)};
+ \addplot+ [] coordinates { (0,0) (0.3,0.7)};
+ \addplot+ [] coordinates { (0,0) (0.2,0.8)};
+ \addplot+ [] coordinates { (0,0) (0.1,0.9)};
+ \addplot+ [] coordinates { (0,0) (0,1)};
+\end{axis}
+\end{tikzpicture}\end{document}

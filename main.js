@@ -961,15 +961,15 @@ var app = new Vue({
         hintAllCode: function () { this.dc_content = this.content; hintCode("#texAllCode"); },
         warnAllCode: function () { this.dc_content = this.content; warnCode("#texAllCode"); },
         blurAllCode: function () { blurCode("#texAllCode") },
-        // drawHover: function () { this.dc_content = this.content; },
         compile: function() {
             app.purl="";
             // +属于url保留符号，需要转义为%2B才可以使用。
             // 全局匹配
             if(!app.manual)
                 app.curl = "https://latexonline.cc/compile?text="+this.file.replace(/[+]/g,"%2B");
-            else
+            else if(app.packages[0])
                 app.curl = "https://latexonline.cc/compile?command=lualatex&text="+document.getElementById('manualfile').value.replace(/[+]/g,"%2B");
+            else app.curl = "https://latexonline.cc/compile?text="+document.getElementById('manualfile').value.replace(/[+]/g,"%2B");
         }
     },
 });
