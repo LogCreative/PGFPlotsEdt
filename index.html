@@ -210,7 +210,7 @@
                     </div>
                 </div>
                 <div v-for="(value,key,index) in submenu" v-show="eq">
-                    <div class="matchkey" v-html="key"></div><div class="matchnote">{{value[0]}}<colorsbox :colors="value[2]" v-show="value[1]=='colors'"></div><div class="matchside"><colorbox :colors="value[2]" v-show="value[1]=='color'"></colorbox><colormapbox :colormap="value[2]" v-show="value[1]=='colormap'"></colormapbox></div>
+                    <div class="matchkey" v-html="key"></div><div class="matchnote">{{value[0]}}<colorsbox :colors="value[2]" v-show="value[1]=='colors'"></div><div class="matchside"><colorbox :color="value[2]" v-show="value[1]=='color'"></colorbox><colormapbox :colormap="value[2]" v-show="value[1]=='colormap'"></colormapbox></div>
                 </div>
             </div>
         </div>
