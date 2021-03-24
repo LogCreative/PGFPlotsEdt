@@ -246,7 +246,7 @@ var parambar = Vue.component('parambar',{
                     if(FirstSubKey){
                         FirstSubKey = getUnwrappedCommand(FirstSubKey);
                         if(dic[realbm][1][FirstSubKey] && dic[realbm][1][FirstSubKey][1]=='url'){
-                            app.purl = 'https://cdn.jsdelivr.net/gh/LogCreative/PGFPlotsEdt/res/' + dic[realbm][1][FirstSubKey][2];
+                            app.purl = 'res/' + dic[realbm][1][FirstSubKey][2];
                         } else app.purl = '';
                     }
                 };
