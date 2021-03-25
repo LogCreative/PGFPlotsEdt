@@ -899,6 +899,7 @@ Vue.component('viewproperty',{
                 else if(e.path[0].id=='yrotater') this.valuex = parseInt(this.valuex) + pos - this.prevx;
                 this.prevx = pos;
                 app.purl = this.viewpurl;
+                this.onvichange();
             }
         },
         dragend: function(e){
