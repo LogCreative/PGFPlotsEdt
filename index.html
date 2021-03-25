@@ -383,9 +383,9 @@
         </tr>
     </template>
     <template id="viewtpl">
-        <tr @mouseleave="clearview" @mouseenter="showview">
+        <tr>
             <td class="paramname">{{chname}}</td>
-            <td style="display:none">{{propkey}}</td><td><input type="text" v-model="value" @keyup="onvichange" style="width: 100px;"></td><td><input type="text" v-model="valuex" @keyup="onvichange" style="width: 100px;"></td>
+            <td style="display:none">{{propkey}}</td><td><input type="text" v-model="value" @keyup="onvichange" style="width: 100px;" @mousedown="dragstart" @mousemove="dragging" @mouseup="dragend" @blur="clearview" id="xrotater"></td><td><input type="text" v-model="valuex" @keyup="onvichange" style="width: 100px;" id="yrotater" @mousedown="dragstart" @mousemove="dragging" @mouseup="dragend" @blur="clearview"></td>
         </tr>
     </template>
     <template id="surplustpl">

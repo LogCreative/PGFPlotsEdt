@@ -66,8 +66,8 @@
     </div>
 </body>
 <script>
-    var x = /x=(\d+)/.exec(window.location.href)[1];
-    var y = /y=(\d+)/.exec(window.location.href)[1];
+    var x = /x=((-|\d)+)/.exec(window.location.href)[1];
+    var y = /y=((-|\d)+)/.exec(window.location.href)[1];
     var cube = document.getElementById('cube');
     cube.style.setProperty('--xrotate',x+'deg');
     cube.style.setProperty('--yrotate',y+'deg');

@@ -851,9 +851,12 @@ Vue.component('titleproperty',{
 Vue.component('viewproperty',{
     mixins: [propMixins],
     template:'#viewtpl',
+    props: ['type'],
     data: function(){
         return {
             valuex: "",
+            drag: false,
+            prevx: 0,
         }
     },
     computed:{
@@ -879,6 +882,27 @@ Vue.component('viewproperty',{
         showview: function(){
             if(this.value!="" && this.valuex!="")
                 app.purl = this.viewpurl;
+        },
+        dragstart: function(e){
+            this.drag = true;
+            this.prevx = e.offsetX;
+            this.showview();
+        },
+        dragging: function(e){
+            var pos = e.offsetX;
+            if(pos<=5 || pos>=95)
+                this.drag = false;
+            if(this.drag){
+                if(this.value=="") this.value = 25;
+                if(this.valuex=="") this.valuex = 30;
+                if(e.path[0].id=='xrotater') this.value = parseInt(this.value) + pos - this.prevx;
+                else if(e.path[0].id=='yrotater') this.valuex = parseInt(this.valuex) + pos - this.prevx;
+                this.prevx = pos;
+                app.purl = this.viewpurl;
+            }
+        },
+        dragend: function(e){
+            this.drag = false;
         }
     }
 });
