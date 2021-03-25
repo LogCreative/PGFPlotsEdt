@@ -8,12 +8,12 @@
 </head>
 <style>
     .wrap{
-        padding: 40px;
         perspective: 0;
+        padding: 90px 0px 0px 20px;
     }
 
     #cube {
-        --zrotate: -30deg;
+        --zrotate: 25deg;
         --xratio: 1.2;
 	    position: relative;
 	    width: 200px;
@@ -23,8 +23,6 @@
 
     #cube div {
         position: absolute;
-        width: 200px;
-        height: 200px;
         border: 1px solid black;
     }
 
@@ -33,15 +31,21 @@
         transform-origin: center left;
         display: flex;
         flex-direction: column-reverse;
+        width: 200px;
+        height: 200px;
     }
     .bottom {
         transform: rotateX(-90deg) translateY(100px);
         transform-origin: bottom center;
         display: flex;
         flex-direction: row-reverse;
+        width: 300px;
+        height: 200px;
     }
     .front {
         transform: translateZ(100px);
+        width: 300px;
+        height: 200px;
     }
 </style>
 <body>
