@@ -124,7 +124,6 @@ var globalparamDic = {
         "{[indices of colormap={0,1,2,3}]}":    ["颜色映射中循环颜色组","none",""],
         "{{blue},{red},{dashed}}":              ["自定义样式循环","none",""],
     }],
-    "cycle list/":["颜色库样式循环列表",{}],
     "legend style":["图例样式",{
         "{at={(0.5,-0.1)},anchor=north},legend columns=3":       ["图例在下方","none",""],
         "{at={(0.5,1.03)},anchor=south},legend columns=3":       ["图例在上方","none",""],

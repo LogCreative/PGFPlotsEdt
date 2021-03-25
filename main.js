@@ -36,6 +36,7 @@ Vue.component('lib',{
                             sparamDic["mark"][1][key] = plotmarksDic[key];
                         break;
                     case 2:
+                        globalparamDic["cycle list/"] = ["颜色库样式循环列表",{}];
                         for(var key in colorbrewerDic){
                             colorDic[key] = colorbrewerDic[key];
                             globalparamDic["colormap/"][1][key] = colorbrewerDic[key];
@@ -68,6 +69,7 @@ Vue.component('lib',{
                             delete globalparamDic["colormap/"][1][key];
                             delete globalparamDic["cycle list/"][1][key];
                         }
+                        delete globalparamDic["cycle list/"];
                         break;
                     case 3:
                         for(var key in colormapsDic)
@@ -178,7 +180,7 @@ var parambar = Vue.component('parambar',{
             }
             if(eq!=-1 || slash!=-1){  // 先看有没有等号或/号
                 this.eq = true;
-                if(this.global && _command=="cycle list/")         // FIXME: 手动覆写，因为 cycle list 和 cycle list/ 重复
+                if(this.global && globalparamDic.hasOwnProperty("cycle list/") && _command=="cycle list/")         // FIXME: 手动覆写，因为 cycle list 和 cycle list/ 重复
                     this.bestMatch = ["<b>cycle list</b>/",globalparamDic["cycle list/"],true];
                 var bm = this.bestMatch[0];
                 var realbm = getUnwrappedCommand(bm);
