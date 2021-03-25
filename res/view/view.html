@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viewbox</title>
+</head>
+<style>
+    .wrap{
+        padding: 100px;
+        perspective: 0;
+    }
+
+    #cube {
+        --zrotate: -30deg;
+        --xratio: 1.2;
+	    position: relative;
+	    width: 200px;
+	    transform-style: preserve-3d;
+        transform: rotate3d(1, var(--xratio), 0, var(--zrotate));
+    }
+
+    #cube div {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border: 1px solid black;
+    }
+
+    .left {
+        transform: rotateY(270deg) translateX(-100px);
+        transform-origin: center left;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .bottom {
+        transform: rotateX(-90deg) translateY(100px);
+        transform-origin: bottom center;
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    .front {
+        transform: translateZ(100px);
+    }
+</style>
+<body>
+    <div class="wrap">
+        <div id="cube">
+            <div class="front">z</div>
+            <div class="left">x</div>
+            <div class="bottom">y</div>
+        </div>
+    </div>
+</body>
+<script>
+    var z = /z=(\d+)/.exec(window.location.href)[1];
+    var x = /x=(\d+)/.exec(window.location.href)[1];
+    var cube = document.getElementById('cube');
+    cube.style.setProperty('--zrotate',z+'deg');
+    cube.style.setProperty('--xratio',x/z);
+</script>
+</html>
