@@ -145,6 +145,10 @@ var etdparamDic = {
     "contour gnuplot":["等高线图"],
 };
 
+var view = ["三维视角",{
+    "{25}{30}": ["{水平旋转}{垂直旋转}","none",""],
+}]
+
 // 标记库增补字典
 var plotmarksDic = {
     "-":                        ["减号","url","mark/svg/minus.svg"],
@@ -177,6 +181,8 @@ var plotmarksDic = {
     "cube":                     ["方块","url","mark/svg/cube.svg"],
     "cube*":                    ["填充方块","url","mark/svg/cubem.svg"],
 };
+
+var cyclelist_default = ["颜色库样式循环列表",{}];
 
 var colorbrewerArrayDic = {
     "seq":[

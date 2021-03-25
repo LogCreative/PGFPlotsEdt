@@ -36,7 +36,7 @@ Vue.component('lib',{
                             sparamDic["mark"][1][key] = plotmarksDic[key];
                         break;
                     case 2:
-                        globalparamDic["cycle list/"] = ["颜色库样式循环列表",{}];
+                        globalparamDic["cycle list/"] = cyclelist_default;
                         for(var key in colorbrewerDic){
                             colorDic[key] = colorbrewerDic[key];
                             globalparamDic["colormap/"][1][key] = colorbrewerDic[key];
@@ -931,6 +931,10 @@ var app = new Vue({
             }
             setSpliterHeight();
         },
+        td(_ntd){
+            if(_ntd) globalparamDic["view"] = view;
+            else delete globalparamDic["view"];
+        }
     },
     computed:{
         premable: function(){
