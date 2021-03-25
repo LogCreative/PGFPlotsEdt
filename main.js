@@ -858,7 +858,7 @@ Vue.component('viewproperty',{
     },
     computed:{
         viewpurl: function(){
-            return "res/view/view.html?z=" + this.value + "&x=" + this.valuex;
+            return "res/view/view.html?x=" + this.value + "&y=" + this.valuex;
         }
     },
     methods:{

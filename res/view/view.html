@@ -8,60 +8,68 @@
 </head>
 <style>
     .wrap{
-        perspective: 0;
-        padding: 90px 0px 0px 20px;
+        width: 100%;
     }
 
     #cube {
-        --zrotate: 25deg;
-        --xratio: 1.2;
-	    position: relative;
-	    width: 200px;
+        --xrotate: 25deg;
+        --yrotate: 30deg;
+	    position: absolute;
+        left: 30%;
+        top: 30%;
 	    transform-style: preserve-3d;
-        transform: rotate3d(1, var(--xratio), 0, var(--zrotate));
+        transform: rotateX(var(--xrotate)) rotateY(var(--yrotate));
     }
 
     #cube div {
         position: absolute;
-        border: 1px solid black;
     }
 
     .left {
-        transform: rotateY(270deg) translateX(-100px);
+        transform: rotateY(270deg) translateX(-50px);
         transform-origin: center left;
         display: flex;
         flex-direction: column-reverse;
-        width: 200px;
-        height: 200px;
+        width: 100px;
+        height: 100px;
+        background-color: rgba(255, 0, 0, 0.2);
+        border: 1px solid red;
+        color: red;
     }
     .bottom {
-        transform: rotateX(-90deg) translateY(100px);
+        transform: rotateX(-90deg) translateY(50px);
         transform-origin: bottom center;
         display: flex;
         flex-direction: row-reverse;
-        width: 300px;
-        height: 200px;
+        width: 150px;
+        height: 100px;
+        background-color: rgba(0, 0, 255, 0.2);
+        border: 1px solid blue;
+        color: blue;
     }
     .front {
-        transform: translateZ(100px);
-        width: 300px;
-        height: 200px;
+        transform: translateZ(50px);
+        width: 150px;
+        height: 100px;
+        background-color: rgba(0, 128, 0, 0.2);
+        border: 1px solid green;
+        color: green;
     }
 </style>
 <body>
     <div class="wrap">
         <div id="cube">
-            <div class="front">z</div>
-            <div class="left">y</div>
-            <div class="bottom">x</div>
+            <div class="front">xz</div>
+            <div class="left">yz</div>
+            <div class="bottom">xy</div>
         </div>
     </div>
 </body>
 <script>
-    var z = /z=(\d+)/.exec(window.location.href)[1];
     var x = /x=(\d+)/.exec(window.location.href)[1];
+    var y = /y=(\d+)/.exec(window.location.href)[1];
     var cube = document.getElementById('cube');
-    cube.style.setProperty('--zrotate',z+'deg');
-    cube.style.setProperty('--xratio',x/z);
+    cube.style.setProperty('--xrotate',x+'deg');
+    cube.style.setProperty('--yrotate',y+'deg');
 </script>
 </html>
