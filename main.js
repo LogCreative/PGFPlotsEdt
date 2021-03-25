@@ -249,7 +249,7 @@ var parambar = Vue.component('parambar',{
                         FirstSubKey = getUnwrappedCommand(FirstSubKey);
                         if(dic[realbm][1][FirstSubKey] && dic[realbm][1][FirstSubKey][1]=='url'){
                             app.purl = 'res/' + dic[realbm][1][FirstSubKey][2];
-                        } else app.purl = '';
+                        } app.purl = '';
                     }
                 };
                 var dli = (eq!=-1?eq:slash+1);
@@ -792,6 +792,13 @@ Vue.component('node',{
 // 参数字典
 var paramDic = new Array();
 
+var updateParamDic = function(){
+    app.param = "";
+    for(var key in paramDic)
+        if(paramDic[key]!="")
+            app.param += key + "=" + paramDic[key] + ",\n";
+};
+
 var propMixins = {
     props: {
         chname: String,
@@ -804,13 +811,8 @@ var propMixins = {
     },
     methods:{
         on_change: function(){
-            paramDic[this.propkey] = this.value;
-
-            app.param = "";
-            for(var key in paramDic)
-                if(paramDic[key]!="")
-                    app.param += key + "={" + paramDic[key] + "},\n";
-            
+            paramDic[this.propkey] = "{" + this.value + "}";
+            updateParamDic();
         }
     }
 };
@@ -841,6 +843,42 @@ Vue.component('titleproperty',{
             else
                 document.title = this.value;
             this.on_change();
+        }
+    }
+});
+
+// 视图组件
+Vue.component('viewproperty',{
+    mixins: [propMixins],
+    template:'#viewtpl',
+    data: function(){
+        return {
+            valuex: "",
+        }
+    },
+    computed:{
+        viewpurl: function(){
+            return "res/view/view.html?z=" + this.value + "&x=" + this.valuex;
+        }
+    },
+    methods:{
+        onvichange: function(){
+            if(this.value=="" || this.valuex==""){
+                paramDic[this.propkey] = "";
+                app.purl = "";
+            }
+            else {
+                paramDic[this.propkey] = "{" + this.value + "}{" + this.valuex + "}";
+                app.purl = this.viewpurl;
+            }
+            updateParamDic();
+        },
+        clearview: function(){
+            app.purl = "";
+        },
+        showview: function(){
+            if(this.value!="" && this.valuex!="")
+                app.purl = this.viewpurl;
         }
     }
 });
@@ -931,10 +969,6 @@ var app = new Vue({
             }
             setSpliterHeight();
         },
-        td(_ntd){
-            if(_ntd) globalparamDic["view"] = view;
-            else delete globalparamDic["view"];
-        }
     },
     computed:{
         premable: function(){

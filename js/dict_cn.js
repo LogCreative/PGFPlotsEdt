@@ -145,10 +145,6 @@ var etdparamDic = {
     "contour gnuplot":["等高线图"],
 };
 
-var view = ["三维视角",{
-    "{25}{30}": ["{水平旋转}{垂直旋转}","none",""],
-}]
-
 // 标记库增补字典
 var plotmarksDic = {
     "-":                        ["减号","url","mark/svg/minus.svg"],
