@@ -63,11 +63,11 @@
                             <property chname="高度" propkey="height"></property>
                             <propertyselect chname="字号" propkey="font" :options="['\\tiny','\\scriptsize','\\footnotesize','\\small','\\normalsize','\\large','\\Large','\\LARGE','\\huge','\\Huge']"></propertyselect>    
                             <propertyselect chname="网格" propkey="grid" :options="['major','minor','both','none']"></propertyselect> 
-                        <div v-show="enableLegend">
-                            <propertyselect chname="图例位置" propkey="legend pos" :options="['south west','south east','north west','north east','outer north east']"></propertyselect>    
-                        </div>
                         <div v-show="td">
                             <viewproperty chname="旋转角度" propkey="view"></viewproperty>
+                        </div>
+                        <div v-show="enableLegend">
+                            <propertyselect chname="图例位置" propkey="legend pos" :options="['south west','south east','north west','north east','outer north east']"></propertyselect>    
                         </div>
                             <br><div class="paramhead">x轴</div>
                             <property chname="轴题" propkey="xlabel"></property>

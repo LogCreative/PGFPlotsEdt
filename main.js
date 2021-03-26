@@ -883,6 +883,11 @@ Vue.component('viewproperty',{
             if(this.value!="" && this.valuex!="")
                 app.purl = this.viewpurl;
         },
+        dragrefresh: function(){
+            this.drag = false;
+            app.purl = this.viewpurl;
+            this.onvichange();
+        },
         dragstart: function(e){
             this.drag = true;
             this.prevx = e.offsetX;
@@ -891,19 +896,17 @@ Vue.component('viewproperty',{
         dragging: function(e){
             var pos = e.offsetX;
             if(pos<=5 || pos>=95)
-                this.drag = false;
+                this.dragrefresh();
             if(this.drag){
                 if(this.value=="") this.value = 25;
                 if(this.valuex=="") this.valuex = 30;
                 if(e.path[0].id=='xrotater') this.value = parseInt(this.value) + pos - this.prevx;
                 else if(e.path[0].id=='yrotater') this.valuex = parseInt(this.valuex) + pos - this.prevx;
                 this.prevx = pos;
-                app.purl = this.viewpurl;
-                this.onvichange();
             }
         },
         dragend: function(e){
-            this.drag = false;
+            this.dragrefresh();
         }
     }
 });
