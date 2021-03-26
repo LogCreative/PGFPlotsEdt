@@ -1,3 +1,9 @@
+button,
+summary{
+    outline: none;
+    cursor: pointer;
+}
+
 a{
     color: gray;
     text-decoration: none;
@@ -86,9 +92,9 @@ textarea{
     border: 1.5px solid green;
 }
 
-/* #compileBtn,#compilePrev{
-    margin: 0px 5px;
-} */
+.container{
+    padding: 0px 10px;
+}
 
 footer{
     font-size: small;
@@ -116,7 +122,16 @@ footer{
 
 #addtooltip button {
     width: 100px;
-    text-align: right;
+    text-align: left;
+    background-color: white;
+    border: 1px solid rgb(68, 68, 148);
+    border-radius: 0px;
+    transition: ease-in 0.2s;
+    color: rgb(68, 68, 148);
+}
+
+#addbuttons button {
+    border-width: 0px 1px 1px 1px;
 }
 
 #addtooltip:hover  #addbuttons{
@@ -125,8 +140,49 @@ footer{
     z-index: 12;
 }
 
+#addtooltip > button{
+    border-radius: 5px 5px 5px 5px;
+}
+
+#addtooltip:hover button{
+    text-align: right;
+}
+
+#addtooltip:hover > button{
+    background-color: rgb(68, 68, 148);
+    color: white;
+    border-radius: 5px 5px 0px 0px;
+}
+
+#addbuttons button:hover{
+    background-color: rgb(68, 68, 148);
+    color: white;
+}
+
 .legend {
     width: 50px;
+}
+
+#btnDrawCode:hover,
+#btnAllCode:hover{
+    border: 2px solid green;
+    background-color: green;
+    color: white;
+}
+
+#btnDrawCode:hover::before,
+#btnAllCode:hover::before{
+    content: '📄';
+}
+
+#btnEdtCode:hover{
+    border: 2px solid orange;
+    background-color: orange;
+    color: white;
+}
+
+#btnEdtCode:hover::before{
+    content: '🖊';
 }
 
 details {

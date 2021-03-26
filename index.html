@@ -165,9 +165,9 @@
             <div id="auto">
             <details id="codedetail">
                 <summary>
-                    代码 <button v-clipboard:copy="content" @mouseover="hintDrawCode" @mouseleave="blurDrawCode">复制绘图代码</button>
-                    <button v-clipboard:copy="file" id="btnAllCode"  @mouseover="hintAllCode" @mouseleave="blurAllCode">复制全部代码</button>
-                    <button onclick="gomanual()" @mouseover="warnAllCode" @mouseleave="blurAllCode">手动编辑⚠</button>
+                    代码 <button v-clipboard:copy="content" id="btnDrawCode" @mouseover="hintDrawCode" @mouseleave="blurDrawCode" title="复制绘图代码">▪</button>
+                    <button v-clipboard:copy="file" id="btnAllCode"  @mouseover="hintAllCode" @mouseleave="blurAllCode" title="复制全部代码">◼</button>
+                    <button onclick="gomanual()" id="btnEdtCode" @mouseover="warnAllCode" @mouseleave="blurAllCode" title="手动编辑代码">⚠</button>
                 </summary>
                 <div id="texAllCode">
                     <div class="texCode">
