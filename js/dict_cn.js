@@ -86,6 +86,15 @@ var globalparamDic = {
     "area style":["面积样式"],
     "ybar interval":["纵向直方图"],
     "xticklabel interval boundaries":["直方图横轴数据标签"],
+    "xtick distance":["x轴分度值",{
+        "数字":     ["分度","none",""],
+    }],
+    "ytick distance":["y轴分度值",{
+        "数字":     ["分度","none",""],
+    }],
+    "ztick distance":["z轴分度值",{
+        "数字":     ["分度","none",""],
+    }],
     "xmajorgrids":["x轴大网格",boolDic],
     "ymajorgrids":["y轴大网格",boolDic],
     "zmajorgrids":["z轴大网格",boolDic],

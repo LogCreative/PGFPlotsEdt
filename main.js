@@ -247,9 +247,9 @@ var parambar = Vue.component('parambar',{
                     var FirstSubKey = Object.keys(me.submenu)[0];
                     if(FirstSubKey){
                         FirstSubKey = getUnwrappedCommand(FirstSubKey);
-                        if(dic[realbm][1][FirstSubKey] && dic[realbm][1][FirstSubKey][1]=='url'){
+                        if(dic[realbm][1][FirstSubKey] && dic[realbm][1][FirstSubKey][1]=='url')
                             app.purl = 'res/' + dic[realbm][1][FirstSubKey][2];
-                        } app.purl = '';
+                        else app.purl = '';
                     }
                 };
                 var dli = (eq!=-1?eq:slash+1);
