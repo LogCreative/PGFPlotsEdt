@@ -1,7 +1,7 @@
 // 采用 highlight.js 库
 Vue.use(hljs.vuePlugin);
 
-var default_title = "PGFPlots 代码生成器";
+var default_title = "PGFPlots 统计绘图编辑器";
 
 // 渲染顺序会导致设定的相反性
 
