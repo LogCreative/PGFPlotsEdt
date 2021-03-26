@@ -44,7 +44,6 @@
                         坐标系
                     </summary>
                     <div id="axis">
-                        <!-- <tr><td>增补参数</td><td><input type="text" v-model="surplusparam" placeholder="参数"></input></td></tr><br><parambar v-show="paramfoc" :command="surplusparam" :etd="td"></parambar> -->
                         <surplus :id="0" :ontd="td" :onlegend="enableLegend"></surplus><br>
                         <div><div class="paramname">轴类型</div>
                             <div style="display: inline-block;">
@@ -385,7 +384,7 @@
     <template id="viewtpl">
         <tr>
             <td class="paramname">{{chname}}</td>
-            <td style="display:none">{{propkey}}</td><td><input type="text" v-model="value" @keyup="onvichange" style="width: 100px;" @mousedown="dragstart" @mousemove="dragging" @mouseup="dragend" @blur="clearview" id="xrotater"></td><td><input type="text" v-model="valuex" @keyup="onvichange" style="width: 100px;" id="yrotater" @mousedown="dragstart" @mousemove="dragging" @mouseup="dragend" @blur="clearview"></td>
+            <td style="display:none">{{propkey}}</td><td><input type="text" v-model="value" @keyup="onvichange" style="width: 100px;" @mousedown="dragstart" @mousemove="dragging" @mouseup="dragend" @blur="clearview" id="xrotater" placeholder="竖直旋转"></td><td><input type="text" v-model="valuex" @keyup="onvichange" style="width: 100px;" id="yrotater" @mousedown="dragstart" @mousemove="dragging" @mouseup="dragend" @blur="clearview" placeholder="水平旋转"></td>
         </tr>
     </template>
     <template id="surplustpl">
@@ -412,9 +411,7 @@
             // 启用split
             var instance = Split(['#panel-one','#panel-two','#panel-three'],{
                 sizes:[30,35,35],
-                // minSize: [400,400,0],
                 minSize: [300,300,0],
-                // expandToMin: true,
                 direction: 'horizontal',
             });
             document.getElementById('codedetail').open = true;
