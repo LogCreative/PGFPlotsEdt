@@ -87,7 +87,7 @@ textarea{
 #compilePrev{
     width: calc(100% - 3px);
     height: 300px;
-    margin-bottom: 2px;
+    margin-bottom: 7px;
     border-radius: 0px 0px 10px 10px;
     border: 1.5px solid green;
 }

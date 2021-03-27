@@ -47,18 +47,18 @@
                     </summary>
                     <div id="axis">
                         <surplus :id="0" :ontd="td" :onlegend="enableLegend"></surplus><br>
-                        <div><div class="paramname">轴类型</div>
-                            <div style="display: inline-block;">
-                                <select v-model="axistype">
-                                    <option value="0">普通坐标轴</option>
-                                    <option value="1">x对数轴</option>
-                                    <option value="2">y对数轴</option>
-                                    <option value="3">双对数轴</option>
-                                    <option value="4" v-show="enablepolar">极坐标轴</option>
-                                </select>
+                            <br><div class="paramhead">全局参量</div><br>
+                            <div><div class="paramname" style="display: inline-block;">轴类型</div>
+                                <div style="display: inline-block; margin-left: -4.5px;">
+                                    <select v-model="axistype">
+                                        <option value="0">普通坐标轴</option>
+                                        <option value="1">x对数轴</option>
+                                        <option value="2">y对数轴</option>
+                                        <option value="3">双对数轴</option>
+                                        <option value="4" v-show="enablepolar">极坐标轴</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div><br>
-                            <br><div class="paramhead">全局参量</div>
                             <titleproperty chname="标题" propkey="title"></titleproperty>
                             <property chname="宽度" propkey="width"></property>    
                             <property chname="高度" propkey="height"></property>
@@ -374,26 +374,25 @@
     <template id="propertytpl">
         <tr>
             <td class="paramname">{{chname}}</td>
-            <td style="display:none">{{propkey}}</td><td><input type="text" v-model="value" @keyup="on_change"></td>
+            <td><input type="text" v-model="value" @keyup="on_change"></td>
         </tr>
     </template>
     <template id="titletpl">
         <tr>
             <td class="paramname">{{chname}}</td>
-            <td style="display:none">{{propkey}}</td><td><input type="text" v-model="value" @keyup="ontichange"></td>
+            <td><input type="text" v-model="value" @keyup="ontichange"></td>
         </tr>
     </template>
     <template id="viewtpl">
         <tr>
             <td class="paramname">{{chname}}</td>
-            <td style="display:none">{{propkey}}</td><td><input type="text" v-model="value" @keyup="onvichange" style="width: 100px;" @mousedown="dragstart" @mousemove="dragging" @mouseup="dragend" @blur="clearview" id="xrotater" placeholder="竖直旋转"></td><td><input type="text" v-model="valuex" @keyup="onvichange" style="width: 100px;" id="yrotater" @mousedown="dragstart" @mousemove="dragging" @mouseup="dragend" @blur="clearview" placeholder="水平旋转"></td>
+            <td><input type="text" v-model="value" @keyup="onvichange" style="width: 100px;" @mousedown="dragstart" @mousemove="dragging" @mouseup="dragend" @blur="clearview" id="xrotater" placeholder="竖直旋转"></td><td><input type="text" v-model="valuex" @keyup="onvichange" style="width: 100px;" id="yrotater" @mousedown="dragstart" @mousemove="dragging" @mouseup="dragend" @blur="clearview" placeholder="水平旋转"></td>
         </tr>
     </template>
     <template id="surplustpl">
         <div>
             <div>
-                <div>增补参数</div>
-                <div><input type="text" class="surparam" v-model="param" @keyup="onpachange" placeholder="参数"  @focus="param_focused" @blur="param_losefocus"></div>
+                <div><input type="text" class="surparam" v-model="param" @keyup="onpachange" placeholder="增补参数"  @focus="param_focused" @blur="param_losefocus"></div>
             </div>
             <parambar ref="subparambar" :global="true" v-show="paramfoc" :command="command" :etd="ontd"></parambar>
         </div>        
