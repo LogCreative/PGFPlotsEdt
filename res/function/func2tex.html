@@ -52,59 +52,62 @@
         String.prototype.insertCharAt = function(index,ch){ 
             return this.substring(0,index) + ch + this.substring(index, this.length);
         };
+        var stacking = function(formula,i,inc){
+            var stack = 0;
+            for(; (inc ? i<formula.length : i >= 0); (inc ? ++i : --i)){
+                var ch = formula.charAt(i);
+                if(ch==(inc ? '(' : ')')){
+                    if(stack==0)
+                        formula = formula.replaceCharAt(i,(inc ? '{' : '}'));
+                        console.log(formula);
+                    stack++;
+                } else if (ch==(inc ? ')' : '(')){
+                    if(--stack==0){
+                        formula = formula.replaceCharAt(i,(inc ? '}' : '{'));
+                        console.log(formula);
+                        break;
+                    }
+                } else if (ch=='+'||ch=='-'||ch=='*'||ch=='^'){
+                    if(stack==0)
+                        break;
+                }
+            }
+            return [formula,i];
+        };
         while((divp=/\//g.exec(formula))!=null){
             divp = divp.index;
             var i = divp - 1;
-            var stack = 0;
-            for(; i >= 0; --i){
-                var ch = formula.charAt(i);
-                if(ch==')'){
-                    if(stack==0)
-                        formula = formula.replaceCharAt(i,'}');
-                    stack++;
-                } else if (ch=='('){
-                    if(--stack==0){
-                        formula = formula.replaceCharAt(i,'{');
-                        break;
-                    }
-                } else if (ch=='+'||ch=='-'||ch=='*'||ch=='^'){
-                    if(stack==0)
-                        break;
-                }
-            }
+            var leftsearch = stacking(formula, i, false);
+            formula = leftsearch[0];
+            i = leftsearch[1];
             formula = formula.insertCharAt(i,'{');
             ++divp;
             i = divp + 1;
-            for(; i < formula.length; ++i){
-                var ch = formula.charAt(i);
-                if(ch=='('){
-                    if(stack==0)
-                        formula = formula.replaceCharAt(i,'{');
-                    stack++;
-                } else if (ch==')'){
-                    if(--stack==0){
-                        formula = formula.replaceCharAt(i,'}');
-                        break;
-                    }
-                } else if (ch=='+'||ch=='-'||ch=='*'||ch=='^'){
-                    if(stack==0)
-                        break;
-                }
-            }
-            formula = formula.insertCharAt(i,'}');
+            rightsearch = stacking(formula, i, true);
+            formula = rightsearch[0];
+            i = rightsearch[1];
+            formula = formula.insertCharAt(i+1,'}');
             formula = formula.replace(/\//,"\\over ");  // will only replace the first /
         }
         
         // TeXify
-        formula = formula.replace(/\*/g,'');
+        formula = formula.replace(/(\d+)\*(\d+)/g,'$1\\times $2');
+        formula = formula.replace(/\*/g,' ');
         
         String.prototype.replaceAll = function(s1,s2){ 
             return this.replace(new RegExp(s1,"gm"),s2); 
         }
         // refer to pgf manual 95.3
         var normdict = ["cos","cot","deg","exp","gcd","ln","log","max","min","mod","pi","sec","sin","sqrt","tan"];
-        for(var i in normdict)
-            formula = formula.replaceAll(normdict[i],"\\"+normdict[i]);
+        for(var i in normdict){
+            if((ind = formula.indexOf(normdict[i]))!=-1){
+                formula = formula.insertCharAt(ind,'\\');
+                var i = ind + normdict[i].length + 1;
+                var outerbracket = stacking(formula, i, true);
+                formula = outerbracket[0];
+                i = outerbracket[1];
+            }
+        }
         return formula;
     };
     var x = converter(/x=([^&]+)/.exec(window.location.href));
