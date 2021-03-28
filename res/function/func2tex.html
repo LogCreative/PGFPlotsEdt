@@ -59,12 +59,10 @@
                 if(ch==(inc ? '(' : ')')){
                     if(stack==0)
                         formula = formula.replaceCharAt(i,(inc ? '{' : '}'));
-                        console.log(formula);
                     stack++;
                 } else if (ch==(inc ? ')' : '(')){
                     if(--stack==0){
                         formula = formula.replaceCharAt(i,(inc ? '}' : '{'));
-                        console.log(formula);
                         break;
                     }
                 } else if (ch=='+'||ch=='-'||ch=='*'||ch=='^'){
@@ -81,11 +79,13 @@
             formula = leftsearch[0];
             i = leftsearch[1];
             formula = formula.insertCharAt(i,'{');
+
             ++divp;
             i = divp + 1;
             rightsearch = stacking(formula, i, true);
             formula = rightsearch[0];
             i = rightsearch[1];
+            
             formula = formula.insertCharAt(i+1,'}');
             formula = formula.replace(/\//,"\\over ");  // will only replace the first /
         }
@@ -100,12 +100,13 @@
         // refer to pgf manual 95.3
         var normdict = ["cos","cot","deg","exp","gcd","ln","log","max","min","mod","pi","sec","sin","sqrt","tan"];
         for(var i in normdict){
-            if((ind = formula.indexOf(normdict[i]))!=-1){
-                formula = formula.insertCharAt(ind,'\\');
-                var i = ind + normdict[i].length + 1;
-                var outerbracket = stacking(formula, i, true);
+            var previndex = 0;
+            while((ind = formula.substring(previndex,formula.length).indexOf(normdict[i]))!=-1){
+                formula = formula.insertCharAt(previndex + ind,'\\');
+                var j = previndex + ind + normdict[i].length + 1;
+                var outerbracket = stacking(formula, j, true);
                 formula = outerbracket[0];
-                i = outerbracket[1];
+                previndex = j;
             }
         }
         return formula;
