@@ -46,6 +46,12 @@
             document.getElementById('alert').style.display = "block";
         
         // Use bracket stack to handle the / symbol
+        String.prototype.replaceCharAt = function(index,ch){ 
+            return this.substring(0,index) + ch + this.substring(index+1, this.length);
+        };
+        String.prototype.insertCharAt = function(index,ch){ 
+            return this.substring(0,index) + ch + this.substring(index, this.length);
+        };
         while((divp=/\//g.exec(formula))!=null){
             divp = divp.index;
             var i = divp - 1;
@@ -53,38 +59,44 @@
             for(; i >= 0; --i){
                 var ch = formula.charAt(i);
                 if(ch==')'){
+                    if(stack==0)
+                        formula = formula.replaceCharAt(i,'}');
                     stack++;
                 } else if (ch=='('){
-                    if(--stack==0)
+                    if(--stack==0){
+                        formula = formula.replaceCharAt(i,'{');
                         break;
+                    }
                 } else if (ch=='+'||ch=='-'||ch=='*'||ch=='^'){
                     if(stack==0)
                         break;
                 }
             }
-            formula = formula.substring(0,i) + '{' + formula.substring(i,formula.length);
+            formula = formula.insertCharAt(i,'{');
             ++divp;
             i = divp + 1;
             for(; i < formula.length; ++i){
                 var ch = formula.charAt(i);
                 if(ch=='('){
+                    if(stack==0)
+                        formula = formula.replaceCharAt(i,'{');
                     stack++;
                 } else if (ch==')'){
-                    if(--stack==0)
+                    if(--stack==0){
+                        formula = formula.replaceCharAt(i,'}');
                         break;
+                    }
                 } else if (ch=='+'||ch=='-'||ch=='*'||ch=='^'){
                     if(stack==0)
                         break;
                 }
             }
-            formula = formula.substring(0,i) + '}' + formula.substring(i,formula.length);
+            formula = formula.insertCharAt(i,'}');
             formula = formula.replace(/\//,"\\over ");  // will only replace the first /
         }
         
         // TeXify
-        formula = formula.replace(/\(/g,'{')
-                        .replace(/\)/g,'}')
-                        .replace(/\*/g,'');
+        formula = formula.replace(/\*/g,'');
         
         String.prototype.replaceAll = function(s1,s2){ 
             return this.replace(new RegExp(s1,"gm"),s2); 
