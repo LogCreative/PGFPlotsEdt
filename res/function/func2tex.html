@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function To LaTeX</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<style>
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+
+    #alert{
+        display: none;
+        background-color: yellow;
+        padding: 5px;
+        border-radius: 5px;
+    }
+</style>
+<body>
+    <div id="formula">
+
+    </div>
+    <div id="alert">
+        请不要省略 * 进行乘法运算。
+    </div>
+</body>
+<script>
+    var converter = function(formula){
+        if(!formula) return null;
+        formula = formula[1];
+        
+        if(/[\d+|x|y][xy]/g.exec(formula)!=null) document.getElementById('alert').style.display = "block";
+        formula = formula.replace(/\%2B/g,'+')
+                        .replace(/\%20/g,' ')
+                        .replace(/\(/g,'{')
+                        .replace(/\)/g,'}')
+                        .replace(/\*/g,'');
+                        // .replace('/','\\over');      // need bracket stack to solve the problem.
+        
+        String.prototype.replaceAll = function(s1,s2){ 
+            return this.replace(new RegExp(s1,"gm"),s2); 
+        }
+        // refer to pgf manual 95.3
+        var normdict = ["cos","cot","deg","exp","gcd","ln","log","max","min","mod","pi","sec","sin","sqrt","tan"];
+        for(var i in normdict)
+            formula = formula.replaceAll(normdict[i],"\\"+normdict[i]);
+        return formula;
+    };
+    var x = converter(/x=([^&]+)/.exec(window.location.href));
+    var y = converter(/y=([^&]+)/.exec(window.location.href));
+    var z = converter(/z=([^&]+)/.exec(window.location.href));
+    var formula = document.getElementById('formula');
+    if(x!=null && y==null && z==null)
+        formula.innerHTML = "\\\[" + x + "\\\]";
+    else if(x==null && y==null && z!=null)
+        formula.innerHTML = "\\\[z=" + z + "\\\]";
+    else if(x==null && y==null && z==null)
+        formula.innerHTML = "";
+    else {
+        if(x==null) x = '';
+        if(y==null) y = '';
+        if(z==null) z = '';
+        formula.innerHTML = "\\\[\\left\\{\\begin{aligned}"
+        + "X&=" + x + "\\\\"
+        + "Y&=" + y + "\\\\"
+        + "Z&=" + z
+        + "\\end{aligned}\\right.\\\]";
+    }
+</script>
+</html>

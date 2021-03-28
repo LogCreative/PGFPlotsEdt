@@ -64,7 +64,7 @@
                             <property chname="高度" propkey="height"></property>
                             <propertyselect chname="字号" propkey="font" :options="['\\tiny','\\scriptsize','\\footnotesize','\\small','\\normalsize','\\large','\\Large','\\LARGE','\\huge','\\Huge']"></propertyselect>    
                             <propertyselect chname="网格" propkey="grid" :options="['major','minor','both','none']"></propertyselect> 
-                        <div v-show="td">
+                        <div v-show="td" style="display:block">
                             <viewproperty chname="旋转角度" propkey="view"></viewproperty>
                         </div>
                         <div v-show="enableLegend">
@@ -220,7 +220,7 @@
         </div>
     </template>
     <template id="exprtpl">
-        <div v-show="enabled" class="seriesitem">
+        <div v-show="enabled" class="seriesitem" @mouseleave="clearfunction">
             <div class="type" v-soutline="show">
                 <label>
                     <div v-show="!onlegend">函数</div>

@@ -501,14 +501,31 @@ Vue.component('expression',{
     },
     methods:{
         updater: function(){
-            if(!this.etd)
-                seriesList[this.idInner] = ["\\addplot" + (this.plus?"+":"") +" [" + this.param + "] {" + this.expression + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
-            else if (this.expression=="" && this.expression2=="")
-                seriesList[this.idInner] = ["\\addplot3" + (this.plus?"+":"") +" [" + this.param + "] {" + this.expression3 + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
-            else
-                seriesList[this.idInner] = ["\\addplot3" + (this.plus?"+":"") +" [" + this.param + "] ({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "})" + (this.cycle?" \\closedcycle":"") + ";", this.legend,this.show,false];
+            var me = this;
+            var applyExp = function(exp){
+                seriesList[me.idInner] = ["\\addplot" + (me.etd?"3":"") + (me.plus?"+":"") +" [" + me.param + "] "+ exp + (me.cycle?" \\closedcycle":"") + ";",me.legend,me.show,false];
+            };
+            var passExp = function(exp){
+                return exp.replace(/\+/g, "%2B").replace(/\s+/g,"$20");
+            };
+
+            if(!this.etd){
+                applyExp("{" + this.expression + "}");
+                app.purl = "res/function/func2tex.html?x=" + passExp(this.expression);
+            }
+            else if (this.expression=="" && this.expression2==""){
+                applyExp("{" + this.expression3 + "}");
+                app.purl = "res/function/func2tex.html?z=" + passExp(this.expression3);
+            }
+            else{
+                applyExp("({" + this.expression + "},{" + this.expression2 + "},{" + this.expression3 + "})");
+                app.purl = "res/function/func2tex.html?x=" + passExp(this.expression) + "&y=" + passExp(this.expression2) + "&z=" + passExp(this.expression3);
+            }
             updateSeries();
         },
+        clearfunction: function(){
+            app.purl = "";
+        }
     }
 });
 
