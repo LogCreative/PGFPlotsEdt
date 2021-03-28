@@ -37,13 +37,54 @@
         if(!formula) return null;
         formula = formula[1];
         
-        if(/[\d+|x|y][xy]/g.exec(formula)!=null) document.getElementById('alert').style.display = "block";
-        formula = formula.replace(/\%2B/g,'+')
-                        .replace(/\%20/g,' ')
-                        .replace(/\(/g,'{')
+        // Url decode
+        formula = formula.replace(/\%2B/g,'+').replace(/\%20/g,' ');
+        formula = formula.trim();
+
+        // alert multiply symbol
+        if(/[\d|x|y][xy]/g.exec(formula)!=null)
+            document.getElementById('alert').style.display = "block";
+        
+        // Use bracket stack to handle the / symbol
+        while((divp=/\//g.exec(formula))!=null){
+            divp = divp.index;
+            var i = divp - 1;
+            var stack = 0;
+            for(; i >= 0; --i){
+                var ch = formula.charAt(i);
+                if(ch==')'){
+                    stack++;
+                } else if (ch=='('){
+                    if(--stack==0)
+                        break;
+                } else if (ch=='+'||ch=='-'||ch=='*'||ch=='^'){
+                    if(stack==0)
+                        break;
+                }
+            }
+            formula = formula.substring(0,i) + '{' + formula.substring(i,formula.length);
+            ++divp;
+            i = divp + 1;
+            for(; i < formula.length; ++i){
+                var ch = formula.charAt(i);
+                if(ch=='('){
+                    stack++;
+                } else if (ch==')'){
+                    if(--stack==0)
+                        break;
+                } else if (ch=='+'||ch=='-'||ch=='*'||ch=='^'){
+                    if(stack==0)
+                        break;
+                }
+            }
+            formula = formula.substring(0,i) + '}' + formula.substring(i,formula.length);
+            formula = formula.replace(/\//,"\\over ");  // will only replace the first /
+        }
+        
+        // TeXify
+        formula = formula.replace(/\(/g,'{')
                         .replace(/\)/g,'}')
                         .replace(/\*/g,'');
-                        // .replace('/','\\over');      // need bracket stack to solve the problem.
         
         String.prototype.replaceAll = function(s1,s2){ 
             return this.replace(new RegExp(s1,"gm"),s2); 

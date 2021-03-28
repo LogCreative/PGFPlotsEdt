@@ -434,9 +434,6 @@ var addnodeClick = function(){
     });
 };
 
-// 排序更新事件
-// var SortEvent = new Vue();
-
 // 数据源更新事件
 var SourceUpdateEvent = new Vue();
 
