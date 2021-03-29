@@ -45,7 +45,7 @@
         if(/[\d|x|y][xy]/g.exec(formula)!=null)
             document.getElementById('alert').style.display = "block";
         
-        // Use bracket stack to handle the / symbol
+        // Use bracket stack
         String.prototype.replaceCharAt = function(index,ch){ 
             return this.substring(0,index) + ch + this.substring(index+1, this.length);
         };
@@ -70,6 +70,27 @@
             }
             return [formula,i];
         };
+
+        // handle ^ symbol first
+        var prevind = 0;
+        while((powp=formula.indexOf('^',prevind))!=-1){
+            var i = powp - 1;
+            var leftsearch = stacking(formula, i, false);
+            formula = leftsearch[0];
+            i = leftsearch[1];
+            formula = formula.insertCharAt(i,'{');
+
+            ++powp;
+            i = powp + 1;
+            rightsearch = stacking(formula, i, true);
+            formula = rightsearch[0];
+            i = rightsearch[1];
+            
+            formula = formula.insertCharAt(i+1,'}');
+            prevind = powp + 1;
+        }
+
+        // handle / symbol next
         while((divp=/\//g.exec(formula))!=null){
             divp = divp.index;
             var i = divp - 1;
