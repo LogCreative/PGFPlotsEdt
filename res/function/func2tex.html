@@ -65,10 +65,8 @@
                         formula = formula.replaceCharAt(i,(inc ? '}' : '{'));
                         break;
                     }
-                } else if (ch=='+'||ch=='-'||ch=='*'||ch=='^'){
-                    if(stack==0)
-                        break;
-                }
+                } else if(stack==0)
+                    break;
             }
             return [formula,i];
         };
