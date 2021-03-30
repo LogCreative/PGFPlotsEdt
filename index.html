@@ -100,8 +100,8 @@
                     </summary>
                     <div class="libchecker"><input type="checkbox" onclick="chnClick(this)" checked="true">启用中文</input></div>
                     <div class="libchecker"><input type="checkbox" onclick="pinClick(this)" v-model="enablepin">启用标注</input></div>
-                    <div class="libchecker"><input type="checkbox" v-model="td">启用三维</input></div>
-                    <div class="libchecker"><input type="checkbox" v-model="enableLegend">启用图例</input></div>
+                    <div class="libchecker"><input type="checkbox" onclick="tdClick(this)" v-model="td">启用三维</input></div>
+                    <div class="libchecker"><input type="checkbox" onclick="legendClick(this)" v-model="enableLegend">启用图例</input></div>
                     <div class="libchecker"><input type="checkbox" onclick="sourceClick(this)" v-model="enablesource">启用数据源</input></div>
                     <!-- <div> -->
                         <lib :id="1" category="tikz" chname="标记库" libname="plotmarks" customized="0"></lib>

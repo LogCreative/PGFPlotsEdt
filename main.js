@@ -809,8 +809,20 @@ var paramDic = new Array();
 var updateParamDic = function(){
     app.param = "";
     for(var key in paramDic)
-        if(paramDic[key]!="")
+        if(paramDic[key]!=""){
+            switch (key) {
+                case "view":case "zlabel":case "zmin":case "zmax":case "axis z line":
+                    if(!app.td) continue;
+                    break;
+                case "legend pos":
+                    if(!app.enableLegend) continue;
+                    break;
+                default:
+                    break;
+            }
             app.param += key + "=" + paramDic[key] + ",\n";
+        }
+            
 };
 
 var propMixins = {
@@ -948,6 +960,18 @@ pinClick = function(obj){
     app.enablepin = !app.enablepin;
     updateSeries();
     app.enablepin = !app.enablepin;
+}
+
+tdClick = function(obj){
+    app.td = !app.td;
+    updateParamDic();
+    app.td = !app.td;
+}
+
+legendClick = function(obj){
+    app.enableLegend = !app.enableLegend;
+    updateParamDic();
+    app.enableLegend = !app.enableLegend;
 }
 
 sourceClick = function(obj){
