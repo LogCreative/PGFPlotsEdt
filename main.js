@@ -1073,8 +1073,6 @@ var app = new Vue({
             // 全局匹配
             if(!app.manual)
                 app.curl = "https://latexonline.cc/compile?text="+this.file.replace(/[+]/g,"%2B");
-            else if(app.packages[0])
-                app.curl = "https://latexonline.cc/compile?command=lualatex&text="+document.getElementById('manualfile').value.replace(/[+]/g,"%2B");
             else app.curl = "https://latexonline.cc/compile?text="+document.getElementById('manualfile').value.replace(/[+]/g,"%2B");
         }
     },
