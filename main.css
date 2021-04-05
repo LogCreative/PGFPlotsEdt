@@ -502,3 +502,8 @@ input[type=text]{
 .coordbar button{
     padding: 0px 3px;
 }
+
+#logo{
+    float: left;
+    margin-right: 5px;
+}
