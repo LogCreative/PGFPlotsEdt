@@ -416,7 +416,7 @@
     </template>
     <template id="tplbutton">
         <div class="tplbutton">
-            <button @click="addtpl">{{tplname}}</button>
+            <button @click="addtpl" @mouseenter="preview" @mouseleave="flush">{{tplname}}</button>
         </div>
     </template>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>

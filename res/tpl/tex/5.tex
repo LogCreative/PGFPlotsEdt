@@ -1,0 +1,10 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[]
+ \addplot [samples=200,domain=0:4,blue,very thick,fill=blue!50] {x/(1+x)} \closedcycle;
+\end{axis}
+\end{tikzpicture}
+\end{document}

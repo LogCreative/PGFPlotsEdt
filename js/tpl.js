@@ -43,7 +43,7 @@ var tpl_dict = {
     ],
     9: [
         "coordinate",
-        "boxplot prepared={lower whisker=2.5, lower quartile=4, median=8.5, upper quartile=12, upper whisker=15",
+        "boxplot prepared={lower whisker=2.5, lower quartile=4, median=8.5, upper quartile=12, upper whisker=15},blue,",
         "",
         ["statistics"],
     ],

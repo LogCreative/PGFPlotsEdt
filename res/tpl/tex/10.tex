@@ -1,0 +1,11 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\usepgfplotslibrary{polar}
+\begin{document}
+\begin{tikzpicture}
+\begin{polaraxis}[]
+ \addplot [domain=0:720,samples=200,pink!30,fill=pink!10,line width=1.5pt,] {cos(2*x)*sin(2*x)};
+\end{polaraxis}
+\end{tikzpicture}
+\end{document}

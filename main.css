@@ -20,7 +20,7 @@ a{
 
 #template {
     display: none;
-    margin-top: 3px;
+    margin: 5px 0px 2px 0px;
 }
 
 .nav:hover > div > #template{

@@ -1,0 +1,11 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\usepgfplotslibrary{statistics}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[]
+ \addplot [boxplot prepared={lower whisker=2.5, lower quartile=4, median=8.5, upper quartile=12, upper whisker=15},blue] coordinates {};
+\end{axis}
+\end{tikzpicture}
+\end{document}

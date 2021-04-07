@@ -1030,6 +1030,12 @@ Vue.component('tplbutton', {
                     });
                     break;
             }
+        },
+        preview: function(){
+            app.purl = "res/tpl/svg/" + this.tplid + ".svg";
+        },
+        flush: function(){
+            app.purl = "";
         }
     }
 });

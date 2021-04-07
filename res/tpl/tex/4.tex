@@ -1,0 +1,10 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[]
+ \addplot [ybar,green,fill=green] coordinates {(1,0.86) (2,0.85) (3,0.845) (4,0.84) (5,0.83)};
+\end{axis}
+\end{tikzpicture}
+\end{document}

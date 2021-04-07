@@ -1,0 +1,10 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[]
+ \addplot [ybar interval,fill=blue!50,draw=blue] coordinates {(0,17) (34,0) (68,3) (102,2) (136,3) (170,5) (204,6) (238,15) (272,22) (306,63) (340,109) (374,162) (408,193) (442,189) (476,166) (510,130) (544,110) (578,83) (612,52) (646,25) (680,4) (714,4)};
+\end{axis}
+\end{tikzpicture}
+\end{document}

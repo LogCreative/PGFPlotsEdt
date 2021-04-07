@@ -1,0 +1,10 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[]
+ \addplot [mark=*,domain=-2:2,blue] {exp(-x^2)};
+\end{axis}
+\end{tikzpicture}
+\end{document}
