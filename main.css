@@ -522,3 +522,7 @@ input[type=text]{
     float: left;
     margin: 3px 5px 0 0;
 }
+
+.tplbutton{
+    display: inline-block;
+}

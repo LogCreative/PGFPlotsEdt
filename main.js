@@ -148,7 +148,7 @@ var parambar = Vue.component('parambar',{
     },
     watch:{
         etd(_td){
-           this.refresh3D(_td);
+             this.refresh3D(_td);
         },
         command(_command){
             this.refreshList(_command);
@@ -300,6 +300,9 @@ var seriesMixin = {
         id: Number,                 // Initial Value Only
         ontd: Boolean,
         onlegend: Boolean,
+        inparam: String,
+        indata: String,  
+        instruct: Array,         
     },
     data: function(){
         return {
@@ -314,6 +317,34 @@ var seriesMixin = {
             paramfoc: false,
             command:"",
             bestMatch:[],
+        }
+    },
+    mounted: function (){
+        if(this.inparam)
+            this.param = this.inparam;
+        if(this.instruct){
+            for(var k in this.instruct){
+                switch(this.instruct[k]){
+                    case 'td': 
+                        this.etd = true; 
+                        app.td = true; 
+                        break;
+                    case 'cycle': 
+                        this.cycle = true; 
+                        break;
+                    case 'statistics': 
+                        app.packages[4] = "\\usepgfplotslibrary{statistics}\n"; 
+                        updatePkg(); 
+                        this.updater(); 
+                        break;
+                    case 'polaraxis':
+                        app.packages[6] = "\\usepgfplotslibrary{polar}\n";
+                        app.enablepolar = true;
+                        updatePkg();
+                        app.axistype = "4";
+                        break;
+                }
+            }
         }
     },
     components:{
@@ -496,6 +527,19 @@ Vue.component('expression',{
             expression3: "",
         }
     },
+    mounted: function(){
+        if(this.indata){
+            var expcomp = this.indata.split(',');
+            if(!expcomp[0] && !expcomp[1] && expcomp[2]) this.expression3 = expcomp[2];
+            else if (expcomp[0] && !expcomp[1] && !expcomp[2]) this.expression = expcomp[0];
+            else {
+                this.expression = expcomp[0];
+                this.expression2 = expcomp[1];
+                this.expression3 = expcomp[2];
+            }
+            this.updater();
+        }
+    },
     methods:{
         on_change: function(){
             this.updater();
@@ -516,7 +560,7 @@ Vue.component('expression',{
         },
         showfunction: function(){
             var passExp = function(exp){
-                return exp.replace(/\+/g, "%2B").replace(/\s+/g,"$20");
+                return exp.replace(/\+/g, "%2B").replace(/\s+/g,"%20");
             };
             if(!this.etd)
                 app.purl = "res/function/func2tex.html?x=" + passExp(this.expression);
@@ -657,6 +701,10 @@ Vue.component('coordinate',{
             shown: false,
         }
     },
+    mounted: function(){
+        if(this.indata)
+            this.cdata = this.indata;
+    },
     watch:{
         cdata(){
             this.updater();
@@ -750,6 +798,10 @@ Vue.component('tablep',{
     },
     mounted: function() {
         me = this;
+        if(this.indata){
+            this.datat = this.indata;
+            this.updater();
+        }
         var clearSelect = function(){
             me.sourceSelect="...";
             me.updater();
@@ -938,6 +990,46 @@ Vue.component('viewproperty',{
         },
         dragend: function(e){
             this.dragrefresh();
+        }
+    }
+});
+
+// 模板按钮
+Vue.component('tplbutton', {
+    template: '#tplbutton',
+    props:{
+        tplname: String,
+        tplid: Number,
+    },
+    methods:{
+        addtpl: function(){
+            var tpldata = tpl_dict[this.tplid];
+            switch(tpldata[0]){
+                case 'expression':
+                    app.expressions.push({
+                        id: ++seriescnt,
+                        inparam: tpldata[1],
+                        indata: tpldata[2],
+                        instruct: tpldata[3]?tpldata[3]:null,
+                    });
+                    break;
+                case 'coordinate':
+                    app.coordinates.push({
+                        id: ++seriescnt,
+                        inparam: tpldata[1],
+                        indata: tpldata[2],
+                        instruct: tpldata[3]?tpldata[3]:null,
+                    });
+                    break;
+                case 'table':
+                    app.tableps.push({
+                        id: ++seriescnt,
+                        inparam: tpldata[1],
+                        indata: tpldata[2],
+                        instruct: tpldata[3]?tpldata[3]:null,
+                    });
+                    break;
+            }
         }
     }
 });
