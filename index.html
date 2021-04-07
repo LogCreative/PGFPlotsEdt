@@ -9,8 +9,9 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-    <div class="nav">
+<body >
+    <div id="app">
+        <div class="nav">
             <div id="extlinks">
                 <a id="title" href="https://logcreative.github.io/LaTeXSparkle/" target="_blank" class="logo"><svg style="fill: black; font-family: Times,'宋体'" width="144" height="35">
                     <text x="0" y="28" style="font-size: x-large">像</text>
@@ -34,9 +35,21 @@
             <div>
                 <a href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank">PGFPlots 统计绘图编辑器 </a><br>
                 <div style="display: inline-block; color: rgba(128, 128, 128, 0.5);">PGFPlotsEdt <div id="version" style="display: inline-block;"></div></div>
+                <div id="template">
+                    <button class="tplbutton">折线图</button>
+                    <button class="tplbutton">折点图</button>
+                    <button class="tplbutton">散点图</button>
+                    <button class="tplbutton">柱形图</button>
+                    <button class="tplbutton">面积图</button>
+                    <button class="tplbutton">曲面图</button>
+                    <button class="tplbutton">等高图</button>
+                    <button class="tplbutton">直方图</button>
+                    <button class="tplbutton">箱式图</button>
+                    <button class="tplbutton">极坐标</button>
+                </div>
             </div>
     </div>
-    <div class="container" id="app">
+    <div class="container">
         <div id="panel-one" class="split">
             <div id="panel-vone">
                 <button v-on="{click: compile}" id="compileBtn">编译</button><br>
@@ -193,6 +206,7 @@
         </div>
         
         
+    </div>
     </div>
     <template id="libtpl">
         <div class="libchecker"><input type="checkbox" v-model="enabled" @change="onlibchange">{{chname}}</input></div>
@@ -421,10 +435,8 @@
             document.getElementById('codedetail').open = true;
             setSpliterHeight();
         }
-        else{ 
+        else
             document.getElementById('codedetail').open = false;
-            document.getElementById('lang').style['display'] = 'none';
-        }
     </script>
 </body>
 </html>

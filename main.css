@@ -17,9 +17,24 @@ a{
     width: 100%; */
 }
 
+
+#template {
+    display: none;
+    margin-top: 3px;
+}
+
+.nav:hover > div > #template{
+    display: block;
+}
+
+.nav:hover > #logo{
+    height: 64px;
+}
+
 #extlinks{
     float: right;
     text-align: right;
+    
 }
 
 #title, #extlinks {
@@ -505,5 +520,5 @@ input[type=text]{
 
 #logo{
     float: left;
-    margin-right: 5px;
+    margin: 3px 5px 0 0;
 }
