@@ -11,8 +11,10 @@ Remove-Item *.dvi, *.log, *.aux, animatedlogo-frame*.tex, *.svg
     $domain_end = -0.43 + ($_ + 1) * 0.02
     $domain_replacer = "domain=" + $domain_start + "*pi" + ":" + $domain_end + "*pi"
     $index = '{0:d2}' -f $_
+    $opacity = 0.08 + $_ * 0.02
+    $opacity_replacer = "opacity=" + $opacity
     $file = "animatedlogo-frame" + $index + ".tex"
-    (Get-Content ../logo.tex -Raw) -replace "view={(\d+)}", $view_replacer -replace "domain=0:2\*pi", $domain_replacer | 
+    (Get-Content ../logo.tex -Raw) -replace "view={(\d+)}", $view_replacer -replace "domain=0:2\*pi", $domain_replacer -replace "opacity=1",$opacity_replacer | 
         Out-File $file
     $dvifile = "animatedlogo-frame" + $index + ".dvi"
     pdflatex -output-format=dvi $file
