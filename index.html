@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="app">
-        <div class="nav">
+        <div class="nav" @mouseenter="animbck" @mouseleave="animfwd">
             <div id="extlinks">
                 <a id="title" href="https://logcreative.github.io/LaTeXSparkle/" target="_blank" class="logo"><svg style="fill: black; font-family: Times,'宋体'" width="144" height="35">
                     <text x="0" y="28" style="font-size: x-large">像</text>
@@ -425,7 +425,6 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/languages/latex.min.js"></script>
     <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/styles/vs.min.css" rel="stylesheet">
     <script src="https://cdn.bootcdn.net/ajax/libs/split.js/1.6.2/split.min.js"></script>
-    <script src="js/getVersion.js"></script>
     <script src="js/dict_cn.js"></script>
     <script src="js/style_cn.js"></script>
     <script src="js/tpl.js"></script>
@@ -444,5 +443,6 @@
         else
             document.getElementById('codedetail').open = false;
     </script>
+    <script src="js/getVersion.js"></script>
 </body>
 </html>

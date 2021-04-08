@@ -1170,6 +1170,8 @@ var app = new Vue({
         hintAllCode: function () { this.dc_content = this.content; hintCode("#texAllCode"); },
         warnAllCode: function () { this.dc_content = this.content; warnCode("#texAllCode"); },
         blurAllCode: function () { blurCode("#texAllCode") },
+        animbck: function () { animback(); },
+        animfwd: function () { animforward(); },
         compile: function() {
             app.purl="";
             // +属于url保留符号，需要转义为%2B才可以使用。

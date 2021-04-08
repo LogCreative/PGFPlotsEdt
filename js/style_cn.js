@@ -100,3 +100,63 @@ var gomanual = function(){
     app.manual = true;
     // Split(['#panel-one','#panel-two']);
 };
+
+var anim_mutex = false;
+var index;
+var get_anim_str = function(){
+    return "res/logo/anim/animatedlogo-frame" + (Array(2).join(0) + index).slice(-2) + ".svg";
+};
+
+var animback = function(){
+    var back_anim = function (){
+        var logo = document.getElementById('logo');
+        logo.src = get_anim_str();
+        if(index - 1<0 || !anim_mutex){
+            clearInterval(back_anim_t);
+            anim_mutex = false;
+        } else --index;
+    };
+
+    var back_anim_t;
+    if(!anim_mutex){
+        anim_mutex = true;
+        index = 46;
+        back_anim_t = setInterval(back_anim, 30);
+    } else {
+        anim_mutex = false;
+        var waiter = setInterval(function(){
+            anim_mutex = true;
+            back_anim_t = setInterval(back_anim, 30);
+            clearInterval(waiter);
+        },30);
+    }
+    
+};
+
+var animforward = function(){
+    var forward_anim = function (){
+        var logo = document.getElementById('logo');
+        logo.src = get_anim_str();
+        if(index + 1>46 || !anim_mutex) {
+            clearInterval(forward_anim_t);
+            anim_mutex = false;
+        } else ++index;
+    };
+
+    var forward_anim_t;
+    if(!anim_mutex){
+        index = 0;
+        anim_mutex = true;
+        forward_anim_t = setInterval(forward_anim, 30);
+    } else {
+        anim_mutex = false;
+        var waiter = setInterval(function(){
+            anim_mutex = true;
+            forward_anim_t = setInterval(forward_anim, 30);
+            clearInterval(waiter);
+        },30);
+    }    
+};
+
+// Pre-load
+animforward();

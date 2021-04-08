@@ -19,6 +19,8 @@ Remove-Item *.dvi, *.log, *.aux, animatedlogo-frame*.tex, *.svg
     dvisvgm --zoom=1 --exact $dvifile
 }
 
+Copy-Item ../logo.svg animatedlogo-frame46.svg
+
 # svg only mode
 
 # # need ImageMagick installed
