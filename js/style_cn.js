@@ -102,7 +102,7 @@ var gomanual = function(){
 };
 
 var anim_mutex = false;
-var index;
+var index = 46;
 var get_anim_str = function(){
     return "res/logo/anim/animatedlogo-frame" + (Array(2).join(0) + index).slice(-2) + ".svg";
 };
@@ -159,4 +159,12 @@ var animforward = function(){
 };
 
 // Pre-load
-animforward();
+while(--index){
+    var preloadLink = document.createElement("link");
+    preloadLink.href = get_anim_str();
+    preloadLink.rel = "preload";
+    preloadLink.as = "image";
+    document.head.appendChild(preloadLink);
+}
+
+index = 46;
