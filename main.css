@@ -27,6 +27,10 @@ a{
     display: block;
 }
 
+.nav:hover > div > #poweredby{
+    display: flex;
+}
+
 .nav:hover > #logo{
     height: 64px;
 }
@@ -34,7 +38,24 @@ a{
 #extlinks{
     float: right;
     text-align: right;
-    
+}
+
+#poweredby{
+    display: none;
+    justify-content: flex-end;
+}
+
+#poweredby a{
+    margin: 5px 2px 0px 2px;
+    opacity: 0.5;
+}
+
+#poweredby a:hover{
+    opacity: 1;
+}
+
+#poweredby > a > img {
+    height: 16px;
 }
 
 #title, #extlinks {

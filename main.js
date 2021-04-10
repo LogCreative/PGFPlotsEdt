@@ -88,7 +88,7 @@ Vue.component('lib',{
             }
             updatePkg();
             if(this.id)
-                libChangeEvent.$emit('lib-change',this.id);
+                libChangeEvent.$emit('lib-change');
         }
     },
 });
