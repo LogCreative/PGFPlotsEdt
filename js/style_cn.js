@@ -107,6 +107,11 @@ var manualrefresh = function(){
     mf.innerHTML = mf.innerHTML.replace("\\end{axis}", newseries + "\n\\end{axis}");
 };
 
+var manuallibchange = function(libstr){
+    var mf = document.getElementById('manualfile');
+    mf.innerHTML = mf.innerHTML.replace("\\begin{document}", libstr + "\\begin{document}");
+};
+
 var anim_mutex = false;
 var anim_index = 46;
 var get_anim_str = function(){

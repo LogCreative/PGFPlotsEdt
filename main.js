@@ -88,7 +88,7 @@ Vue.component('lib',{
             }
             updatePkg();
             if(this.id)
-                libChangeEvent.$emit('lib-change');
+                libChangeEvent.$emit('lib-change',this.id);
         }
     },
 });
@@ -334,6 +334,7 @@ var seriesMixin = {
                         break;
                     case 'statistics': 
                         app.packages[4] = "\\usepgfplotslibrary{statistics}\n"; 
+                        if(app.manual) manuallibchange(app.packages[4]);
                         updatePkg(); 
                         this.updater(); 
                         break;
@@ -342,6 +343,11 @@ var seriesMixin = {
                         app.enablepolar = true;
                         updatePkg();
                         app.axistype = "4";
+                        if(app.manual){
+                            manuallibchange(app.packages[6]);
+                            var mf = document.getElementById('manualfile');
+                            mf.innerHTML = mf.innerHTML.replace("\\begin{axis}", "\\begin{polaraxis}");
+                        }
                         break;
                 }
             }
