@@ -1004,6 +1004,7 @@ Vue.component('tplbutton', {
     methods:{
         addtpl: function(){
             var tpldata = tpl_dict[this.tplid];
+            
             switch(tpldata[0]){
                 case 'expression':
                     app.expressions.push({
@@ -1137,6 +1138,7 @@ var app = new Vue({
                 }
             }
             setSpliterHeight();
+            if (app.manual) manualrefresh();
         },
     },
     computed:{

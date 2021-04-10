@@ -101,26 +101,43 @@ var gomanual = function(){
     // Split(['#panel-one','#panel-two']);
 };
 
-var anim_mutex = false;
-var index = 46;
-var get_anim_str = function(){
-    return "res/logo/anim/animatedlogo-frame" + (Array(2).join(0) + index).slice(-2) + ".svg";
+var manualrefresh = function(){
+    var mf = document.getElementById('manualfile');
+    var newseries = seriesList[seriescnt][0];
+    mf.innerHTML = mf.innerHTML.replace("\\end{axis}", newseries + "\n\\end{axis}");
 };
+
+var anim_mutex = false;
+var anim_index = 46;
+var get_anim_str = function(){
+    return "res/logo/anim/animatedlogo-frame" + (Array(2).join(0) + anim_index).slice(-2) + ".svg";
+};
+
+// Pre-load
+while(--anim_index){
+    var preloadLink = document.createElement("link");
+    preloadLink.href = get_anim_str();
+    preloadLink.rel = "preload";
+    preloadLink.as = "image";
+    document.head.appendChild(preloadLink);
+}
+
+anim_index = 46;
 
 var animback = function(){
     var back_anim = function (){
         var logo = document.getElementById('logo');
         logo.src = get_anim_str();
-        if(index - 1<0 || !anim_mutex){
+        if(anim_index - 1<0 || !anim_mutex){
             clearInterval(back_anim_t);
             anim_mutex = false;
-        } else --index;
+        } else --anim_index;
     };
 
     var back_anim_t;
     if(!anim_mutex){
         anim_mutex = true;
-        index = 46;
+        anim_index = 46;
         back_anim_t = setInterval(back_anim, 30);
     } else {
         anim_mutex = false;
@@ -137,15 +154,15 @@ var animforward = function(){
     var forward_anim = function (){
         var logo = document.getElementById('logo');
         logo.src = get_anim_str();
-        if(index + 1>46 || !anim_mutex) {
+        if(anim_index + 1>46 || !anim_mutex) {
             clearInterval(forward_anim_t);
             anim_mutex = false;
-        } else ++index;
+        } else ++anim_index;
     };
 
     var forward_anim_t;
     if(!anim_mutex){
-        index = 0;
+        anim_index = 0;
         anim_mutex = true;
         forward_anim_t = setInterval(forward_anim, 30);
     } else {
@@ -157,14 +174,3 @@ var animforward = function(){
         },30);
     }    
 };
-
-// Pre-load
-while(--index){
-    var preloadLink = document.createElement("link");
-    preloadLink.href = get_anim_str();
-    preloadLink.rel = "preload";
-    preloadLink.as = "image";
-    document.head.appendChild(preloadLink);
-}
-
-index = 46;

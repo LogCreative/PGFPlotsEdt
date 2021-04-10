@@ -285,8 +285,8 @@ input[type=checkbox] {
 }
 
 
-input[type=checkbox]:after,
-input[type=checkbox]:disabled:after {
+input[type=checkbox]::after,
+input[type=checkbox]:disabled::after {
     position: absolute;
     width: 15px;
     height: 20px;
@@ -301,8 +301,8 @@ input[type=checkbox]:disabled:after {
     border-radius: 3px;
 }
 
-#packages input[type=checkbox]:checked:after,
-#series .type input[type=checkbox]:checked:after{
+#packages input[type=checkbox]:checked::after,
+#series .type input[type=checkbox]:checked::after{
     background-color: #0f97e7;
     content: "✓";
     font-size: 15px;
@@ -310,7 +310,7 @@ input[type=checkbox]:disabled:after {
     border: 1px solid blue;
 }
 
-#series .ttd input[type=checkbox]:checked:after {
+#series .ttd input[type=checkbox]:checked::after {
     background-color: #1dd60d;
     border: 1px solid #0e9c01;
     content: "z";
@@ -318,7 +318,7 @@ input[type=checkbox]:disabled:after {
     text-align: center;
 }
 
-#series .ptd input[type=checkbox]:checked:after {
+#series .ptd input[type=checkbox]:checked::after {
     background-color: #ca710b;
     border: 1px solid red;
     content: "+";
@@ -326,7 +326,7 @@ input[type=checkbox]:disabled:after {
     text-align: center;
 }
 
-#series .ctd input[type=checkbox]:checked:after {
+#series .ctd input[type=checkbox]:checked::after {
     background-color: #2f8b0a;
     border: 1px solid darkgreen;
     content: "⇲";
@@ -338,7 +338,7 @@ input[type=checkbox]:disabled:after {
     margin-right: 13px;
 }
 
-#series .ytd input[type=checkbox]:checked:after {
+#series .ytd input[type=checkbox]:checked::after {
     background-color: #eeff00;
     border: 1px solid orange;
     /* content: "a";
