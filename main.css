@@ -547,3 +547,31 @@ input[type=text]{
 .tplbutton{
     display: inline-block;
 }
+
+.accordion{
+    list-style: none;
+    display: flex;
+}
+.accordion>.acckey{
+    overflow: hidden;
+    display: inline;
+    margin: 0px;
+}
+.accordion>.acckey  div.value{
+    text-overflow: clip;
+    overflow: hidden;
+    width: 0px;
+    height: 20px;
+    display: inline-block;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1)  1s;
+}
+.accordion>.acckey:hover div.value{
+    width: 60px;
+    margin-left: 10px;
+}
+.accordion .acckey .icon{
+    height: 15px;
+}
+.accordion .acccon{
+    margin: 0px;
+}

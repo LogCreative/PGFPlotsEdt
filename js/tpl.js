@@ -16,7 +16,7 @@ var tpl_dict = {
     ],
     4 : [
         "coordinate",
-        "ybar,green,fill=green",
+        "ybar,draw=green!40!black,fill=green!70!black",
         "(1,0.86) (2,0.85) (3,0.845) (4,0.84) (5,0.83)"
     ],
     5: [

@@ -38,7 +38,7 @@
             <div>
                 <a href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank">PGFPlots 统计绘图编辑器 </a><br>
                 <div style="display: inline-block; color: rgba(128, 128, 128, 0.5);">PGFPlotsEdt <div id="version" style="display: inline-block;"></div></div>
-                <div id="template">
+                <div id="template" class="accordion">
                     <tplbutton tplname="折线图" :tplid="1"></tplbutton>
                     <tplbutton tplname="折点图" :tplid="2"></tplbutton>
                     <tplbutton tplname="散点图" :tplid="3"></tplbutton>
@@ -122,16 +122,14 @@
                     <div class="libchecker"><input type="checkbox" onclick="tdClick(this)" v-model="td">启用三维</input></div>
                     <div class="libchecker"><input type="checkbox" onclick="legendClick(this)" v-model="enableLegend">启用图例</input></div>
                     <div class="libchecker"><input type="checkbox" onclick="sourceClick(this)" v-model="enablesource">启用数据源</input></div>
-                    <!-- <div> -->
-                        <lib :id="1" category="tikz" chname="标记库" libname="plotmarks" customized="0"></lib>
-                        <lib :id="2" category="pgfplots" chname="颜色库" libname="colorbrewer" customized="0"></lib>
-                        <lib :id="3" category="pgfplots" chname="渐变库" libname="colormaps" customized="0"></lib>
-                        <lib category="selectcolormodel" chname="CMYK模式" libname="cmyk" customized="1"></lib>
-                        <lib :id="4" category="pgfplots" chname="统计库" libname="statistics" customized="0"></lib>
-                        <lib :id="5" category="pgfplots" chname="间隙填充库" libname="fillbetween" customized="0"></lib>
-                        <lib :id="6" category="pgfplots" chname="极坐标库" libname="polar" customized="0"></lib>
-                        <lib :id="7" category="pgfplots" chname="日期库" libname="dateplot" customized="0"></lib>
-                    <!-- </div> -->
+                    <lib :id="1" category="tikz" chname="标记库" libname="plotmarks" customized="0"></lib>
+                    <lib :id="2" category="pgfplots" chname="颜色库" libname="colorbrewer" customized="0"></lib>
+                    <lib :id="3" category="pgfplots" chname="渐变库" libname="colormaps" customized="0"></lib>
+                    <lib category="selectcolormodel" chname="CMYK模式" libname="cmyk" customized="1"></lib>
+                    <lib :id="4" category="pgfplots" chname="统计库" libname="statistics" customized="0"></lib>
+                    <lib :id="5" category="pgfplots" chname="间隙填充库" libname="fillbetween" customized="0"></lib>
+                    <lib :id="6" category="pgfplots" chname="极坐标库" libname="polar" customized="0"></lib>
+                    <lib :id="7" category="pgfplots" chname="日期库" libname="dateplot" customized="0"></lib>
                 </details>
                 <details id="data" open="true">
                     <summary>
@@ -176,8 +174,6 @@
                     </div>
                 </details>
             </div>
-            
-            
             <div id="code">
                 <textarea id="manualfile" style="display:none; min-height: 450px;"></textarea>
             </div>
@@ -207,8 +203,6 @@
             </details>
         </div> 
         </div>
-        
-        
     </div>
     </div>
     <template id="libtpl">
@@ -303,7 +297,6 @@
             <parambar ref="subparambar" v-show="paramfoc" :command="command" :etd="etd" :global="false"></parambar>
             <coordbar ref="subcoordbar" :cdata="cdata" v-show="shown" :td="etd"></coordbar>
             <div v-show="!shown"><textarea class="coordtext" v-model="cdata" placeholder="坐标数据" @focus="coord_focused"></textarea></div>
-            
         </div>
     </template>
     <template id="tableparamtpl">
@@ -418,8 +411,8 @@
         </div>        
     </template>
     <template id="tplbutton">
-        <div class="tplbutton">
-            <button @click="addtpl" @mouseenter="preview" @mouseleave="flush">{{tplname}}</button>
+        <div class="acckey">
+            <button class="acccon" @click="addtpl" @mouseenter="preview" @mouseleave="flush"><img class="icon" :src="iconadd"><div class="value">{{tplname}}</div></button>
         </div>
     </template>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
