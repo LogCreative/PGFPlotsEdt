@@ -13,10 +13,10 @@ a{
     background:whitesmoke;
     padding: 5px 10px;
     margin-bottom: 10px;
+    overflow-y: hidden;
     /* position: absolute;
     width: 100%; */
 }
-
 
 #template {
     display: none;
@@ -31,8 +31,15 @@ a{
     display: flex;
 }
 
+#logo{
+    float: left;
+    margin: 3px 5px 0 0;
+    height: 32px;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 2s;
+}
+
 .nav:hover > #logo{
-    height: 64px;
+    height: 72px;
 }
 
 #extlinks{
@@ -46,7 +53,7 @@ a{
 }
 
 #poweredby a{
-    margin: 5px 2px 0px 2px;
+    margin: 10px 2px 0px 2px;
     opacity: 0.5;
 }
 
@@ -539,11 +546,6 @@ input[type=text]{
     padding: 0px 3px;
 }
 
-#logo{
-    float: left;
-    margin: 3px 5px 0 0;
-}
-
 .tplbutton{
     display: inline-block;
 }
@@ -562,16 +564,17 @@ input[type=text]{
     overflow: hidden;
     width: 0px;
     height: 20px;
-    display: inline-block;
+    display: inline-flex;
     transition: cubic-bezier(0.075, 0.82, 0.165, 1)  1s;
 }
 .accordion>.acckey:hover div.value{
-    width: 60px;
-    margin-left: 10px;
+    width: auto;
+    margin-left: 5px;
 }
 .accordion .acckey .icon{
-    height: 15px;
+    height: 16px;
 }
 .accordion .acccon{
-    margin: 0px;
+    padding-top: 5px;
+    vertical-align: text-top;
 }
