@@ -1187,11 +1187,14 @@ var app = new Vue({
         animfwd: function () { animforward(); },
         compile: function() {
             app.purl="";
+            var urlencoder = function(str){
+                return str.replace(/\%.+/g,"").replace(/[+]/g,"%2B");
+            };
             // +属于url保留符号，需要转义为%2B才可以使用。
             // 全局匹配
             if(!app.manual)
-                app.curl = "https://latexonline.cc/compile?text="+this.file.replace(/[+]/g,"%2B");
-            else app.curl = "https://latexonline.cc/compile?text="+document.getElementById('manualfile').value.replace(/[+]/g,"%2B");
+                app.curl = "https://latexonline.cc/compile?text="+urlencoder(this.file);
+            else app.curl = "https://latexonline.cc/compile?text="+urlencoder(document.getElementById('manualfile').value);
         }
     },
 });
