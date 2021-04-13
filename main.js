@@ -487,7 +487,8 @@ var readFile = function(e){
         that.datat = 
             (this.result).replace(/[\r]/g,'')
                 .replace(/[\n]/g,'\\\\')
-                .replace(/[\t|,]/g,' ') + '\\\\';
+                .replace(/[\t|,]/g,' ')
+                .replace(/\s+/g,' ') + '\\\\';
         that.updater();
     };
 };
@@ -735,9 +736,8 @@ Vue.component('tableparambar',{
     data: function(){
         return {
             colname:[],
-            xindex:-1,
-            yindex:-1,
-            zindex:-1,
+            symbolic:[],
+            symbolicsets:[],
         }
     },
     watch:{
@@ -745,16 +745,56 @@ Vue.component('tableparambar',{
             if(!_datat) return ;
             var header = this.datat.substring(0,this.datat.indexOf("\\\\"));
             this.colname = header.split(" ");
+            this.symbolic = [];
+            this.symbolicsets = [];
+            this.symbolic_test();
         }
     },
     methods:{
+        symbolic_test: function(){
+            var filelines = this.datat.split("\\\\");
+            for(var i in filelines){
+                if(i==0) continue;              // skip the header
+                var rowcol = filelines[i].split(" ");
+                for(var j in rowcol)
+                    if(/[^(\d|e|\-|\s|.)]+/.exec(rowcol[j])!=null)
+                        this.symbolic[j] = true;
+            }
+        },
+        get_symbolic_set_str: function(index){
+            var getsetstr = function(set){
+                var setstr = "";
+                for(let item of set){
+                    setstr += item + ",";
+                }
+                return setstr.substring(0,setstr.length-1);
+            }
+            if(this.symbolicsets[index])
+                return getsetstr(this.symbolicsets[index]); // cached
+            var filelines = this.datat.split("\\\\");
+            var symbolicset = new Set();
+            for(var i in filelines){
+                if(i==0) continue;              // skip the header
+                var rowcol = filelines[i].split(" ");
+                symbolicset.add(rowcol[index]);
+            }
+            symbolicset.delete("");
+            this.symbolicsets[index] = symbolicset;
+            return getsetstr(symbolicset);
+        },
         axis_change: function(){
             var selection = new FormData(this.$refs.tableform);
             var tableaxis = "";
-            for(const entry of selection)
+            var symbolicparam = "";
+            for(const entry of selection){
                 tableaxis += entry[0] + "=" + entry[1] + ",";
+                for(var i in this.colname)
+                    if(this.colname[i]==entry[1] && this.symbolic[i])
+                        symbolicparam += "symbolic " + entry[0] + " coords={" + this.get_symbolic_set_str(i) + "},\n";
+            }
             this.$parent.tableaxis = tableaxis;
             this.$parent.updater();
+            app.symbolicparam = symbolicparam;
         },
         tableparam_losefocus: function(){
             this.$parent.tableparambar = false;
@@ -1140,6 +1180,7 @@ var app = new Vue({
         series: "",
         param: "",
         surplusparam: "",
+        symbolicparam: "",
         packages: ["\\usepackage{CJKutf8}\n"],
         pkgstr: "\\usepackage{CJKutf8}\n",
         e_premable: "\\begin{document}\n\\begin{CJK}{UTF8}{gbsn}\n",
@@ -1196,7 +1237,7 @@ var app = new Vue({
             }
             return (this.enablepin ? tp_premable : t_premable)
             + "\\begin{" + axistypename + "}["
-            + this.param + this.surplusparam +"]\n"
+            + this.param + this.symbolicparam + this.surplusparam +"]\n"
             + this.series
             + (this.enableLegend?" \\legend{" + this.legend +"}\n":"")
             + "\\end{"+ axistypename + "}\n\\end{tikzpicture}\n";
