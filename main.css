@@ -546,6 +546,26 @@ input[type=text]{
     padding: 0px 3px;
 }
 
+.tableparambar div {
+    display: inline-block;
+}
+
+.tableparambar div.row {
+    display: block;
+}
+
+.tableparambar .tableparamcol {
+    width: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tableparambar [class^=col]{
+    width: 30px;
+    text-align: center;
+}
+
 .tplbutton{
     display: inline-block;
 }

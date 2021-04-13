@@ -111,7 +111,6 @@
                 </details>
             </div>
         </div>
-        <!-- <div class="dragbar" id="dragbar"></div> -->
         <div id="panel-two" class="split">
             <div id="settings">
                 <details id="packages">
@@ -301,9 +300,23 @@
         </div>
     </template>
     <template id="tableparamtpl">
-        <div class="tableparambar" style="display: block;">
-            <div class="title" style="display: block;">表格参数</div>
-            表格参数用于指定读取列，例如 x=tab1, y=tab2。
+        <div class="tableparambar" style="display: block;" @mouseleave="tableparam_losefocus">
+            <div class="title" style="display: block;">表格参数
+                <div class="row">
+                    <div class="tableparamcol">表列</div>
+                    <div class="colx">x</div>
+                    <div class="coly">y</div>
+                    <div class="colz" v-show="etd">z</div>
+                </div>
+            </div>
+            <form ref="tableform">
+                <div v-for="col in colname" class="row">
+                    <div class="tableparamcol">{{col}}</div>
+                    <input type="radio" class="colx" name="x" :value="col" @change="axis_change">
+                    <input type="radio" class="coly" name="y" :value="col" @change="axis_change">
+                    <input type="radio" class="colz" name="z" :value="col" v-show="etd" @change="axis_change">
+                </div>
+            </form>
         </div>
     </template>
     <template id="sourcetpl">
@@ -342,7 +355,7 @@
                 <input type="checkbox" @click="oncchange" v-model="cycle" title="循环面积">
             </div>
             <div><input type="text" class="param" v-model="param" @keyup="onpachange" placeholder="参数"  @focus="param_focused" @blur="param_losefocus"></div>
-            <div><input type="text" class="coord" v-model="tableparam" @keyup="on_change" placeholder="表参数" @focus="tableparam_focused" @blur="tableparam_losefocus"></div>
+            <div><input type="text" class="coord" v-model="tableparam" @keyup="on_change" placeholder="表参数" @focus="tableparam_focused" @mouseenter="tableparam_focused"></div>
             <div v-show="enablesource">
                 <select v-model="sourceSelect" @change="on_change">
                     <option v-for="opt in sourceNameList" :value="opt" v-show="opt!=null">{{opt}}</option>
@@ -354,7 +367,7 @@
                 <div style="display: inline-block; margin-left: -10px;"><input type="file" id="files" class="fileChooser" @change="readFile"></div>
             </div>
             <parambar ref="subparambar" v-show="paramfoc" :command="command" :etd="etd" :global="false"></parambar>
-            <tableparambar v-show="tableparambar"></tableparambar>
+            <tableparambar v-show="tableparambar" :datat="datat" :etd="etd"></tableparambar>
         </div>
     </template>
     <template id="nodetpl">

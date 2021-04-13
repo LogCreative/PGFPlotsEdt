@@ -728,8 +728,38 @@ Vue.component('coordinate',{
     }
 });
 
+// 表格参数组件
 Vue.component('tableparambar',{
     template: '#tableparamtpl',
+    props: ['datat','etd'],
+    data: function(){
+        return {
+            colname:[],
+            xindex:-1,
+            yindex:-1,
+            zindex:-1,
+        }
+    },
+    watch:{
+        datat(_datat){
+            if(!_datat) return ;
+            var header = this.datat.substring(0,this.datat.indexOf("\\\\"));
+            this.colname = header.split(" ");
+        }
+    },
+    methods:{
+        axis_change: function(){
+            var selection = new FormData(this.$refs.tableform);
+            var tableaxis = "";
+            for(const entry of selection)
+                tableaxis += entry[0] + "=" + entry[1] + ",";
+            this.$parent.tableaxis = tableaxis;
+            this.$parent.updater();
+        },
+        tableparam_losefocus: function(){
+            this.$parent.tableparambar = false;
+        }
+    }
 });
 
 // 数据源组件
@@ -794,6 +824,7 @@ Vue.component('tablep',{
             sourceSelect: "...",
             fileName: "",
             datat: "",
+            tableaxis: "",
             tableparam: "",
             ind: 0,
             tableparambar:false,
@@ -833,16 +864,13 @@ Vue.component('tablep',{
             this.updater();
         },
         updater: function(){
-            seriesList[this.idInner] = [(this.etd? ("\\addplot3" + (this.plus?"+":"") + " ["):("\\addplot"+ (this.plus?"+":"") +" [")) + this.param + "] table[" + (this.sourceSelect=="..." ? "row sep=crcr," : "") + this.tableparam + "] {" + (this.sourceSelect=="..." ? this.datat : "\\" + this.sourceSelect) + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
+            seriesList[this.idInner] = [(this.etd? ("\\addplot3" + (this.plus?"+":"") + " ["):("\\addplot"+ (this.plus?"+":"") +" [")) + this.param + "] table[" + (this.sourceSelect=="..." ? "row sep=crcr," : "") + this.tableaxis + this.tableparam + "] {" + (this.sourceSelect=="..." ? this.datat : "\\" + this.sourceSelect) + "}" + (this.cycle?" \\closedcycle":"") + ";",this.legend,this.show,false];
             updateSeries();
         },
         readFile: readFile,
         tableparam_focused: function(){
             this.tableparambar = true;
         },
-        tableparam_losefocus: function(){
-            this.tableparambar = false;
-        }
     }
 });
 
@@ -1188,10 +1216,10 @@ var app = new Vue({
         compile: function() {
             app.purl="";
             var urlencoder = function(str){
+                // +属于url保留符号，需要转义为%2B才可以使用。
+                // 全局匹配
                 return str.replace(/\%.+/g,"").replace(/[+]/g,"%2B");
             };
-            // +属于url保留符号，需要转义为%2B才可以使用。
-            // 全局匹配
             if(!app.manual)
                 app.curl = "https://latexonline.cc/compile?text="+urlencoder(this.file);
             else app.curl = "https://latexonline.cc/compile?text="+urlencoder(document.getElementById('manualfile').value);

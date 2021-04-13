@@ -97,6 +97,7 @@ var gomanual = function(){
     document.getElementById('panel-three').style.width = '0px';
     document.getElementById('panel-two').style.width = window.innerWidth - document.getElementById('panel-one').style.width;
     document.getElementById('compilePrev').style.height = '430px';
+    document.getElementById('stylePrev').style.height = '430px';
     app.manual = true;
     // Split(['#panel-one','#panel-two']);
 };
