@@ -477,6 +477,7 @@ var SourceUpdateEvent = new Vue();
 // 读文件
 var readFile = function(e){
     var selectedFile = e.target.files[0];
+    if(!selectedFile) return ;
     this.fileName = selectedFile.name;
     var reader = new FileReader();
     reader.readAsText(selectedFile);
@@ -740,13 +741,22 @@ Vue.component('tableparambar',{
             symbolicsets:[],
         }
     },
+    mounted: function () {
+        var me = this;
+        SourceUpdateEvent.$on('source-change',function(name,id){
+            // I don't want to fix this now.
+        });
+    },
     watch:{
         datat(_datat){
-            if(!_datat) return ;
-            var header = this.datat.substring(0,this.datat.indexOf("\\\\"));
-            this.colname = header.split(" ");
+            this.colname = [];
             this.symbolic = [];
             this.symbolicsets = [];
+            if(!_datat) return ;
+            if(_datat=="")
+                this.$parent.tableaxis = "";
+            var header = this.datat.substring(0,this.datat.indexOf("\\\\"));
+            this.colname = header.split(" ");
             this.symbolic_test();
         }
     },
@@ -812,6 +822,11 @@ Vue.component('Tsource',{
             fileName: "",
             datat: "",
             tableparam: "",
+        }
+    },
+    watch:{
+        datat(_datat){
+            SourceUpdateEvent.$emit('source-change',sourceNameList[this.idInner],this.idInner);
         }
     },
     methods:{
@@ -881,12 +896,18 @@ Vue.component('tablep',{
         }
         var clearSelect = function(){
             me.sourceSelect="...";
+            me.datat="";
+            me.tableaxis = "";
             me.updater();
         };
         SourceUpdateEvent.$on('source-name-change',function(molist,id){
             if(me.sourceSelect==molist[id])
                 clearSelect();
             me.$set(me.sourceNameList,molist);
+        });
+        SourceUpdateEvent.$on('source-change',function(name,id){
+            if(me.sourceSelect==name)
+                me.datat = me.get_pdatat(sourceList[id][0]);
         });
         SourceUpdateEvent.$on('source-deleted',function(obj){
             if(me.sourceSelect==obj)
@@ -897,7 +918,26 @@ Vue.component('tablep',{
                 clearSelect();
         });
     },
+    watch:{
+        sourceSelect(ss){
+            if(ss=="..."){
+                this.datat = "";
+                this.tableaxis = "";
+            }
+            else{
+                for(var i in sourceNameList)
+                    if(sourceNameList[i]==ss)
+                        this.datat = this.get_pdatat(sourceList[i][0]);
+            }
+            this.updater();
+        }
+    },
     methods:{
+        get_pdatat: function(sourceitem){
+            if(datat = /\{(.+)\}\{(.+)\}/.exec(sourceitem))
+                return datat[1];
+            else return null;
+        },
         on_change: function(){
             if(this.sourceSelect==null)
                 this.sourceSelect="...";
