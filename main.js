@@ -477,7 +477,11 @@ var SourceUpdateEvent = new Vue();
 // 读文件
 var readFile = function(e){
     var selectedFile = e.target.files[0];
-    if(!selectedFile) return ;
+    if(!selectedFile) {
+        this.datat = "";
+        this.updater();
+        return ;
+    }
     this.fileName = selectedFile.name;
     var reader = new FileReader();
     reader.readAsText(selectedFile);
@@ -741,24 +745,21 @@ Vue.component('tableparambar',{
             symbolicsets:[],
         }
     },
-    mounted: function () {
-        var me = this;
-        SourceUpdateEvent.$on('source-change',function(name,id){
-            // I don't want to fix this now.
-        });
-    },
     watch:{
         datat(_datat){
             this.colname = [];
             this.symbolic = [];
             this.symbolicsets = [];
-            if(!_datat) return ;
-            if(_datat=="")
-                this.$parent.tableaxis = "";
+            this.$parent.tableaxis = "";
+            if(!_datat) {
+                return ;
+            }
             var header = this.datat.substring(0,this.datat.indexOf("\\\\"));
             this.colname = header.split(" ");
             this.symbolic_test();
-        }
+            this.$refs.tableform.reset();
+            this.$parent.updater();
+        },
     },
     methods:{
         symbolic_test: function(){
@@ -774,9 +775,8 @@ Vue.component('tableparambar',{
         get_symbolic_set_str: function(index){
             var getsetstr = function(set){
                 var setstr = "";
-                for(let item of set){
+                for(let item of set)
                     setstr += item + ",";
-                }
                 return setstr.substring(0,setstr.length-1);
             }
             if(this.symbolicsets[index])
@@ -924,11 +924,10 @@ Vue.component('tablep',{
                 this.datat = "";
                 this.tableaxis = "";
             }
-            else{
+            else
                 for(var i in sourceNameList)
                     if(sourceNameList[i]==ss)
                         this.datat = this.get_pdatat(sourceList[i][0]);
-            }
             this.updater();
         }
     },
