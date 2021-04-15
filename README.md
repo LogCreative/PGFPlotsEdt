@@ -16,6 +16,6 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
 
 <a href="https://www.mathjax.org/" target="_blank"><img class="icon" src="res/poweredby/mathjax.ico" height="16px">MathJax</a> is the TeX typeset rendering machine for previewing the formula input.
 
-[https://github.com/LogCreative/PGFPlotsEdt/blob/master/LICENSE](https://img.shields.io/github/license/LogCreative/PGFPlotsEdt)
+<a href="https://github.com/LogCreative/PGFPlotsEdt/blob/master/LICENSE"><img src="https://img.shields.io/github/license/LogCreative/PGFPlotsEdt"></a>
 
 >Copyright (c) 2020-2021 Log Creative & LaTeX Sparkle Project
