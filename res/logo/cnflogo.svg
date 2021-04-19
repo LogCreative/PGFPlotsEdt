@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" height="35" width="190" version="1.1" aria-hidden="true" style="fill: black; font-family: Times,'宋体'">
 <animate attributeName="width" from="190" to="150" begin="9.5s" dur="1s" fill="freeze"/>
+<a href="https://logcreative.github.io/LaTeXSparkle/" target="_blank">
     <!-- 输入方块 -->
     <rect x="0" y="5" width="12" height="30">
         <animate attributeName="opacity" from="0" values="0;1;0" dur="1s" calcMode="discrete" repeatDur="indefinite"/>
@@ -56,4 +57,5 @@
         <text x="114" y="33" style="font-size:x-large">E</text>
         <text x="126" y="28" style="font-size:x-large">X</text>
     </g>
+</a>
 </svg>

@@ -5,6 +5,17 @@
     "lang": "English",
     "lang_icon": "EN",
     "lang_title": "Change language",
-    "doc": "Package Documentation"
+    "doc": "Package Documentation",
+    "flogoadd": "<embed src=\"res/logo/enflogo.svg\" height=\"35px\">",
+    "tpl1": "Line",
+    "tpl10": "Polar",
+    "tpl2": "Mark",
+    "tpl3": "Scatter",
+    "tpl4": "Bar",
+    "tpl5": "Area",
+    "tpl6": "Surf",
+    "tpl7": "Contour",
+    "tpl8": "Histogram",
+    "tpl9": "Boxplot"
   }
 }

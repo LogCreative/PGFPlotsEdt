@@ -7,6 +7,13 @@ var i18n = new VueI18n({
     }
 });
 
+i18n.cn = fetch('lang/cn.json').then(res=>res.json()).then(data=>{
+    i18n.setLocaleMessage('cn',Object.assign(data));
+});
+i18n.en = fetch('lang/en.json').then(res=>res.json()).then(data=>{
+    i18n.setLocaleMessage('en',Object.assign(data));
+});
+
 // 更新库列表
 var updatePkg = function(){
     var pkgstr = "";
@@ -1219,14 +1226,6 @@ const tp_premable = "\\begin{tikzpicture}\n\\tikzset{\n every pin/.style={fill=y
 var app = new Vue({
     el: '#app',
     i18n,
-    created: function (){
-        i18n.cn = fetch('lang/cn.json').then(res=>res.json()).then(data=>{
-            i18n.setLocaleMessage('cn',Object.assign(data));
-        });
-        i18n.en = fetch('lang/en.json').then(res=>res.json()).then(data=>{
-            i18n.setLocaleMessage('en',Object.assign(data));
-        });
-    },
     data:{
         td: false,
         enableLegend: false,

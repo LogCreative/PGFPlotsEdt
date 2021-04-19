@@ -14,9 +14,7 @@
     <div id="app">
         <div class="nav" @mouseenter="animbck" @mouseleave="animfwd">
             <div id="extlinks">
-                <a id="title" href="https://logcreative.github.io/LaTeXSparkle/" target="_blank" >
-                    <embed src="res/logo/cnflogo.svg" class="flogo">
-                </a>
+                <div id="title" v-html="$t('nav.flogoadd')"></div>
                 <div id="poweredby" class="accordion">
                     <a class="acckey" @click="changelang" target="_blank" style="cursor: pointer;" :title="$t('nav.lang_title')"><div class="icon" style="display: inline; font-weight: bold;">{{$t('nav.lang_icon')}} </div><div class="value">{{$t('nav.lang')}}</div></a>
                     <!-- darkmode -->
@@ -32,16 +30,16 @@
                 <a href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank">{{ $t('nav.title') }}</a><br>
                 <div style="display: inline-block; color: rgba(128, 128, 128, 0.5);">{{ $t('nav.subtitle') }} <div id="version" style="display: inline-block;"></div></div>
                 <div id="template" class="accordion">
-                    <tplbutton tplname="折线图" :tplid="1"></tplbutton>
-                    <tplbutton tplname="折点图" :tplid="2"></tplbutton>
-                    <tplbutton tplname="散点图" :tplid="3"></tplbutton>
-                    <tplbutton tplname="柱形图" :tplid="4"></tplbutton>
-                    <tplbutton tplname="面积图" :tplid="5"></tplbutton>
-                    <tplbutton tplname="曲面图" :tplid="6"></tplbutton>
-                    <tplbutton tplname="等高图" :tplid="7"></tplbutton>
-                    <tplbutton tplname="直方图" :tplid="8"></tplbutton>
-                    <tplbutton tplname="箱式图" :tplid="9"></tplbutton>
-                    <tplbutton tplname="极坐标" :tplid="10"></tplbutton>
+                    <tplbutton :tplname="$t('nav.tpl1')" :tplid="1"></tplbutton>
+                    <tplbutton :tplname="$t('nav.tpl2')" :tplid="2"></tplbutton>
+                    <tplbutton :tplname="$t('nav.tpl3')" :tplid="3"></tplbutton>
+                    <tplbutton :tplname="$t('nav.tpl4')" :tplid="4"></tplbutton>
+                    <tplbutton :tplname="$t('nav.tpl5')" :tplid="5"></tplbutton>
+                    <tplbutton :tplname="$t('nav.tpl6')" :tplid="6"></tplbutton>
+                    <tplbutton :tplname="$t('nav.tpl7')" :tplid="7"></tplbutton>
+                    <tplbutton :tplname="$t('nav.tpl8')" :tplid="8"></tplbutton>
+                    <tplbutton :tplname="$t('nav.tpl9')" :tplid="9"></tplbutton>
+                    <tplbutton :tplname="$t('nav.tpl10')" :tplid="10"></tplbutton>
                 </div>
             </div>
     </div>

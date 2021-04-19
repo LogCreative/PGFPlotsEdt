@@ -1,10 +1,21 @@
 {
-    "nav":{ 
-        "title": "PGFPlots 统计绘图编辑器",
-        "subtitle": "PGFPlotsEdt",
-        "lang": "简体中文",
-        "lang_icon": "CN",
-        "lang_title": "切换语言",
-        "doc": "宏包文档"
-    }
+  "nav": {
+    "title": "PGFPlots 统计绘图编辑器",
+    "subtitle": "PGFPlotsEdt",
+    "lang": "简体中文",
+    "lang_icon": "CN",
+    "lang_title": "切换语言",
+    "doc": "宏包文档",
+    "flogoadd": "<embed src=\"res/logo/cnflogo.svg\" height=\"35px\">",
+    "tpl1": "折线图",
+    "tpl2": "折点图",
+    "tpl3": "散点图",
+    "tpl4": "柱形图",
+    "tpl5": "面积图",
+    "tpl6": "曲面图",
+    "tpl7": "等高图",
+    "tpl8": "直方图",
+    "tpl9": "箱式图",
+    "tpl10": "极坐标"
+  }
 }
