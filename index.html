@@ -37,7 +37,7 @@
             </div>
             <img id="logo" src="res/logo/logo.svg">
             <div>
-                <a href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank">PGFPlots 统计绘图编辑器 </a><br>
+                <a href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank">{{ $t('nav.title') }}</a><br>
                 <div style="display: inline-block; color: rgba(128, 128, 128, 0.5);">PGFPlotsEdt <div id="version" style="display: inline-block;"></div></div>
                 <div id="template" class="accordion">
                     <tplbutton tplname="折线图" :tplid="1"></tplbutton>
@@ -435,9 +435,12 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/languages/latex.min.js"></script>
     <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/styles/vs.min.css" rel="stylesheet">
     <script src="https://cdn.bootcdn.net/ajax/libs/split.js/1.6.2/split.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue-i18n/8.24.3/vue-i18n.js"></script>
     <script src="js/dict_cn.js"></script>
-    <script src="js/style_cn.js"></script>
+    <script src="js/style.js"></script>
     <script src="js/tpl.js"></script>
+    <script src="lang/cn.js"></script>
+    <script src="lang/en.js"></script>
     <script src="main.js"></script>
     <script>
         if(document.body.clientWidth>900){

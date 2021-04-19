@@ -312,3 +312,24 @@ var statisticsDic = {
         "density":              ["密度直方图","url",""],
     }],
 };
+
+var default_title = "PGFPlots 统计绘图编辑器";
+
+// 渲染顺序会导致设定的相反性
+
+// 缩小第一坐标的文本框宽度
+Vue.directive('minimize',function(el,binding){
+    if(binding.value){
+        el.style.width = '40px';
+        el.placeholder = 'x轴';
+    } else {
+        el.style.width = '80px';
+        el.placeholder = '函数式(x)';
+    }
+});
+
+Vue.directive('threetip',function (el,binding) {
+    if(binding.value)
+        el.placeholder = 'x y z 按回车添加项';
+    else el.placeholder = 'x y 按回车添加项';
+});

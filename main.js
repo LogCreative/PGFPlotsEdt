@@ -1,3 +1,12 @@
+// 国际化
+const i18n = new VueI18n({
+    locale: 'cn',
+    messages:{
+        cn: cn,
+        en: en,
+    }
+});
+
 // 更新库列表
 var updatePkg = function(){
     var pkgstr = "";
@@ -1209,6 +1218,7 @@ const tp_premable = "\\begin{tikzpicture}\n\\tikzset{\n every pin/.style={fill=y
 
 var app = new Vue({
     el: '#app',
+    i18n,
     data:{
         td: false,
         enableLegend: false,
