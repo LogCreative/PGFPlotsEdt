@@ -1,9 +1,9 @@
 // 国际化
-const i18n = new VueI18n({
+var i18n = new VueI18n({
     locale: 'cn',
     messages:{
-        cn: cn,
-        en: en,
+        cn: {},
+        en: {}
     }
 });
 
@@ -1219,6 +1219,14 @@ const tp_premable = "\\begin{tikzpicture}\n\\tikzset{\n every pin/.style={fill=y
 var app = new Vue({
     el: '#app',
     i18n,
+    created: function (){
+        i18n.cn = fetch('lang/cn.json').then(res=>res.json()).then(data=>{
+            i18n.setLocaleMessage('cn',Object.assign(data));
+        });
+        i18n.en = fetch('lang/en.json').then(res=>res.json()).then(data=>{
+            i18n.setLocaleMessage('en',Object.assign(data));
+        });
+    },
     data:{
         td: false,
         enableLegend: false,
@@ -1303,6 +1311,11 @@ var app = new Vue({
         blurAllCode: function () { blurCode("#texAllCode") },
         animbck: function () { animback(); },
         animfwd: function () { animforward(); },
+        changelang: function() {
+            if(i18n.locale=='cn')
+                i18n.locale='en';
+            else i18n.locale='cn';
+        },
         compile: function() {
             app.purl="";
             var urlencoder = function(str){

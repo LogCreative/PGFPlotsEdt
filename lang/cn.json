@@ -1,0 +1,10 @@
+{
+    "nav":{ 
+        "title": "PGFPlots 统计绘图编辑器",
+        "subtitle": "PGFPlotsEdt",
+        "lang": "简体中文",
+        "lang_icon": "CN",
+        "lang_title": "切换语言",
+        "doc": "宏包文档"
+    }
+}
