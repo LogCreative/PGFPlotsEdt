@@ -14,18 +14,8 @@
     <div id="app">
         <div class="nav" @mouseenter="animbck" @mouseleave="animfwd">
             <div id="extlinks">
-                <a id="title" href="https://logcreative.github.io/LaTeXSparkle/" target="_blank" class="logo">
-                    <svg style="fill: black; font-family: Times,'宋体'" width="144" height="35">
-                        <text x="0" y="28" style="font-size: x-large">像</text>
-                        <text x="21" y="23" style="font-size:large">模</text>
-                        <text x="36" y="33" style="font-size: x-large">像</text>
-                        <text x="56" y="28" style="font-size:x-large">样</text>
-                        <text x="85" y="28" style="font-size:x-large">L</text>
-                        <text x="92" y="23" style="font-size:large">A</text>
-                        <text x="102" y="28" style="font-size:x-large">T</text>
-                        <text x="114" y="33" style="font-size:x-large">E</text>
-                        <text x="126" y="28" style="font-size:x-large">X</text>
-                    </svg>
+                <a id="title" href="https://logcreative.github.io/LaTeXSparkle/" target="_blank" >
+                    <embed src="res/logo/cnflogo.svg" class="flogo">
                 </a>
                 <div id="poweredby" class="accordion">
                     <a class="acckey" @click="changelang" target="_blank" style="cursor: pointer;" :title="$t('nav.lang_title')"><div class="icon" style="display: inline; font-weight: bold;">{{$t('nav.lang_icon')}} </div><div class="value">{{$t('nav.lang')}}</div></a>

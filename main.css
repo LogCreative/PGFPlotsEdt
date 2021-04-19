@@ -42,6 +42,10 @@ a{
     height: 72px;
 }
 
+#flogo{
+    width: auto;
+}
+
 #extlinks{
     float: right;
     text-align: right;

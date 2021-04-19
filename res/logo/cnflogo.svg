@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" height="35" width="190" version="1.1" aria-hidden="true" style="fill: black; font-family: Times,'宋体'">
+<animate attributeName="width" from="190" to="150" begin="9.5s" dur="1s" fill="freeze"/>
+    <!-- 输入方块 -->
+    <rect x="0" y="5" width="12" height="30">
+        <animate attributeName="opacity" from="0" values="0;1;0" dur="1s" calcMode="discrete" repeatDur="indefinite"/>
+        <animate attributeName="x" from="0" values="21;43;56;85;92;102;114;126;140;150;180;150" dur="10s" calcMode="discrete" fill="freeze"/>
+        <animate attributeName="opacity" from="1" to="0" begin="9.5" dur="1s" calcMode="discrete" fill="freeze"/>
+    </rect>
+    <!-- 文字部分 -->
+    <text x="0" y="28" style="font-size: x-large" opacity="0">像
+        <animate attributeName="opacity" from="0" to="1" begin="0" dur="1s" calcMode="discrete" fill="freeze"/>
+    </text>
+    <text x="21" y="28" style="font-size: x-large" opacity="0">模
+        <animate attributeName="opacity" from="0" to="1" begin="1" dur="1s" calcMode="discrete" fill="freeze"/>
+        <animate attributeName="y" from="28" to="23" begin="9.5" dur="1" fill="freeze"/>
+        <animate attributeName="font-size" from="24" to="18" begin="9.5" dur="1" fill="freeze"/>
+    </text>
+    <text x="42" y="28" style="font-size: x-large" opacity="0">像
+        <animate attributeName="opacity" from="0" to="1" begin="2" dur="1s" calcMode="discrete" fill="freeze"/>
+        <animate attributeName="x" from="42" to="36" begin="9.5" dur="1" fill="freeze"/>
+        <animate attributeName="y" from="28" to="33" begin="9.5" dur="1" fill="freeze"/>
+    </text>
+    <text x="63" y="28" style="font-size:x-large" opacity="0">样
+        <animate attributeName="opacity" from="0" to="1" begin="2" dur="1s" calcMode="discrete" fill="freeze"/>
+        <animate attributeName="x" from="63" to="56" begin="9.5" dur="1" fill="freeze"/>
+    </text>
+    <!-- LaTeX 代码部分 -->
+    <g style="font-family: Courier New">
+        <animate attributeName="opacity" from="1" to="0" begin="8.9" dur="1s" calcMode="discrete" fill="freeze"/>
+        <text x="90" y="28" style="font-size:x-large" opacity="0">\
+            <animate attributeName="opacity" from="0" to="1" begin="4" dur="1s" calcMode="discrete" fill="freeze"/>
+        </text>
+        <text x="100" y="28" style="font-size:x-large" opacity="0">L
+            <animate attributeName="opacity" from="0" to="1" begin="5" dur="1s" calcMode="discrete" fill="freeze"/>
+        </text>
+        <text x="113" y="28" style="font-size:x-large" opacity="0">a
+            <animate attributeName="opacity" from="0" to="1" begin="6" dur="1s" calcMode="discrete" fill="freeze"/>
+        </text>
+        <text x="126" y="28" style="font-size:x-large" opacity="0">T
+            <animate attributeName="opacity" from="0" to="1" begin="6.5" dur="1s" calcMode="discrete" fill="freeze"/>
+        </text>
+        <text x="139" y="28" style="font-size:x-large" opacity="0">e
+            <animate attributeName="opacity" from="0" to="1" begin="7" dur="1s" calcMode="discrete" fill="freeze"/>
+        </text>
+        <text x="152" y="28" style="font-size:x-large" opacity="0">X
+            <animate attributeName="opacity" from="0" to="1" begin="8" dur="1s" calcMode="discrete" fill="freeze"/>
+        </text>
+    </g>
+    <!-- LaTeX 部分 -->
+    <g opacity="0">
+        <animate attributeName="opacity" from="0" to="1" begin="8.9" dur="1s" calcMode="discrete" fill="freeze"/>
+        <text x="85" y="28" style="font-size:x-large">L</text>
+        <text x="92" y="23" style="font-size:large">A</text>
+        <text x="102" y="28" style="font-size:x-large">T</text>
+        <text x="114" y="33" style="font-size:x-large">E</text>
+        <text x="126" y="28" style="font-size:x-large">X</text>
+    </g>
+</svg>
