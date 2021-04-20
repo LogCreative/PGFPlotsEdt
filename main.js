@@ -712,7 +712,7 @@ Vue.component('coordbar',{
         },
         format: function() {
             var _cdata = this.icdata;
-            var fromreg = (this.td?/([(\d|-).]+)[,\s+\t]([(\d|-).]+)[,\s+\t]([(\d|-).]+)/gm:/([(\d|-).]+)[,\s+\t]([(\d|-).]+)/gm);
+            var fromreg = (this.td?/([(\d|\-).]+)[,\s+\t]([(\d|\-).]+)[,\s+\t]([(\d|\-).]+)/gm:/([(\d|\-).]+)[,\s+\t]([(\d|\-).]+)/gm);
             var toform = (this.td?"($1,$2,$3)":"($1,$2)");
             _cdata = _cdata.replace(/[()]/gm,"").replace(fromreg,toform);
             this.icdata = _cdata;
