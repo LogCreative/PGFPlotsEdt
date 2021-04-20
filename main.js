@@ -150,7 +150,7 @@ var parambar = Vue.component('parambar',{
     data: function(){
         return {
             bestMatch:["no","no"],
-            optionalCommands: (this.global ? globalparamDic : {}),
+            optionalCommands: this.global?globalparamDic:{},
             matchedCommands: sparamDic,
             submenu: {},
             eq: false,
@@ -160,6 +160,7 @@ var parambar = Vue.component('parambar',{
         var me = this;
         this.refresh3D(this.etd);
         libChangeEvent.$on('lib-change',function () {
+            if(me.global) me.optionalCommands = globalparamDic; // Force update
             me.refreshList(me.command);
         });
     },
