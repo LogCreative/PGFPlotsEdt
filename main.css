@@ -242,6 +242,8 @@ details {
 
 summary {
     margin: 5px;
+    font-weight: 600;
+    color: gray;
 }
 
 #axis{
@@ -278,6 +280,11 @@ summary {
 
 #series .deleteBut:hover{
     background-color: rgb(255, 111, 111);
+}
+
+.sicon {
+    display: inline;
+    float: left;
 }
 
 #series .legend {
@@ -486,7 +493,7 @@ input[type=text]{
 
 .libchecker {
     display: inline-block;
-    width: 7em;
+    width: 8em;
 }
 
 #texContent{

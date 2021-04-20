@@ -27,8 +27,8 @@
             </div>
             <img id="logo" src="res/logo/logo.svg">
             <div>
-                <a href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank">{{ $t('nav.title') }}</a><br>
-                <div style="display: inline-block; color: rgba(128, 128, 128, 0.5);">{{ $t('nav.subtitle') }} <div id="version" style="display: inline-block;"></div></div>
+                <a href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank">{{ $t('PGFPlotsEdt') }}</a><br>
+                <div style="display: inline-block; color: rgba(128, 128, 128, 0.5);">{{ $t('Faster to PGFPlot in LaTeX') }} <div id="version" style="display: inline-block;"></div></div>
                 <div id="template" class="accordion">
                     <tplbutton :tplname="$t('nav.tpl1')" :tplid="1"></tplbutton>
                     <tplbutton :tplname="$t('nav.tpl2')" :tplid="2"></tplbutton>
@@ -46,56 +46,56 @@
     <div class="container">
         <div id="panel-one" class="split">
             <div id="panel-vone">
-                <button v-on="{click: compile}" id="compileBtn">编译</button><br>
-                <iframe v-bind:src="purl" id="stylePrev" v-show="purl!=''" scrolling="no">样本</iframe>
+                <button v-on="{click: compile}" id="compileBtn">{{$t('Compile')}}</button><br>
+                <iframe v-bind:src="purl" id="stylePrev" v-show="purl!=''" scrolling="no"></iframe>
                 <iframe v-bind:src="curl" id="compilePrev" v-show="purl==''"></iframe>
             </div>
             <div id="panel-vtwo">
                 <details>
                     <summary>
-                        坐标系
+                        {{$t('Axis')}} 
                     </summary>
                     <div id="axis">
                         <surplus :id="0" :ontd="td" :onlegend="enableLegend"></surplus><br>
-                            <br><div class="paramhead">全局参量</div><br>
-                            <div><div class="paramname" style="display: inline-block;">轴类型</div>
+                            <br><div class="paramhead">{{$t('axis.global')}}</div><br>
+                            <div><div class="paramname" style="display: inline-block;">{{$t('axis.type')}}</div>
                                 <div style="display: inline-block; margin-left: -4.5px;">
                                     <select v-model="axistype">
-                                        <option value="0">普通坐标轴</option>
-                                        <option value="1">x对数轴</option>
-                                        <option value="2">y对数轴</option>
-                                        <option value="3">双对数轴</option>
-                                        <option value="4" v-show="enablepolar">极坐标轴</option>
+                                        <option value="0">{{$t('axis.normal')}}</option>
+                                        <option value="1">{{$t('axis.logx')}}</option>
+                                        <option value="2">{{$t('axis.logy')}}</option>
+                                        <option value="3">{{$t('axis.loglog')}}</option>
+                                        <option value="4" v-show="enablepolar">{{$t('axis.polar')}}</option>
                                     </select>
                                 </div>
                             </div>
-                            <titleproperty chname="标题" propkey="title"></titleproperty>
-                            <property chname="宽度" propkey="width"></property>    
-                            <property chname="高度" propkey="height"></property>
-                            <propertyselect chname="字号" propkey="font" :options="['\\tiny','\\scriptsize','\\footnotesize','\\small','\\normalsize','\\large','\\Large','\\LARGE','\\huge','\\Huge']"></propertyselect>    
-                            <propertyselect chname="网格" propkey="grid" :options="['major','minor','both','none']"></propertyselect> 
+                            <titleproperty :chname="$t('axis.title')" propkey="title"></titleproperty>
+                            <property :chname="$t('axis.width')" propkey="width"></property>    
+                            <property :chname="$t('axis.height')" propkey="height"></property>
+                            <propertyselect :chname="$t('axis.fontsize')" propkey="font" :options="['\\tiny','\\scriptsize','\\footnotesize','\\small','\\normalsize','\\large','\\Large','\\LARGE','\\huge','\\Huge']"></propertyselect>    
+                            <propertyselect :chname="$t('axis.grid')" propkey="grid" :options="['major','minor','both','none']"></propertyselect> 
                         <div v-show="td" style="display:block">
-                            <viewproperty chname="旋转角度" propkey="view"></viewproperty>
+                            <viewproperty :chname="$t('axis.rotateAngle')" propkey="view"></viewproperty>
                         </div>
                         <div v-show="enableLegend">
-                            <propertyselect chname="图例位置" propkey="legend pos" :options="['south west','south east','north west','north east','outer north east']"></propertyselect>    
+                            <propertyselect :chname="$t('axis.legendPos')" propkey="legend pos" :options="['south west','south east','north west','north east','outer north east']"></propertyselect>    
                         </div>
-                            <br><div class="paramhead">x轴</div>
-                            <property chname="轴题" propkey="xlabel"></property>
-                            <property chname="最小" propkey="xmin"></property>
-                            <property chname="最大" propkey="xmax"></property>
-                            <propertyselect chname="箭头" propkey="axis x line" :options="['top','middle','bottom','none']"></propertyselect>
-                            <div class="paramhead">y轴</div>
-                            <property chname="轴题" propkey="ylabel"></property>
-                            <property chname="最小" propkey="ymin"></property>
-                            <property chname="最大" propkey="ymax"></property>
-                            <propertyselect chname="箭头" propkey="axis y line" :options="['left','middle','right','none']"></propertyselect>
+                            <br><div class="paramhead">{{$t('axis.x')}}</div>
+                            <property :chname="$t('axis.label')" propkey="xlabel"></property>
+                            <property :chname="$t('axis.min')" propkey="xmin"></property>
+                            <property :chname="$t('axis.max')" propkey="xmax"></property>
+                            <propertyselect :chname="$t('axis.arrow')" propkey="axis x line" :options="['top','middle','bottom','none']"></propertyselect>
+                            <div class="paramhead">{{$t('axis.y')}}</div>
+                            <property :chname="$t('axis.label')" propkey="ylabel"></property>
+                            <property :chname="$t('axis.min')" propkey="ymin"></property>
+                            <property :chname="$t('axis.max')" propkey="ymax"></property>
+                            <propertyselect :chname="$t('axis.arrow')" propkey="axis y line" :options="['left','middle','right','none']"></propertyselect>
                         <div v-show="td">
-                            <div class="paramhead">z轴</div>
-                            <property chname="轴题" propkey="zlabel"></property>
-                            <property chname="最小" propkey="zmin"></property>
-                            <property chname="最大" propkey="zmax"></property>
-                            <propertyselect chname="箭头" propkey="axis z line" :options="['left','middle','right','none']"></propertyselect>
+                            <div class="paramhead">{{$t('axis.z')}}</div>
+                            <property :chname="$t('axis.label')" propkey="zlabel"></property>
+                            <property :chname="$t('axis.min')" propkey="zmin"></property>
+                            <property :chname="$t('axis.max')" propkey="zmax"></property>
+                            <propertyselect :chname="$t('axis.arrow')" propkey="axis z line" :options="['left','middle','right','none']"></propertyselect>
                         </div>
                     </div>
                 </details>
@@ -105,34 +105,34 @@
             <div id="settings">
                 <details id="packages">
                     <summary>
-                        设定
+                        {{$t('Settings')}}
                     </summary>
-                    <div class="libchecker"><input type="checkbox" onclick="chnClick(this)" checked="true">启用中文</input></div>
-                    <div class="libchecker"><input type="checkbox" onclick="pinClick(this)" v-model="enablepin">启用标注</input></div>
-                    <div class="libchecker"><input type="checkbox" onclick="tdClick(this)" v-model="td">启用三维</input></div>
-                    <div class="libchecker"><input type="checkbox" onclick="legendClick(this)" v-model="enableLegend">启用图例</input></div>
-                    <div class="libchecker"><input type="checkbox" onclick="sourceClick(this)" v-model="enablesource">启用数据源</input></div>
-                    <lib :id="1" category="tikz" chname="标记库" libname="plotmarks" customized="0"></lib>
-                    <lib :id="2" category="pgfplots" chname="颜色库" libname="colorbrewer" customized="0"></lib>
-                    <lib :id="3" category="pgfplots" chname="渐变库" libname="colormaps" customized="0"></lib>
-                    <lib category="selectcolormodel" chname="CMYK模式" libname="cmyk" customized="1"></lib>
-                    <lib :id="4" category="pgfplots" chname="统计库" libname="statistics" customized="0"></lib>
-                    <lib :id="5" category="pgfplots" chname="间隙填充库" libname="fillbetween" customized="0"></lib>
-                    <lib :id="6" category="pgfplots" chname="极坐标库" libname="polar" customized="0"></lib>
-                    <lib :id="7" category="pgfplots" chname="日期库" libname="dateplot" customized="0"></lib>
+                    <div class="libchecker"><input type="checkbox" onclick="chnClick(this)" checked="true">{{$t('settings.CJK')}}</input></div>
+                    <div class="libchecker"><input type="checkbox" onclick="pinClick(this)" v-model="enablepin">{{$t('settings.Pin')}}</input></div>
+                    <div class="libchecker"><input type="checkbox" onclick="tdClick(this)" v-model="td">{{$t('settings.3D')}}</input></div>
+                    <div class="libchecker"><input type="checkbox" onclick="legendClick(this)" v-model="enableLegend">{{$t('settings.Legend')}}</input></div>
+                    <div class="libchecker"><input type="checkbox" onclick="sourceClick(this)" v-model="enablesource">{{$t('settings.Source')}}</input></div>
+                    <lib :id="1" category="tikz" :chname="$t('settings.plotmarks')" libname="plotmarks" customized="0"></lib>
+                    <lib :id="2" category="pgfplots" :chname="$t('settings.colorbrewer')" libname="colorbrewer" customized="0"></lib>
+                    <lib :id="3" category="pgfplots" :chname="$t('settings.colormaps')" libname="colormaps" customized="0"></lib>
+                    <lib category="selectcolormodel" :chname="$t('settings.CMYK')" libname="cmyk" customized="1"></lib>
+                    <lib :id="4" category="pgfplots" :chname="$t('settings.statistics')" libname="statistics" customized="0"></lib>
+                    <lib :id="5" category="pgfplots" :chname="$t('settings.fillbetween')" libname="fillbetween" customized="0"></lib>
+                    <lib :id="6" category="pgfplots" :chname="$t('settings.polar')" libname="polar" customized="0"></lib>
+                    <lib :id="7" category="pgfplots" :chname="$t('settings.dateplot')" libname="dateplot" customized="0"></lib>
                 </details>
                 <details id="data" open="true">
                     <summary>
-                        数据
+                        {{$t('Data')}}
                     </summary>
                     <div id="addtooltip">
-                        <button>+ 系列</button>
+                        <button>{{$t('Series')}}</button>
                         <div id="addbuttons">
-                            <div v-show="enablesource"><button onclick="addsourceClick()"> 表源</button></div>
-                            <div><button onclick="addexprClick()">\(\tiny f(x)\) 函数</button></div>
-                            <div><button onclick="addcoordClick()">\(\tiny (x,y)\) 坐标</button></div>
-                            <div><button onclick="addtableClick()">\(\tiny x~~y~~\)文件</button></div>
-                            <div v-show="enablepin"><button onclick="addnodeClick()">\(\tiny \rm abc~~\)标注</button></div>
+                            <div v-show="enablesource"><button onclick="addsourceClick()"> {{$t('data.source')}}</button></div>
+                            <div><button onclick="addexprClick()"><div class="sicon">\(\tiny f(x)\)</div> {{$t('data.function')}}</button></div>
+                            <div><button onclick="addcoordClick()"><div class="sicon">\(\tiny (x,y)\)</div> {{$t('data.coordinate')}}</button></div>
+                            <div><button onclick="addtableClick()"><div class="sicon">\(\tiny x~~y~~\)</div> {{$t('data.table')}}</button></div>
+                            <div v-show="enablepin"><button onclick="addnodeClick()"><div class="sicon">\(\tiny \rm abc~~\)</div>{{$t('data.pin')}}</button></div>
                         </div>
                     </div>
                     <div id="series">
@@ -172,9 +172,9 @@
             <div id="auto">
             <details id="codedetail">
                 <summary>
-                    代码 <button v-clipboard:copy="content" id="btnDrawCode" @mouseover="hintDrawCode" @mouseleave="blurDrawCode" title="复制绘图代码">▪</button>
-                    <button v-clipboard:copy="file" id="btnAllCode"  @mouseover="hintAllCode" @mouseleave="blurAllCode" title="复制全部代码">◼</button>
-                    <button onclick="gomanual()" id="btnEdtCode" @mouseover="warnAllCode" @mouseleave="blurAllCode" title="手动编辑代码">⚠</button>
+                    {{$t('Code')}} <button v-clipboard:copy="content" id="btnDrawCode" @mouseover="hintDrawCode" @mouseleave="blurDrawCode" :title="$t('code.cpydraw')">▪</button>
+                    <button v-clipboard:copy="file" id="btnAllCode"  @mouseover="hintAllCode" @mouseleave="blurAllCode" :title="$t('code.cpyall')">◼</button>
+                    <button onclick="gomanual()" id="btnEdtCode" @mouseover="warnAllCode" @mouseleave="blurAllCode" :title="$t('code.manedt')">⚠</button>
                 </summary>
                 <div id="texAllCode">
                     <div class="texCode">
@@ -208,7 +208,7 @@
     <template id="parambartpl">
         <div class="parambar" style="display: block;">
             <div class="title" style="display: block;">
-                参数设置
+                {{$t('Parameter Settings')}} 
                 <div v-show="bestMatch[0]!='no'"><div class="matchkey" v-html="bestMatch[0]"></div><div class="matchnote">{{bestMatch[1][0]}}</div><div class="matchside" v-show="bestMatch[2]">=...</div><div class="matchside" v-show="!bestMatch[2]">,</div></div>
             </div>
             <div class="notes">
@@ -227,38 +227,38 @@
         <div v-show="enabled" class="seriesitem" @mouseleave="clearfunction">
             <div class="type" v-soutline="show">
                 <label>
-                    <div v-show="!onlegend">函数</div>
-                    <div v-show="onlegend"><input type="text" class="legend" placeholder="函数" v-model="legend" @keyup="on_change" ></div>
+                    <div v-show="!onlegend">{{$t('series.fn')}}</div>
+                    <div v-show="onlegend"><input type="text" class="legend" :placeholder="$t('series.fn')" v-model="legend" @keyup="on_change" ></div>
                      [{{idInner|addZero}}]
-                    <input type="checkbox" class="showToggle" @click="onschange" v-model="show" title="显示图层">
+                    <input type="checkbox" class="showToggle" @click="onschange" v-model="show" :title="$t('series.showLayer')">
                 </label>
             </div>
-            <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
-            <div><button class="deleteBut" @click="deleteComp" title="删除系列">🗑</button></div>
+            <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
+            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.delete')">🗑</button></div>
             <div class="ttd" v-show="ontd">
-                <input type="checkbox" @click="ontdchange" v-model="etd" title="三维坐标">
+                <input type="checkbox" @click="ontdchange" v-model="etd" :title="$t('series.td')">
             </div>
             <div class="ptd">
-                <input type="checkbox" @click="onpchange" v-model="plus" title="样式连续">
+                <input type="checkbox" @click="onpchange" v-model="plus" :title="$t('series.style')">
             </div>
             <div class="ctd">
-                <input type="checkbox" @click="oncchange" v-model="cycle" title="循环面积">
+                <input type="checkbox" @click="oncchange" v-model="cycle" :title="$t('series.area')">
             </div>
-            <div><input type="text" class="param" placeholder="参数" v-model="param" @keyup="onpachange" @focus="param_focused" @blur="param_losefocus"></div>
-            <div><input type="text" class="coord" placeholder="函数式(x)" v-model="expression" @keyup="on_change" v-minimize="etd"></div>
-            <div v-show="etd"><input type="text" class="coord2" placeholder="y轴" v-model="expression2" @keyup="on_change"></div>
-            <div v-show="etd"><input type="text" v-model="expression3" class="coord3" placeholder="z轴" @keyup="on_change"></div>
+            <div><input type="text" class="param" :placeholder="$t('series.paramter')" v-model="param" @keyup="onpachange" @focus="param_focused" @blur="param_losefocus"></div>
+            <div><input type="text" class="coord" :placeholder="$t('series.funcx')" v-model="expression" @keyup="on_change" v-minimize="etd"></div>
+            <div v-show="etd"><input type="text" class="coord2" :placeholder="$t('series.funcy')" v-model="expression2" @keyup="on_change"></div>
+            <div v-show="etd"><input type="text" v-model="expression3" class="coord3" :placeholder="$t('series.funcz')" @keyup="on_change"></div>
             <parambar ref="subparambar" v-show="paramfoc" @click="param_focused" :command="command" :etd="etd" :globalz="false"></parambar>
         </div>
     </template>
     <template id="coordbartpl">
         <div class="coordbar" style="display: block;" @mouseenter="barfocus" @mouseleave="barblur">
-            <div class="title" style="display: block;">坐标数据</div>
-            <input type="text" @keyup="addcoord" placeholder="x y 按回车添加项" v-model="addtext" v-threetip="td">
-            <button @click="sort" v-show="!td" title="按自变量升序对坐标进行排序">排序</button>
-            <button @click="group" v-show="td" title="按y轴升序对坐标进行分组，配合surf或mesh指令">分组</button>
-            <button @click="format" title="按照顺序使用括号标记坐标">格式正规化</button>
-            <div v-show="!validation" style="display: inline-block;" title="绘制曲面图需要网格状的坐标量">⚠不是矩阵</div>
+            <div class="title" style="display: block;">{{$t('bar.coord')}}</div>
+            <input type="text" @keyup="addcoord" :placeholder="$t('series.enter')" v-model="addtext" v-threetip="td">
+            <button @click="sort" v-show="!td" :title="$t('bar.sortUp')">{{$t('bar.sort')}}</button>
+            <button @click="group" v-show="td" :title="$t('bar.grouping')">{{$t('bar.group')}}</button>
+            <button @click="format" :title="$t('bar.formatting')">{{$t('bar.format')}}</button>
+            <div v-show="!validation" style="display: inline-block;" :title="$t('bar.grid')">{{$t('bar.narray')}}</div>
             <textarea ref="coordtextb" class="coordtextb" v-model="icdata"></textarea>
         </div>
     </template>
@@ -266,34 +266,34 @@
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
                 <label>
-                    <div v-show="!onlegend">坐标</div>
-                    <div v-show="onlegend"><input type="text" class="legend" placeholder="坐标" v-model="legend" @keyup="on_change"></div>
+                    <div v-show="!onlegend">{{$t('series.coordinate')}}</div>
+                    <div v-show="onlegend"><input type="text" class="legend" :placeholder="$t('series.coordinate')" v-model="legend" @keyup="on_change"></div>
                      [{{idInner|addZero}}]
-                    <input type="checkbox" class="showToggle" v-model="show" @click="onschange" title="显示图层">
+                    <input type="checkbox" class="showToggle" v-model="show" @click="onschange" :title="$t('series.showLayer')">
                 </label>
             </div>
-            <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
-            <div><button class="deleteBut" @click="deleteComp" title="删除系列">🗑</button></div>
+            <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
+            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.delete')">🗑</button></div>
             <div class="ttd" v-show="ontd">
-                <input type="checkbox" @click="ontdchange" v-model="etd" title="三维坐标">
+                <input type="checkbox" @click="ontdchange" v-model="etd" :title="$t('series.td')">
             </div>
             <div class="ptd">
-                <input type="checkbox" @click="onpchange" v-model="plus" title="样式连续">
+                <input type="checkbox" @click="onpchange" v-model="plus" :title="$t('series.style')">
             </div>
             <div class="ctd">
-                <input type="checkbox" @click="oncchange" v-model="cycle" title="循环面积">
+                <input type="checkbox" @click="oncchange" v-model="cycle" :title="$t('series.area')">
             </div>
-            <div><input type="text" class="param" v-model="param" @keyup="onpachange" placeholder="参数" @focus="param_focused" @blur="param_losefocus"></div>
+            <div><input type="text" class="param" v-model="param" @keyup="onpachange" :placeholder="$t('series.paramter')" @focus="param_focused" @blur="param_losefocus"></div>
             <parambar ref="subparambar" v-show="paramfoc" :command="command" :etd="etd" :global="false"></parambar>
             <coordbar ref="subcoordbar" :cdata="cdata" v-show="shown" :td="etd"></coordbar>
-            <div v-show="!shown"><textarea class="coordtext" v-model="cdata" placeholder="坐标数据" @focus="coord_focused"></textarea></div>
+            <div v-show="!shown"><textarea class="coordtext" v-model="cdata" :placeholder="$t('series.coord')" @focus="coord_focused"></textarea></div>
         </div>
     </template>
     <template id="tableparamtpl">
         <div class="tableparambar" style="display: block;" @mouseleave="tableparam_losefocus">
-            <div class="title" style="display: block;">表格参数
+            <div class="title" style="display: block;">{{$t('bar.tableparam')}}
                 <div class="row">
-                    <div class="tableparamcol">表列</div>
+                    <div class="tableparamcol">{{$t('bar.col')}}</div>
                     <div class="colx">x</div>
                     <div class="coly">y</div>
                     <div class="colz" v-show="etd">z</div>
@@ -313,13 +313,13 @@
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
                 <label>
-                    <div><input type="text" class="legend" placeholder="表源" v-model="sourceName" @keyup="on_change" v-validate="sourceName"></div>
+                    <div><input type="text" class="legend" :placeholder="$t('series.source')" v-model="sourceName" @keyup="on_change" v-validate="sourceName"></div>
                      ({{idInner|addZero}})
-                    <input type="checkbox" class="showToggle" v-model="show" @click="onschange" title="显示图层">
+                    <input type="checkbox" class="showToggle" v-model="show" @click="onschange" :title="$t('series.showLayer')">
                 </label>
             </div>
-            <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
-            <div><button class="deleteBut" @click="deleteComp" title="删除表源">🗑</button></div>
+            <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
+            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.deletesource')">🗑</button></div>
             <div><input type="file" id="files" class="fileChooser" @change="readFile"></div>
         </div>
     </template>
@@ -327,33 +327,33 @@
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
                 <label>
-                    <div v-show="!onlegend">文件</div>
-                    <div v-show="onlegend"><input type="text" class="legend" placeholder="文件" v-model="legend" @keyup="on_change"></div>
+                    <div v-show="!onlegend">{{$t('series.table')}}</div>
+                    <div v-show="onlegend"><input type="text" class="legend" :placeholder="$t('series.table')" v-model="legend" @keyup="on_change"></div>
                      [{{idInner|addZero}}]
-                    <input type="checkbox" class="showToggle" v-model="show" @click="onschange" title="显示图层">
+                    <input type="checkbox" class="showToggle" v-model="show" @click="onschange" :title="$t('series.showLayer')">
                 </label>
             </div>
-            <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
-            <div><button class="deleteBut" @click="deleteComp" title="删除系列">🗑</button></div>
+            <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
+            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.delete')">🗑</button></div>
             <div class="ttd" v-show="ontd">
-                <input type="checkbox" @click="ontdchange" v-model="etd" title="三维坐标">
+                <input type="checkbox" @click="ontdchange" v-model="etd" :title="$t('series.td')">
             </div>
             <div class="ptd">
-                <input type="checkbox" @click="onpchange" v-model="plus" title="样式连续">
+                <input type="checkbox" @click="onpchange" v-model="plus" :title="$t('series.style')">
             </div>
             <div class="ctd">
-                <input type="checkbox" @click="oncchange" v-model="cycle" title="循环面积">
+                <input type="checkbox" @click="oncchange" v-model="cycle" :title="$t('series.area')">
             </div>
-            <div><input type="text" class="param" v-model="param" @keyup="onpachange" placeholder="参数"  @focus="param_focused" @blur="param_losefocus"></div>
-            <div><input type="text" class="coord" v-model="tableparam" @keyup="on_change" placeholder="表参数" @focus="tableparam_focused" @mouseenter="tableparam_focused"></div>
+            <div><input type="text" class="param" v-model="param" @keyup="onpachange" :placeholder="$t('series.paramter')"  @focus="param_focused" @blur="param_losefocus"></div>
+            <div><input type="text" class="coord" v-model="tableparam" @keyup="on_change" :placeholder="$t('series.tableparam')" @focus="tableparam_focused" @mouseenter="tableparam_focused"></div>
             <div v-show="enablesource">
                 <select v-model="sourceSelect" @change="on_change">
                     <option v-for="opt in sourceNameList" :value="opt" v-show="opt!=null">{{opt}}</option>
                 </select>
             </div>
             <div v-show="sourceSelect=='...'||!enablesource">
-                <div style="display:none"><input type="text" class="coord" v-model="fileName" placeholder="数据文件"></div>
-                <div style="display:none"><input type="text" class="coord" v-model="datat" @keyup="on_change" placeholder="数据表"></div>
+                <div style="display:none"><input type="text" class="coord" v-model="fileName" :placeholder="$t('series.tabledata')"></div>
+                <div style="display:none"><input type="text" class="coord" v-model="datat" @keyup="on_change" :placeholder="$t('series.datatable')"></div>
                 <div style="display: inline-block; margin-left: -10px;"><input type="file" id="files" class="fileChooser" @change="readFile"></div>
             </div>
             <parambar ref="subparambar" v-show="paramfoc" :command="command" :etd="etd" :global="false"></parambar>
@@ -364,18 +364,18 @@
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
                 <label>
-                    <div><input type="text" class="legend" placeholder="标注" v-model="pin" @keyup="on_change"></div>
+                    <div><input type="text" class="legend" :placeholder="$t('series.pin')" v-model="pin" @keyup="on_change"></div>
                      [{{idInner|addZero}}]
-                    <input type="checkbox" class="showToggle" v-model="show" @click="onschange" title="显示图层">
+                    <input type="checkbox" class="showToggle" v-model="show" @click="onschange" :title="$t('series.showLayer')">
                 </label>
             </div>
-            <div><button class="upBut" @click="moveUp" title="置于顶层">↑</button></div>
-            <div><button class="deleteBut" @click="deleteComp" title="删除标注">🗑</button></div>
+            <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
+            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.deletepin')">🗑</button></div>
             <div class="ytd">
-                <input type="checkbox" @click="ontdchange" v-model="etd" title="黄色标注">
+                <input type="checkbox" @click="ontdchange" v-model="etd" :title="$t('series.pinyellow')">
             </div>
-            <div><input type="text" class="param" v-model="param" @keyup="on_change" placeholder="旋转角度" v-show="etd"></div>
-            <div><input type="text" class="coord" v-model="pos" @keyup="on_change" placeholder="标注位置"></div>
+            <div><input type="text" class="param" v-model="param" @keyup="on_change" :placeholder="$t('series.rotatepin')" v-show="etd"></div>
+            <div><input type="text" class="coord" v-model="pos" @keyup="on_change" :placeholder="$t('series.pinpos')"></div>
         </div>
     </template>
     <template id="propertyselecttpl">
@@ -403,13 +403,13 @@
     <template id="viewtpl">
         <tr>
             <td class="paramname">{{chname}}</td>
-            <td><input type="text" v-model="value" @keyup="onvichange" style="width: 100px;" @mousedown="dragstart" @mousemove="dragging" @mouseup="dragend" @blur="clearview" id="xrotater" placeholder="竖直旋转"></td><td><input type="text" v-model="valuex" @keyup="onvichange" style="width: 100px;" id="yrotater" @mousedown="dragstart" @mousemove="dragging" @mouseup="dragend" @blur="clearview" placeholder="水平旋转"></td>
+            <td><input type="text" v-model="value" @keyup="onvichange" style="width: 100px;" @mousedown="dragstart" @mousemove="dragging" @mouseup="dragend" @blur="clearview" id="xrotater" :placeholder="$t('axis.verticalAngle')"></td><td><input type="text" v-model="valuex" @keyup="onvichange" style="width: 100px;" id="yrotater" @mousedown="dragstart" @mousemove="dragging" @mouseup="dragend" @blur="clearview" :placeholder="$t('axis.horizontalAngle')"></td>
         </tr>
     </template>
     <template id="surplustpl">
         <div>
             <div>
-                <div><input type="text" class="surparam" v-model="param" @keyup="onpachange" placeholder="增补参数"  @focus="param_focused" @blur="param_losefocus"></div>
+                <div><input type="text" class="surparam" v-model="param" @keyup="onpachange" :placeholder="$t('axis.surplusparam')"  @focus="param_focused" @blur="param_losefocus"></div>
             </div>
             <parambar ref="subparambar" :global="true" v-show="paramfoc" :command="command" :etd="ontd"></parambar>
         </div>        

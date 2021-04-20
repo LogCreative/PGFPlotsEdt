@@ -1,6 +1,6 @@
 // 国际化
 var i18n = new VueI18n({
-    locale: 'cn',
+    locale: 'en',
     messages:{
         cn: {},
         en: {}
@@ -1311,9 +1311,11 @@ var app = new Vue({
         animbck: function () { animback(); },
         animfwd: function () { animforward(); },
         changelang: function() {
-            if(i18n.locale=='cn')
+            if(i18n.locale=='cn'){
                 i18n.locale='en';
-            else i18n.locale='cn';
+            } else {
+                i18n.locale='cn'
+            };
         },
         compile: function() {
             app.purl="";
