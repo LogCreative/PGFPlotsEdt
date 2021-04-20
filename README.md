@@ -2,7 +2,7 @@
 
 ## PGFPlotsEdt - Faster to PGFPlot in LaTeX
 ### A PGFPlots Statistic Graph Interactive Editor.
-<br>
+
 <a href="https://logcreative.github.io/PGFPlotsEdt/index.html?lang=en"><img src="https://img.shields.io/badge/lang-EN-9CF"></a>
 <a href="https://logcreative.github.io/PGFPlotsEdt/index.html?lang=cn"><img src="https://img.shields.io/badge/语言-中文-9CF"></a>
 <a href="https://github.com/LogCreative/PGFPlotsEdt/releases"><img src="https://img.shields.io/github/v/release/LogCreative/PGFPlotsEdt"></a>
@@ -10,9 +10,7 @@
 <a href="https://github.com/LogCreative/PGFPlotsEdt/commits/master"><img src="https://img.shields.io/github/last-commit/LogCreative/PGFPlotsEdt"></a>
 <a href="https://logcreative.github.io/LaTeXSparkle/"><img src="https://img.shields.io/badge/Under-LaTeX%20Sparkle%20Project-yellowgreen"></a>
 
-English <a href="https://logcreative.github.io/PGFPlotsEdt/"><img src="res/logo/logo.svg" width="16px">https://logcreative.github.io/PGFPlotsEdt/</a>
-
-中文 <a href="https://logcreative.github.io/PGFPlotsEdt/index.html?lang=cn"><img src="res/logo/logo.svg" width="16px">https://logcreative.github.io/PGFPlotsEdt/index.html?lang=cn</a>
+<a href="https://logcreative.github.io/PGFPlotsEdt/"><img src="res/logo/logo.svg" width="16px">https://logcreative.github.io/PGFPlotsEdt/</a>
 
 PGFPlots is a remarkable package in LaTeX, to create precise, vectorized, and highly personalized statistic graphs. You could get more information about PGFPlots package on https://github.com/pgf-tikz/pgfplots, thank all those contributors for creating a useful package to plot in LaTeX natively.
 
