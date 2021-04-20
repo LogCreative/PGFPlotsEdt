@@ -16,7 +16,7 @@
             <div id="extlinks">
                 <div id="title" v-html="$t('nav.flogoadd')"></div>
                 <div id="poweredby" class="accordion">
-                    <a class="acckey" @click="changelang" target="_blank" style="cursor: pointer;" :title="$t('nav.lang_title')"><div class="icon" style="display: inline; font-weight: bold;">{{$t('nav.lang_icon')}} </div><div class="value">{{$t('nav.lang')}}</div></a>
+                    <a class="acckey" @click="togglelang" target="_blank" style="cursor: pointer;" :title="$t('nav.lang_title')"><div class="icon" style="display: inline; font-weight: bold;">{{$t('nav.lang_icon')}} </div><div class="value">{{$t('nav.lang')}}</div></a>
                     <!-- darkmode -->
                     <a class="acckey" href="https://mirrors.sjtug.sjtu.edu.cn/CTAN/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf" target="_blank"><img src="res/poweredby/book.ico" class="icon"><div class="value">{{ $t('nav.doc') }}</div></a>
                     <a class="acckey" href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank"><img src="res/poweredby/github.png"><div class="value">GitHub</div></a>
@@ -419,15 +419,15 @@
             <button class="acccon" @click="addtpl" @mouseenter="preview" @mouseleave="flush"><img class="icon" :src="iconadd"><div class="value">{{tplname}}</div></button>
         </div>
     </template>
-    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue-clipboard2/0.3.1/vue-clipboard.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/languages/latex.min.js"></script>
     <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/styles/vs.min.css" rel="stylesheet">
     <script src="https://cdn.bootcdn.net/ajax/libs/split.js/1.6.2/split.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue-i18n/8.24.3/vue-i18n.min.js"></script>
-    <script src="js/dict_cn.js"></script>
     <script src="js/style.js"></script>
+    <script src="lang/dict_en.js"></script>
     <script src="js/tpl.js"></script>
     <script src="main.js"></script>
     <script>

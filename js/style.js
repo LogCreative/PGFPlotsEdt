@@ -2,6 +2,10 @@
 Vue.use(hljs.vuePlugin);
 // 采用 vue-i18n 国际化
 Vue.use(VueI18n);
+var in_lang;
+if(in_lang = /lang=(\w+)/.exec(window.location.href))
+    in_lang = in_lang[1];
+else in_lang = 'en';
 
 // 删除线样式
 Vue.directive('soutline',function(el,binding){

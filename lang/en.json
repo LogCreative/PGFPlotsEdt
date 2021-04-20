@@ -86,18 +86,18 @@
     "funcx": "function(x)",
     "funcy": "y axis",
     "funcz": "z axis",
-    "paramter": "parameter",
+    "paramter": "param",
     "style": "In cycle list",
     "td": "3D",
     "top": "Put it to top",
     "coord": "coord",
-    "coordinate": "cr",
+    "coordinate": "cd",
     "datatable": "sr",
     "deletesource": "Delete source",
     "source": "sr",
     "table": "tb",
     "tabledata": "Table data",
-    "tableparam": "table parameters",
+    "tableparam": "tb param",
     "deletepin": "Delete pin",
     "pin": "pn",
     "pinpos": "pin position",
@@ -115,6 +115,7 @@
     "grouping": "Sort coordinates by y axis to input into surf or mesh",
     "narray": "⚠ Not Array",
     "sort": "Sort",
-    "tableparam": "Table Parameter"
+    "tableparam": "Table Parameter",
+    "coord": "Coordinate Data"
   }
 }

@@ -1,6 +1,6 @@
 // 国际化
 var i18n = new VueI18n({
-    locale: 'en',
+    locale: in_lang,
     messages:{
         cn: {},
         en: {}
@@ -1252,8 +1252,9 @@ var app = new Vue({
         dc_content: "",
         purl:"",
     },
-    mounted:function (){
+    mounted: function (){
         this.dc_content = this.content;
+        this.changelang(in_lang);
     },
     watch:{
         content(_new,_old){
@@ -1310,12 +1311,20 @@ var app = new Vue({
         blurAllCode: function () { blurCode("#texAllCode") },
         animbck: function () { animback(); },
         animfwd: function () { animforward(); },
-        changelang: function() {
-            if(i18n.locale=='cn'){
-                i18n.locale='en';
-            } else {
-                i18n.locale='cn'
-            };
+        togglelang: function(){
+            if(i18n.locale=='cn') this.changelang('en');
+            else this.changelang('cn');
+        },
+        changelang: function(newlang) {
+            var newscript = document.createElement('script');
+            newscript.setAttribute('type','text/javascript');
+            newscript.setAttribute('id','langdict');
+            var head = document.getElementsByTagName('head')[0];
+            var oldscript = document.getElementById('langdict');
+            i18n.locale = newlang;
+            newscript.setAttribute('src','lang/dict_' + newlang + '.js');
+            head.appendChild(newscript);
+            if(oldscript) head.removeChild(oldscript);
         },
         compile: function() {
             app.purl="";

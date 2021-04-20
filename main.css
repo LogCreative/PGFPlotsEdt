@@ -252,6 +252,10 @@ summary {
     /* overflow-y: scroll; */
 }
 
+.type label {
+    font-family: 'Consolas','Helvetica', '微软雅黑', Courier, monospace;
+}
+
 #series .seriesitem > div,
 #series .seriesitem label > div{
     display: inline;

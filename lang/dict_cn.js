@@ -33,16 +33,16 @@ var sparamDic = {
     "only marks":["只显示散点标记"],
     "no markers":["无标记"],
     "text mark":["文字标记",{
-        "字符":         ["显示的标记文字","none",""]
+        "c":         ["显示的标记文字","none",""]
     }],
     "scatter":["七彩散点标记"],
     "ybar":["纵向柱形图"],
     "xbar":["横向柱形图"],
     "domain":["自变量定义域",{
-        "起始:终止":    ["自变量的起始与终止点","none",""]
+        "0:8":    ["自变量的起始与终止点","none",""]
     }],
     "samples":["取样数量",{
-        "数量":         ["样本点的取样数量","none",""]
+        "100":         ["样本点的取样数量","none",""]
     }],
     "color":["颜色",colorDic],
     "draw":["线形颜色",colorDic],
@@ -58,7 +58,7 @@ var sparamDic = {
     "densely dashdotted":["密点虚线"],
     "loosely dashdotted":["虚点虚线"],
     "line width":["线条粗细",{
-        "点数pt":       ["线条粗细","none",""]
+        "1pt":       ["线条粗细","none",""]
     }],
     "ultra thin":["极细线"],
     "very thin":["超细线"],
@@ -87,13 +87,13 @@ var globalparamDic = {
     "ybar interval":["纵向直方图"],
     "xticklabel interval boundaries":["直方图横轴数据标签"],
     "xtick distance":["x轴分度值",{
-        "数字":     ["分度","none",""],
+        "1":     ["分度","none",""],
     }],
     "ytick distance":["y轴分度值",{
-        "数字":     ["分度","none",""],
+        "1":     ["分度","none",""],
     }],
     "ztick distance":["z轴分度值",{
-        "数字":     ["分度","none",""],
+        "1":     ["分度","none",""],
     }],
     "xmajorgrids":["x轴大网格",boolDic],
     "ymajorgrids":["y轴大网格",boolDic],
