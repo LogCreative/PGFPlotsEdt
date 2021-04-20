@@ -2,17 +2,18 @@
 var i18n = new VueI18n({
     locale: in_lang,
     messages:{
-        cn: {},
-        en: {}
+        cn: cn,
+        en: en
     }
 });
 
-i18n.cn = fetch('lang/cn.json').then(res=>res.json()).then(data=>{
-    i18n.setLocaleMessage('cn',Object.assign(data));
-});
-i18n.en = fetch('lang/en.json').then(res=>res.json()).then(data=>{
-    i18n.setLocaleMessage('en',Object.assign(data));
-});
+// Use JSON
+// i18n.cn = fetch('lang/cn.json').then(res=>res.json()).then(data=>{
+//     i18n.setLocaleMessage('cn',Object.assign(data));
+// });
+// i18n.en = fetch('lang/en.json').then(res=>res.json()).then(data=>{
+//     i18n.setLocaleMessage('en',Object.assign(data));
+// });
 
 // 更新库列表
 var updatePkg = function(){
@@ -1325,6 +1326,12 @@ var app = new Vue({
             newscript.setAttribute('src','lang/dict_' + newlang + '.js');
             head.appendChild(newscript);
             if(oldscript) head.removeChild(oldscript);
+        },
+        copytip: function() {
+            var cpytip = document.getElementById('cpytip');
+            if(cpytip.classList.contains('playfadeout'))
+                cpytip.className = 'restartfadeout';
+            else cpytip.className = 'playfadeout';
         },
         compile: function() {
             app.purl="";

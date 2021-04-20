@@ -1,4 +1,4 @@
-{
+const en = {
   "PGFPlotsEdt": "PGFPlotsEdt",
   "Faster to PGFPlot in LaTeX": "Faster to PGFPlot in LaTeX",
   "nav": {
@@ -117,5 +117,6 @@
     "sort": "Sort",
     "tableparam": "Table Parameter",
     "coord": "Coordinate Data"
-  }
+  },
+  "cpytip": "Copied to Clipboard",
 }

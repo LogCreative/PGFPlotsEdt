@@ -1,4 +1,4 @@
-{
+const cn = {
   "PGFPlotsEdt": "PGFPlots 统计绘图编辑器",
   "Faster to PGFPlot in LaTeX": "PGFPlotsEdt",
   "nav": {
@@ -117,5 +117,6 @@
     "tableparam": "表格参数",
     "col": "表列",
     "coord": "坐标数据"
-  }
+  },
+  "cpytip": "复制成功",
 }

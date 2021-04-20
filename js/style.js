@@ -167,3 +167,6 @@ var animforward = function(){
         },30);
     }    
 };
+
+// Version
+document.getElementById("version").innerHTML = 'v2';

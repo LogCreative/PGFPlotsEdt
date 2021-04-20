@@ -172,9 +172,10 @@
             <div id="auto">
             <details id="codedetail">
                 <summary>
-                    {{$t('Code')}} <button v-clipboard:copy="content" id="btnDrawCode" @mouseover="hintDrawCode" @mouseleave="blurDrawCode" :title="$t('code.cpydraw')">▪</button>
-                    <button v-clipboard:copy="file" id="btnAllCode"  @mouseover="hintAllCode" @mouseleave="blurAllCode" :title="$t('code.cpyall')">◼</button>
+                    {{$t('Code')}} <button v-clipboard:copy="content" id="btnDrawCode" @mouseover="hintDrawCode" @mouseleave="blurDrawCode" :title="$t('code.cpydraw')" @click="copytip">▪</button>
+                    <button v-clipboard:copy="file" id="btnAllCode"  @mouseover="hintAllCode" @mouseleave="blurAllCode" :title="$t('code.cpyall')" @click="copytip">◼</button>
                     <button onclick="gomanual()" id="btnEdtCode" @mouseover="warnAllCode" @mouseleave="blurAllCode" :title="$t('code.manedt')">⚠</button>
+                    <div id="cpytip">{{$t('cpytip')}}</div>
                 </summary>
                 <div id="texAllCode">
                     <div class="texCode">
@@ -427,6 +428,8 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/split.js/1.6.2/split.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue-i18n/8.24.3/vue-i18n.min.js"></script>
     <script src="js/style.js"></script>
+    <script src="lang/cn.js"></script>
+    <script src="lang/en.js"></script>
     <script src="lang/dict_en.js"></script>
     <script src="js/tpl.js"></script>
     <script src="main.js"></script>
@@ -444,6 +447,5 @@
         else
             document.getElementById('codedetail').open = false;
     </script>
-    <script src="js/getVersion.js"></script>
 </body>
 </html>

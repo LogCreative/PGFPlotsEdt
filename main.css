@@ -613,3 +613,32 @@ input[type=text]{
     padding-top: 5px;
     vertical-align: text-top;
 }
+
+#cpytip{
+    display: inline-block;
+    opacity: 0;
+    color: white;
+    background-color: green;
+    padding: 5px;
+    border-radius: 2px;
+    font-size: small;
+}
+.playfadeout{
+    animation-name: fadeout;
+}
+.restartfadeout{
+    animation-name: fadeout1;
+}
+.playfadeout,
+.restartfadeout {
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+@keyframes fadeout {
+    from {opacity: 1; margin-left: 0px;}
+    to {opacity: 0; margin-left: 30px;}
+}
+@keyframes fadeout1 {
+    from {opacity: 1; margin-left: 0px;}
+    to {opacity: 0; margin-left: 30px;}
+}
