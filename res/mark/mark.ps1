@@ -10,8 +10,8 @@ $premable = '\documentclass[tikz,dvisvgm]{standalone}
 \usetikzlibrary{plotmarks}
 \begin{document}'
 
-$mark_syntax = @('*','x','+','-','|','o','asterisk','star','10-pointed star','oplus','oplus*','otimes','otimes*','square','square*','triangle','triangle*','diamond','diamond*','halfdiamond','halfdiamond*','halfsquare*','halfsquare right*','halfsquare left*','Mercedes star','Mercedes star flipped','half circle','half circle*','pentagon','pentagon*')
-$mark_synopsis = @('multi','cross','plus','minus','vert','o','asterisk','star','10-pointed star','oplus','oplusm','otimes','otimesm','square','squarem','triangle','trianglem','diamond','diamondm','halfdiamond','halfdiamondm','halfsquarem','halfsquare rightm','halfsquare leftm','Mercedes star','Mercedes star flipped','half circle','half circlem','pentagon','pentagonm')
+$mark_syntax = @('*','x','+','-','|','o','asterisk','star','10-pointed star','oplus','oplus*','otimes','otimes*','square','square*','triangle','triangle*','diamond','diamond*','halfdiamond','halfdiamond*','halfsquare*','halfsquare right*','halfsquare left*','Mercedes star','Mercedes star flipped','halfcircle','halfcircle*','pentagon','pentagon*')
+$mark_synopsis = @('multi','cross','plus','minus','vert','o','asterisk','star','10-pointed star','oplus','oplusm','otimes','otimesm','square','squarem','triangle','trianglem','diamond','diamondm','halfdiamond','halfdiamondm','halfsquarem','halfsquare rightm','halfsquare leftm','Mercedes star','Mercedes star flipped','halfcircle','halfcirclem','pentagon','pentagonm')
 
 $setup_first = '\begin{tikzpicture}
 \begin{axis}[axis x line={none},
@@ -42,7 +42,7 @@ New-Item tex -Type directory
 New-Item svg -Type directory
 New-Item tmp -Type directory
 
-for($x=0;$x -lt $mark_synopsis.length;$x++){
+for($x=0;$x -lt $mark_synopsis.length;$x++) {
     $file = $mark_synopsis[$x] + '.tex'
     $premable + $setup_first + $mark_syntax[$x] + $setup_second + $suffix | Out-File tex/$file
     Set-Location tmp/
