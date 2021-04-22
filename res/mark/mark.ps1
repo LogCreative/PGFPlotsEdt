@@ -25,6 +25,9 @@ $setup_second = ',mark options={scale=2,fill=yellow!80!black},] coordinates {(1,
 '
 
 $setup_icon = ',mark options={scale=2,fill=yellow!80!black},] coordinates {(1,1)};
+\addplot [mark='
+
+$setup_icon_second = ',mark options={scale=3,fill,fill opacity=0,draw opacity=0},] coordinates {(1,1)};
 \end{axis}
 \end{tikzpicture}
 '
@@ -46,6 +49,9 @@ $setup3_second = ',mark options={scale=2,fill=yellow!80!black},] coordinates {(1
 '
 
 $setup3_icon = ',mark options={scale=2,fill=yellow!80!black},] coordinates {(1,1,1)};
+\addplot3 [mark='
+
+$setup3_icon_second = ',mark options={scale=3,fill,fill opacity=0,draw opacity=0},] coordinates {(1,1,1)};
 \end{axis}
 \end{tikzpicture}
 '
@@ -59,7 +65,7 @@ New-Item icon -Type directory
 
 for($x=0;$x -lt $mark_synopsis.length;$x++) {
     $file = $mark_synopsis[$x] + '.tex'
-    $premable + $setup_first + $mark_syntax[$x] + $setup_icon + $suffix | Out-File tex/$file
+    $premable + $setup_first + $mark_syntax[$x] + $setup_icon + $mark_syntax[$x] + $setup_icon_second + $suffix | Out-File tex/$file
     Set-Location tmp/
     $dvifile = $mark_synopsis[$x] + ".dvi"
     $svgfile = $mark_synopsis[$x] + ".svg"
@@ -83,7 +89,7 @@ for($x=0;$x -lt $mark_synopsis.length;$x++) {
 
 for($x=0;$x -lt $mark3_synopsis.length;$x++){
     $file = $mark3_synopsis[$x] + '.tex'
-    $premable + $setup3_first_icon + $mark3_syntax[$x] + $setup3_icon + $suffix | Out-File tex/$file
+    $premable + $setup3_first_icon + $mark3_syntax[$x] + $setup3_icon + $mark3_syntax[$x] + $setup3_icon_second + $suffix | Out-File tex/$file
     Set-Location tmp/
     $dvifile = $mark3_synopsis[$x] + ".dvi"
     $svgfile = $mark3_synopsis[$x] + ".svg"

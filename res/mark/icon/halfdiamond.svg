@@ -15,9 +15,15 @@
 <path d='M -97.49786 -81.00006 L 97.49786 -81.00006 L 97.49786 81.00006 L -97.49786 81.00006 Z'/> </clipPath>
 <g clip-path='url(#pgfcp1)'>
 <path d='M 0.0 0.0' fill='none'/>
+<path d='M 0.0 0.0' fill='none'/>
 </g>
 <g fill='#cccc28'>
 <path d='' fill='none'/>
+</g>
+<g fill-opacity='0'>
+<g stroke-opacity='0'>
+<path d='' fill='none'/>
+</g>
 </g>
 </g>
 </g>
