@@ -25,7 +25,7 @@ const cn = {
     "type": "轴类型",
     "normal": "普通坐标轴",
     "logx": "x对数轴",
-    "logy": "y轴",
+    "logy": "y对数轴",
     "loglog": "双对数轴",
     "polar": "极坐标轴",
     "title": "标题",
