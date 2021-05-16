@@ -73,14 +73,16 @@ var setSpliterHeight = function () {
 
 // 手动模式
 var gomanual = function(){
-    var mf = document.getElementById('manualfile');
-    mf.innerHTML = app.file;
-    mf.style.display = 'block';
+    var editor = ace.edit("manualfile");
+    editor.setTheme("ace/theme/textmate");
+    editor.session.setMode("ace/mode/latex");
+    editor.session.setValue(app.file);
+    editor.session.setUseWrapMode(true);
     document.getElementById('settings').style.display = 'none';
     document.getElementById('auto').style.display = 'none';
     document.getElementById('panel-vtwo').style.display = 'none';
+    document.getElementById('panel-two').style.width = "calc(70% - 15px)";
     document.getElementById('panel-three').style.width = '0px';
-    document.getElementById('panel-two').style.width = window.innerWidth - document.getElementById('panel-one').style.width;
     document.getElementById('compilePrev').style.height = '430px';
     document.getElementById('stylePrev').style.height = '430px';
     app.manual = true;
@@ -88,9 +90,11 @@ var gomanual = function(){
 };
 
 var manualrefresh = function(){
-    var mf = document.getElementById('manualfile');
+    var editor = ace.edit("manualfile");
+    var code = editor.getValue();
     var newseries = seriesList[seriescnt][0];
-    mf.innerHTML = mf.innerHTML.replace("\\end{axis}", newseries + "\n\\end{axis}");
+    code = code.replace("\\end{axis}", newseries + "\n\\end{axis}");
+    editor.setValue(code);
 };
 
 var manuallibchange = function(libstr){

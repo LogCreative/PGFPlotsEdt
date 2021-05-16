@@ -1343,7 +1343,10 @@ var app = new Vue({
             };
             if(!app.manual)
                 app.curl = "https://latexonline.cc/compile?text="+urlencoder(this.file);
-            else app.curl = "https://latexonline.cc/compile?text="+urlencoder(document.getElementById('manualfile').value);
+            else {
+                var editor = ace.edit("manualfile");
+                app.curl = "https://latexonline.cc/compile?text="+urlencoder(editor.getValue());
+            }
         }
     },
 });

@@ -98,6 +98,12 @@ a{
     background-color: white;
 }
 
+#manualfile {
+    width: 100%;
+    height: 460px;
+    font-size: medium;
+}
+
 code {
     font-family: 'Consolas','Courier New', Courier, monospace;
     white-space:pre-wrap;
