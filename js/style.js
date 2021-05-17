@@ -83,6 +83,13 @@ var gomanual = function(){
     app.manual = true;
     // Split(['#panel-one','#panel-two']);
     var editor = ace.edit("manualfile");
+    editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+    });
+    langTools=ace.require("ace/ext/language_tools");
+	langTools.setCompleters([customCompleter]);
     editor.setTheme("ace/theme/textmate");
     editor.session.setMode("ace/mode/latex");
     editor.session.setValue(app.file);
