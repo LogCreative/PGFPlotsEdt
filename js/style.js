@@ -73,11 +73,6 @@ var setSpliterHeight = function () {
 
 // 手动模式
 var gomanual = function(){
-    var editor = ace.edit("manualfile");
-    editor.setTheme("ace/theme/textmate");
-    editor.session.setMode("ace/mode/latex");
-    editor.session.setValue(app.file);
-    editor.session.setUseWrapMode(true);
     document.getElementById('settings').style.display = 'none';
     document.getElementById('auto').style.display = 'none';
     document.getElementById('panel-vtwo').style.display = 'none';
@@ -87,6 +82,11 @@ var gomanual = function(){
     document.getElementById('stylePrev').style.height = '430px';
     app.manual = true;
     // Split(['#panel-one','#panel-two']);
+    var editor = ace.edit("manualfile");
+    editor.setTheme("ace/theme/textmate");
+    editor.session.setMode("ace/mode/latex");
+    editor.session.setValue(app.file);
+    editor.session.setUseWrapMode(true);
 };
 
 var manualrefresh = function(){
