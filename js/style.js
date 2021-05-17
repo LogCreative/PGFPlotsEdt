@@ -76,10 +76,12 @@ var gomanual = function(){
     document.getElementById('settings').style.display = 'none';
     document.getElementById('auto').style.display = 'none';
     document.getElementById('panel-vtwo').style.display = 'none';
-    document.getElementById('panel-two').style.width = "calc(70% - 15px)";
+    if(instance)
+        document.getElementById('panel-two').style.width = "calc(70% - 15px)";
     document.getElementById('panel-three').style.width = '0px';
     document.getElementById('compilePrev').style.height = '430px';
     document.getElementById('stylePrev').style.height = '430px';
+    document.getElementById('manualfile').style.display = 'block';
     app.manual = true;
     // Split(['#panel-one','#panel-two']);
     var editor = ace.edit("manualfile");

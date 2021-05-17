@@ -99,6 +99,7 @@ a{
 }
 
 #manualfile {
+    display: none;
     width: 100%;
     height: 460px;
     font-size: medium;
