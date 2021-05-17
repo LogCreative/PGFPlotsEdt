@@ -92,14 +92,17 @@ latexcompletions = {
         "draw",
         "fill",
         "end{tikzpicture}"
+    ],
+    "pgfplots": [
+        "addplot",        
     ]
 };
 
 var customCompleter = {
     getCompletions: function(editor, session, pos, prefix, callback) {
 	var startToken = session.getTokenAt(pos.row, pos.column).value;
+    var cmplts=[];
 	if (startToken.startsWith("\\")){
-	    var cmplts=[];
 	    var s=0;
 	    for (let pkg in latexcompletions) {
 		var cs=latexcompletions[pkg];
@@ -111,9 +114,39 @@ var customCompleter = {
 		}
 	    }
 	    callback(null, cmplts);
+        return 
 	} else {
-	    callback(null, []);
-	    return 
-	}	    
+        var cmd = startToken.substring(startToken.lastIndexOf(',')+1,startToken.length).trim();
+        var param = cmd.split('=');
+        var paramname = param[0];
+        var paramvalue = param[1];
+        if("/".indexOf(param)!=-1){
+            param = cmd.split('/');
+            paramname = param[0];
+            paramvalue = param[1];
+        }
+        var searching_dict = function(dict,m){
+            if(paramvalue){
+                if(!dict[paramname]) return ;
+                var subdict = dict[paramname][1];
+                for(var pv in subdict){
+                    if(pv.startsWith(paramvalue))
+                        cmplts.push({name: subdict[pv][0], value: pv, score: paramvalue.length - pv.length, meta: paramname});
+                }
+            } else 
+                for(var pn in dict)
+                    if(pn.startsWith(paramname)){
+                        var suffix = "";
+                        if (pn!="colormap/" && dict[pn][1]) suffix = "=";
+                        cmplts.push({name: dict[pn][0], value: pn + suffix, caption: pn, score: paramname.length - pn.length, meta: m});
+                    }
+        }
+        if(session.getLine(pos.row).indexOf("axis")!=-1){
+            searching_dict(globalparamDic,"axis");
+        }
+        searching_dict(sparamDic,"addplot");
+        callback(null, cmplts);
+	}	
+      
     }
 }

@@ -90,12 +90,23 @@ var gomanual = function(){
         enableSnippets: true,
         enableLiveAutocompletion: true
     });
+    editor.on("change", function(e){
+    　　editor.execCommand("startAutocomplete");
+    })
     langTools=ace.require("ace/ext/language_tools");
-	langTools.setCompleters([customCompleter]);
+    langTools.setCompleters([customCompleter]);
     editor.setTheme("ace/theme/textmate");
     editor.session.setMode("ace/mode/latex");
     editor.session.setValue(app.file);
     editor.session.setUseWrapMode(true);
+    editor.commands.addCommand({
+        name: 'compile',
+        bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
+        exec: function() {
+            app.compile();
+        },
+        readOnly: false
+    });
 };
 
 var manualrefresh = function(){
