@@ -131,13 +131,14 @@ var customCompleter = {
                 var subdict = dict[paramname][1];
                 for(var pv in subdict){
                     if(pv.startsWith(paramvalue))
-                        cmplts.push({name: subdict[pv][0], value: pv, score: paramvalue.length - pv.length, meta: paramname});
+                        cmplts.push({name: subdict[pv][0], value: pv + ',', caption: pv, score: paramvalue.length - pv.length, meta: paramname});
                 }
             } else 
                 for(var pn in dict)
                     if(pn.startsWith(paramname)){
-                        var suffix = "";
-                        if (pn!="colormap/" && dict[pn][1]) suffix = "=";
+                        var suffix = ",";
+                        if (pn=="colormap/") suffix = '/';
+                        else if (dict[pn][1]) suffix = "=";
                         cmplts.push({name: dict[pn][0], value: pn + suffix, caption: pn, score: paramname.length - pn.length, meta: m});
                     }
         }
