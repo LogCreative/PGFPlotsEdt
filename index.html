@@ -321,6 +321,7 @@
             </div>
             <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
             <div><button class="deleteBut" @click="deleteComp" :title="$t('series.deletesource')">🗑</button></div>
+            <div><button class="transposeBut" @click="transpose" v-show="!etd" :title="$t('series.transpose')">T</button></div>
             <div><input type="file" id="files" class="fileChooser" @change="readFile"></div>
         </div>
     </template>

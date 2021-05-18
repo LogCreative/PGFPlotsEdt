@@ -293,6 +293,16 @@ summary {
     background-color: rgb(255, 111, 111);
 }
 
+#series .transposeBut {
+    background-color:rgb(135, 201, 37);
+    color: white;
+    border: 1px solid green;
+}
+
+#series .transposeBut:hover{
+    background-color: rgb(128, 187, 39);
+}
+
 .sicon {
     display: inline;
     float: left;

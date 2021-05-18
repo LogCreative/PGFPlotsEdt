@@ -102,7 +102,8 @@ const en = {
     "pin": "pn",
     "pinpos": "pin position",
     "pinyellow": "Yellow pin",
-    "rotatepin": "pin rotate"
+    "rotatepin": "pin rotate",
+    "transpose": "transpose the table source"
   },
   "bar": {
     "enter": "x y enter",
@@ -118,5 +119,5 @@ const en = {
     "tableparam": "Table Parameter",
     "coord": "Coordinate Data"
   },
-  "cpytip": "Copied to Clipboard",
+  "cpytip": "Copied to Clipboard"
 }

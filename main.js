@@ -883,6 +883,29 @@ Vue.component('Tsource',{
             this.$forceUpdate();
             updateSeries();
         },
+        transpose: function(){
+            var filelines = this.datat.replace("\\\\\\\\","").split("\\\\");
+            var newfile = [];
+            for(var i in filelines){
+                cols = filelines[i].split(" ");
+                if(i==0)   // header
+                    for(var j in cols)
+                        newfile.push([cols[j]]);
+                else 
+                    for(var j in cols)
+                        newfile[j].push(cols[j]);
+            }
+            var newdatat = "";
+            for(var i in newfile){
+                for(var j in newfile[i])
+                    newdatat += newfile[i][j] + ' ';
+                newdatat += "\\\\";
+            }
+            newdatat += "\\\\\\\\";
+            newdatat = newdatat.replace(/\s+\\\\/g,"\\\\");
+            this.datat = newdatat;
+            this.updater();
+        },
         readFile: readFile,
     }
 });

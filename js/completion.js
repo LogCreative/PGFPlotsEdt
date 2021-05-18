@@ -1,6 +1,5 @@
 // From https://github.com/learnlatex/learnlatex.github.io
 // CC-BY-SA 4.0
-// TODO: will be adapted to PGFPlotsEdt dict.
 latexcompletions = {
     "latex": [
         "author",
@@ -94,15 +93,21 @@ latexcompletions = {
         "end{tikzpicture}"
     ],
     "pgfplots": [
-        "addplot",        
+        "axis",
+        "semilogxaxis",
+        "semilogyaxis",
+        "loglogaxis",
+        "addplot",
+        "legend",
+        "pgfplotstableread",        
     ]
 };
 
 var customCompleter = {
     getCompletions: function(editor, session, pos, prefix, callback) {
 	var startToken = session.getTokenAt(pos.row, pos.column).value;
-    var cmplts=[];
 	if (startToken.startsWith("\\")){
+        var cmplts=[];
 	    var s=0;
 	    for (let pkg in latexcompletions) {
 		var cs=latexcompletions[pkg];
@@ -116,6 +121,7 @@ var customCompleter = {
 	    callback(null, cmplts);
         return 
 	} else {
+        var cmplts=[];
         var cmd = startToken.substring(startToken.lastIndexOf(',')+1,startToken.length).trim();
         var param = cmd.split('=');
         var paramname = param[0];
@@ -137,7 +143,7 @@ var customCompleter = {
                 for(var pn in dict)
                     if(pn.startsWith(paramname)){
                         var suffix = ",";
-                        if (pn=="colormap/") suffix = '/';
+                        if (pn=="colormap/") suffix = '';
                         else if (dict[pn][1]) suffix = "=";
                         cmplts.push({name: dict[pn][0], value: pn + suffix, caption: pn, score: paramname.length - pn.length, meta: m});
                     }
@@ -147,6 +153,7 @@ var customCompleter = {
         }
         searching_dict(sparamDic,"addplot");
         callback(null, cmplts);
+        return
 	}	
       
     }

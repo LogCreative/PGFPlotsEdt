@@ -102,7 +102,8 @@ const cn = {
     "deletepin": "删除标注",
     "pinyellow": "黄色标注",
     "rotatepin": "旋转角度",
-    "pinpos": "标注位置"
+    "pinpos": "标注位置",
+    "transpose": "转置表源"
   },
   "bar": {
     "enter": "x y 按回车添加项",
@@ -118,5 +119,5 @@ const cn = {
     "col": "表列",
     "coord": "坐标数据"
   },
-  "cpytip": "复制成功",
+  "cpytip": "复制成功"
 }
