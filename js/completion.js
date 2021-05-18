@@ -105,6 +105,7 @@ latexcompletions = {
 
 var customCompleter = {
     getCompletions: function(editor, session, pos, prefix, callback) {
+    if(!session.getTokenAt(pos.row, pos.column)) return;
 	var startToken = session.getTokenAt(pos.row, pos.column).value;
 	if (startToken.startsWith("\\")){
         var cmplts=[];
