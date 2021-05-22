@@ -1202,7 +1202,7 @@ Vue.component('tplbutton', {
 
 var s_premable = "\\documentclass[tikz]{standalone}\n\
 \\usepackage{pgfplots}\n\
-\\pgfplotsset{compat=1.14}\n";
+\\pgfplotsset{compat=newest}\n";
 
 var s_suffix = "\\end{document}";
 

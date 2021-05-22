@@ -8,3 +8,4 @@ The license of those libraries have been checked to be compatible with GPL-3.0 L
 - split.js
 - vue.js
 - vue-i18n.js
+- vue-clipboard.js
