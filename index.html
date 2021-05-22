@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PGFPlots 统计绘图编辑器</title>
     <link rel="icon" href="favicon.ico" sizes="64x64">
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="lib/normalize.min.css">
     <link rel="stylesheet" href="main.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -421,19 +421,20 @@
             <button class="acccon" @click="addtpl" @mouseenter="preview" @mouseleave="flush"><img class="icon" :src="iconadd"><div class="value">{{tplname}}</div></button>
         </div>
     </template>
-    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/vue-clipboard2/0.3.1/vue-clipboard.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/languages/latex.min.js"></script>
-    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/styles/vs.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcdn.net/ajax/libs/split.js/1.6.2/split.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/vue-i18n/8.24.3/vue-i18n.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/ace/test/ace.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/ace/test/mode-latex.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/ace/test/theme-textmate.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/ace/test/ext-language_tools.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/ace/test/mode-snippets.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/ace/test/snippets/latex.min.js"></script>
+    <script src="lib/vue.min.js"></script>
+    <script src="lib/vue-clipboard.js"></script>
+    <script src="lib/highlight.min.js"></script>
+    <script src="lib/latex.min.js"></script>
+    <link href="lib/vs.min.css" rel="stylesheet">
+    <script src="lib/split.min.js"></script>
+    <script src="lib/vue-i18n.min.js"></script>
+    <script src="lib/ace.min.js"></script>
+    <script src="lib/mode-latex.min.js"></script>
+    <script src="lib/theme-textmate.min.js"></script>
+    <script src="lib/ext-language_tools.min.js"></script>
+    <script src="lib/mode-snippets.js"></script>
+    <script src="lib/snippets-latex.min.js"></script>
+    <!-- User defined -->
     <script src="js/completion.js"></script>
     <script src="js/style.js"></script>
     <script src="lang/cn.js"></script>
