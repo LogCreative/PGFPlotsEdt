@@ -75,8 +75,16 @@ var boolDic = {
     "false":["无","none",""],
 };
 
+var enlargeDic = {
+    "0.05": ["系列较多","none",""],
+    "0.8":  ["系列较少","none",""],
+};
+
 // 全局参数字典
 var globalparamDic = {
+    "enlarge x limits":["横轴边界比率消除重复",enlargeDic],
+    "enlarge y limits":["纵轴边界比率消除重复",enlargeDic],
+    "enlarge z limits":["竖轴边界比率消除重复",enlargeDic],
     "ybar stacked":["纵向堆积柱形图"],
     "xbar stacked":["横向堆积柱形图"],
     "stack plots":["堆积图", {
