@@ -82,9 +82,6 @@ var enlargeDic = {
 
 // 全局参数字典
 var globalparamDic = {
-    "enlarge x limits":["eliminate repeat labels.",enlargeDic],
-    "enlarge y limits":["eliminate repeat labels.",enlargeDic],
-    "enlarge z limits":["eliminate repeat labels.",enlargeDic],
     "ybar stacked":["Vertically stacked."],
     "xbar stacked":["Horizontally stacked."],
     "stack plots":["", {

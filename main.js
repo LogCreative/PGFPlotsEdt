@@ -818,7 +818,7 @@ Vue.component('tableparambar',{
                 tableaxis += entry[0] + "=" + entry[1] + ",";
                 for(var i in this.colname)
                     if(this.colname[i]==entry[1] && this.symbolic[i])
-                        symbolicparam += "symbolic " + entry[0] + " coords={" + this.get_symbolic_set_str(i) + "},\n";
+                        symbolicparam += "symbolic " + entry[0] + " coords={" + this.get_symbolic_set_str(i) + "}, " + entry[0] + "tick=data,\n";
             }
             this.$parent.tableaxis = tableaxis;
             this.$parent.updater();
