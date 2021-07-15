@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="main.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script id="langdict" src="lang/dict_en.js"></script>
 </head>
 <body>
     <div id="app">
@@ -56,7 +57,7 @@
                         {{$t('Axis')}} 
                     </summary>
                     <div id="axis">
-                        <surplus :id="0" :ontd="td" :onlegend="enableLegend"></surplus><br>
+                        <surplus ref="surpluser" :id="0" :ontd="td" :onlegend="enableLegend"></surplus><br>
                             <br><div class="paramhead">{{$t('axis.global')}}</div><br>
                             <div><div class="paramname" style="display: inline-block;">{{$t('axis.type')}}</div>
                                 <div style="display: inline-block; margin-left: -4.5px;">
@@ -439,7 +440,6 @@
     <script src="js/style.js"></script>
     <script src="lang/cn.js"></script>
     <script src="lang/en.js"></script>
-    <script src="lang/dict_en.js"></script>
     <script src="js/tpl.js"></script>
     <script src="main.js"></script>
     <script>

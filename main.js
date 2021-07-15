@@ -139,6 +139,9 @@ var getUnwrappedCommand = function (_wrap_comm) {
     return _wrap_comm.replace(/<\/?.+?\/?>/g,'');
 };
 
+// 语言更改事件
+var langChangeEvent = new Vue();
+
 // 参数工具栏（子组件）
 var parambar = Vue.component('parambar',{
     template: "#parambartpl",
@@ -159,10 +162,12 @@ var parambar = Vue.component('parambar',{
     mounted: function () {
         var me = this;
         this.refresh3D(this.etd);
-        libChangeEvent.$on('lib-change',function () {
+        var forceUpdater = function () {
             if(me.global) me.optionalCommands = globalparamDic; // Force update
             me.refreshList(me.command);
-        });
+        };
+        libChangeEvent.$on('lib-change',function () { forceUpdater(); });
+        langChangeEvent.$on('lang-change',function () { forceUpdater(); });
     },
     watch:{
         etd(_td){
@@ -1341,15 +1346,11 @@ var app = new Vue({
             else this.changelang('cn');
         },
         changelang: function(newlang) {
-            var newscript = document.createElement('script');
-            newscript.setAttribute('type','text/javascript');
-            newscript.setAttribute('id','langdict');
-            var head = document.getElementsByTagName('head')[0];
-            var oldscript = document.getElementById('langdict');
+            changelang(newlang);
+            setTimeout(() => {
+                langChangeEvent.$emit('lang-change');
+            }, 100);            // wait for js loading...
             i18n.locale = newlang;
-            newscript.setAttribute('src','lang/dict_' + newlang + '.js');
-            head.appendChild(newscript);
-            if(oldscript) head.removeChild(oldscript);
         },
         copytip: function() {
             var cpytip = document.getElementById('cpytip');

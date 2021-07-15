@@ -317,24 +317,3 @@ var statisticsDic = {
         "density":              ["","url",""],
     }],
 };
-
-var default_title = "PGFPlotsEdt";
-
-// 渲染顺序会导致设定的相反性
-
-// 缩小第一坐标的文本框宽度
-Vue.directive('minimize',function(el,binding){
-    if(binding.value){
-        el.style.width = '40px';
-        el.placeholder = 'x axis';
-    } else {
-        el.style.width = '90px';
-        el.placeholder = 'function(x)';
-    }
-});
-
-Vue.directive('threetip',function (el,binding) {
-    if(binding.value)
-        el.placeholder = 'x y z enter';
-    else el.placeholder = 'x y enter';
-});
