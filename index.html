@@ -57,7 +57,7 @@
                         {{$t('Axis')}} 
                     </summary>
                     <div id="axis">
-                        <surplus ref="surpluser" :id="0" :ontd="td" :onlegend="enableLegend"></surplus><br>
+                        <surplus :id="0" :ontd="td" :onlegend="enableLegend"></surplus><br>
                             <br><div class="paramhead">{{$t('axis.global')}}</div><br>
                             <div><div class="paramname" style="display: inline-block;">{{$t('axis.type')}}</div>
                                 <div style="display: inline-block; margin-left: -4.5px;">
@@ -410,7 +410,7 @@
         </tr>
     </template>
     <template id="surplustpl">
-        <div>
+        <div id="surplusbarp">
             <div>
                 <div><input type="text" class="surparam" v-model="param" @keyup="onpachange" :placeholder="$t('axis.surplusparam')"  @focus="param_focused" @blur="param_losefocus"></div>
             </div>

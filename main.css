@@ -489,6 +489,10 @@ input[type=text]{
     width: 250px;
 }
 
+#surplusbarp {
+    width: 90%;
+}
+
 .matchkey,.matchnote {
     display: inline-table;
 }
