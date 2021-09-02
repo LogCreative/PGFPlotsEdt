@@ -1205,10 +1205,6 @@ Vue.component('tplbutton', {
     }
 });
 
-var s_premable = "\\documentclass[tikz]{standalone}\n\
-\\usepackage{pgfplots}\n\
-\\pgfplotsset{compat=newest}\n";
-
 var s_suffix = "\\end{document}";
 
 chnClick = function(obj){
@@ -1244,6 +1240,10 @@ legendClick = function(obj){
 
 sourceClick = function(obj){
     app.enablesource = !app.enablesource;
+    const pgfplotstablestr = "\\usepackage{pgfplotstable}\n"
+    if (app.enablesource)
+        app.s_premable += pgfplotstablestr;
+    else app.s_premable = app.s_premable.replace(pgfplotstablestr,"");
     updateSeries();
     SourceUpdateEvent.$emit('source-disabled',app.enablesource);
     app.enablesource = !app.enablesource;
@@ -1269,6 +1269,7 @@ var app = new Vue({
         symbolicparam: "",
         packages: ["\\usepackage{CJKutf8}\n"],
         pkgstr: "\\usepackage{CJKutf8}\n",
+        s_premable: "\\documentclass[tikz]{standalone}\n\\usepackage{pgfplots}\n\\pgfplotsset{compat=newest}\n",
         e_premable: "\\begin{document}\n\\begin{CJK}{UTF8}{gbsn}\n",
         suffix: "\\end{CJK}\n" + s_suffix,
         curl:"",
@@ -1310,7 +1311,7 @@ var app = new Vue({
     },
     computed:{
         premable: function(){
-            return s_premable + this.pkgstr + this.e_premable;
+            return this.s_premable + this.pkgstr + this.e_premable;
         },
         content: function(){
             var axistypename;
