@@ -49,6 +49,7 @@ const en = {
   "Settings": "Settings",
   "settings": {
     "CJK": "CJK",
+    "Beamer": "Beamer",
     "Legend": "Legend",
     "Pin": "Pin",
     "Source": "Source",

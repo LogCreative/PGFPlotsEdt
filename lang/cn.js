@@ -50,6 +50,7 @@ const cn = {
   "Data": "数据",
   "settings": {
     "CJK": "启用中文",
+    "Beamer": "幻灯优化",
     "Pin": "启用标注",
     "3D": "启用三维",
     "Legend": "启用图例",

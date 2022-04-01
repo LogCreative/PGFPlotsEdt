@@ -1210,15 +1210,28 @@ var s_suffix = "\\end{document}";
 chnClick = function(obj){
     if(obj.checked){
         app.packages[0] = "\\usepackage{CJKutf8}\n";
-        app.e_premable = "\\begin{document}\n\\begin{CJK}{UTF8}{gbsn}\n";
-        app.suffix = "\\end{CJK}\n" + s_suffix;
+        app.e_premable = app.e_premable.replace("\\begin{document}\n","\\begin{document}\n\\begin{CJK}{UTF8}{gbsn}\n");
+        app.suffix = app.suffix.replace(s_suffix, "\\end{CJK}\n" + s_suffix);
     } else {
         delete app.packages[0];
-        app.e_premable = "\\begin{document}\n";
-        app.suffix = s_suffix;
+        app.e_premable = app.e_premable.replace("\\begin{CJK}{UTF8}{gbsn}\n","");
+        app.suffix = app.suffix.replace("\\end{CJK}\n","");
     }
     updatePkg();
 };
+
+beamerClick = function(obj){
+    if(obj.checked){
+        app.s_premable = app.s_premable.replace("\\documentclass[tikz","\\documentclass[tikz,beamer");
+        app.e_premable += "\\begin{standaloneframe}\n"
+        app.suffix = "\\end{standaloneframe}\n" + app.suffix
+    } else {
+        app.s_premable = app.s_premable.replace("\\documentclass[tikz,beamer", "\\documentclass[tikz");
+        app.e_premable = app.e_premable.replace("\\begin{standaloneframe}\n","");
+        app.suffix = app.suffix.replace("\\end{standaloneframe}\n","")
+    }
+    updatePkg();
+}
 
 pinClick = function(obj){
     app.enablepin = !app.enablepin;
