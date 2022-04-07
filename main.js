@@ -1222,11 +1222,11 @@ chnClick = function(obj){
 
 beamerClick = function(obj){
     if(obj.checked){
-        app.s_premable = app.s_premable.replace("\\documentclass[tikz","\\documentclass[tikz,beamer");
+        app.s_premable = app.s_premable.replace("\\documentclass[tikz","\\documentclass[tikz,beamer,preview");
         app.e_premable += "\\begin{standaloneframe}\n"
         app.suffix = "\\end{standaloneframe}\n" + app.suffix
     } else {
-        app.s_premable = app.s_premable.replace("\\documentclass[tikz,beamer", "\\documentclass[tikz");
+        app.s_premable = app.s_premable.replace("\\documentclass[tikz,beamer,preview", "\\documentclass[tikz");
         app.e_premable = app.e_premable.replace("\\begin{standaloneframe}\n","");
         app.suffix = app.suffix.replace("\\end{standaloneframe}\n","")
     }
