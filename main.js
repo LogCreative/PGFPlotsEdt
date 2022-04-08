@@ -1380,10 +1380,10 @@ var app = new Vue({
                 return str.replace(/\%.+/g,"").replace(/[+]/g,"%2B");
             };
             if(!app.manual)
-                app.curl = "https://latexonline.cc/compile?text="+urlencoder(this.file);
+                app.curl = "https://texlive2020.latexonline.cc/compile?text="+urlencoder(this.file);
             else {
                 var editor = ace.edit("manualfile");
-                app.curl = "https://latexonline.cc/compile?text="+urlencoder(editor.getValue());
+                app.curl = "https://texlive2020.latexonline.cc/compile?text="+urlencoder(editor.getValue());
             }
         }
     },
