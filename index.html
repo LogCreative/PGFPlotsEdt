@@ -66,6 +66,7 @@
                                         <option value="1">{{$t('axis.logx')}}</option>
                                         <option value="2">{{$t('axis.logy')}}</option>
                                         <option value="3">{{$t('axis.loglog')}}</option>
+                                        <!-- FIXME: Safari can not listen to variable here. -->
                                         <option value="4" v-show="enablepolar">{{$t('axis.polar')}}</option>
                                     </select>
                                 </div>

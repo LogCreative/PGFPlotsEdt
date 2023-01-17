@@ -27,7 +27,7 @@ const en = {
     "logx": "semilogxaxis",
     "logy": "semilogyaxis",
     "loglog": "loglogaxis",
-    "polar": "ploaraxis",
+    "polar": "polaraxis",
     "fontsize": "Fontsize",
     "grid": "Grid",
     "height": "Height",
