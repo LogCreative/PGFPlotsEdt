@@ -237,7 +237,7 @@
                 </label>
             </div>
             <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
-            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.delete')">🗑</button></div>
+            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.delete')">X</button></div>
             <div class="ttd" v-show="ontd">
                 <input type="checkbox" @click="ontdchange" v-model="etd" :title="$t('series.td')">
             </div>
@@ -276,7 +276,7 @@
                 </label>
             </div>
             <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
-            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.delete')">🗑</button></div>
+            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.delete')">X</button></div>
             <div class="ttd" v-show="ontd">
                 <input type="checkbox" @click="ontdchange" v-model="etd" :title="$t('series.td')">
             </div>
@@ -322,7 +322,7 @@
                 </label>
             </div>
             <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
-            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.deletesource')">🗑</button></div>
+            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.deletesource')">X</button></div>
             <div><button class="transposeBut" @click="transpose" v-show="!etd" :title="$t('series.transpose')">T</button></div>
             <div><input type="file" id="files" class="fileChooser" @change="readFile"></div>
         </div>
@@ -338,7 +338,7 @@
                 </label>
             </div>
             <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
-            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.delete')">🗑</button></div>
+            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.delete')">X</button></div>
             <div class="ttd" v-show="ontd">
                 <input type="checkbox" @click="ontdchange" v-model="etd" :title="$t('series.td')">
             </div>
@@ -374,7 +374,7 @@
                 </label>
             </div>
             <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
-            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.deletepin')">🗑</button></div>
+            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.deletepin')">X</button></div>
             <div class="ytd">
                 <input type="checkbox" @click="ontdchange" v-model="etd" :title="$t('series.pinyellow')">
             </div>

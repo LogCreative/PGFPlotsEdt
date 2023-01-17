@@ -106,7 +106,7 @@ a{
 }
 
 code {
-    font-family: 'Consolas','Courier New', Courier, monospace;
+    font-family: 'Consolas', 'Menlo', 'Courier New', Courier, monospace;
     white-space:pre-wrap;
     word-wrap:break-word;
 }
@@ -222,6 +222,7 @@ footer{
     border: 2px solid green;
     background-color: green;
     color: white;
+    border-radius: 3px;
 }
 
 #btnDrawCode:hover::before,
@@ -233,6 +234,7 @@ footer{
     border: 2px solid orange;
     background-color: orange;
     color: white;
+    border-radius: 3px;
 }
 
 #btnEdtCode:hover::before{
@@ -260,7 +262,7 @@ summary {
 }
 
 .type label {
-    font-family: 'Consolas','Helvetica', '微软雅黑', Courier, monospace;
+    font-family: 'Consolas', 'Menlo', Courier, monospace, 'Helvetica', '微软雅黑';
 }
 
 #series .seriesitem > div,
@@ -301,6 +303,12 @@ summary {
 
 #series .transposeBut:hover{
     background-color: rgb(128, 187, 39);
+}
+
+#series [class$="But"] {
+    border-radius: 3px;
+    font-size: 15px;
+    text-align: center;
 }
 
 .sicon {
