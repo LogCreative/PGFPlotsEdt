@@ -24,4 +24,4 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
 
 <a href="https://www.mathjax.org/" target="_blank"><img class="icon" src="res/poweredby/mathjax.ico" height="16px">MathJax</a> is the TeX typeset rendering machine for previewing the formula input.
 
->Copyright (c) 2020-2021 Log Creative & LaTeX Sparkle Project
+>Copyright (c) 2020-2023 Log Creative & LaTeX Sparkle Project
