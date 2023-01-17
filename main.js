@@ -1280,11 +1280,11 @@ var app = new Vue({
         param: "",
         surplusparam: "",
         symbolicparam: "",
-        packages: ["\\usepackage{CJKutf8}\n"],
-        pkgstr: "\\usepackage{CJKutf8}\n",
+        packages: [""],
+        pkgstr: "",
         s_premable: "\\documentclass[tikz]{standalone}\n\\usepackage{pgfplots}\n\\pgfplotsset{compat=newest}\n",
-        e_premable: "\\begin{document}\n\\begin{CJK}{UTF8}{gbsn}\n",
-        suffix: "\\end{CJK}\n" + s_suffix,
+        e_premable: "\\begin{document}\n",
+        suffix: "" + s_suffix,
         curl:"",
         sources:[],
         expressions:[],
@@ -1388,3 +1388,10 @@ var app = new Vue({
         }
     },
 });
+
+// 只在中文页面进入时默认开启中文支持
+if (in_lang == 'cn') {
+    chnCheckbox = document.getElementById('chnCheckbox');
+    chnCheckbox.checked = true;
+    chnClick(chnCheckbox);
+}
