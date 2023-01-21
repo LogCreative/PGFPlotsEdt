@@ -101,9 +101,8 @@ const en = {
     "tableparam": "tb param",
     "deletepin": "Delete pin",
     "pin": "pn",
-    "pinpos": "pin position",
     "pinyellow": "Yellow pin",
-    "rotatepin": "pin rotate",
+    "rotatepin": "rotation degree",
     "transpose": "transpose the table source"
   },
   "bar": {

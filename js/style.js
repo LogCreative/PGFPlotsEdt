@@ -66,6 +66,12 @@ var changelang = function(newlang) {
     
     }
 
+    Vue.directive('threenode',function (el,binding) {
+        if(binding.value)
+            el.placeholder = 'x,y,z';
+        else el.placeholder = 'x,y';
+    })
+
 }
 changelang(in_lang);
 setTimeout(() => {

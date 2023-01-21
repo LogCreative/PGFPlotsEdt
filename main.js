@@ -1012,8 +1012,8 @@ Vue.component('node',{
     methods:{
         updater: function(){
             if(this.etd)
-                seriesList[this.idInner] = ["\\node [small dot,pin=" + this.param + ":{" + this.pin + "}] at (axis description cs:" + this.pos + ") {};",false,this.show,true]; 
-            else seriesList[this.idInner] = ["\\node [font=\\tiny] at (axis description cs:" + this.pos + ") {" + this.pin + "};",false,this.show,true]; 
+                seriesList[this.idInner] = ["\\node [small dot,pin=" + this.param + ":{" + this.pin + "}] at (" + this.pos + ") {};",false,this.show,true]; 
+            else seriesList[this.idInner] = ["\\node [font=\\tiny] at (" + this.pos + ") {" + this.pin + "};",false,this.show,true]; 
             updateSeries();
         },
     }

@@ -103,7 +103,6 @@ const cn = {
     "deletepin": "删除标注",
     "pinyellow": "黄色标注",
     "rotatepin": "旋转角度",
-    "pinpos": "标注位置",
     "transpose": "转置表源"
   },
   "bar": {

@@ -380,7 +380,7 @@
                 <input type="checkbox" @click="ontdchange" v-model="etd" :title="$t('series.pinyellow')">
             </div>
             <div><input type="text" class="param" v-model="param" @keyup="on_change" :placeholder="$t('series.rotatepin')" v-show="etd"></div>
-            <div><input type="text" class="coord" v-model="pos" @keyup="on_change" :placeholder="$t('series.pinpos')"></div>
+            <div><input type="text" class="coord" v-model="pos" @keyup="on_change" placeholder="x,y" v-threenode="app.td"></div>
         </div>
     </template>
     <template id="propertyselecttpl">
