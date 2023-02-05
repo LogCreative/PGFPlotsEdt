@@ -129,7 +129,8 @@ var updateSeries = function(){
         if (seriesList[s][2]==true &&                       // 显示
             (seriesList[s][3]==false || app.enablepin))     // 标注特集
             app.series += ' ' + seriesList[s][0] + '\n';
-        if(seriesList[s][1]!=false){                        // 是否有图例
+        if(seriesList[s][2]==true &&                        // 显示
+            seriesList[s][1]!=false){                        // 是否有图例
             app.legend += seriesList[s][1] + ',';
         }
     }
