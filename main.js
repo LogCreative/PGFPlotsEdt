@@ -1296,6 +1296,7 @@ var app = new Vue({
         axistype: "0",
         dc_content: "",
         purl:"",
+        lang:"en",
     },
     mounted: function (){
         this.dc_content = this.content;
@@ -1322,6 +1323,13 @@ var app = new Vue({
             setSpliterHeight();
             if (app.manual) manualrefresh();
         },
+        lang(newlang){
+            changelang(newlang);
+            setTimeout(() => {
+                langChangeEvent.$emit('lang-change');
+            }, 100);            // wait for js loading...
+            i18n.locale = newlang;
+        }
     },
     computed:{
         premable: function(){
@@ -1356,17 +1364,6 @@ var app = new Vue({
         blurAllCode: function () { blurCode("#texAllCode") },
         animbck: function () { animback(); },
         animfwd: function () { animforward(); },
-        togglelang: function(){
-            if(i18n.locale=='cn') this.changelang('en');
-            else this.changelang('cn');
-        },
-        changelang: function(newlang) {
-            changelang(newlang);
-            setTimeout(() => {
-                langChangeEvent.$emit('lang-change');
-            }, 100);            // wait for js loading...
-            i18n.locale = newlang;
-        },
         copytip: function() {
             var cpytip = document.getElementById('cpytip');
             if(cpytip.classList.contains('playfadeout'))

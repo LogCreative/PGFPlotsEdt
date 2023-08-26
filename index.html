@@ -15,9 +15,12 @@
     <div id="app">
         <div class="nav" @mouseenter="animbck" @mouseleave="animfwd">
             <div id="extlinks">
-                <div id="title" v-html="$t('nav.flogoadd')"></div>
+                <!-- <div id="title" v-html="$t('nav.flogoadd')"></div> -->
+                <select v-model="lang">
+                    <option value="en">English</option>
+                    <option value="cn">简体中文</option>
+                </select>
                 <div id="poweredby" class="accordion">
-                    <a class="acckey" @click="togglelang" target="_blank" style="cursor: pointer;" :title="$t('nav.lang_title')"><div class="icon" style="display: inline; font-weight: bold;">{{$t('nav.lang_icon')}} </div><div class="value">{{$t('nav.lang')}}</div></a>
                     <!-- darkmode -->
                     <a class="acckey" href="https://mirrors.sjtug.sjtu.edu.cn/CTAN/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf" target="_blank"><img src="res/poweredby/book.ico" class="icon"><div class="value">{{ $t('nav.doc') }}</div></a>
                     <a class="acckey" href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank"><img src="res/poweredby/github.png"><div class="value">GitHub</div></a>
