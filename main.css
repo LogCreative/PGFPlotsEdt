@@ -671,3 +671,9 @@ input[type=text]{
     from {opacity: 1; margin-left: 0px;}
     to {opacity: 0; margin-left: 30px;}
 }
+
+#langbox {
+    height: 25px;
+    padding: 5px 0px;
+    vertical-align: center;
+}
