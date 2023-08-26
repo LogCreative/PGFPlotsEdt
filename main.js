@@ -2,14 +2,14 @@
 var i18n = new VueI18n({
     locale: in_lang,
     messages:{
-        cn: cn,
+        chs: chs,
         en: en
     }
 });
 
 // Use JSON
-// i18n.cn = fetch('lang/cn.json').then(res=>res.json()).then(data=>{
-//     i18n.setLocaleMessage('cn',Object.assign(data));
+// i18n.chs = fetch('lang/chs.json').then(res=>res.json()).then(data=>{
+//     i18n.setLocaleMessage('chs',Object.assign(data));
 // });
 // i18n.en = fetch('lang/en.json').then(res=>res.json()).then(data=>{
 //     i18n.setLocaleMessage('en',Object.assign(data));
@@ -1387,7 +1387,7 @@ var app = new Vue({
 });
 
 // 只在中文页面进入时默认开启中文支持
-if (in_lang == 'cn') {
+if (in_lang == 'chs') {
     chnCheckbox = document.getElementById('chnCheckbox');
     chnCheckbox.checked = true;
     chnClick(chnCheckbox);

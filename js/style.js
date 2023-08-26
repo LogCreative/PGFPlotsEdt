@@ -18,7 +18,7 @@ var changelang = function(newlang) {
     head.appendChild(newscript);
     if(oldscript) head.removeChild(oldscript);
 
-    if(newlang == 'cn') {
+    if(newlang == 'chs') {
 
         default_title = "PGFPlots 统计绘图编辑器";
     

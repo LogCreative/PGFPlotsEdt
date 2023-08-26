@@ -1,4 +1,4 @@
-const cn = {
+const chs = {
   "PGFPlotsEdt": "PGFPlots 统计绘图编辑器",
   "Faster to PGFPlot in LaTeX": "PGFPlotsEdt",
   "nav": {
