@@ -2,11 +2,8 @@ const en = {
   "PGFPlotsEdt": "PGFPlotsEdt",
   "Faster to PGFPlot in LaTeX": "Faster to PGFPlot in LaTeX",
   "nav": {
-    "lang": "English",
-    "lang_icon": "EN",
-    "lang_title": "Change language",
+    "quickstart": "Package Quick Start",
     "doc": "Package Documentation",
-    "flogoadd": "<embed src=\"res/logo/enflogo.svg\" height=\"35px\">",
     "tpl1": "Line",
     "tpl10": "Polar",
     "tpl2": "Mark",

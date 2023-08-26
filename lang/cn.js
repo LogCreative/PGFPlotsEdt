@@ -2,11 +2,8 @@ const cn = {
   "PGFPlotsEdt": "PGFPlots 统计绘图编辑器",
   "Faster to PGFPlot in LaTeX": "PGFPlotsEdt",
   "nav": {
-    "lang": "简体中文",
-    "lang_icon": "CN",
-    "lang_title": "切换语言",
+    "quickstart": "宏包入门",
     "doc": "宏包文档",
-    "flogoadd": "<embed src=\"res/logo/cnflogo.svg\" height=\"35px\">",
     "tpl1": "折线图",
     "tpl2": "折点图",
     "tpl3": "散点图",
