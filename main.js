@@ -1300,6 +1300,7 @@ var app = new Vue({
     },
     mounted: function (){
         this.dc_content = this.content;
+        this.lang = in_lang;
     },
     watch:{
         content(_new,_old){
