@@ -150,13 +150,13 @@ var gomanual = function(){
     document.getElementById('auto').style.display = 'none';
     document.getElementById('panel-vtwo').style.display = 'none';
     if(instance)
-        document.getElementById('panel-two').style.width = "calc(70% - 15px)";
+        instance.collapse(2);
     document.getElementById('panel-three').style.width = '0px';
     document.getElementById('compilePrev').style.height = '430px';
     document.getElementById('stylePrev').style.height = '430px';
     document.getElementById('manualfile').style.display = 'block';
     app.manual = true;
-    // Split(['#panel-one','#panel-two']);
+    setSpliterHeight();
     var editor = ace.edit("manualfile");
     editor.setOptions({
         enableBasicAutocompletion: true,
