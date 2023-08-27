@@ -140,6 +140,8 @@ var setSpliterHeight = function () {
     spliters[1].style.setProperty('--spliterHeight', Math.max(
         parseInt(getComputedStyle(ptwo).width)==0? 0 : parseInt(getComputedStyle(ptwo).height),
         parseInt(getComputedStyle(pthree).width)==0? 0 : parseInt(getComputedStyle(pthree).height)) + 'px');
+    if (parseInt(getComputedStyle(pthree).width)==0) pthree.style.height="0px";
+    else pthree.style.height="auto";
 };
 
 // 手动模式
