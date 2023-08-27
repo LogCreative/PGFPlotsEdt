@@ -135,11 +135,11 @@ var setSpliterHeight = function () {
     var ptwo = document.getElementById('panel-two');
     var pthree = document.getElementById('panel-three');
     spliters[0].style.setProperty('--spliterHeight', Math.max(  
-        pone.style.width==0? 0 : parseInt(getComputedStyle(pone).height),
-        ptwo.style.width==0? 0 : parseInt(getComputedStyle(ptwo).height)) + 'px');
+        parseInt(getComputedStyle(pone).width)==0? 0 : parseInt(getComputedStyle(pone).height),
+        parseInt(getComputedStyle(ptwo).width)==0? 0 : parseInt(getComputedStyle(ptwo).height)) + 'px');
     spliters[1].style.setProperty('--spliterHeight', Math.max(
-        ptwo.style.width==0? 0 : parseInt(getComputedStyle(ptwo).height),
-        pthree.style.width==0? 0 : parseInt(getComputedStyle(pthree).height)) + 'px');
+        parseInt(getComputedStyle(ptwo).width)==0? 0 : parseInt(getComputedStyle(ptwo).height),
+        parseInt(getComputedStyle(pthree).width)==0? 0 : parseInt(getComputedStyle(pthree).height)) + 'px');
 };
 
 // 手动模式
