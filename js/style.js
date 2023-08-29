@@ -3,8 +3,12 @@ Vue.use(hljs.vuePlugin);
 // 采用 vue-i18n 国际化
 Vue.use(VueI18n);
 var in_lang;
-if(in_lang = /lang=(\w+)/.exec(window.location.href))
+if(in_lang = /lang=(\w+)/.exec(window.location.href)){
     in_lang = in_lang[1];
+    // legacy identifier
+    if(in_lang == 'cn')
+        in_lang = 'chs';
+}
 else in_lang = 'en';
 
 var default_title;
