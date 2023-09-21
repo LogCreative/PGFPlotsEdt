@@ -11,6 +11,11 @@ if(in_lang = /lang=(\w+)/.exec(window.location.href)){
 }
 else in_lang = 'en';
 
+lang_messages = {
+    chs: chs,
+    en: en
+}
+
 var default_title;
 var changelang = function(newlang) {
     var newscript = document.createElement('script');
@@ -22,53 +27,26 @@ var changelang = function(newlang) {
     head.appendChild(newscript);
     if(oldscript) head.removeChild(oldscript);
 
-    if(newlang == 'chs') {
-
-        default_title = "PGFPlots 统计绘图编辑器";
+    default_title = lang_messages[newlang]["PGFPlotsEdt"];
     
-        // 渲染顺序会导致设定的相反性
-        
-        // 缩小第一坐标的文本框宽度
-        Vue.directive('minimize',function(el,binding){
-            if(binding.value){
-                el.style.width = '40px';
-                el.placeholder = 'x轴';
-            } else {
-                el.style.width = '80px';
-                el.placeholder = '函数式(x)';
-            }
-        });
-        
-        Vue.directive('threetip',function (el,binding) {
-            if(binding.value)
-                el.placeholder = 'x y z 按回车添加项';
-            else el.placeholder = 'x y 按回车添加项';
-        });
+    // 渲染顺序会导致设定的相反性
     
-    } else {
+    // 缩小第一坐标的文本框宽度
+    Vue.directive('minimize',function(el,binding){
+        if(binding.value){
+            el.style.width = '40px';
+            el.placeholder = lang_messages[newlang]["series"]["funcx"];
+        } else {
+            el.style.width = '80px';
+            el.placeholder = lang_messages[newlang]["series"]["funcxfull"];
+        }
+    });
     
-        default_title = "PGFPlotsEdt";
-    
-        // 渲染顺序会导致设定的相反性
-    
-        // 缩小第一坐标的文本框宽度
-        Vue.directive('minimize',function(el,binding){
-            if(binding.value){
-                el.style.width = '40px';
-                el.placeholder = 'x axis';
-            } else {
-                el.style.width = '90px';
-                el.placeholder = 'function(x)';
-            }
-        });
-    
-        Vue.directive('threetip',function (el,binding) {
-            if(binding.value)
-                el.placeholder = 'x y z enter';
-            else el.placeholder = 'x y enter';
-        });
-    
-    }
+    Vue.directive('threetip',function (el,binding) {
+        if(binding.value)
+            el.placeholder = lang_messages[newlang]["series"]["threetip"];
+        else el.placeholder = lang_messages[newlang]["series"]["twotip"];
+    });
 
     Vue.directive('threenode',function (el,binding) {
         if(binding.value)

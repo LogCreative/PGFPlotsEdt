@@ -254,7 +254,7 @@
                 <input type="checkbox" @click="oncchange" v-model="cycle" :title="$t('series.area')">
             </div>
             <div><input type="text" class="param" :placeholder="$t('series.paramter')" v-model="param" @keyup="onpachange" @focus="param_focused" @blur="param_losefocus"></div>
-            <div><input type="text" class="coord" :placeholder="$t('series.funcx')" v-model="expression" @keyup="on_change" v-minimize="etd"></div>
+            <div><input type="text" class="coord" :placeholder="$t('series.funcxfull')" v-model="expression" @keyup="on_change" v-minimize="etd"></div>
             <div v-show="etd"><input type="text" class="coord2" :placeholder="$t('series.funcy')" v-model="expression2" @keyup="on_change"></div>
             <div v-show="etd"><input type="text" v-model="expression3" class="coord3" :placeholder="$t('series.funcz')" @keyup="on_change"></div>
             <parambar ref="subparambar" v-show="paramfoc" @click="param_focused" :command="command" :etd="etd" :globalz="false"></parambar>
@@ -444,9 +444,9 @@
     <script src="lib/snippets-latex.min.js"></script>
     <!-- User defined -->
     <script src="js/completion.js"></script>
-    <script src="js/style.js"></script>
     <script src="lang/chs.js"></script>
     <script src="lang/en.js"></script>
+    <script src="js/style.js"></script>
     <script src="js/tpl.js"></script>
     <script src="main.js"></script>
     <script>

@@ -1,10 +1,7 @@
 // 国际化
 var i18n = new VueI18n({
     locale: in_lang,
-    messages:{
-        chs: chs,
-        en: en
-    }
+    messages: lang_messages
 });
 
 // Use JSON
