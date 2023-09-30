@@ -11,8 +11,6 @@ from flask import Flask, send_from_directory, render_template_string, Response, 
 rootdir = os.path.dirname(os.path.abspath(__file__))
 tmpdir = os.path.join(rootdir, 'tmp')
 
-# If fail?
-# Silent?
 def run_cmd(cmd: str):
     subprocess.call("cd {} && ".format(tmpdir) + cmd, shell=True)
 
@@ -103,20 +101,31 @@ def index():
     return send_from_directory(rootdir, "index.html")
 
 
+compiling_sessions = set()
+
+
 @app.route('/compile', methods=['GET', 'POST'])
 def compile():
     if request.method == 'POST':
-        pdf = compile_tex(request.form['texdata'], request.form['requestid'])
-        if pdf is not None:
-            return Response(
-                pdf,
-                mimetype="application/pdf"
-            )
+        reqid = request.form['requestid']
+        if reqid not in compiling_sessions:
+            compiling_sessions.add(reqid)
+            pdf = compile_tex(request.form['texdata'], reqid)
+            if pdf is not None:
+                res = Response(
+                    pdf,
+                    mimetype="application/pdf"
+                )
+            else:
+                res = Response(
+                    get_log(reqid),
+                    mimetype="text/plain"
+                )
+            compiling_sessions.remove(reqid)
+            return res
         else:
-            return Response(
-                get_log(request.form['requestid']),
-                mimetype="text/plain"
-            )
+            app.logger.warning("Previous run of Session {} has not been finished. The request is discarded.".format(reqid))
+            return render_template_string("Previous run has not been finished.")
     else:
         return render_template_string("PGFPlotsEdt LaTeX Server: POST a LaTeX request (texdata, requestid) to render.")
 
