@@ -1298,6 +1298,7 @@ var app = new Vue({
     mounted: function (){
         this.dc_content = this.content;
         this.lang = in_lang;
+        this.$refs.requestid.value = Date.now();
     },
     watch:{
         content(_new,_old){
@@ -1369,18 +1370,33 @@ var app = new Vue({
         },
         compile: function() {
             app.purl="";
-            var urlencoder = function(str){
-                // +属于url保留符号，需要转义为%2B才可以使用。
-                // 全局匹配
-                return str.replace(/\%.+/g,"").replace(/[+]/g,"%2B");
-            };
+            
             var compile_tex = ""
             if (!this.manual) compile_tex = this.file;
             else {
                 var editor = ace.edit("manualfile");
                 compile_tex = editor.getValue();
             }
-            app.curl = "https://texlive2020.latexonline.cc/compile?text="+urlencoder(compile_tex);
+
+            var urlencoder = function(str){
+                // +属于url保留符号，需要转义为%2B才可以使用。
+                // 全局匹配
+                return str.replace(/\%.+/g,"").replace(/[+]/g,"%2B");
+            };
+
+            var request = new XMLHttpRequest();  
+            request.open('GET', "http://127.0.0.1:5678/compile", true);
+            request.onreadystatechange = function(){
+                if (request.status === 404) {  
+                    // 使用在线服务
+                    app.curl = "https://texlive2020.latexonline.cc/compile?text="+urlencoder(compile_tex);
+                } else {
+                    // 使用本地编译服务器
+                    app.$refs.texdata.value = compile_tex;
+                    app.$refs.localform.submit();
+                }
+            };
+            request.send();
         }
     },
 });

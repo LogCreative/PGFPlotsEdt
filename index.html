@@ -54,7 +54,11 @@
             <div id="panel-vone">
                 <button v-on="{click: compile}" id="compileBtn">{{$t('Compile')}}</button><br>
                 <iframe v-bind:src="purl" id="stylePrev" v-show="purl!=''" scrolling="no"></iframe>
-                <iframe v-bind:src="curl" id="compilePrev" v-show="purl==''"></iframe>
+                <form ref="localform" target="compileframe" action="http://127.0.0.1:5678/compile" method="post">
+                    <input ref="texdata" type="hidden" name="texdata"/>
+                    <input ref="requestid" type="hidden" name="requestid"/>
+                </form>
+                <iframe v-bind:src="curl" id="compilePrev" name="compileframe" v-show="purl==''"></iframe>
             </div>
             <div id="panel-vtwo">
                 <details>
