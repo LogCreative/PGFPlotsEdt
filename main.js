@@ -1374,12 +1374,13 @@ var app = new Vue({
                 // 全局匹配
                 return str.replace(/\%.+/g,"").replace(/[+]/g,"%2B");
             };
-            if(!app.manual)
-                app.curl = "https://texlive2020.latexonline.cc/compile?text="+urlencoder(this.file);
+            var compile_tex = ""
+            if (!this.manual) compile_tex = this.file;
             else {
                 var editor = ace.edit("manualfile");
-                app.curl = "https://texlive2020.latexonline.cc/compile?text="+urlencoder(editor.getValue());
+                compile_tex = editor.getValue();
             }
+            app.curl = "https://texlive2020.latexonline.cc/compile?text="+urlencoder(compile_tex);
         }
     },
 });
