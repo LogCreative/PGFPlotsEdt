@@ -5,6 +5,7 @@ import os
 import shutil
 import subprocess
 import platform
+import glob
 from flask import Flask, send_from_directory, render_template_string, Response, request
 
 rootdir = os.path.dirname(os.path.abspath(__file__))
@@ -30,8 +31,8 @@ def get_header_body(tex: str, sessid):
         tex = tex.replace("\\begin{CJK}{UTF8}{gbsn}", "\\begin{CJK}{UTF8}{song}")
     header_end = tex.find("\\begin{document}")
     if header_end == -1:
-        return None
-    return tex[:header_end] + "\\begin{document}\n\\end{document}",\
+        return None, None
+    return tex[:header_end] + "\\begin{document}\n\\end{document}\n",\
         "%&{}\n".format(get_header_name(sessid)) + tex[header_end:]
 
 
@@ -42,6 +43,9 @@ def same_or_write(filename, cur_content):
             prev_content = str(f.read())
         if prev_content == cur_content:
             return False  # the same as before
+    pdfpath = os.path.join(tmpdir, "{}.pdf".format(filename))
+    if os.path.isfile(pdfpath):
+        os.remove(pdfpath)
     with open(filepath, 'w') as f:
         f.write(cur_content)
     return True
@@ -50,23 +54,45 @@ def same_or_write(filename, cur_content):
 def compile_header(cur_header: str, sessid: str):
     header_name = get_header_name(sessid)
     if same_or_write(header_name, cur_header):
-        run_cmd('etex -ini -interaction=nonstopmode -jobname={} "&pdflatex" mylatexformat.ltx """{}.tex"""'
+        run_cmd('etex -ini -interaction=nonstopmode -halt-on-error -jobname={} "&pdflatex" mylatexformat.ltx """{}.tex"""'
                 .format(header_name, header_name))
 
 
 def compile_body(cur_body: str, sessid: str):
     body_name = get_body_name(sessid)
     if same_or_write(body_name, cur_body):
-        run_cmd('pdflatex {}.tex -interaction=nonstopmode'.format(body_name))
+        run_cmd('pdflatex -interaction=nonstopmode -halt-on-error {}.tex'.format(body_name))
+
+
+def clean_files(sessid: str, pdf: bool):
+    for filepath in glob.glob("{}/{}*".format(tmpdir, sessid)):
+        if not (filepath.endswith(".tex") or filepath.endswith(".log") or filepath.endswith(".fmt")):
+            if not (not pdf and filepath.endswith(".pdf")):
+                os.remove(filepath)
 
 
 def compile_tex(tex: str, sessid: str):
     tex_header, tex_body = get_header_body(tex, sessid)
-    compile_header(tex_header, sessid)
-    compile_body(tex_body, sessid)
-    with open(os.path.join(tmpdir, "{}.pdf".format(get_body_name(sessid))), 'rb') as f:
-        pdf = f.read()
-    return pdf
+    if tex_header is not None:
+        compile_header(tex_header, sessid)
+        compile_body(tex_body, sessid)
+        pdfpath = os.path.join(tmpdir, "{}.pdf".format(get_body_name(sessid)))
+        if os.path.isfile(pdfpath):
+            with open(pdfpath, 'rb') as f:
+                pdf = f.read()
+            clean_files(sessid, pdf=False)
+            return pdf
+    app.logger.warning("Compilation Failure on Session {}!".format(sessid))
+    clean_files(sessid, pdf=True)
+    return None
+
+
+def get_log(sessid: str):
+    logpath = os.path.join(tmpdir, "{}.log".format(get_body_name(sessid)))
+    if os.path.isfile(logpath):
+        with open(logpath, "r") as f:
+            return f.read()
+    return "Compilation Failure"
 
 
 app = Flask(__name__, static_url_path='', static_folder=".", template_folder=".")
@@ -80,10 +106,17 @@ def index():
 @app.route('/compile', methods=['GET', 'POST'])
 def compile():
     if request.method == 'POST':
-        return Response(
-            compile_tex(request.form['texdata'], request.form['requestid']),
-            mimetype="application/pdf"
-        )
+        pdf = compile_tex(request.form['texdata'], request.form['requestid'])
+        if pdf is not None:
+            return Response(
+                pdf,
+                mimetype="application/pdf"
+            )
+        else:
+            return Response(
+                get_log(request.form['requestid']),
+                mimetype="text/plain"
+            )
     else:
         return render_template_string("PGFPlotsEdt LaTeX Server: POST a LaTeX request (texdata, requestid) to render.")
 
