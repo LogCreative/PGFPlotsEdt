@@ -4,12 +4,12 @@
 import os
 import shutil
 import subprocess
+import platform
 from flask import Flask, send_from_directory, render_template_string, Response, request
 
 rootdir = os.path.dirname(os.path.abspath(__file__))
 tmpdir = os.path.join(rootdir, 'tmp')
 
-# Windows?
 # If fail?
 # Silent?
 def run_cmd(cmd: str):
@@ -26,6 +26,8 @@ def get_body_name(sessid: str):
 
 def get_header_body(tex: str, sessid):
     tex = tex.replace("\r\n", "\n")
+    if platform.system() == "Windows":
+        tex = tex.replace("\\begin{CJK}{UTF8}{gbsn}", "\\begin{CJK}{UTF8}{song}")
     header_end = tex.find("\\begin{document}")
     if header_end == -1:
         return None
