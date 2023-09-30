@@ -37,14 +37,14 @@ def get_header_body(tex: str, sessid):
 def same_or_write(filename, cur_content):
     filepath = os.path.join(tmpdir, "{}.tex".format(filename))
     if os.path.isfile(filepath):
-        with open(filepath, 'r') as f:
+        with open(filepath, 'r', encoding='utf-8') as f:
             prev_content = str(f.read())
         if prev_content == cur_content:
             return False  # the same as before
     pdfpath = os.path.join(tmpdir, "{}.pdf".format(filename))
     if os.path.isfile(pdfpath):
         os.remove(pdfpath)
-    with open(filepath, 'w') as f:
+    with open(filepath, 'w', encoding='utf-8') as f:
         f.write(cur_content)
     return True
 
@@ -88,7 +88,7 @@ def compile_tex(tex: str, sessid: str):
 def get_log(sessid: str):
     logpath = os.path.join(tmpdir, "{}.log".format(get_body_name(sessid)))
     if os.path.isfile(logpath):
-        with open(logpath, "r") as f:
+        with open(logpath, "r", encoding='utf-8') as f:
             return f.read()
     return "Compilation Failure"
 
