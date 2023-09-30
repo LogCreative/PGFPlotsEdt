@@ -35,25 +35,29 @@ def get_header_body(tex: str, sessid):
         "%&{}\n".format(get_header_name(sessid)) + tex[header_end:]
 
 
-def compile_header(cur_header: str, sessid: str):
-    header_name = get_header_name(sessid)
-    filepath = os.path.join(tmpdir, "{}.tex".format(header_name))
+def same_or_write(filename, cur_content):
+    filepath = os.path.join(tmpdir, "{}.tex".format(filename))
     if os.path.isfile(filepath):
         with open(filepath, 'r') as f:
-            prev_header = str(f.read())
-        if prev_header == cur_header:
-            return  # the same as before
+            prev_content = str(f.read())
+        if prev_content == cur_content:
+            return False  # the same as before
     with open(filepath, 'w') as f:
-        f.write(cur_header)
-    run_cmd('etex -ini -interaction=nonstopmode -jobname={} "&pdflatex" mylatexformat.ltx """{}.tex"""'
-            .format(header_name, header_name))
+        f.write(cur_content)
+    return True
+
+
+def compile_header(cur_header: str, sessid: str):
+    header_name = get_header_name(sessid)
+    if same_or_write(header_name, cur_header):
+        run_cmd('etex -ini -interaction=nonstopmode -jobname={} "&pdflatex" mylatexformat.ltx """{}.tex"""'
+                .format(header_name, header_name))
 
 
 def compile_body(cur_body: str, sessid: str):
     body_name = get_body_name(sessid)
-    with open(os.path.join(tmpdir, "{}.tex".format(body_name)), 'w') as f:
-        f.write(cur_body)
-    run_cmd('pdflatex {}.tex -interaction=nonstopmode'.format(body_name))
+    if same_or_write(body_name, cur_body):
+        run_cmd('pdflatex {}.tex -interaction=nonstopmode'.format(body_name))
 
 
 def compile_tex(tex: str, sessid: str):
