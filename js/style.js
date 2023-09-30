@@ -113,17 +113,19 @@ var blurCode = function (qselector) {
 // 设置分割栏的高度
 var setSpliterHeight = function () {
     var spliters = document.getElementsByClassName('gutter gutter-horizontal');
-    var pone = document.getElementById('panel-one');
-    var ptwo = document.getElementById('panel-two');
-    var pthree = document.getElementById('panel-three');
-    spliters[0].style.setProperty('--spliterHeight', Math.max(  
-        parseInt(getComputedStyle(pone).width)==0? 0 : parseInt(getComputedStyle(pone).height),
-        parseInt(getComputedStyle(ptwo).width)==0? 0 : parseInt(getComputedStyle(ptwo).height)) + 'px');
-    spliters[1].style.setProperty('--spliterHeight', Math.max(
-        parseInt(getComputedStyle(ptwo).width)==0? 0 : parseInt(getComputedStyle(ptwo).height),
-        parseInt(getComputedStyle(pthree).width)==0? 0 : parseInt(getComputedStyle(pthree).height)) + 'px');
-    if (parseInt(getComputedStyle(pthree).width)==0) pthree.style.height="0px";
-    else pthree.style.height="auto";
+    if (spliters.length > 0) {
+        var pone = document.getElementById('panel-one');
+        var ptwo = document.getElementById('panel-two');
+        var pthree = document.getElementById('panel-three');
+        spliters[0].style.setProperty('--spliterHeight', Math.max(  
+            parseInt(getComputedStyle(pone).width)==0? 0 : parseInt(getComputedStyle(pone).height),
+            parseInt(getComputedStyle(ptwo).width)==0? 0 : parseInt(getComputedStyle(ptwo).height)) + 'px');
+        spliters[1].style.setProperty('--spliterHeight', Math.max(
+            parseInt(getComputedStyle(ptwo).width)==0? 0 : parseInt(getComputedStyle(ptwo).height),
+            parseInt(getComputedStyle(pthree).width)==0? 0 : parseInt(getComputedStyle(pthree).height)) + 'px');
+        if (parseInt(getComputedStyle(pthree).width)==0) pthree.style.height="0px";
+        else pthree.style.height="auto";
+    }
 };
 
 // 手动模式
