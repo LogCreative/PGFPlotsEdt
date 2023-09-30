@@ -1387,13 +1387,13 @@ var app = new Vue({
             var request = new XMLHttpRequest();  
             request.open('GET', "http://127.0.0.1:5678/compile", true);
             request.onreadystatechange = function(){
-                if (request.status === 404) {  
-                    // 使用在线服务
-                    app.curl = "https://texlive2020.latexonline.cc/compile?text="+urlencoder(compile_tex);
-                } else {
+                if (request.status === 200) {
                     // 使用本地编译服务器
                     app.$refs.texdata.value = compile_tex;
                     app.$refs.localform.submit();
+                } else {
+                    // 使用在线服务
+                    app.curl = "https://texlive2020.latexonline.cc/compile?text="+urlencoder(compile_tex);
                 }
             };
             request.send();
