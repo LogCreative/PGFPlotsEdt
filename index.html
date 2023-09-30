@@ -56,7 +56,7 @@
                 <iframe v-bind:src="purl" id="stylePrev" v-show="purl!=''" scrolling="no"></iframe>
                 <form ref="localform" target="compileframe" action="http://127.0.0.1:5678/compile" method="post">
                     <input ref="texdata" type="hidden" name="texdata"/>
-                    <input ref="requestid" type="hidden" name="requestid"/>
+                    <input type="hidden" name="requestid" :value="requestid"/>
                 </form>
                 <iframe v-bind:src="curl" id="compilePrev" name="compileframe" v-show="purl==''"></iframe>
             </div>

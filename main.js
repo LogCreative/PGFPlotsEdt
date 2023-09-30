@@ -1294,11 +1294,22 @@ var app = new Vue({
         dc_content: "",
         purl:"",
         lang:"en",
+        requestid:-1,
     },
     mounted: function (){
         this.dc_content = this.content;
         this.lang = in_lang;
-        this.$refs.requestid.value = Date.now();
+        
+        var request = new XMLHttpRequest(); 
+        request.open('GET', "http://127.0.0.1:5678/compile", true);
+        request.onreadystatechange = function(){
+            if (request.status === 200) {
+                app.requestid = Date.now();
+            } else {
+                app.requestid = -1;
+            }
+        };
+        request.send();
     },
     watch:{
         content(_new,_old){
@@ -1384,19 +1395,14 @@ var app = new Vue({
                 return str.replace(/\%.+/g,"").replace(/[+]/g,"%2B");
             };
 
-            var request = new XMLHttpRequest();  
-            request.open('GET', "http://127.0.0.1:5678/compile", true);
-            request.onreadystatechange = function(){
-                if (request.status === 200) {
-                    // 使用本地编译服务器
-                    app.$refs.texdata.value = compile_tex;
-                    app.$refs.localform.submit();
-                } else {
-                    // 使用在线服务
-                    app.curl = "https://texlive2020.latexonline.cc/compile?text="+urlencoder(compile_tex);
-                }
-            };
-            request.send();
+            if (this.requestid >= 0) {
+                // 使用本地编译服务器
+                app.$refs.texdata.value = compile_tex;
+                app.$refs.localform.submit();
+            } else {
+                // 使用在线服务
+                app.curl = "https://texlive2020.latexonline.cc/compile?text="+urlencoder(compile_tex);
+            }
         }
     },
 });
