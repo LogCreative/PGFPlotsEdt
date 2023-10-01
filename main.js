@@ -1140,8 +1140,8 @@ Vue.component('viewproperty',{
             if(this.drag){
                 if(this.value=="") this.value = 25;
                 if(this.valuex=="") this.valuex = 30;
-                if(e.path[0].id=='xrotater') this.value = parseInt(this.value) + pos - this.prevx;
-                else if(e.path[0].id=='yrotater') this.valuex = parseInt(this.valuex) + pos - this.prevx;
+                if(e.target.id=='xrotater') this.value = parseInt(this.value) + pos - this.prevx;
+                else if(e.target.id=='yrotater') this.valuex = parseInt(this.valuex) + pos - this.prevx;
                 this.prevx = pos;
             }
         },
