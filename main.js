@@ -1300,6 +1300,7 @@ var app = new Vue({
         this.dc_content = this.content;
         this.lang = in_lang;
         
+        this.$refs.localform.preventDefault()
         var request = new XMLHttpRequest(); 
         request.open('GET', "http://127.0.0.1:5678/compile", true);
         request.onreadystatechange = function(){

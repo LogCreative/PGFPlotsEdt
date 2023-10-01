@@ -36,8 +36,6 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
     ```
     - Open `http://127.0.0.1:5678` in your browser.
     > For Windows users, the server side will automatically change the fontset used by CJK for a larger compatibility.
-    >
-    > Use Chromium based browsers for the best user experience.
 
 #### Acknowledgements
 
