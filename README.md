@@ -22,7 +22,7 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
 
 - You could use the online version directly:
 
-    <a href="https://logcreative.github.io/PGFPlotsEdt/"><img src="res/logo/logo.svg" width="16px">https://logcreative.github.io/PGFPlotsEdt/</a>
+    <a href="https://logcreative.github.io/PGFPlotsEdt/"><img src="res/logo/logo.svg" width="16px">https://logcreative.github.io/PGFPlotsEdt/ </a>
 
 - If you want to make sure the data won't go anywhere in the Internet, or try to compile the document faster, use the offline version by downloading the repo and fire up a local server to handle the compling tasks:
     - Install TeX distribution on your local computer.
