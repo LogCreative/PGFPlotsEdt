@@ -1299,18 +1299,20 @@ var app = new Vue({
     mounted: function (){
         this.dc_content = this.content;
         this.lang = in_lang;
-        
-        this.$refs.localform.preventDefault()   // Safari will break from here.
-        var request = new XMLHttpRequest(); 
-        request.open('GET', "http://127.0.0.1:5678/compile", true);
-        request.onreadystatechange = function(){
-            if (request.status === 200) {
-                app.requestid = Date.now();
-            } else {
-                app.requestid = -1;
-            }
-        };
-        request.send();
+
+        var isChromium = !!window.chrome;
+        if (isChromium) {
+            var request = new XMLHttpRequest();
+            request.open('GET', "http://127.0.0.1:5678/compile", true);
+            request.onreadystatechange = function(){
+                if (request.status === 200) {
+                    app.requestid = Date.now();
+                } else {
+                    app.requestid = -1;
+                }
+            };
+            request.send();
+        }
     },
     watch:{
         content(_new,_old){
