@@ -11,6 +11,7 @@ from flask import Flask, send_from_directory, render_template_string, Response, 
 rootdir = os.path.dirname(os.path.abspath(__file__))
 tmpdir = os.path.join(rootdir, 'tmp')
 
+
 def run_cmd(cmd: str):
     subprocess.call("cd {} && {}".format(tmpdir, cmd), shell=True)
 
@@ -30,8 +31,8 @@ def get_header_body(tex: str, sessid: str):
     header_end = tex.find("\\begin{document}")
     if header_end == -1:
         return None, None
-    return tex[:header_end] + "\\begin{document}\n\\end{document}\n",\
-        "%&{}\n".format(get_header_name(sessid)) + tex[header_end:]
+    return tex[:header_end] + "\\begin{document}\n\\end{document}\n", \
+           "%&{}\n".format(get_header_name(sessid)) + tex[header_end:]
 
 
 def same_or_write(filename: str, cur_content: str):
@@ -52,8 +53,9 @@ def same_or_write(filename: str, cur_content: str):
 def compile_header(cur_header: str, sessid: str):
     header_name = get_header_name(sessid)
     if same_or_write(header_name, cur_header):
-        run_cmd('etex -ini -interaction=nonstopmode -halt-on-error -jobname={} "&pdflatex" mylatexformat.ltx """{}.tex"""'
-                .format(header_name, header_name))
+        run_cmd(
+            'etex -ini -interaction=nonstopmode -halt-on-error -jobname={} "&pdflatex" mylatexformat.ltx """{}.tex"""'
+            .format(header_name, header_name))
 
 
 def compile_body(cur_body: str, sessid: str):
@@ -122,7 +124,8 @@ def compile():
             compiling_sessions.remove(reqid)
             return res
         else:
-            app.logger.warning("Previous run of Session {} has not been finished. The request is discarded.".format(reqid))
+            app.logger.warning(
+                "Previous run of Session {} has not been finished. The request is discarded.".format(reqid))
             return render_template_string("Previous run has not been finished.")
     else:
         return render_template_string("PGFPlotsEdt LaTeX Server: POST a LaTeX request (texdata, requestid) to render.")
