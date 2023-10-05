@@ -12,7 +12,7 @@ rootdir = os.path.dirname(os.path.abspath(__file__))
 tmpdir = os.path.join(rootdir, 'tmp')
 
 def run_cmd(cmd: str):
-    subprocess.call("cd {} && ".format(tmpdir) + cmd, shell=True)
+    subprocess.call("cd {} && {}".format(tmpdir, cmd), shell=True)
 
 
 def get_header_name(sessid: str):
@@ -23,7 +23,7 @@ def get_body_name(sessid: str):
     return "{}".format(sessid)
 
 
-def get_header_body(tex: str, sessid):
+def get_header_body(tex: str, sessid: str):
     tex = tex.replace("\r\n", "\n")
     if platform.system() == "Windows":
         tex = tex.replace("\\begin{CJK}{UTF8}{gbsn}", "\\begin{CJK}{UTF8}{song}")
@@ -34,11 +34,11 @@ def get_header_body(tex: str, sessid):
         "%&{}\n".format(get_header_name(sessid)) + tex[header_end:]
 
 
-def same_or_write(filename, cur_content):
+def same_or_write(filename: str, cur_content: str):
     filepath = os.path.join(tmpdir, "{}.tex".format(filename))
     if os.path.isfile(filepath):
         with open(filepath, 'r', encoding='utf-8') as f:
-            prev_content = str(f.read())
+            prev_content = f.read()
         if prev_content == cur_content:
             return False  # the same as before
     pdfpath = os.path.join(tmpdir, "{}.pdf".format(filename))
@@ -94,14 +94,12 @@ def get_log(sessid: str):
 
 
 app = Flask(__name__, static_url_path='', static_folder=".", template_folder=".")
+compiling_sessions = set()
 
 
 @app.route('/', methods=['GET'])
 def index():
     return send_from_directory(rootdir, "index.html")
-
-
-compiling_sessions = set()
 
 
 @app.route('/compile', methods=['GET', 'POST'])
