@@ -245,23 +245,23 @@
                      [{{idInner|addZero}}]
                     <input type="checkbox" class="showToggle" @click="onschange" v-model="show" :title="$t('series.showLayer')">
                 </label>
-            </div>
-            <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
-            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.delete')">X</button></div>
-            <div class="ttd" v-show="ontd">
+            </div><!--
+            --><div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div><!--
+            --><div><button class="deleteBut" @click="deleteComp" :title="$t('series.delete')">X</button></div><!--
+            --><div class="ttd" v-show="ontd">
                 <input type="checkbox" @click="ontdchange" v-model="etd" :title="$t('series.td')">
-            </div>
-            <div class="ptd">
+            </div><!--
+            --><div class="ptd">
                 <input type="checkbox" @click="onpchange" v-model="plus" :title="$t('series.style')">
-            </div>
-            <div class="ctd">
+            </div><!--
+            --><div class="ctd">
                 <input type="checkbox" @click="oncchange" v-model="cycle" :title="$t('series.area')">
-            </div>
-            <div><input type="text" class="param" :placeholder="$t('series.paramter')" v-model="param" @keyup="onpachange" @focus="param_focused" @blur="param_losefocus"></div>
-            <div><input type="text" class="coord" :placeholder="$t('series.funcxfull')" v-model="expression" @keyup="on_change" v-minimize="etd"></div>
-            <div v-show="etd"><input type="text" class="coord2" :placeholder="$t('series.funcy')" v-model="expression2" @keyup="on_change"></div>
-            <div v-show="etd"><input type="text" v-model="expression3" class="coord3" :placeholder="$t('series.funcz')" @keyup="on_change"></div>
-            <parambar ref="subparambar" v-show="paramfoc" @click="param_focused" :command="command" :etd="etd" :globalz="false"></parambar>
+            </div><!--
+            --><div><input type="text" class="param" :placeholder="$t('series.paramter')" v-model="param" @keyup="onpachange" @focus="param_focused" @blur="param_losefocus"></div><!--
+            --><div><input type="text" class="coord" :placeholder="$t('series.funcxfull')" v-model="expression" @keyup="on_change" v-minimize="etd"></div><!--
+            --><div v-show="etd"><input type="text" class="coord2" :placeholder="$t('series.funcy')" v-model="expression2" @keyup="on_change"></div><!--
+            --><div v-show="etd"><input type="text" v-model="expression3" class="coord3" :placeholder="$t('series.funcz')" @keyup="on_change"></div><!--
+            --><parambar ref="subparambar" v-show="paramfoc" @click="param_focused" :command="command" :etd="etd" :globalz="false"></parambar>
         </div>
     </template>
     <template id="coordbartpl">
@@ -284,22 +284,22 @@
                      [{{idInner|addZero}}]
                     <input type="checkbox" class="showToggle" v-model="show" @click="onschange" :title="$t('series.showLayer')">
                 </label>
-            </div>
-            <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
-            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.delete')">X</button></div>
-            <div class="ttd" v-show="ontd">
+            </div><!--
+            --><div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div><!--
+            --><div><button class="deleteBut" @click="deleteComp" :title="$t('series.delete')">X</button></div><!--
+            --><div class="ttd" v-show="ontd">
                 <input type="checkbox" @click="ontdchange" v-model="etd" :title="$t('series.td')">
-            </div>
-            <div class="ptd">
+            </div><!--
+            --><div class="ptd">
                 <input type="checkbox" @click="onpchange" v-model="plus" :title="$t('series.style')">
-            </div>
-            <div class="ctd">
+            </div><!--
+            --><div class="ctd">
                 <input type="checkbox" @click="oncchange" v-model="cycle" :title="$t('series.area')">
-            </div>
-            <div><input type="text" class="param" v-model="param" @keyup="onpachange" :placeholder="$t('series.paramter')" @focus="param_focused" @blur="param_losefocus"></div>
-            <parambar ref="subparambar" v-show="paramfoc" :command="command" :etd="etd" :global="false"></parambar>
-            <coordbar ref="subcoordbar" :cdata="cdata" v-show="shown" :td="etd"></coordbar>
-            <div v-show="!shown"><textarea class="coordtext" v-model="cdata" :placeholder="$t('series.coord')" @focus="coord_focused"></textarea></div>
+            </div><!--
+            --><div><input type="text" class="param" v-model="param" @keyup="onpachange" :placeholder="$t('series.paramter')" @focus="param_focused" @blur="param_losefocus"></div><!--
+            --><parambar ref="subparambar" v-show="paramfoc" :command="command" :etd="etd" :global="false"></parambar><!--
+            --><coordbar ref="subcoordbar" :cdata="cdata" v-show="shown" :td="etd"></coordbar><!--
+            --><div v-show="!shown"><textarea class="coordtext" v-model="cdata" :placeholder="$t('series.coord')" @focus="coord_focused"></textarea></div>
         </div>
     </template>
     <template id="tableparamtpl">
@@ -346,32 +346,32 @@
                      [{{idInner|addZero}}]
                     <input type="checkbox" class="showToggle" v-model="show" @click="onschange" :title="$t('series.showLayer')">
                 </label>
-            </div>
-            <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
-            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.delete')">X</button></div>
-            <div class="ttd" v-show="ontd">
+            </div><!--
+            --><div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div><!--
+            --><div><button class="deleteBut" @click="deleteComp" :title="$t('series.delete')">X</button></div><!--
+            --><div class="ttd" v-show="ontd">
                 <input type="checkbox" @click="ontdchange" v-model="etd" :title="$t('series.td')">
-            </div>
-            <div class="ptd">
+            </div><!--
+            --><div class="ptd">
                 <input type="checkbox" @click="onpchange" v-model="plus" :title="$t('series.style')">
-            </div>
-            <div class="ctd">
+            </div><!--
+            --><div class="ctd">
                 <input type="checkbox" @click="oncchange" v-model="cycle" :title="$t('series.area')">
-            </div>
-            <div><input type="text" class="param" v-model="param" @keyup="onpachange" :placeholder="$t('series.paramter')"  @focus="param_focused" @blur="param_losefocus"></div>
-            <div><input type="text" class="coord" v-model="tableparam" @keyup="on_change" :placeholder="$t('series.tableparam')" @focus="tableparam_focused" @mouseenter="tableparam_focused"></div>
-            <div v-show="enablesource">
+            </div><!--
+            --><div><input type="text" class="param" v-model="param" @keyup="onpachange" :placeholder="$t('series.paramter')"  @focus="param_focused" @blur="param_losefocus"></div><!--
+            --><div><input type="text" class="coord" v-model="tableparam" @keyup="on_change" :placeholder="$t('series.tableparam')" @focus="tableparam_focused" @mouseenter="tableparam_focused"></div><!--
+            --><div v-show="enablesource">
                 <select v-model="sourceSelect" @change="on_change">
                     <option v-for="opt in sourceNameList" :value="opt" v-show="opt!=null">{{opt}}</option>
                 </select>
-            </div>
-            <div v-show="sourceSelect=='...'||!enablesource">
+            </div><!--
+            --><div v-show="sourceSelect=='...'||!enablesource">
                 <div style="display:none"><input type="text" class="coord" v-model="fileName" :placeholder="$t('series.tabledata')"></div>
                 <div style="display:none"><input type="text" class="coord" v-model="datat" @keyup="on_change" :placeholder="$t('series.datatable')"></div>
                 <div style="display: inline-block; margin-left: -10px;"><input type="file" id="files" class="fileChooser" @change="readFile"></div>
-            </div>
-            <parambar ref="subparambar" v-show="paramfoc" :command="command" :etd="etd" :global="false"></parambar>
-            <tableparambar v-show="tableparambar" :datat="datat" :etd="etd"></tableparambar>
+            </div><!--
+            --><parambar ref="subparambar" v-show="paramfoc" :command="command" :etd="etd" :global="false"></parambar><!--
+            --><tableparambar v-show="tableparambar" :datat="datat" :etd="etd"></tableparambar>
         </div>
     </template>
     <template id="nodetpl">
@@ -382,14 +382,14 @@
                      [{{idInner|addZero}}]
                     <input type="checkbox" class="showToggle" v-model="show" @click="onschange" :title="$t('series.showLayer')">
                 </label>
-            </div>
-            <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
-            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.deletepin')">X</button></div>
-            <div class="ytd">
+            </div><!--
+            --><div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div><!--
+            --><div><button class="deleteBut" @click="deleteComp" :title="$t('series.deletepin')">X</button></div><!--
+            --><div class="ytd">
                 <input type="checkbox" @click="ontdchange" v-model="etd" :title="$t('series.pinyellow')">
-            </div>
-            <div><input type="text" class="param" v-model="param" @keyup="on_change" :placeholder="$t('series.rotatepin')" v-show="etd"></div>
-            <div><input type="text" class="coord" v-model="pos" @keyup="on_change" placeholder="x,y" v-threenode="app.td"></div>
+            </div><!--
+            --><div><input type="text" class="param" v-model="param" @keyup="on_change" :placeholder="$t('series.rotatepin')" v-show="etd"></div><!--
+            --><div><input type="text" class="coord" v-model="pos" @keyup="on_change" placeholder="x,y" v-threenode="app.td"></div>
         </div>
     </template>
     <template id="propertyselecttpl">

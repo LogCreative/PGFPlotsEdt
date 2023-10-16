@@ -268,11 +268,22 @@ summary {
 #series .seriesitem > div,
 #series .seriesitem label > div{
     display: inline;
-    margin-right: -5px;
+    /* margin-right: -5px; */
 }
 
 #series .seriesitem {
     margin: 2px 0px;
+}
+
+#series .upBut,
+#series .deleteBut,
+input[type=checkbox] {
+    box-sizing: border-box;
+    width: 17pt;
+    height: 17pt;
+    padding: 1pt;
+    margin: 0pt;
+    vertical-align: bottom;
 }
 
 #series .upBut {
@@ -321,7 +332,7 @@ summary {
 }
 
 .seriesitem .type{
-    margin: 3px 3px 5px 0px;
+    margin: 3px 0px 5px 0px;
     color: #666;
 }
 
@@ -336,19 +347,12 @@ input[type=checkbox]
     cursor: pointer;
 }
 
-#settings input[type=checkbox] {
-    margin-right: 10px;
-}
-
-#data input[type=checkbox] {
-    margin-right: 8px;
+#packages input[type=checkbox] {
+    margin-right: 5px;
+    vertical-align:middle;
 }
 
 input[type=checkbox] {
-    margin-bottom: 5px;
-    
-    width: 15px;
-    height: 17px;
     position: relative;
 }
 
