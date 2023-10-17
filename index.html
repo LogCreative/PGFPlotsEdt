@@ -241,8 +241,8 @@
             <div class="type" v-soutline="show">
                 <label>
                     <div v-show="!onlegend">{{$t('series.fn')}}</div>
-                    <div v-show="onlegend"><input type="text" class="legend" :placeholder="$t('series.fn')" v-model="legend" @keyup="on_change" ></div>
-                     [{{idInner|addZero}}]
+                    <div v-show="onlegend"><input type="text" class="legend" :placeholder="$t('series.fn')" v-model="legend" @keyup="on_change" ></div><!--
+                    -->[{{idInner|addZero}}]
                     <input type="checkbox" class="showToggle" @click="onschange" v-model="show" :title="$t('series.showLayer')">
                 </label>
             </div><!--
@@ -280,8 +280,8 @@
             <div class="type" v-soutline="show">
                 <label>
                     <div v-show="!onlegend">{{$t('series.coordinate')}}</div>
-                    <div v-show="onlegend"><input type="text" class="legend" :placeholder="$t('series.coordinate')" v-model="legend" @keyup="on_change"></div>
-                     [{{idInner|addZero}}]
+                    <div v-show="onlegend"><input type="text" class="legend" :placeholder="$t('series.coordinate')" v-model="legend" @keyup="on_change"></div><!--
+                    -->[{{idInner|addZero}}]
                     <input type="checkbox" class="showToggle" v-model="show" @click="onschange" :title="$t('series.showLayer')">
                 </label>
             </div><!--
@@ -326,8 +326,8 @@
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
                 <label>
-                    <div><input type="text" class="legend" :placeholder="$t('series.source')" v-model="sourceName" @keyup="on_change" v-validate="sourceName"></div>
-                     ({{idInner|addZero}})
+                    <div><input type="text" class="legend" :placeholder="$t('series.source')" v-model="sourceName" @keyup="on_change" v-validate="sourceName"></div><!--
+                    -->({{idInner|addZero}})
                     <input type="checkbox" class="showToggle" v-model="show" @click="onschange" :title="$t('series.showLayer')">
                 </label>
             </div>
@@ -342,8 +342,8 @@
             <div class="type" v-soutline="show">
                 <label>
                     <div v-show="!onlegend">{{$t('series.table')}}</div>
-                    <div v-show="onlegend"><input type="text" class="legend" :placeholder="$t('series.table')" v-model="legend" @keyup="on_change"></div>
-                     [{{idInner|addZero}}]
+                    <div v-show="onlegend"><input type="text" class="legend" :placeholder="$t('series.table')" v-model="legend" @keyup="on_change"></div><!--
+                    -->[{{idInner|addZero}}]
                     <input type="checkbox" class="showToggle" v-model="show" @click="onschange" :title="$t('series.showLayer')">
                 </label>
             </div><!--
@@ -378,8 +378,8 @@
         <div v-show="enabled" class="seriesitem">
             <div class="type" v-soutline="show">
                 <label>
-                    <div><input type="text" class="legend" :placeholder="$t('series.pin')" v-model="pin" @keyup="on_change"></div>
-                     [{{idInner|addZero}}]
+                    <div><input type="text" class="legend" :placeholder="$t('series.pin')" v-model="pin" @keyup="on_change"></div><!--
+                    -->[{{idInner|addZero}}]
                     <input type="checkbox" class="showToggle" v-model="show" @click="onschange" :title="$t('series.showLayer')">
                 </label>
             </div><!--
