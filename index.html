@@ -330,11 +330,11 @@
                     -->({{idInner|addZero}})
                     <input type="checkbox" class="showToggle" v-model="show" @click="onschange" :title="$t('series.showLayer')">
                 </label>
-            </div>
-            <div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div>
-            <div><button class="deleteBut" @click="deleteComp" :title="$t('series.deletesource')">X</button></div>
-            <div><button class="transposeBut" @click="transpose" v-show="!etd" :title="$t('series.transpose')">T</button></div>
-            <div><input type="file" id="files" class="fileChooser" @change="readFile"></div>
+            </div><!--
+            --><div><button class="upBut" @click="moveUp" :title="$t('series.top')">↑</button></div><!--
+            --><div><button class="deleteBut" @click="deleteComp" :title="$t('series.deletesource')">X</button></div><!--
+            --><div><button class="transposeBut" @click="transpose" v-show="!etd" :title="$t('series.transpose')">T</button></div><!--
+            --><div><input type="file" id="files" class="fileChooser" @change="readFile"></div>
         </div>
     </template>
     <template id="tableptpl">
