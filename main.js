@@ -788,6 +788,7 @@ Vue.component('tableparambar',{
             var filelines = this.datat.split("\\\\");
             for(var i in filelines){
                 if(i==0) continue;              // skip the header
+                if(filelines[i]=="") continue;  // skip the empty line
                 var rowcol = filelines[i].trimEnd().split(" ");
                 for(var j in rowcol)
                     if(/(\d|e\-|e\+|\s|.)+/.exec(rowcol[j])==null)
@@ -807,6 +808,7 @@ Vue.component('tableparambar',{
             var symbolicset = new Set();
             for(var i in filelines){
                 if(i==0) continue;              // skip the header
+                if(filelines[i]=="") continue;  // skip the empty line
                 var rowcol = filelines[i].trimEnd().split(" ");
                 symbolicset.add(rowcol[index]);
             }
