@@ -789,7 +789,7 @@ Vue.component('tableparambar',{
                 if(i==0) continue;              // skip the header
                 var rowcol = filelines[i].trimEnd().split(" ");
                 for(var j in rowcol)
-                    if(/[^(\d|e|\-|\s|.)]+/.exec(rowcol[j])!=null)
+                    if(/(\d|e\-|e\+|\s|.)+/.exec(rowcol[j])==null)
                         this.symbolic[j] = true;
             }
         },
