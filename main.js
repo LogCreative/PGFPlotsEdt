@@ -791,7 +791,7 @@ Vue.component('tableparambar',{
                 if(filelines[i]=="") continue;  // skip the empty line
                 var rowcol = filelines[i].trimEnd().split(" ");
                 for(var j in rowcol)
-                    if(/(\d|e\-|e\+|\s|\.)+/.exec(rowcol[j])==null)
+                    if(/[^\de\+\-\s\.]+/.exec(rowcol[j])!=null)
                         this.symbolic[j] = true;
             }
         },
