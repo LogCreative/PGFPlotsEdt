@@ -776,7 +776,7 @@ Vue.component('tableparambar',{
                 return ;
             }
             var header = this.datat.substring(0,this.datat.indexOf("\\\\"));
-            this.colname = header.split(" ");
+            this.colname = header.trimEnd().split(" ");
             this.symbolic_test();
             this.$refs.tableform.reset();
             this.$parent.updater();
@@ -787,7 +787,7 @@ Vue.component('tableparambar',{
             var filelines = this.datat.split("\\\\");
             for(var i in filelines){
                 if(i==0) continue;              // skip the header
-                var rowcol = filelines[i].split(" ");
+                var rowcol = filelines[i].trimEnd().split(" ");
                 for(var j in rowcol)
                     if(/[^(\d|e|\-|\s|.)]+/.exec(rowcol[j])!=null)
                         this.symbolic[j] = true;
@@ -806,7 +806,7 @@ Vue.component('tableparambar',{
             var symbolicset = new Set();
             for(var i in filelines){
                 if(i==0) continue;              // skip the header
-                var rowcol = filelines[i].split(" ");
+                var rowcol = filelines[i].trimEnd().split(" ");
                 symbolicset.add(rowcol[index]);
             }
             symbolicset.delete("");
@@ -890,7 +890,7 @@ Vue.component('Tsource',{
             var filelines = this.datat.replace("\\\\\\\\","").split("\\\\");
             var newfile = [];
             for(var i in filelines){
-                cols = filelines[i].split(" ");
+                cols = filelines[i].trimEnd().split(" ");
                 if(i==0)   // header
                     for(var j in cols)
                         newfile.push([cols[j]]);
