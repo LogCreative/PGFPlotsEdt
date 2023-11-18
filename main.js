@@ -769,7 +769,6 @@ Vue.component('tableparambar',{
     watch:{
         datat(_datat){
             this.colname = [];
-            this.symbolic = [];
             this.symbolicsets = [];
             this.$parent.tableaxis = "";
             if(!_datat) {
@@ -777,6 +776,8 @@ Vue.component('tableparambar',{
             }
             var header = this.datat.substring(0,this.datat.indexOf("\\\\"));
             this.colname = header.trimEnd().split(" ");
+            this.symbolic = new Array(this.colname.length).fill(false);
+            this.symbolicsets = new Array(this.colname.length).fill(new Set());
             this.symbolic_test();
             this.$refs.tableform.reset();
             this.$parent.updater();
@@ -800,7 +801,7 @@ Vue.component('tableparambar',{
                     setstr += item + ",";
                 return setstr.substring(0,setstr.length-1);
             }
-            if(this.symbolicsets[index])
+            if(this.symbolicsets[index].length > 0)
                 return getsetstr(this.symbolicsets[index]); // cached
             var filelines = this.datat.split("\\\\");
             var symbolicset = new Set();
