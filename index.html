@@ -54,7 +54,7 @@
             <div id="panel-vone">
                 <button v-on="{click: compile}" id="compileBtn">{{$t('Compile')}}</button><br>
                 <iframe v-bind:src="purl" id="stylePrev" v-show="purl!=''" scrolling="no"></iframe>
-                <form ref="localform" target="compileframe" action="http://127.0.0.1:5678/compile" method="post">
+                <form ref="localform" target="compileframe" action="/compile" method="post">
                     <input ref="texdata" type="hidden" name="texdata"/>
                     <input type="hidden" name="requestid" :value="requestid"/>
                 </form>

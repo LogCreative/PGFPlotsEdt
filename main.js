@@ -1306,7 +1306,7 @@ var app = new Vue({
         var isChromium = !!window.chrome;
         if (isChromium) {
             var request = new XMLHttpRequest();
-            request.open('GET', "http://127.0.0.1:5678/compile", true);
+            request.open('GET', "/compile", true);
             request.onreadystatechange = function(){
                 if (request.status === 200) {
                     app.requestid = Date.now();
