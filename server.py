@@ -6,7 +6,13 @@ import shutil
 import subprocess
 import platform
 import glob
+from cachetools import LRUCache
+
 from flask import Flask, send_from_directory, render_template_string, Response, request
+
+HOST = "127.0.0.1"
+PORT = 5678
+MAX_SIZE = 20
 
 rootdir = os.path.dirname(os.path.abspath(__file__))
 tmpdir = os.path.join(rootdir, 'tmp')
@@ -35,13 +41,60 @@ def get_header_body(tex: str, sessid: str):
            "%&{}\n".format(get_header_name(sessid)) + tex[header_end:]
 
 
-def same_or_write(filename: str, cur_content: str):
+def clear_files(file_prefix: str):
+    for filepath in glob.glob("{}/{}*".format(tmpdir, file_prefix)):
+        os.remove(filepath)
+
+
+class HeaderLRUCache(LRUCache):
+    def popitem(self):
+        key, value = super().popitem()
+        clear_files(key)        # only header related
+        return key, value
+
+    def build(self):
+        for filepath in glob.glob("{}/*_header.tex".format(tmpdir)):
+            with open(filepath, 'r', encoding='utf-8') as f:
+                content = f.read()
+            filename = os.path.basename(filepath).rsplit(".")[0]
+            if os.path.isfile(filepath.removesuffix(".tex") + ".fmt"):
+                self[filename] = content
+            else:
+                clear_files(filename)
+
+class BodyLRUCache(LRUCache):
+    def popitem(self):
+        key, value = super().popitem()
+        clear_files(key + ".")  # only body related
+        return key, value
+
+    def build(self):
+        for filepath in glob.glob("{}/*.tex".format(tmpdir)):
+            with open(filepath, 'r', encoding='utf-8') as f:
+                content = f.read()
+            filename = os.path.basename(filepath).rsplit(".")[0]
+            if os.path.isfile(filepath.removesuffix(".tex") + ".pdf"):
+                self[filename] = content
+            else:
+                clear_files(filename + ".")  # only body related
+
+
+header_cache = HeaderLRUCache(maxsize=MAX_SIZE)
+body_cache = BodyLRUCache(maxsize=MAX_SIZE)
+
+
+def build_cache():
+    if os.path.isdir(tmpdir):
+        header_cache.build()
+        body_cache.build()
+
+
+def same_or_write(cache: LRUCache, filename: str, cur_content: str):
+    if filename in cache and cache[filename] == cur_content:
+        return False  # same as before
+    else:
+        cache[filename] = cur_content
     filepath = os.path.join(tmpdir, "{}.tex".format(filename))
-    if os.path.isfile(filepath):
-        with open(filepath, 'r', encoding='utf-8') as f:
-            prev_content = f.read()
-        if prev_content == cur_content:
-            return False  # the same as before
     pdfpath = os.path.join(tmpdir, "{}.pdf".format(filename))
     if os.path.isfile(pdfpath):
         os.remove(pdfpath)
@@ -52,7 +105,7 @@ def same_or_write(filename: str, cur_content: str):
 
 def compile_header(cur_header: str, sessid: str):
     header_name = get_header_name(sessid)
-    if same_or_write(header_name, cur_header):
+    if same_or_write(header_cache, header_name, cur_header):
         run_cmd(
             'etex -ini -interaction=nonstopmode -halt-on-error -jobname={} "&pdflatex" mylatexformat.ltx """{}.tex"""'
             .format(header_name, header_name))
@@ -60,7 +113,7 @@ def compile_header(cur_header: str, sessid: str):
 
 def compile_body(cur_body: str, sessid: str):
     body_name = get_body_name(sessid)
-    if same_or_write(body_name, cur_body):
+    if same_or_write(body_cache, body_name, cur_body):
         run_cmd('pdflatex -interaction=nonstopmode -halt-on-error {}.tex'.format(body_name))
 
 
@@ -110,7 +163,14 @@ def compile():
         reqid = request.form['requestid']
         if reqid not in compiling_sessions:
             compiling_sessions.add(reqid)
-            pdf = compile_tex(request.form['texdata'], reqid)
+            try:
+                pdf = compile_tex(request.form['texdata'], reqid)
+            except ValueError as e:     # raise by LRUCache when the content is too large.
+                app.logger.warning("Content Length Error on Session {}: {}".format(reqid, e))
+                return render_template_string("Content length is too large.")
+            except Exception as e:
+                app.logger.warning("Error on Session {}: {}".format(reqid, e))
+                return render_template_string("Compilation Error.")
             if pdf is not None:
                 res = Response(
                     pdf,
@@ -132,6 +192,7 @@ def compile():
 
 
 if __name__ == '__main__':
+    build_cache()   # if the server is dropped by accident, recovery
     os.makedirs(tmpdir, exist_ok=True)
-    app.run(host="127.0.0.1", port=5678)
+    app.run(host=HOST, port=PORT)
     shutil.rmtree(tmpdir)
