@@ -52,41 +52,15 @@ class HeaderLRUCache(LRUCache):
         clear_files(key)        # only header related
         return key, value
 
-    def build(self):
-        for filepath in glob.glob("{}/*_header.tex".format(tmpdir)):
-            with open(filepath, 'r', encoding='utf-8') as f:
-                content = f.read()
-            filename = os.path.basename(filepath).rsplit(".")[0]
-            if os.path.isfile(filepath.removesuffix(".tex") + ".fmt"):
-                self[filename] = content
-            else:
-                clear_files(filename)
-
 class BodyLRUCache(LRUCache):
     def popitem(self):
         key, value = super().popitem()
         clear_files(key + ".")  # only body related
         return key, value
 
-    def build(self):
-        for filepath in glob.glob("{}/*.tex".format(tmpdir)):
-            with open(filepath, 'r', encoding='utf-8') as f:
-                content = f.read()
-            filename = os.path.basename(filepath).rsplit(".")[0]
-            if os.path.isfile(filepath.removesuffix(".tex") + ".pdf"):
-                self[filename] = content
-            else:
-                clear_files(filename + ".")  # only body related
-
 
 header_cache = HeaderLRUCache(maxsize=MAX_SIZE)
 body_cache = BodyLRUCache(maxsize=MAX_SIZE)
-
-
-def build_cache():
-    if os.path.isdir(tmpdir):
-        header_cache.build()
-        body_cache.build()
 
 
 def same_or_write(cache: LRUCache, filename: str, cur_content: str):
@@ -192,7 +166,7 @@ def compile():
 
 
 if __name__ == '__main__':
-    build_cache()   # if the server is dropped by accident, recovery
-    os.makedirs(tmpdir, exist_ok=True)
+    if os.path.isdir(tmpdir):
+        shutil.rmtree(tmpdir)
+    os.mkdir(tmpdir)
     app.run(host=HOST, port=PORT)
-    shutil.rmtree(tmpdir)
