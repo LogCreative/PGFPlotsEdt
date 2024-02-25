@@ -1,5 +1,5 @@
 import multiprocessing
-
+import logging
 import gunicorn.app.base
 
 import sys
@@ -31,7 +31,9 @@ class StandaloneApplication(gunicorn.app.base.BaseApplication):
 
 
 if __name__ == '__main__':
-    print('''
+    glogger = logging.getLogger('gunicorn.error')
+
+    glogger.warning('''
     PGFPlotsEdt Deployment Server
     
     Copyright (C) 2020--2024  Log Creative
