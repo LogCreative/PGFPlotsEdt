@@ -34,7 +34,7 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
     ```bash
     python server.py
     ```
-    - Open `http://127.0.0.1:5678` in your Chromium-based browser.
+    - Open `http://127.0.0.1:5678` in your browser.
     > For Windows users, the server side will automatically change the fontset used by CJK for a larger compatibility.
 
 #### Acknowledgements

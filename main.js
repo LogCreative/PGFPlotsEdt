@@ -1303,19 +1303,16 @@ var app = new Vue({
         this.dc_content = this.content;
         this.lang = in_lang;
 
-        var isChromium = !!window.chrome;
-        if (isChromium) {
-            var request = new XMLHttpRequest();
-            request.open('GET', "/compile", true);
-            request.onreadystatechange = function(){
-                if (request.status === 200) {
-                    app.requestid = Date.now();
-                } else {
-                    app.requestid = -1;
-                }
-            };
-            request.send();
-        }
+        var request = new XMLHttpRequest();
+        request.open('GET', "/compile", true);
+        request.onreadystatechange = function(){
+            if (request.status === 200) {
+                app.requestid = Date.now();
+            } else {
+                app.requestid = -1;
+            }
+        };
+        request.send();
     },
     watch:{
         content(_new,_old){
