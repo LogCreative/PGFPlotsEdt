@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  pgfplotsedt:
+    image: pgfplotsedt
+    build:
+      context: ../
+      dockerfile: ./Dockerfile
+    expose:
+      - '5678'
