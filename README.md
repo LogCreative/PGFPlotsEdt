@@ -28,7 +28,7 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
     - Install TeX distribution on your local computer.
     - Install python and the dependencies by
     ```bash
-    pip install flask
+    pip install flask cachetools
     ```
     - Start the server.
     ```bash

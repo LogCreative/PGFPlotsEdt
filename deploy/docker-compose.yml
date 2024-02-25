@@ -5,6 +5,6 @@ services:
     image: pgfplotsedt
     build:
       context: ../
-      dockerfile: ./Dockerfile
-    expose:
-      - '5678'
+      dockerfile: ./deploy/Dockerfile
+    ports:
+      - '5678:5678'
