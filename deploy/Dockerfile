@@ -1,17 +1,17 @@
 # Use the official Ubuntu base image
-FROM ghcr.io/xu-cheng/texlive-full:latest
+FROM texlive/texlive:latest-medium
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /PGFPlotsEdt
 
 # Install Flask and Gunicorn
 RUN pip3 install flask gunicorn
 
 # Copy the project folder to the container
-COPY .. /app
+COPY .. /PGFPlotsEdt
 
 # Set the working directory to the deploy folder
-WORKDIR /app/deploy
+WORKDIR /PGFPlotsEdt/deploy
 
 # Expose the port on which the Flask app will run
 EXPOSE 5678
