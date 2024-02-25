@@ -164,9 +164,10 @@ def compile():
     else:
         return render_template_string("PGFPlotsEdt LaTeX Server: POST a LaTeX request (texdata, requestid) to render.")
 
+# Clean up the tmpdir and create a new one.
+if os.path.isdir(tmpdir):
+    shutil.rmtree(tmpdir)
+os.mkdir(tmpdir)
 
 if __name__ == '__main__':
-    if os.path.isdir(tmpdir):
-        shutil.rmtree(tmpdir)
-    os.mkdir(tmpdir)
     app.run(host=HOST, port=PORT)
