@@ -57,5 +57,5 @@ if __name__ == '__main__':
         'bind': '%s:%s' % ('0.0.0.0', '5678'),
         'workers': number_of_workers(),
     }
-    deployApp = create_app(max_size=20, timeout=30)
+    deployApp = create_app(timeout=30)
     StandaloneApplication(deployApp, options).run()

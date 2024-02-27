@@ -8,12 +8,11 @@ import time
 import signal
 import platform
 import glob
-from cachetools import LRUCache
 import multiprocessing
 
 from flask import Flask, send_from_directory, render_template_string, Response, request
 
-def create_app(max_size: int = 1000, timeout: int = 100000):
+def create_app(timeout: int = 100000):
 
     app = Flask(__name__, static_url_path='', static_folder=".", template_folder=".")
 
@@ -54,30 +53,13 @@ def create_app(max_size: int = 1000, timeout: int = 100000):
         return tex[:header_end] + "\\begin{document}\n\\end{document}\n", \
             "%&{}\n".format(get_header_name(sessid)) + tex[header_end:]
 
-    def clear_files(file_prefix: str):
-        for filepath in glob.glob("{}/{}*".format(tmpdir, file_prefix)):
-            os.remove(filepath)
-
-    class HeaderLRUCache(LRUCache):
-        def popitem(self):
-            key, value = super().popitem()
-            clear_files(key)        # only header related
-            return key, value
-
-    class BodyLRUCache(LRUCache):
-        def popitem(self):
-            key, value = super().popitem()
-            clear_files(key + ".")  # only body related
-            return key, value
-
-    header_cache = HeaderLRUCache(maxsize=max_size)
-    body_cache = BodyLRUCache(maxsize=max_size)
-
-    def same_or_write(cache: LRUCache, filename: str, cur_content: str):
-        if filename in cache and cache[filename] == cur_content:
-            return False  # same as before
-        else:
-            cache[filename] = cur_content
+    def same_or_write(filename: str, cur_content: str):
+        filepath = os.path.join(tmpdir, "{}.tex".format(filename))
+        if os.path.isfile(filepath):
+            with open(filepath, 'r', encoding='utf-8') as f:
+                prev_content = f.read()
+            if prev_content == cur_content:
+                return False  # the same as before
         filepath = os.path.join(tmpdir, "{}.tex".format(filename))
         pdfpath = os.path.join(tmpdir, "{}.pdf".format(filename))
         if os.path.isfile(pdfpath):
@@ -93,7 +75,7 @@ def create_app(max_size: int = 1000, timeout: int = 100000):
 
     def compile_header(cur_header: str, sessid: str):
         header_name = get_header_name(sessid)
-        if same_or_write(header_cache, header_name, cur_header):
+        if same_or_write(header_name, cur_header):
             clean_log(header_name)
             clean_log(get_body_name(sessid))
             run_cmd(
@@ -102,7 +84,7 @@ def create_app(max_size: int = 1000, timeout: int = 100000):
 
     def compile_body(cur_body: str, sessid: str):
         body_name = get_body_name(sessid)
-        if same_or_write(body_cache, body_name, cur_body):
+        if same_or_write(body_name, cur_body):
             clean_log(body_name)
             run_cmd('pdflatex -interaction=nonstopmode -halt-on-error {}.tex'.format(body_name))
 
@@ -125,16 +107,18 @@ def create_app(max_size: int = 1000, timeout: int = 100000):
                     clean_files(sessid, pdf=False)
                     return pdf
         except ValueError as e:     # raise by LRUCache when the content is too large.
+            clean_files(sessid, pdf=True)
             app.logger.warning("Content Length Error on Session {}: {}".format(sessid, e))
             raise Exception("Content length is too large.")
         except subprocess.TimeoutExpired as e:
+            clean_files(sessid, pdf=True)
             app.logger.warning("Compilation timeout for session {}: {}".format(sessid, e))
             raise Exception("Compilation timeout.")
         except Exception as e:
+            clean_files(sessid, pdf=True)
             app.logger.warning("Compilation error for session {}: {}".format(sessid, e))
             raise Exception("Compilation Error.")
-        finally:
-            clean_files(sessid, pdf=True)
+        clean_files(sessid, pdf=True)
         return None
 
     def get_log(sessid: str):
