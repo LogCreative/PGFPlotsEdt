@@ -1307,7 +1307,7 @@ var app = new Vue({
         request.open('GET', "/compile", true);
         request.onreadystatechange = function(){
             if (request.status === 200) {
-                app.requestid = Date.now();
+                app.requestid = Date.now() * 10000 + Math.floor(Math.random() * 10000);
             } else {
                 app.requestid = -1;
             }
