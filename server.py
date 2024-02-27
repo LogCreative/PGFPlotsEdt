@@ -4,22 +4,35 @@
 import os
 import shutil
 import subprocess
+import time
+import signal
 import platform
 import glob
 from cachetools import LRUCache
 
 from flask import Flask, send_from_directory, render_template_string, Response, request
 
-HOST = "127.0.0.1"
-PORT = 5678
-MAX_SIZE = 20
+HOST = "127.0.0.1"      # Host IP
+PORT = 5678             # Port
+MAX_SIZE = 20           # Temporary cache size
+TIMEOUT = 60            # Timeout for each compilation
 
 rootdir = os.path.dirname(os.path.abspath(__file__))
 tmpdir = os.path.join(rootdir, 'tmp')
 
 
 def run_cmd(cmd: str):
-    subprocess.call("cd {} && {}".format(tmpdir, cmd), shell=True)
+    try:
+        p = subprocess.Popen(
+            "cd {} && {}".format(tmpdir, cmd),      # cmd
+            stdout=subprocess.PIPE,                 # hide output
+            shell=True,                             # run in shell to prevent error
+            start_new_session=True                  # create a process group
+        )
+        p.wait(timeout=TIMEOUT)                     # timeout
+    except subprocess.TimeoutExpired:
+        os.killpg(os.getpgid(p.pid), signal.SIGTERM)        # prevent background running
+        raise subprocess.TimeoutExpired(p.args, TIMEOUT)    # raise the exception for the main loop
 
 
 def get_header_name(sessid: str):
@@ -77,9 +90,17 @@ def same_or_write(cache: LRUCache, filename: str, cur_content: str):
     return True
 
 
+def clean_log(filename: str):
+    logpath = os.path.join(tmpdir, "{}.log".format(filename))
+    if os.path.isfile(logpath):
+        os.remove(logpath)
+
+
 def compile_header(cur_header: str, sessid: str):
     header_name = get_header_name(sessid)
     if same_or_write(header_cache, header_name, cur_header):
+        clean_log(header_name)
+        clean_log(get_body_name(sessid))
         run_cmd(
             'etex -ini -interaction=nonstopmode -halt-on-error -jobname={} "&pdflatex" mylatexformat.ltx """{}.tex"""'
             .format(header_name, header_name))
@@ -88,6 +109,7 @@ def compile_header(cur_header: str, sessid: str):
 def compile_body(cur_body: str, sessid: str):
     body_name = get_body_name(sessid)
     if same_or_write(body_cache, body_name, cur_body):
+        clean_log(body_name)
         run_cmd('pdflatex -interaction=nonstopmode -halt-on-error {}.tex'.format(body_name))
 
 
@@ -100,25 +122,38 @@ def clean_files(sessid: str, pdf: bool):
 
 def compile_tex(tex: str, sessid: str):
     tex_header, tex_body = get_header_body(tex, sessid)
-    if tex_header is not None:
-        compile_header(tex_header, sessid)
-        compile_body(tex_body, sessid)
-        pdfpath = os.path.join(tmpdir, "{}.pdf".format(get_body_name(sessid)))
-        if os.path.isfile(pdfpath):
-            with open(pdfpath, 'rb') as f:
-                pdf = f.read()
-            clean_files(sessid, pdf=False)
-            return pdf
-    app.logger.warning("Compilation Failure on Session {}!".format(sessid))
-    clean_files(sessid, pdf=True)
+    try:
+        if tex_header is not None:
+            compile_header(tex_header, sessid)
+            compile_body(tex_body, sessid)
+            pdfpath = os.path.join(tmpdir, "{}.pdf".format(get_body_name(sessid)))
+            if os.path.isfile(pdfpath):
+                with open(pdfpath, 'rb') as f:
+                    pdf = f.read()
+                clean_files(sessid, pdf=False)
+                return pdf
+    except ValueError as e:     # raise by LRUCache when the content is too large.
+        app.logger.warning("Content Length Error on Session {}: {}".format(sessid, e))
+        raise Exception("Content length is too large.")
+    except subprocess.TimeoutExpired as e:
+        app.logger.warning("Compilation timeout for session {}: {}".format(sessid, e))
+        raise Exception("Compilation timeout.")
+    except Exception as e:
+        app.logger.warning("Compilation error for session {}: {}".format(sessid, e))
+        raise Exception("Compilation Error.")
+    finally:
+        clean_files(sessid, pdf=True)
     return None
 
 
 def get_log(sessid: str):
-    logpath = os.path.join(tmpdir, "{}.log".format(get_body_name(sessid)))
-    if os.path.isfile(logpath):
-        with open(logpath, "r", encoding='utf-8') as f:
-            return f.read()
+    for logpath in [
+        os.path.join(tmpdir, "{}.log".format(get_body_name(sessid))),
+        os.path.join(tmpdir, "{}.log".format(get_header_name(sessid)))
+    ]:
+        if os.path.isfile(logpath):
+            with open(logpath, "r", encoding='utf-8') as f:
+                return f.read()
     return "Compilation Failure"
 
 
@@ -139,12 +174,9 @@ def compile():
             compiling_sessions.add(reqid)
             try:
                 pdf = compile_tex(request.form['texdata'], reqid)
-            except ValueError as e:     # raise by LRUCache when the content is too large.
-                app.logger.warning("Content Length Error on Session {}: {}".format(reqid, e))
-                return render_template_string("Content length is too large.")
             except Exception as e:
-                app.logger.warning("Error on Session {}: {}".format(reqid, e))
-                return render_template_string("Compilation Error.")
+                compiling_sessions.remove(reqid)
+                return render_template_string("{} {}".format(e, time.strftime("%Y-%m-%d %H:%M:%S")))
             if pdf is not None:
                 res = Response(
                     pdf,
