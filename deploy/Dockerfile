@@ -1,4 +1,4 @@
-# Use the official Ubuntu base image
+# Use the official base image
 FROM texlive/texlive:latest
 
 # Set the working directory inside the container
