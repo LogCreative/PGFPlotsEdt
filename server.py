@@ -9,13 +9,14 @@ import signal
 import platform
 import glob
 import multiprocessing
+import math
 
 from flask import Flask, send_from_directory, render_template_string, Response, request
 
 rootdir = os.path.dirname(os.path.abspath(__file__))
 tmpdir = os.path.join(rootdir, 'tmp')
 
-def create_app(timeout: int = 100000):
+def create_app(timeout: int = 100000, length_limit = math.inf):
 
     app = Flask(__name__, static_url_path='', static_folder=".", template_folder=".")
 
@@ -95,8 +96,10 @@ def create_app(timeout: int = 100000):
                     os.remove(filepath)
 
     def compile_tex(tex: str, sessid: str):
-        tex_header, tex_body = get_header_body(tex, sessid)
         try:
+            if len(tex) > length_limit:
+                raise Exception("The length of the LaTeX source is too long.")
+            tex_header, tex_body = get_header_body(tex, sessid)
             if tex_header is not None:
                 compile_header(tex_header, sessid)
                 compile_body(tex_body, sessid)

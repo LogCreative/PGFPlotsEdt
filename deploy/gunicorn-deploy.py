@@ -81,5 +81,5 @@ if __name__ == '__main__':
         'on_starting': on_starting,
         'post_request': post_request,
     }
-    deployApp = create_app(timeout=30)
+    deployApp = create_app(timeout=30, length_limit=8196)
     StandaloneApplication(deployApp, options).run()
