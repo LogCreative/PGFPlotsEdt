@@ -1,10 +1,14 @@
 import multiprocessing
-import logging
+from pathlib import Path
+
 import gunicorn.app.base
 
 import sys
 sys.path.append('..')
-from server import create_app
+from server import create_app, tmpdir
+
+# Cache LRU size
+CACHE_SIZE = 50
 
 
 def number_of_workers():
@@ -30,10 +34,9 @@ class StandaloneApplication(gunicorn.app.base.BaseApplication):
         return self.application
 
 
-if __name__ == '__main__':
-    glogger = logging.getLogger('gunicorn.error')
-
-    glogger.warning('''
+def on_starting(server):
+    server.log.info('''
+    
     PGFPlotsEdt Deployment Server
     
     Copyright (C) 2020--2024  Log Creative
@@ -53,9 +56,30 @@ if __name__ == '__main__':
           
     Ctrl-C to terminate the server.
     ''')
+
+
+def post_request(worker, req):
+    # Implement LRU cache on the deploy side.
+    if req.method == 'POST' and req.path == '/compile':
+        # Clean the least used files in tmpdir
+        file_lists = list(Path(tmpdir).glob('*'))
+        header_lists = [f for f in file_lists if f.suffix == '.tex' and '_header' in f.stem]
+        header_lists.sort(key=lambda x: x.stat().st_atime)
+        sessid_lists = [f.stem.split('_')[0] for f in header_lists]
+        if len(sessid_lists) > CACHE_SIZE:
+            # Remove one at a time.
+            sessid_removal = sessid_lists[0]
+            worker.log.info("Removing session {} from cache.".format(sessid_removal))
+            for filepath in filter(lambda x: sessid_removal in x.stem, file_lists):
+                filepath.unlink(missing_ok=True) # maybe removed by other workers
+
+
+if __name__ == '__main__':
     options = {
         'bind': '%s:%s' % ('0.0.0.0', '5678'),
         'workers': number_of_workers(),
+        'on_starting': on_starting,
+        'post_request': post_request,
     }
     deployApp = create_app(timeout=30)
     StandaloneApplication(deployApp, options).run()

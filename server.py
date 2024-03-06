@@ -12,12 +12,12 @@ import multiprocessing
 
 from flask import Flask, send_from_directory, render_template_string, Response, request
 
+rootdir = os.path.dirname(os.path.abspath(__file__))
+tmpdir = os.path.join(rootdir, 'tmp')
+
 def create_app(timeout: int = 100000):
 
     app = Flask(__name__, static_url_path='', static_folder=".", template_folder=".")
-
-    rootdir = os.path.dirname(os.path.abspath(__file__))
-    tmpdir = os.path.join(rootdir, 'tmp')
 
     # Clean up the tmpdir and create a new one.
     if os.path.isdir(tmpdir):
@@ -106,10 +106,6 @@ def create_app(timeout: int = 100000):
                         pdf = f.read()
                     clean_files(sessid, pdf=False)
                     return pdf
-        except ValueError as e:     # raise by LRUCache when the content is too large.
-            clean_files(sessid, pdf=True)
-            app.logger.warning("Content Length Error on Session {}: {}".format(sessid, e))
-            raise Exception("Content length is too large.")
         except subprocess.TimeoutExpired as e:
             clean_files(sessid, pdf=True)
             app.logger.warning("Compilation timeout for session {}: {}".format(sessid, e))
