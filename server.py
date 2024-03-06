@@ -96,10 +96,10 @@ def create_app(timeout: int = 100000, length_limit = math.inf):
                     os.remove(filepath)
 
     def compile_tex(tex: str, sessid: str):
+        if len(tex) > length_limit:
+            raise Exception("The length of the LaTeX source is too long.")
+        tex_header, tex_body = get_header_body(tex, sessid)
         try:
-            if len(tex) > length_limit:
-                raise Exception("The length of the LaTeX source is too long.")
-            tex_header, tex_body = get_header_body(tex, sessid)
             if tex_header is not None:
                 compile_header(tex_header, sessid)
                 compile_body(tex_body, sessid)
