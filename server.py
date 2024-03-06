@@ -140,7 +140,9 @@ def create_app(timeout: int = 100000, length_limit = math.inf):
     @app.route('/compile', methods=['GET', 'POST'])
     def compile():
         if request.method == 'POST':
-            reqid = request.form['requestid']
+            reqid = str(request.form['requestid'])
+            if not (reqid.isnumeric() and int(reqid) >= 0):
+                return render_template_string("Invalid session id.")
             if reqid not in compiling_sessions.keys():
                 compiling_sessions[reqid] = 1
                 try:
