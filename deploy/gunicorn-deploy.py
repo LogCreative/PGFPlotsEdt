@@ -10,6 +10,12 @@ from server import create_app, tmpdir
 # Cache LRU size
 CACHE_SIZE = 50
 
+# Timeout for each compilation
+TIMEOUT = 30
+
+# Limit for the length of the input
+LENGTH_LIMIT = 8196
+
 
 def number_of_workers():
     # Should not use full amount of cpu cores, 
@@ -81,5 +87,5 @@ if __name__ == '__main__':
         'on_starting': on_starting,
         'pre_request': pre_request,
     }
-    deployApp = create_app(timeout=30, length_limit=8196)
+    deployApp = create_app(timeout=TIMEOUT, length_limit=LENGTH_LIMIT)
     StandaloneApplication(deployApp, options).run()

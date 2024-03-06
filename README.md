@@ -37,6 +37,19 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
     - Open `http://127.0.0.1:5678` in your browser.
     > For Windows users, the server side will automatically change the fontset used by CJK for a larger compatibility.
 
+- If you want to deploy the server in the LAN, use the deployment server in the directory `deploy`, please follow the [LICENSE](LICENSE) for deployment:
+    - If you are using *nix operating system for deployment, finish the configuration in the previous step, and `pip install gunicorn` to install the additional package. Then run the deployment server directly by:
+    ```bash
+    cd deploy
+    python gunicorn-deploy.py
+    ```
+    - If you are using Windows for deployment or you want to containerize your deployment, you could use the docker virtualization by:
+    ```bash
+    cd deploy
+    docker-compose up --build
+    ```
+    - Then the deployment will be on `[IP]:5678`.
+
 #### Acknowledgements
 
 <a href="https://cn.vuejs.org/" target="_blank"><img class="icon" src="res/poweredby/vue.png" height="16px">Vue.js</a> is the progressive JavaScript framework for this project.

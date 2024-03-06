@@ -14,7 +14,6 @@ RUN apt-get update
 # Install Flask and Gunicorn
 RUN apt-get install python3-flask -y
 RUN apt-get install python3-gunicorn -y
-RUN apt-get install python3-cachetools -y
 
 # Copy the previous directory into the container
 COPY . /PGFPlotsEdt

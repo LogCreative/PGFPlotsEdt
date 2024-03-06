@@ -250,4 +250,4 @@ var animforward = function(){
 };
 
 // Version
-document.getElementById("version").innerHTML = 'v2';
+document.getElementById("version").innerHTML = 'v3';
