@@ -148,7 +148,7 @@ var gomanual = function(){
         enableLiveAutocompletion: true
     });
     editor.on("change", function(e){
-    　　editor.execCommand("startAutocomplete");
+        editor.execCommand("startAutocomplete");
     })
     langTools=ace.require("ace/ext/language_tools");
     langTools.setCompleters([customCompleter]);
@@ -248,6 +248,36 @@ var animforward = function(){
         },30);
     }    
 };
+
+var about = function(){
+    var nav = document.getElementsByClassName('nav')[0];
+    var logo = document.getElementById('logo');
+    var extlinks = document.getElementById('extlinks');
+    var template = document.getElementById('template');
+    var poweredby = document.getElementById('poweredby');
+    var about = document.getElementById('about');
+    if (nav.style.height == '100vh') {
+        // collapse
+        nav.style.height = '100%';
+        logo.style.float = 'left';
+        logo.style.marginTop = '3px';
+        nav.style.textAlign = 'left';
+        extlinks.style.float = 'right';
+        extlinks.style.textAlign = 'right';
+        poweredby.style.justifyContent = 'flex-end';
+        about.style.display = 'none';
+    } else {
+        // expand
+        nav.style.height = '100vh';
+        logo.style.float = 'none';
+        logo.style.marginTop = '20vh';
+        nav.style.textAlign = 'center';
+        extlinks.style.float = 'none';
+        extlinks.style.textAlign = 'center';
+        poweredby.style.justifyContent = 'center';
+        about.style.display = 'block';
+    }
+}
 
 // Version
 document.getElementById("version").innerHTML = 'v3';

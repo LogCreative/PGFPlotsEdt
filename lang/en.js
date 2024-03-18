@@ -1,6 +1,13 @@
 const en = {
   "PGFPlotsEdt": "PGFPlotsEdt",
   "Faster to PGFPlot in LaTeX": "Faster to PGFPlot in LaTeX",
+  "about": "About PGFPlotsEdt",
+  "repo": "PGFPlots GitHub Repository",
+  "copyright": {
+    "line": "Copyright © 2020&ndash;2024 Log Creative",
+    "detail": "<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p><p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the <a href='https://github.com/LogCreative/PGFPlotsEdt/blob/master/LICENSE' target='_blank'>GNU Affero General Public License</a> for more details.</p>",
+    "hint": "Click the logo to collapse"
+  },
   "nav": {
     "quickstart": "Package Quick Start",
     "doc": "Package Documentation",

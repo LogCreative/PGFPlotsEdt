@@ -31,9 +31,9 @@
                     <a class="acckey" href="https://www.mathjax.org/" target="_blank"><img class="icon" src="res/poweredby/mathjax.ico"><div class="value">MathJax</div></a>
                 </div>
             </div>
-            <img id="logo" src="res/logo/logo.svg">
+            <img id="logo" src="res/logo/logo.svg" @click="about" :title="$t('about')">
             <div>
-                <a href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank">{{ $t('PGFPlotsEdt') }}</a><br>
+                <a href="https://github.com/LogCreative/PGFPlotsEdt" :title="$t('repo')" target="_blank">{{ $t('PGFPlotsEdt') }}</a><br>
                 <div style="display: inline-block; color: rgba(128, 128, 128, 0.5);">{{ $t('Faster to PGFPlot in LaTeX') }} <div id="version" style="display: inline-block;"></div></div>
                 <div id="template" class="accordion">
                     <tplbutton :tplname="$t('nav.tpl1')" :tplid="1"></tplbutton>
@@ -47,6 +47,11 @@
                     <tplbutton :tplname="$t('nav.tpl9')" :tplid="9"></tplbutton>
                     <tplbutton :tplname="$t('nav.tpl10')" :tplid="10"></tplbutton>
                 </div>
+            </div>
+            <div id="about">
+                <div id="copyright" v-html="$t('copyright.line')"></div>
+                <div id="copyright-detail" v-html="$t('copyright.detail')"></div>
+                <div id="copyright-hint" v-html="$t('copyright.hint')"></div>
             </div>
     </div>
     <div class="container">

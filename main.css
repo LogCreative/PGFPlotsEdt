@@ -36,6 +36,7 @@ a{
     margin: 3px 5px 0 0;
     height: 32px;
     transition: cubic-bezier(0.075, 0.82, 0.165, 1) 2s;
+    cursor: pointer;
 }
 
 .nav:hover > #logo{
@@ -71,6 +72,25 @@ a{
 
 #title, #extlinks {
     margin: 0px 5px;
+}
+
+#about {
+    display: none;
+    margin: 20vh 0 0 0;
+    font-size: small;
+}
+
+#about #copyright-detail {
+    display: inline-block;
+    margin: 0 2em;
+    max-width: 50em;
+    font-size: smaller;
+    color: gray;
+}
+
+#about #copyright-hint {
+    margin-top: 1vh;
+    font-weight: bold;
 }
 
 /* .container{
