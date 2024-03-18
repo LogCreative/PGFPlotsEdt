@@ -179,7 +179,7 @@ def write_version_info():
     if vercount > -1:
         with open(os.path.join(rootdir, "res", "version.js"), "w", encoding="utf-8") as f:
             f.write('// Deployed from: {}\n'.format(time.strftime("%Y-%m-%d %H:%M:%S")))
-            f.write('const version = "v{:.2f}";\n'.format(vercount/100.0))
+            f.write('version = "v{:.2f}";\n'.format(vercount/100.0))
 
 
 if __name__ == '__main__':
