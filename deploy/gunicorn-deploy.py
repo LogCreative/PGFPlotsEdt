@@ -1,11 +1,14 @@
 import multiprocessing
 from pathlib import Path
+import os
+import signal
+import subprocess
 
 import gunicorn.app.base
 
 import sys
 sys.path.append('..')
-from server import create_app, tmpdir
+import server
 
 # Cache LRU size
 CACHE_SIZE = 50
@@ -21,6 +24,29 @@ def number_of_workers():
     # Should not use full amount of cpu cores, 
     # since there should be cores handling the compiling task.
     return multiprocessing.cpu_count()
+
+
+def run_cmd_with_timeout(cmd: str):
+    try:
+        p = subprocess.Popen(
+            "cd {} && {}".format(server.tmpdir, cmd),  # cmd
+            stdout=subprocess.PIPE,  # hide output
+            shell=True,  # run in shell to prevent error
+            start_new_session=True  # create a process group
+        )
+        p.wait(timeout=TIMEOUT)  # timeout
+    except subprocess.TimeoutExpired:
+        os.killpg(os.getpgid(p.pid), signal.SIGTERM)  # prevent background running
+        raise subprocess.TimeoutExpired(p.args, TIMEOUT)  # raise the exception for the main loop
+# Patch server run_cmd
+server.run_cmd = run_cmd_with_timeout
+
+
+def tex_length_limit_hook(tex: str):
+    if len(tex) > LENGTH_LIMIT:
+        raise Exception("The length of the LaTeX source is too long.")
+# Patch server tex_length_limit_hook
+server.tex_length_limit_hook = tex_length_limit_hook
 
 
 class StandaloneApplication(gunicorn.app.base.BaseApplication):
@@ -40,8 +66,10 @@ class StandaloneApplication(gunicorn.app.base.BaseApplication):
         return self.application
 
 
-def on_starting(server):
-    server.log.info('''
+def on_starting(serv):
+    # Use a shared dict to store compiling sessions
+    server.compiling_sessions = multiprocessing.Manager().dict()
+    serv.log.info('''
     
     PGFPlotsEdt Deployment Server
     
@@ -68,7 +96,7 @@ def pre_request(worker, req):
     # Implement LRU cache on the deploy side.
     if req.method == 'POST' and req.path == '/compile':
         # Clean the least used files in tmpdir
-        file_lists = list(Path(tmpdir).glob('*'))
+        file_lists = list(Path(server.tmpdir).glob('*'))
         header_lists = [f for f in file_lists if f.suffix == '.tex' and '_header' in f.stem]
         header_lists.sort(key=lambda x: x.stat().st_atime)
         sessid_lists = [f.stem.split('_')[0] for f in header_lists]
@@ -77,7 +105,7 @@ def pre_request(worker, req):
             sessid_removal = sessid_lists[0]
             worker.log.info("Removing session {} from cache.".format(sessid_removal))
             for filepath in filter(lambda x: sessid_removal in x.stem, file_lists):
-                filepath.unlink(missing_ok=True) # maybe removed by other workers
+                filepath.unlink(missing_ok=True)  # maybe removed by other workers
 
 
 if __name__ == '__main__':
@@ -87,5 +115,5 @@ if __name__ == '__main__':
         'on_starting': on_starting,
         'pre_request': pre_request,
     }
-    deployApp = create_app(timeout=TIMEOUT, length_limit=LENGTH_LIMIT)
+    deployApp = server.app
     StandaloneApplication(deployApp, options).run()
