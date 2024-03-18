@@ -280,4 +280,4 @@ var about = function(){
 }
 
 // Version
-document.getElementById("version").innerHTML = 'v3';
+document.getElementById("version").innerHTML = version;
