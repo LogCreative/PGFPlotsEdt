@@ -1303,16 +1303,11 @@ var app = new Vue({
         this.dc_content = this.content;
         this.lang = in_lang;
 
-        var request = new XMLHttpRequest();
-        request.open('GET', "/compile", true);
-        request.onreadystatechange = function(){
-            if (request.status === 200) {
-                app.requestid = Date.now() * 10000 + Math.floor(Math.random() * 10000);
-            } else {
-                app.requestid = -1;
-            }
-        };
-        request.send();
+        this.compilerTest(function(){
+            app.requestid = Date.now() * 10000 + Math.floor(Math.random() * 10000);
+        }, function () {
+            app.requestid = -1;
+        })
     },
     watch:{
         content(_new,_old){
@@ -1382,6 +1377,18 @@ var app = new Vue({
                 cpytip.className = 'restartfadeout';
             else cpytip.className = 'playfadeout';
         },
+        compilerTest: function(onSucess, onError){
+            var request = new XMLHttpRequest();
+            request.open('GET', "/compile", true);
+            request.onreadystatechange = function() {
+                if (request.status === 200) {
+                    onSucess();
+                } else {
+                    onError();
+                }
+            }
+            request.send();
+        },
         compile: function() {
             app.purl="";
             
@@ -1398,13 +1405,22 @@ var app = new Vue({
                 return str.replace(/\%.+/g,"").replace(/[+]/g,"%2B");
             };
 
-            if (this.requestid >= 0) {
-                // 使用本地编译服务器
-                app.$refs.texdata.value = compile_tex;
-                app.$refs.localform.submit();
-            } else {
+            function onlineCompiler() {
                 // 使用在线服务
                 app.curl = "https://texlive2020.latexonline.cc/compile?text="+urlencoder(compile_tex);
+            }
+
+            if (this.requestid >= 0) {
+                this.compilerTest(function(){
+                    // 使用本地编译服务器
+                    app.$refs.texdata.value = compile_tex;
+                    app.$refs.localform.submit();
+                }, function() {
+                    console.log("Local compiler connection is lost, switch to the online compiler.");
+                    onlineCompiler();
+                })
+            } else {
+                onlineCompiler();
             }
         }
     },
