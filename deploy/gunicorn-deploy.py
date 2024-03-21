@@ -98,8 +98,11 @@ def pre_request(worker, req):
         # Clean the least used files in tmpdir
         file_lists = list(Path(server.tmpdir).glob('*'))
         header_lists = [f for f in file_lists if f.suffix == '.tex' and '_header' in f.stem]
+        # Sort by the last access time
         header_lists.sort(key=lambda x: x.stat().st_atime)
         sessid_lists = [f.stem.split('_')[0] for f in header_lists]
+        # remove compiling sessions
+        sessid_lists = list(filter(lambda x: x not in server.compiling_sessions.keys(), sessid_lists))
         if len(sessid_lists) >= CACHE_SIZE:
             # Remove one at a time.
             sessid_removal = sessid_lists[0]
