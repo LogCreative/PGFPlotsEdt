@@ -114,6 +114,7 @@ if __name__ == '__main__':
         'workers': number_of_workers(),
         'on_starting': on_starting,
         'pre_request': pre_request,
+        'errorlog': 'error.log',
     }
     deployApp = server.app
     StandaloneApplication(deployApp, options).run()
