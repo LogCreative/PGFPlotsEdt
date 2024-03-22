@@ -120,4 +120,5 @@ if __name__ == '__main__':
         'errorlog': 'error.log',
     }
     deployApp = server.app
+    os.makedirs(server.tmpdir, exist_ok=True)
     StandaloneApplication(deployApp, options).run()
