@@ -3,6 +3,7 @@ from pathlib import Path
 import os
 import signal
 import subprocess
+import hashlib
 
 import gunicorn.app.base
 
@@ -48,6 +49,40 @@ def tex_length_limit_hook(tex: str):
 # Patch server tex_length_limit_hook
 server.tex_length_limit_hook = tex_length_limit_hook
 
+tmp_header_cache_dir = os.path.join(server.tmpdir, 'cache')
+
+def get_header_hashed_name(header: str):
+    header_hash = hashlib.sha256(header.encode()).hexdigest()[:16]
+    return "{}_header.fmt".format(header_hash)
+
+def compile_header_cached(cur_header: str, sessid: str):
+    header_name = server.get_header_name(sessid)
+    header_hased_name = get_header_hashed_name(cur_header)
+    header_hashed_path = os.path.join(tmp_header_cache_dir, header_hased_name)
+    header_ref_path = os.path.join(server.tmpdir, "{}.fmt".format(header_name))
+    # remove the original link
+    if os.path.exists(header_ref_path):
+        os.unlink(header_ref_path)
+    if server.same_or_write(header_name, cur_header) and not os.path.isfile(header_hashed_path):
+        server.clean_log(header_name)
+        server.clean_log(server.get_body_name(sessid))
+        server.run_cmd(server.header_cmd(header_name))
+        if not os.path.isfile(header_ref_path):
+            return  # early stop if the compilation failed
+        # rename the compiled header to hased header name, 
+        # since there may be another worker compiling the same header
+        os.rename(header_ref_path, header_hashed_path)
+        # It is not necessary to deal with the log,
+        # if there is another one using this fmt, then the header is successfully compiled,
+        # the body is the failed part, the returned log is the body log.
+    # create the link to the hashed path
+    # Though hard links are better, but it will occupy more space.
+    # The soft link target may be removed by the LRU cleaner,
+    # in this situation, recompiling will work.
+    os.symlink(header_hashed_path, header_ref_path)
+# Patch server compile_header
+server.compile_header = compile_header_cached
+
 
 class StandaloneApplication(gunicorn.app.base.BaseApplication):
 
@@ -92,23 +127,28 @@ def on_starting(serv):
     ''')
 
 
+def dir_clean_LRU(dirpath: str, key_suffix: str = '.tex'):
+    # Clean the least used files (excluding folders) in tmpdir
+    glob_list = list(Path(dirpath).glob('*'))
+    file_list = list(filter(lambda x: x.is_file(), glob_list))
+    header_list = [f for f in file_list if f.suffix == key_suffix and '_header' in f.stem]
+    # Sort by the last access time
+    header_list.sort(key=lambda x: x.stat().st_atime)
+    sessid_list = [f.stem.split('_')[0] for f in header_list]
+    # remove compiling sessions
+    sessid_list = list(filter(lambda x: x not in server.compiling_sessions.keys(), sessid_list))
+    if len(sessid_list) >= CACHE_SIZE:
+        # Remove one at a time.
+        sessid_removal = sessid_list[0]
+        for filepath in filter(lambda x: sessid_removal in x.stem, file_list):
+            filepath.unlink(missing_ok=True)  # maybe removed by other workers
+
+
 def pre_request(worker, req):
     # Implement LRU cache on the deploy side.
     if req.method == 'POST' and req.path == '/compile':
-        # Clean the least used files in tmpdir
-        file_lists = list(Path(server.tmpdir).glob('*'))
-        header_lists = [f for f in file_lists if f.suffix == '.tex' and '_header' in f.stem]
-        # Sort by the last access time
-        header_lists.sort(key=lambda x: x.stat().st_atime)
-        sessid_lists = [f.stem.split('_')[0] for f in header_lists]
-        # remove compiling sessions
-        sessid_lists = list(filter(lambda x: x not in server.compiling_sessions.keys(), sessid_lists))
-        if len(sessid_lists) >= CACHE_SIZE:
-            # Remove one at a time.
-            sessid_removal = sessid_lists[0]
-            worker.log.info("Removing session {} from cache.".format(sessid_removal))
-            for filepath in filter(lambda x: sessid_removal in x.stem, file_lists):
-                filepath.unlink(missing_ok=True)  # maybe removed by other workers
+        dir_clean_LRU(server.tmpdir, '.tex')
+        dir_clean_LRU(tmp_header_cache_dir, '.fmt')
 
 
 if __name__ == '__main__':
@@ -121,4 +161,5 @@ if __name__ == '__main__':
     }
     deployApp = server.app
     os.makedirs(server.tmpdir, exist_ok=True)
+    os.makedirs(tmp_header_cache_dir, exist_ok=True)
     StandaloneApplication(deployApp, options).run()
