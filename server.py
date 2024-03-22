@@ -7,6 +7,7 @@ import subprocess
 import time
 import platform
 import glob
+from res.version_updater import write_version_info
 
 from flask import Flask, send_from_directory, render_template_string, Response, request
 
@@ -177,25 +178,10 @@ def compile():
         return render_template_string("PGFPlotsEdt LaTeX Server: POST a LaTeX request (texdata, requestid) to render.")
 
 
-def get_git_commit_count():
-    try:
-        return int(subprocess.check_output(["git", "rev-list", "HEAD", "--count"]).decode('utf-8').strip())
-    except Exception:
-        return -1
-
-
-def write_version_info():
-    vercount = get_git_commit_count()
-    if vercount > -1:
-        with open(os.path.join(rootdir, "res", "version.js"), "w", encoding="utf-8") as f:
-            f.write('// Deployed from: {}\n'.format(time.strftime("%Y-%m-%d %H:%M:%S")))
-            f.write('version = "v{:.2f}";\n'.format(vercount/100.0))
-
-
 if __name__ == '__main__':
     # Clean up the tmpdir and create a new one.
     if os.path.isdir(tmpdir):
         shutil.rmtree(tmpdir)
     os.mkdir(tmpdir)
-    write_version_info()
+    write_version_info(os.path.join(rootdir, "res", "version.js"))
     app.run(host="127.0.0.1", port=5678)
