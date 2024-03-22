@@ -1,5 +1,13 @@
-"""A basic LaTeX backend server for local runtime
 """
+A basic PGFPlotsEdt LaTeX backend server for local runtime
+"""
+
+#  Copyright (c) Log Creative 2020--2024.
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
 
 import os
 import shutil

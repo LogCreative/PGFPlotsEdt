@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Log Creative 2020--2024,
+ * released under the GNU Affero General Public License v3.
+ */
+
 // 采用 highlight.js 库
 Vue.use(hljs.vuePlugin);
 // 采用 vue-i18n 国际化

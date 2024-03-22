@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Log Creative 2020--2024,
+ * released under the GNU Affero General Public License v3.
+ */
+
 // 国际化
 var i18n = new VueI18n({
     locale: in_lang,
