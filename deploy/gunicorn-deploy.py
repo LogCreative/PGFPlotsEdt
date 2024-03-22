@@ -11,15 +11,7 @@ import sys
 sys.path.append('..')
 import server
 from res.version_updater import write_version_info
-
-# Cache LRU size
-CACHE_SIZE = 50
-
-# Timeout for each compilation
-TIMEOUT = 30
-
-# Limit for the length of the input
-LENGTH_LIMIT = 8196
+from config import *
 
 
 def number_of_workers():
@@ -154,8 +146,8 @@ def pre_request(worker, req):
 
 if __name__ == '__main__':
     options = {
-        'bind': '%s:%s' % ('0.0.0.0', '5678'),
-        'workers': number_of_workers(),
+        'bind': '{}:{}'.format(HOST, PORT),
+        'workers': number_of_workers() if WORKERS == 'auto' else int(WORKERS),
         'on_starting': on_starting,
         'pre_request': pre_request,
         'errorlog': 'error.log',
@@ -163,5 +155,6 @@ if __name__ == '__main__':
     deployApp = server.app
     os.makedirs(server.tmpdir, exist_ok=True)
     os.makedirs(tmp_header_cache_dir, exist_ok=True)
-    write_version_info(os.path.join(server.rootdir, "res", "version.js"))
+    ver = write_version_info(os.path.join(server.rootdir, "res", "version.js"))
+    print("PGFPlotsEdt {} deployment server is running, see error.log for running information.".format(ver))
     StandaloneApplication(deployApp, options).run()
