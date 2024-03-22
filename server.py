@@ -61,21 +61,28 @@ def clean_log(filename: str):
         os.remove(logpath)
 
 
+def header_cmd(jobname: str):
+    return 'etex -ini -interaction=nonstopmode -halt-on-error -jobname={} "&pdflatex" mylatexformat.ltx """{}.tex"""'.format(
+        jobname, jobname)
+
+
 def compile_header(cur_header: str, sessid: str):
     header_name = get_header_name(sessid)
     if same_or_write(header_name, cur_header):
         clean_log(header_name)
         clean_log(get_body_name(sessid))
-        run_cmd(
-            'etex -ini -interaction=nonstopmode -halt-on-error -jobname={} "&pdflatex" mylatexformat.ltx """{}.tex"""'
-            .format(header_name, header_name))
+        run_cmd(header_cmd(header_name))
+
+
+def body_cmd(jobname: str):
+    return 'pdflatex -interaction=nonstopmode -halt-on-error {}.tex'.format(jobname)
 
 
 def compile_body(cur_body: str, sessid: str):
     body_name = get_body_name(sessid)
     if same_or_write(body_name, cur_body):
         clean_log(body_name)
-        run_cmd('pdflatex -interaction=nonstopmode -halt-on-error {}.tex'.format(body_name))
+        run_cmd(body_cmd(body_name))
 
 
 def clean_files(sessid: str, pdf: bool):
@@ -95,13 +102,15 @@ def compile_tex(tex: str, sessid: str):
     try:
         if tex_header is not None:
             compile_header(tex_header, sessid)
-            compile_body(tex_body, sessid)
-            pdfpath = os.path.join(tmpdir, "{}.pdf".format(get_body_name(sessid)))
-            if os.path.isfile(pdfpath):
-                with open(pdfpath, 'rb') as f:
-                    pdf = f.read()
-                clean_files(sessid, pdf=False)
-                return pdf
+            fmtpath = os.path.join(tmpdir, "{}.fmt".format(get_header_name(sessid)))
+            if os.path.isfile(fmtpath):
+                compile_body(tex_body, sessid)
+                pdfpath = os.path.join(tmpdir, "{}.pdf".format(get_body_name(sessid)))
+                if os.path.isfile(pdfpath):
+                    with open(pdfpath, 'rb') as f:
+                        pdf = f.read()
+                    clean_files(sessid, pdf=False)
+                    return pdf
     except subprocess.TimeoutExpired as e:
         clean_files(sessid, pdf=True)
         app.logger.warning("Compilation timeout for session {}: {}".format(sessid, e))
@@ -111,6 +120,7 @@ def compile_tex(tex: str, sessid: str):
         app.logger.warning("Compilation error for session {}: {}".format(sessid, e))
         raise Exception("Compilation Error.")
     clean_files(sessid, pdf=True)
+    app.logger.warning("Compilation error for session {}".format(sessid))
     return None
 
 
