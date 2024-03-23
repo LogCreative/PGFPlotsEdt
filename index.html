@@ -459,26 +459,9 @@
     <script>var version = "v3"</script>
     <script src="res/version.js"></script>
     <script src="js/style.js"></script>
+    <script src="js/lang.js"></script>
     <script src="js/tpl.js"></script>
     <script src="main.js"></script>
-    <script>
-        if(document.body.clientWidth>900){
-            // 启用split
-            var instance = Split(['#panel-one','#panel-two','#panel-three'],{
-                sizes:[30,35,35],
-                minSize: [300,300,0],
-                direction: 'horizontal',
-                onDrag: setSpliterHeight,
-            });
-            document.querySelectorAll('.container details').forEach(element => {
-                element.addEventListener("toggle", setSpliterHeight);
-            });
-            document.querySelector('#data').addEventListener('mouseleave', setSpliterHeight);
-            document.getElementById('codedetail').open = true;
-            setSpliterHeight();
-        }
-        else
-            document.getElementById('codedetail').open = false;
-    </script>
+    <script src="js/url.js"></script>
 </body>
 </html>

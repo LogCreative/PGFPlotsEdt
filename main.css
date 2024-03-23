@@ -706,3 +706,12 @@ input[type=text]{
 #localform {
     display: none;
 }
+
+.mi, .mr, .sicon {
+    display: inline-block;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.mi {
+    font-style: italic;
+}
