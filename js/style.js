@@ -275,7 +275,7 @@ var about = function(){
         // expand
         nav.style.height = '100vh';
         logo.style.float = 'none';
-        logo.style.marginTop = '20vh';
+        logo.style.marginTop = '10vh';
         nav.style.textAlign = 'center';
         extlinks.style.float = 'none';
         extlinks.style.textAlign = 'center';
