@@ -7,8 +7,6 @@
     <link rel="icon" href="favicon.ico" sizes="64x64">
     <link rel="stylesheet" href="lib/normalize.min.css">
     <link rel="stylesheet" href="main.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script id="langdict" src="lang/dict_en.js"></script>
 </head>
 <body>
@@ -147,10 +145,10 @@
                         <button>{{$t('Series')}}</button>
                         <div id="addbuttons">
                             <div v-show="enablesource"><button onclick="addsourceClick()"> {{$t('data.source')}}</button></div>
-                            <div><button onclick="addexprClick()"><div class="sicon">\(\tiny f(x)\)</div> {{$t('data.function')}}</button></div>
-                            <div><button onclick="addcoordClick()"><div class="sicon">\(\tiny (x,y)\)</div> {{$t('data.coordinate')}}</button></div>
-                            <div><button onclick="addtableClick()"><div class="sicon">\(\tiny x~~y~~\)</div> {{$t('data.table')}}</button></div>
-                            <div v-show="enablepin"><button onclick="addnodeClick()"><div class="sicon">\(\tiny \rm abc~~\)</div>{{$t('data.pin')}}</button></div>
+                            <div><button onclick="addexprClick()"><div class="sicon"><div class="mi">f</div>(<div class="mi">x</div>)</div> {{$t('data.function')}}</button></div>
+                            <div><button onclick="addcoordClick()"><div class="sicon">(<div class="mi">x</div>,<div class="mi">y</div>)</div> {{$t('data.coordinate')}}</button></div>
+                            <div><button onclick="addtableClick()"><div class="sicon"><div class="mi">x</div> <div class="mi">y</div></div> {{$t('data.table')}}</button></div>
+                            <div v-show="enablepin"><button onclick="addnodeClick()"><div class="sicon"><div class="mr">abc</div></div>{{$t('data.pin')}}</button></div>
                         </div>
                     </div>
                     <div id="series">
@@ -462,6 +460,7 @@
     <script src="js/lang.js"></script>
     <script src="js/tpl.js"></script>
     <script src="main.js"></script>
+    <script src="js/spliter.js"></script>
     <script src="js/url.js"></script>
 </body>
 </html>
