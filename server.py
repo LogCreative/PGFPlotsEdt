@@ -206,6 +206,6 @@ if __name__ == '__main__':
     if os.path.isdir(tmpdir):
         shutil.rmtree(tmpdir)
     os.mkdir(tmpdir)
-    ver = write_version_info(os.path.join(rootdir, "res", "version.js"))
+    ver = write_version_info(os.path.join(rootdir, "res"))
     print("PGFPlotsEdt {}".format(ver))
     app.run(host="127.0.0.1", port=5678)

@@ -1,5 +1,6 @@
 import subprocess
 import time
+import os
 
 def get_git_commit_count():
     try:
@@ -8,15 +9,19 @@ def get_git_commit_count():
         return -1
 
 
-def write_version_info(filepath):
+def write_version_info(dirpath):
     vercount = get_git_commit_count()
     if vercount > -1:
-        with open(filepath, "w", encoding="utf-8") as f:
+        jspath = os.path.join(dirpath, "version.js")
+        with open(jspath, "w", encoding="utf-8") as f:
             ver = "v{:.2f}".format(vercount/100.0)
             f.write('// Deployed from: {}\n'.format(time.strftime("%Y-%m-%d %H:%M:%S")))
             f.write('version = "{}";\n'.format(ver))
-            return ver
+        txtpath = os.path.join(dirpath, "VERSION")
+        with open(txtpath, "w", encoding="utf-8") as f:
+            f.write('{} {}'.format(ver, time.strftime("%Y-%m-%d")))
+        return ver
     return ""
 
 if __name__ == "__main__":
-    print(write_version_info("version.js"))
+    print(write_version_info("."))

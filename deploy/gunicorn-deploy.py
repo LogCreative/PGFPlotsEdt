@@ -178,6 +178,6 @@ if __name__ == '__main__':
     deployApp = server.app
     os.makedirs(server.tmpdir, exist_ok=True)
     os.makedirs(tmp_header_cache_dir, exist_ok=True)
-    ver = write_version_info(os.path.join(server.rootdir, "res", "version.js"))
+    ver = write_version_info(os.path.join(server.rootdir, "res"))
     print("PGFPlotsEdt {} deployment server is running, see error.log for running information.".format(ver))
     StandaloneApplication(deployApp, options).run()

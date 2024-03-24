@@ -3,4 +3,5 @@
 tmp/
 __pycache__/
 res/version.js
+res/VERSION
 deploy/error.log
