@@ -80,7 +80,7 @@ def compile_header_cached(cur_header: str, sessid: str):
         # if there is another one using this fmt, then the header is successfully compiled,
         # the body is the failed part, the returned log is the body log.
     # create the link to the hashed path
-    # Though hard links are better, but it will occupy more space.
+    # Though hard links are better, it will occupy more space.
     # The soft link target may be removed by the LRU cleaner,
     # in this situation, recompiling will work.
     os.symlink(header_hashed_path, header_ref_path)
