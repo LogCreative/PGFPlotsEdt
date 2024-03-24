@@ -88,6 +88,18 @@ def compile_header_cached(cur_header: str, sessid: str):
 server.compile_header = compile_header_cached
 
 
+def reqid_hook(reqid: str):
+    # Hash the request id to prevent the file being guessed by others.
+    # But the hash here is not using the determinent hash function like header cache,
+    # the hash() from python has randomness in different runs.
+    # This could prevent attackers traverse the original request id to get the hashed one 
+    # (since some parameters are unknown to everyone except the program).
+    reqhash = hash(reqid)       # reqid should be string
+    reqhash += sys.maxsize + 1  # make it positive, https://stackoverflow.com/a/18766856
+    return hex(reqhash)[2:]     # remove the '0x'
+server.reqid_hook = reqid_hook
+
+
 class StandaloneApplication(gunicorn.app.base.BaseApplication):
 
     def __init__(self, app, options=None):

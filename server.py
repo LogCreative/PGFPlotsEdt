@@ -147,6 +147,21 @@ def get_log(sessid: str):
 # A dict for storing compiling session id
 compiling_sessions = dict()
 
+def reqid_hook(reqid: str):
+    return reqid
+
+def get_reqid(request):
+    try:
+        reqid = request.form['requestid']
+        reqtex = request.form['texdata']
+        reqid = int(reqid)
+        assert reqid >= 0, "reqid must be a non-negative integer."
+        reqid = str(reqid)
+    except Exception as e:
+        app.logger.warning("Invalid request: {}".format(e))
+        return None
+    return reqid_hook(reqid)
+
 
 @app.route('/', methods=['GET'])
 def index():
@@ -156,9 +171,9 @@ def index():
 @app.route('/compile', methods=['GET', 'POST'])
 def compile():
     if request.method == 'POST':
-        reqid = str(request.form['requestid'])
-        if not (reqid.isnumeric() and int(reqid) >= 0):
-            return render_template_string("Invalid session id.")
+        reqid = get_reqid(request)
+        if reqid is None:
+            return render_template_string("Invalid request.")
         if reqid not in compiling_sessions.keys():
             compiling_sessions[reqid] = 1
             try:
