@@ -1213,17 +1213,29 @@ Vue.component('tplbutton', {
 
 var s_suffix = "\\end{document}";
 
-chnClick = function(obj){
-    if(obj.checked){
-        app.packages[0] = "\\usepackage{CJKutf8}\n";
-        app.e_premable = app.e_premable.replace("\\begin{document}\n","\\begin{document}\n\\begin{CJK}{UTF8}{gbsn}\n");
-        app.suffix = app.suffix.replace(s_suffix, "\\end{CJK}\n" + s_suffix);
+updateChn = function(isChn) {
+    if (app.chnpkg == "CJK") {
+        if(isChn){
+            app.packages[0] = "\\usepackage{CJKutf8}\n";
+            app.e_premable = app.e_premable.replace("\\begin{document}\n","\\begin{document}\n\\begin{CJK}{UTF8}{gbsn}\n");
+            app.suffix = app.suffix.replace(s_suffix, "\\end{CJK}\n" + s_suffix);
+        } else {
+            app.packages[0] = "";
+            app.e_premable = app.e_premable.replace("\\begin{CJK}{UTF8}{gbsn}\n","");
+            app.suffix = app.suffix.replace("\\end{CJK}\n","");
+        }
     } else {
-        delete app.packages[0];
-        app.e_premable = app.e_premable.replace("\\begin{CJK}{UTF8}{gbsn}\n","");
-        app.suffix = app.suffix.replace("\\end{CJK}\n","");
+        if (isChn) {
+            app.packages[0] = "\\usepackage{ctex}\n";
+        } else {
+            app.packages[0] = "";
+        }
     }
     updatePkg();
+}
+
+chnClick = function(obj){
+    updateChn(obj.checked);
 };
 
 beamerClick = function(obj){
@@ -1303,6 +1315,8 @@ var app = new Vue({
         purl:"",
         lang:"en",
         requestid:-1,
+        compiler:"pdflatex",
+        chnpkg:"CJK",
     },
     mounted: function (){
         this.dc_content = this.content;
@@ -1341,7 +1355,15 @@ var app = new Vue({
                 langChangeEvent.$emit('lang-change');
             }, 100);            // wait for js loading...
             i18n.locale = newlang;
-        }
+        },
+        compiler(newcompiler){
+            chnCheckbox = document.getElementById('chnCheckbox');
+            updateChn(false);
+            if (newcompiler == "pdflatex")
+                app.chnpkg = "CJK";
+            else app.chnpkg = "CTeX";
+            updateChn(chnCheckbox.checked);
+        },
     },
     computed:{
         premable: function(){
@@ -1412,7 +1434,7 @@ var app = new Vue({
 
             function onlineCompiler() {
                 // 使用在线服务
-                app.curl = "https://texlive2020.latexonline.cc/compile?text="+urlencoder(compile_tex);
+                app.curl = "https://texlive2020.latexonline.cc/compile?command="+app.compiler+"&text="+urlencoder(compile_tex);
             }
 
             if (this.requestid >= 0) {
@@ -1433,6 +1455,7 @@ var app = new Vue({
 
 // 只在中文页面进入时默认开启中文支持
 if (in_lang == 'chs') {
+    app.compiler = "xelatex";
     chnCheckbox = document.getElementById('chnCheckbox');
     chnCheckbox.checked = true;
     chnClick(chnCheckbox);

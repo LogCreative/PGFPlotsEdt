@@ -14,9 +14,13 @@
         <div class="nav" @mouseenter="animbck" @mouseleave="animfwd">
             <div id="extlinks">
                 <div id="langbox">
-                    🌐 <select v-model="lang">
+                    <select v-model="lang">
                         <option value="en">English</option>
                         <option value="chs">简体中文</option>
+                    </select>
+                    <select v-model="compiler">
+                        <option value="pdflatex">pdfLaTeX</option>
+                        <option value="xelatex">XeLaTeX</option>
                     </select>
                 </div>
                 <div id="poweredby" class="accordion">
@@ -60,6 +64,7 @@
                 <iframe v-bind:src="purl" id="stylePrev" v-show="purl!=''" scrolling="no"></iframe>
                 <form ref="localform" target="compileframe" action="/compile" method="post">
                     <input ref="texdata" type="hidden" name="texdata"/>
+                    <input type="hidden" name="compiler" :value="compiler"/>
                     <input type="hidden" name="requestid" :value="requestid"/>
                 </form>
                 <iframe v-bind:src="curl" id="compilePrev" name="compileframe" v-show="purl==''"></iframe>
@@ -122,7 +127,7 @@
                     <summary>
                         {{$t('Settings')}}
                     </summary>
-                    <div class="libchecker"><input type="checkbox" onclick="chnClick(this)" id="chnCheckbox">{{$t('settings.CJK')}}</input></div>
+                    <div class="libchecker"><input type="checkbox" onclick="chnClick(this)" id="chnCheckbox" ref="chnCheckbox">{{ chnpkg }}</input></div>
                     <div class="libchecker"><input type="checkbox" onclick="beamerClick(this)">{{$t('settings.Beamer')}}</input></div>
                     <div class="libchecker"><input type="checkbox" onclick="pinClick(this)" v-model="enablepin">{{$t('settings.Pin')}}</input></div>
                     <div class="libchecker"><input type="checkbox" onclick="tdClick(this)" v-model="td">{{$t('settings.3D')}}</input></div>

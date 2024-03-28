@@ -154,8 +154,10 @@ def get_reqid(request):
     try:
         reqid = request.form['requestid']
         reqtex = request.form['texdata']
+        reqcompiler = request.form['compiler']
         reqid = int(reqid)
         assert reqid >= 0, "reqid must be a non-negative integer."
+        assert reqcompiler in ["pdflatex", "xelatex"], "Invalid compiler."
         reqid = str(reqid)
     except Exception as e:
         app.logger.warning("Invalid request: {}".format(e))
@@ -198,7 +200,7 @@ def compile():
                 "Previous run of Session {} has not been finished. The request is discarded.".format(reqid))
             return render_template_string("Previous run has not been finished.")
     else:
-        return render_template_string("PGFPlotsEdt LaTeX Server: POST a LaTeX request (texdata, requestid) to render.")
+        return render_template_string("PGFPlotsEdt LaTeX Server: POST a LaTeX request (texdata, compiler, requestid) to render.\n")
 
 
 if __name__ == '__main__':
