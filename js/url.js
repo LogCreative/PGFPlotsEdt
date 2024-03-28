@@ -11,3 +11,12 @@ if (url.match("code_only"))
 {
     document.getElementById('btnEdtCode').click();
 }
+
+// Change compiler.
+if (in_compiler = /compiler=(\w+)/.exec(url))
+{
+    if (in_compiler[1] == "pdflatex" || in_compiler[1] == "xelatex")
+    {
+        app.compiler = in_compiler[1];
+    }
+}
