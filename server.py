@@ -15,6 +15,9 @@ import subprocess
 import time
 import platform
 import glob
+
+import re
+
 from res.version_updater import write_version_info
 
 from flask import Flask, send_from_directory, render_template_string, Response, request
@@ -36,16 +39,24 @@ def get_header_name(sessid: str):
 def get_body_name(sessid: str):
     return "{}".format(sessid)
 
+ctex_re = re.compile(r"\\usepackage(\[[^\]]*\])?\{ctex\}")
 
 def get_header_body(tex: str, sessid: str):
     tex = tex.replace("\r\n", "\n")
     if platform.system() == "Windows":
         tex = tex.replace("\\begin{CJK}{UTF8}{gbsn}", "\\begin{CJK}{UTF8}{song}")
+    ctex_match = ctex_re.search(tex)
+    header_additional = ""
+    body_additional = ""
+    if ctex_match is not None:
+        tex = tex.replace(ctex_match.group(0), "")
+        header_additional += "\\RequirePackage[OT1]{fontenc}\n"
+        body_additional += ctex_match.group(0) + '\n'
     header_end = tex.find("\\begin{document}")
     if header_end == -1:
         return None, None
-    return tex[:header_end] + "\\begin{document}\n\\end{document}\n", \
-           "%&{}\n".format(get_header_name(sessid)) + tex[header_end:]
+    return header_additional + tex[:header_end] + "\\begin{document}\n\\end{document}\n", \
+           "%&{}\n".format(get_header_name(sessid)) + body_additional + tex[header_end:]
 
 
 def same_or_write(filename: str, cur_content: str):
@@ -70,28 +81,29 @@ def clean_log(filename: str):
         os.remove(logpath)
 
 
-def header_cmd(jobname: str):
-    return 'etex -ini -interaction=nonstopmode -halt-on-error -jobname={} "&pdflatex" mylatexformat.ltx """{}.tex"""'.format(
-        jobname, jobname)
+def header_cmd(jobname: str, compiler: str):
+    ecompiler = "xetex" if compiler == "xelatex" else "etex"
+    return '{} -ini -interaction=nonstopmode -halt-on-error -jobname={} "&{}" mylatexformat.ltx """{}.tex"""'.format(
+        ecompiler, jobname, compiler, jobname)
 
 
-def compile_header(cur_header: str, sessid: str):
+def compile_header(cur_header: str, compiler: str, sessid: str):
     header_name = get_header_name(sessid)
     if same_or_write(header_name, cur_header):
         clean_log(header_name)
         clean_log(get_body_name(sessid))
-        run_cmd(header_cmd(header_name))
+        run_cmd(header_cmd(header_name, compiler))
 
 
-def body_cmd(jobname: str):
-    return 'pdflatex -interaction=nonstopmode -halt-on-error {}.tex'.format(jobname)
+def body_cmd(jobname: str, compiler: str):
+    return '{} -interaction=nonstopmode -halt-on-error {}.tex'.format(compiler, jobname)
 
 
-def compile_body(cur_body: str, sessid: str):
+def compile_body(cur_body: str, compiler: str, sessid: str):
     body_name = get_body_name(sessid)
     if same_or_write(body_name, cur_body):
         clean_log(body_name)
-        run_cmd(body_cmd(body_name))
+        run_cmd(body_cmd(body_name, compiler))
 
 
 def clean_files(sessid: str, pdf: bool):
@@ -104,16 +116,15 @@ def clean_files(sessid: str, pdf: bool):
 def tex_length_limit_hook(tex: str):
     pass
 
-
-def compile_tex(tex: str, sessid: str):
+def compile_tex(tex: str, compiler: str, sessid: str):
     tex_length_limit_hook(tex)
     tex_header, tex_body = get_header_body(tex, sessid)
     try:
         if tex_header is not None:
-            compile_header(tex_header, sessid)
+            compile_header(tex_header, compiler, sessid)
             fmtpath = os.path.join(tmpdir, "{}.fmt".format(get_header_name(sessid)))
             if os.path.isfile(fmtpath):
-                compile_body(tex_body, sessid)
+                compile_body(tex_body, compiler, sessid)
                 pdfpath = os.path.join(tmpdir, "{}.pdf".format(get_body_name(sessid)))
                 if os.path.isfile(pdfpath):
                     with open(pdfpath, 'rb') as f:
@@ -179,7 +190,7 @@ def compile():
         if reqid not in compiling_sessions.keys():
             compiling_sessions[reqid] = 1
             try:
-                pdf = compile_tex(request.form['texdata'], reqid)
+                pdf = compile_tex(request.form['texdata'], request.form['compiler'], reqid)
             except Exception as e:
                 compiling_sessions.pop(reqid)
                 return render_template_string("{} {}".format(e, time.strftime("%Y-%m-%d %H:%M:%S")))
