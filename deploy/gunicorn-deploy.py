@@ -56,10 +56,10 @@ server.tex_length_limit_hook = tex_length_limit_hook
 tmp_header_cache_dir = os.path.join(server.tmpdir, 'cache')
 
 def get_header_hashed_name(header: str):
-    header_hash = hashlib.sha256(header.encode()).hexdigest()[:16]
+    header_hash = hashlib.sha256((header).encode()).hexdigest()[:16]
     return "{}_header.fmt".format(header_hash)
 
-def compile_header_cached(cur_header: str, sessid: str):
+def compile_header_cached(cur_header: str, compiler: str, sessid: str):
     header_name = server.get_header_name(sessid)
     header_hased_name = get_header_hashed_name(cur_header)
     header_hashed_path = os.path.join(tmp_header_cache_dir, header_hased_name)
@@ -70,7 +70,7 @@ def compile_header_cached(cur_header: str, sessid: str):
     if server.same_or_write(header_name, cur_header) and not os.path.isfile(header_hashed_path):
         server.clean_log(header_name)
         server.clean_log(server.get_body_name(sessid))
-        server.run_cmd(server.header_cmd(header_name))
+        server.run_cmd(server.header_cmd(header_name, compiler))
         if not os.path.isfile(header_ref_path):
             return  # early stop if the compilation failed
         # rename the compiled header to hased header name, 

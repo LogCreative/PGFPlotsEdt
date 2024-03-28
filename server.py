@@ -41,13 +41,14 @@ def get_body_name(sessid: str):
 
 ctex_re = re.compile(r"\\usepackage(\[[^\]]*\])?\{ctex\}")
 
-def get_header_body(tex: str, sessid: str):
+def get_header_body(tex: str, compiler: str, sessid: str):
     tex = tex.replace("\r\n", "\n")
     if platform.system() == "Windows":
         tex = tex.replace("\\begin{CJK}{UTF8}{gbsn}", "\\begin{CJK}{UTF8}{song}")
     ctex_match = ctex_re.search(tex)
-    header_additional = ""
-    body_additional = ""
+    program_magic_cmd = "% !TEX program = {}\n".format(compiler)
+    header_additional = program_magic_cmd
+    body_additional = program_magic_cmd
     if ctex_match is not None:
         tex = tex.replace(ctex_match.group(0), "")
         header_additional += "\\RequirePackage[OT1]{fontenc}\n"
@@ -118,7 +119,7 @@ def tex_length_limit_hook(tex: str):
 
 def compile_tex(tex: str, compiler: str, sessid: str):
     tex_length_limit_hook(tex)
-    tex_header, tex_body = get_header_body(tex, sessid)
+    tex_header, tex_body = get_header_body(tex, compiler, sessid)
     try:
         if tex_header is not None:
             compile_header(tex_header, compiler, sessid)
