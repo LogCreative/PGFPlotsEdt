@@ -42,17 +42,22 @@ def get_body_name(sessid: str):
 ctex_re = re.compile(r"\\usepackage(\[[^\]]*\])?\{ctex\}")
 
 def get_header_body(tex: str, compiler: str, sessid: str):
+    # Normalize CRLF
     tex = tex.replace("\r\n", "\n")
-    if platform.system() == "Windows":
-        tex = tex.replace("\\begin{CJK}{UTF8}{gbsn}", "\\begin{CJK}{UTF8}{song}")
-    ctex_match = ctex_re.search(tex)
+    # Add magic command to make the file different for different compilers
     program_magic_cmd = "% !TEX program = {}\n".format(compiler)
     header_additional = program_magic_cmd
     body_additional = program_magic_cmd
+    # Handle CJK
+    if platform.system() == "Windows":
+        tex = tex.replace("\\begin{CJK}{UTF8}{gbsn}", "\\begin{CJK}{UTF8}{song}")
+    # Hand CTeX
+    ctex_match = ctex_re.search(tex)
     if ctex_match is not None:
         tex = tex.replace(ctex_match.group(0), "")
         header_additional += "\\RequirePackage[OT1]{fontenc}\n"
-        body_additional += ctex_match.group(0) + '\n'
+        body_additional += "\\endofdump\n" + ctex_match.group(0) + '\n'
+    # Find the header end
     header_end = tex.find("\\begin{document}")
     if header_end == -1:
         return None, None
