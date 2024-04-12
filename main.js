@@ -1059,7 +1059,8 @@ var propMixins = {
     },
     methods:{
         on_change: function(){
-            paramDic[this.propkey] = "{" + this.value + "}";
+            if (this.value=="") delete paramDic[this.propkey];
+            else paramDic[this.propkey] = "{" + this.value + "}";
             updateParamDic();
         }
     }
