@@ -1139,6 +1139,7 @@ Vue.component('viewproperty',{
         dragstart: function(e){
             this.drag = true;
             this.prevx = e.offsetX;
+            e.target.style.cursor = "ew-resize";
             this.showview();
         },
         dragging: function(e){
@@ -1154,6 +1155,7 @@ Vue.component('viewproperty',{
             }
         },
         dragend: function(e){
+            e.target.style.cursor = "text";
             this.dragrefresh();
         }
     }
