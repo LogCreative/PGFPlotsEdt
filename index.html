@@ -52,7 +52,11 @@
             </div>
             <div id="about">
                 <div id="copyright" v-html="$t('copyright.line')"></div>
-                <div id="copyright-detail" v-html="$t('copyright.detail')"></div>
+                <div id="about-detail">
+                    <div id="copyright-detail" v-html="$t('copyright.detail')"></div>
+                    <div id="privacy-policy" v-show="!notuselocal" v-html="$t('copyright.privacy')"></div>
+                </div>
+                <div><input type="checkbox" v-model="notuselocal"> {{$t('copyright.fast-compiler-not-use')}}</input></div>
                 <div id="server-announce" v-html="$t('copyright.server-announce')"></div>
                 <div id="copyright-hint" v-html="$t('copyright.hint')"></div>
             </div>

@@ -80,7 +80,7 @@ a{
     font-size: small;
 }
 
-#about #copyright-detail {
+#about #about-detail {
     display: inline-block;
     margin: 0 2em;
     max-width: 50em;
@@ -298,7 +298,7 @@ summary {
 #series .upBut,
 #series .deleteBut,
 #series .transposeBut,
-input[type=checkbox] {
+.container [type=checkbox] {
     box-sizing: border-box;
     width: 17pt;
     height: 17pt;
@@ -362,7 +362,7 @@ input[type=checkbox] {
     width: 200px;
 }
 
-input[type=checkbox]
+.container [type=checkbox]
 /* ,.seriesitem .type label */
 {
     cursor: pointer;
@@ -373,13 +373,13 @@ input[type=checkbox]
     vertical-align:middle;
 }
 
-input[type=checkbox] {
+.container input[type=checkbox] {
     position: relative;
 }
 
 
-input[type=checkbox]::after,
-input[type=checkbox]:disabled::after {
+.container input[type=checkbox]::after,
+.container input[type=checkbox]:disabled::after {
     position: absolute;
     width: 15px;
     height: 20px;
@@ -456,7 +456,7 @@ input[type=checkbox]:disabled::after {
     overflow-x:hidden;
 }
 
-input[type=text]{
+#data input[type=text]{
     background-color: rgba(255, 255, 255, 0.6);
     border: 0.5px solid gray;
     padding: 2px 1px;
