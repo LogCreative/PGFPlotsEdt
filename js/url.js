@@ -20,3 +20,8 @@ if (in_compiler = /compiler=(\w+)/.exec(url))
         app.compiler = in_compiler[1];
     }
 }
+
+if (url.match("nofast"))
+{
+    app.notusefast = true;
+}

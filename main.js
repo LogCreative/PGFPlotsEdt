@@ -1320,7 +1320,7 @@ var app = new Vue({
         requestid:-1,
         compiler:"pdflatex",
         chnpkg:"CJK",
-        notuselocal:false,
+        notusefast:false,
     },
     mounted: function (){
         this.dc_content = this.content;
@@ -1441,7 +1441,7 @@ var app = new Vue({
                 app.curl = "https://texlive2020.latexonline.cc/compile?command="+app.compiler+"&text="+urlencoder(compile_tex);
             }
 
-            if (!this.notuselocal && this.requestid >= 0) {
+            if (!this.notusefast && this.requestid >= 0) {
                 this.compilerTest(function(){
                     // 使用本地编译服务器
                     app.$refs.texdata.value = compile_tex;
