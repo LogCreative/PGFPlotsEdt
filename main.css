@@ -456,10 +456,15 @@ summary {
     overflow-x:hidden;
 }
 
-#data input[type=text]{
-    background-color: rgba(255, 255, 255, 0.6);
+input[type=text]{
     border: 0.5px solid gray;
     padding: 2px 1px;
+    margin: 1px 0px;
+}
+
+#data input[type=text]{
+    background-color: rgba(255, 255, 255, 0.6);
+    margin: 0px;
 }
 
 .seriesitem:hover {
