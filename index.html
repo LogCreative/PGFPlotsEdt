@@ -108,18 +108,18 @@
                             <property :chname="$t('axis.label')" propkey="xlabel"></property>
                             <property :chname="$t('axis.min')" propkey="xmin"></property>
                             <property :chname="$t('axis.max')" propkey="xmax"></property>
-                            <propertyselect :chname="$t('axis.arrow')" propkey="axis x line" :options="['top','middle','bottom','none']"></propertyselect>
+                            <propertyselect :chname="$t('axis.arrow')" propkey="axis x line" :options="['box','top','middle','bottom','none']"></propertyselect>
                             <div class="paramhead">{{$t('axis.y')}}</div>
                             <property :chname="$t('axis.label')" propkey="ylabel"></property>
                             <property :chname="$t('axis.min')" propkey="ymin"></property>
                             <property :chname="$t('axis.max')" propkey="ymax"></property>
-                            <propertyselect :chname="$t('axis.arrow')" propkey="axis y line" :options="['left','middle','right','none']"></propertyselect>
+                            <propertyselect :chname="$t('axis.arrow')" propkey="axis y line" :options="['box','left','middle','right','none']"></propertyselect>
                         <div v-show="td">
                             <div class="paramhead">{{$t('axis.z')}}</div>
                             <property :chname="$t('axis.label')" propkey="zlabel"></property>
                             <property :chname="$t('axis.min')" propkey="zmin"></property>
                             <property :chname="$t('axis.max')" propkey="zmax"></property>
-                            <propertyselect :chname="$t('axis.arrow')" propkey="axis z line" :options="['left','middle','right','none']"></propertyselect>
+                            <propertyselect :chname="$t('axis.arrow')" propkey="axis z line" :options="['box','left','middle','right','none']"></propertyselect>
                         </div>
                     </div>
                 </details>
