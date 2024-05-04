@@ -31,6 +31,7 @@
                     <a class="acckey" href="https://cn.vuejs.org/" target="_blank"><img class="icon" src="res/poweredby/vue.png"><div class="value">Vue.js</div></a>
                     <a class="acckey" href="https://latexonline.cc/" target="_blank"><img class="icon" src="res/poweredby/latexonline.png"><div class="value">LaTeXOnline</div></a>
                     <a class="acckey" href="https://www.mathjax.org/" target="_blank"><img class="icon" src="res/poweredby/mathjax.ico"><div class="value">MathJax</div></a>
+                    <a class="acckey" href="https://llama.meta.com/llama3/" target="_blank" v-show="llm"><img class="icon" src="res/poweredby/meta.svg"><div class="value">Llama 3</div></a>
                 </div>
             </div>
             <img id="logo" src="res/logo/logo.svg" @click="about" :title="$t('about')">
@@ -54,6 +55,7 @@
                 <div id="copyright" v-html="$t('copyright.line')"></div>
                 <div id="about-detail">
                     <div id="copyright-detail" v-html="$t('copyright.detail')"></div>
+                    <div id="llama-detail" v-show="llm" v-html="$t('copyright.llama3')"></div>
                     <div id="privacy-policy" v-show="!notusefast" v-html="$t('copyright.privacy')"></div>
                 </div>
                 <div><input type="checkbox" v-model="notusefast"> {{$t('copyright.fast-compiler-not-use')}}</input></div>
@@ -191,12 +193,13 @@
             </div>
             <div id="code">
                 <div id="manualfile"></div>
-                <div id="llm">
-                    <input id="code_prompt" type="text">
-                    <button id="code_generate" onclick="generateCodeClick()">{{$t('generate')}}</button>
-                    <button id="code_accept">{{$t('accept')}}</button>
-                    <button id="code_reject">{{$t('reject')}}</button>
-                    <div id="llama3">{{$t('llama3')}}</div>
+                <div id="llm" v-show="llm">
+                    <input id="code_prompt" type="text" :placeholder="$t('llm.prompt')">
+                    <button id="code_generate" onclick="generateCodeClick()">{{$t('llm.generate')}}</button>
+                    <button id="code_accept">{{$t('llm.accept')}}</button>
+                    <button id="code_reject">{{$t('llm.reject')}}</button>
+                    <div id="generating">{{$t('llm.generating')}}</div>
+                    <div id="llama3">{{$t('llm.llama3')}}</div>
                 </div>
             </div>
         </div> 

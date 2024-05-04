@@ -1321,6 +1321,7 @@ var app = new Vue({
         compiler:"pdflatex",
         chnpkg:"CJK",
         notusefast:false,
+        llm: false,
     },
     mounted: function (){
         this.dc_content = this.content;
@@ -1331,6 +1332,8 @@ var app = new Vue({
         }, function () {
             app.requestid = -1;
         })
+
+        this.llm_test();
     },
     watch:{
         content(_new,_old){
@@ -1453,7 +1456,19 @@ var app = new Vue({
             } else {
                 onlineCompiler();
             }
-        }
+        },
+        llm_test: function () {
+            var that = this;
+            var request = new XMLHttpRequest();
+            request.open('GET', "/llm", true);
+            request.onreadystatechange = function() {
+                if (request.readyState === 4 && request.status === 200) {
+                    that.llm = true;
+                    document.getElementById('manualfile').style.height = '430px';
+                }
+            }
+            request.send();
+        },
     },
 });
 

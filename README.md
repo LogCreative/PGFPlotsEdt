@@ -37,7 +37,19 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
     - Open `http://127.0.0.1:5678` in your browser.
     > For Windows users, the server side will automatically change the fontset used by CJK for a larger compatibility.
 
-- If you want to deploy the server in the LAN, use the deployment server in the directory `deploy`, please follow the [LICENSE](LICENSE) for deployment:
+- If you want to use LLM to supercharge your PGFPlotsEdt coding experience, use the local server in the [llm/](llm/) directory. PGFPlotsEdt with LLM uses [Llama 3](https://llama.meta.com/llama3/) model deployed by [MLC](https://llm.mlc.ai), 6GB free VARM is required.
+    - Install [Anaconda](https://www.anaconda.com/download/success) first.
+    - Use the commands to start the PGFPlotsEdt server with LLM:
+    ```bash
+    cd llm
+    conda env update -n ppedt -f llm.yml
+    conda activate ppedt
+    python server_llm.py
+    ```
+    - Open `http://127.0.0.1:5678` in your browser, then press "Edit code manually" button. If there is a LLM toolbar at the bottom of the text editor, then LLM is ready to go.
+    - If you want to terminate PGFPlotsEdt with LLM, input `CTRL+C` twice in the server console.
+
+- If you want to deploy the server in the LAN, use the deployment server in the directory [deploy/](deploy/), please follow the [LICENSE](LICENSE) for deployment:
     - If you are using *nix operating system for deployment, finish the configuration in the previous step, and `pip install gunicorn` to install the additional package. Then run the deployment server directly by:
     ```bash
     cd deploy
@@ -50,6 +62,7 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
     ```
     - Then the deployment will be on `[IP]:5678`.
 
+
 #### Acknowledgements
 
 <a href="https://cn.vuejs.org/" target="_blank"><img class="icon" src="res/poweredby/vue.png" height="16px">Vue.js</a> is the progressive JavaScript framework for this project.
@@ -57,5 +70,7 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
 <a href="https://latexonline.cc/" target="_blank"><img class="icon" src="res/poweredby/latexonline.png" height="16px">LaTeXOnline</a> is the chosen online LaTeX compiler for previewing the graph result.
 
 <a href="https://www.mathjax.org/" target="_blank"><img class="icon" src="res/poweredby/mathjax.ico" height="16px">MathJax</a> is the TeX typeset rendering machine for previewing the formula input.
+
+<a href="https://llama.meta.com/llama3/" target="_blank"><img class="icon" src="res/poweredby/meta.svg" height="16px">Llama 3</a> is the chosen large language model to generate code. The LLM model is deployed by <a href="https://llm.mlc.ai" target="_blank"><img class="icon" src="res/poweredby/mlc.png" height="16px">MLC LLM</a>.
 
 >Copyright (c) 2020-2024 Log Creative & LaTeX Sparkle Project
