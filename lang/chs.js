@@ -6,6 +6,7 @@ const chs = {
   "copyright": {
     "line": "版权所有 © 2020&ndash;2024 Log Creative",
     "detail": "<p>本程序为自由软件，在自由软件联盟发布的 GNU Affero 通用公共许可协议的约束下，你可以对其进行再发布及修改。协议版本为第三版或（随你）更新的版本。</p><p>我们希望发布的这款程序有用，但不提供任何担保，甚至不保证它有经济价值和适合特定用途。详情参见 <a href='https://github.com/LogCreative/PGFPlotsEdt/blob/master/LICENSE' target='_blank'>GNU Affero 通用公共许可协议</a>。</p>",
+    "llama3": "Meta Llama 3 由 Meta Platforms, Inc. 版权所有，遵循 <a href='https://llama.meta.com/llama3/license/' target='_blank'>Meta Llama 3 社区许可协议</a>。",
     "privacy": "<p>隐私政策：为了编译 TeX 文档以及提供更好的用户体验，您必要的代码信息将会通过匿名、临时的方式被本网站或第三方网站 <a href='https://latexonline.cc/' target='_blank'>LaTeX Online</a> 收集。这些数据将会以容器化与除本网站外无外部连接的方式存储，并会被定期删除。您可以在 <a href='https://github.com/LogCreative/PGFPlotsEdt' target='_blank'>GitHub 存储库</a>中检查源代码。如果下方的方框没有被勾选，表明您同意这一政策。</p>",
     "fast-compiler-not-use": "不使用快速编译服务",
     "server-announce": "",
@@ -130,8 +131,12 @@ const chs = {
     "coord": "坐标数据"
   },
   "cpytip": "复制成功",
-  "generate": "生成",
-  "accept": "接受",
-  "reject": "拒绝",
-  "llama3": "使用 Llama 3 构建"
+  "llm": {
+    "prompt": "输入自然语言提示以更新代码",
+    "generate": "生成",
+    "accept": "接受",
+    "reject": "拒绝",
+    "llama3": "使用 Llama 3 构建",
+    "generating": "生成中……"
+  }
 }

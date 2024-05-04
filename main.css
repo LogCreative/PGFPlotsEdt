@@ -725,7 +725,7 @@ input[type=text]{
     font-style: italic;
 }
 
-#llm, #code_accept, #code_reject {
+#llm, #code_accept, #code_reject, #generating {
     display: none;
 }
 
@@ -734,6 +734,7 @@ input[type=text]{
 }
 
 #llm {
+    display: flex;
     padding: 3px 0;
     align-items: center;
     justify-content: center;
