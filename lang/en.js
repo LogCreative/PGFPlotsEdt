@@ -133,5 +133,6 @@ const en = {
   "cpytip": "Copied to Clipboard",
   "generate": "Generate",
   "accept": "Accept",
-  "reject": "Reject"
+  "reject": "Reject",
+  "llama3": "Built with Llama3"
 }
