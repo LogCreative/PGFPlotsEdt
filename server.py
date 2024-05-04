@@ -221,6 +221,17 @@ def compile():
     else:
         return render_template_string("PGFPlotsEdt LaTeX Server: POST a LaTeX request (texdata, compiler, requestid) to render.\n")
 
+def llm_hook(code, prompt):
+    return code
+
+@app.route('/llm', methods=['GET', 'POST'])
+def code_llm():
+    if request.method == 'POST':
+        llm_input = request.get_json()
+        new_code = llm_hook(llm_input['code'], llm_input['prompt'])
+        return Response(new_code, mimetype="text/plain")
+    else:
+        return render_template_string("PGFPlotsEdt LaTeX Server: POST a request (code, prompt) to LLM.\n")
 
 if __name__ == '__main__':
     # Clean up the tmpdir and create a new one.

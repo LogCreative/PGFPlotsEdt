@@ -130,5 +130,6 @@ const en = {
     "tableparam": "Table Parameter",
     "coord": "Coordinate Data"
   },
-  "cpytip": "Copied to Clipboard"
+  "cpytip": "Copied to Clipboard",
+  "generate": "Generate"
 }

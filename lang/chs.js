@@ -129,5 +129,6 @@ const chs = {
     "col": "表列",
     "coord": "坐标数据"
   },
-  "cpytip": "复制成功"
+  "cpytip": "复制成功",
+  "generate": "生成"
 }

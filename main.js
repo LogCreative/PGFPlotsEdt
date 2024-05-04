@@ -1283,6 +1283,21 @@ sourceClick = function(obj){
     app.enablesource = !app.enablesource;
 }
 
+generateCodeClick = function(obj) {
+    var prompt = document.getElementById('code_prompt').value;
+    var code = app.file;
+    var request = new XMLHttpRequest();
+    request.open('POST', "/llm", true);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.onreadystatechange = function() {
+        if (request.readyState === 4 && request.status === 200) {
+            var new_code = request.responseText;
+            console.log(new_code);
+        }
+    }
+    request.send(JSON.stringify({code: code, prompt: prompt}));
+}
+
 const t_premable = "\\begin{tikzpicture}\n"
 
 const tp_premable = "\\begin{tikzpicture}\n\\tikzset{\n every pin/.style={fill=yellow!50!white,rectangle,rounded corners=3pt,font=\\tiny},\n small dot/.style={fill=black,circle,scale=0.3},\n}\n"

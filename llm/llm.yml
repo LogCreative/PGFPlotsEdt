@@ -1,0 +1,8 @@
+dependencies:
+  - python=3.8
+  - pip
+  - pip:
+    - flask
+    - mlc-ai-nightly
+    - mlc-llm-nightly
+    - -f https://mlc.ai/wheels 
