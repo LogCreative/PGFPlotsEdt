@@ -24,17 +24,24 @@ sys.path.append('..')
 import server
 from res.version_updater import write_version_info
 
-def llm(code, prompt):
+def llm_hook(code, prompt):
     response = engine.chat.completions.create(
         messages=[
-            {"role": "user", "content": "You are a LaTeX code helper, especially for code of package pgfplots. Return only the modified version of the following code without any additional text. {}: {}".format(prompt, code)}
+            {"role": "user", "content": "You are a LaTeX code helper, especially for the code of package pgfplots. Return only the modified version of the following code without any additional text. {}: {}".format(prompt, code)}
         ],
         model=model,
         stream=False,
     )
     return response.choices[0].message.content
 
-server.llm_hook = llm
+server.llm_hook = llm_hook
+
+
+def llm_test():
+    return "PGFPlotsEdt LaTeX Server: POST a request (code, prompt) to LLM.\n", 200
+
+server.llm_test = llm_test
+
 
 if __name__ == '__main__':
     print("Loading LLM model...")

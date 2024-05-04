@@ -224,6 +224,9 @@ def compile():
 def llm_hook(code, prompt):
     return code
 
+def llm_test():
+    return "PGFPlotsEdt LLM Server is not available.", 503
+
 @app.route('/llm', methods=['GET', 'POST'])
 def code_llm():
     if request.method == 'POST':
@@ -231,7 +234,8 @@ def code_llm():
         new_code = llm_hook(llm_input['code'], llm_input['prompt'])
         return Response(new_code, mimetype="text/plain")
     else:
-        return render_template_string("PGFPlotsEdt LaTeX Server: POST a request (code, prompt) to LLM.\n")
+        llm_string, llm_status = llm_test()
+        return Response(llm_string, status=llm_status, mimetype="text/plain")
 
 if __name__ == '__main__':
     # Clean up the tmpdir and create a new one.

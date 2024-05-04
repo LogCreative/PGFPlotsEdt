@@ -130,5 +130,7 @@ const chs = {
     "coord": "坐标数据"
   },
   "cpytip": "复制成功",
-  "generate": "生成"
+  "generate": "生成",
+  "accept": "接受",
+  "reject": "拒绝"
 }

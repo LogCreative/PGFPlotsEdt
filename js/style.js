@@ -85,6 +85,7 @@ var gomanual = function(){
     document.getElementById('compilePrev').style.height = '430px';
     document.getElementById('stylePrev').style.height = '430px';
     document.getElementById('manualfile').style.display = 'block';
+    document.getElementById('code').style.display = 'block';
     app.manual = true;
     setSpliterHeight();
     var editor = ace.edit("manualfile");
@@ -124,6 +125,59 @@ var manuallibchange = function(libstr){
     var mf = document.getElementById('manualfile');
     mf.innerHTML = mf.innerHTML.replace("\\begin{document}", libstr + "\\begin{document}");
 };
+
+// LLM
+
+function test_llm() {
+    var request = new XMLHttpRequest();
+    request.open('GET', "/llm", true);
+    request.onreadystatechange = function() {
+        if (request.readyState === 4 && request.status === 200) {
+            document.getElementById('llm').style.display = 'block';
+            document.getElementById('manualfile').style.height = '430px';
+        }
+    }
+    request.send();
+}
+
+test_llm();
+
+generateCodeClick = function(obj) {
+    var editor = ace.edit("manualfile");
+    var prompt_input = document.getElementById('code_prompt');
+    var generate_btn = document.getElementById('code_generate');
+    var code_accept_btn = document.getElementById('code_accept');
+    var code_reject_btn = document.getElementById('code_reject');
+    var prompt = prompt_input.value;
+    var code = editor.getValue();
+    var request = new XMLHttpRequest();
+    request.open('POST', "/llm", true);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.onreadystatechange = function() {
+        if (request.readyState === 4 && request.status === 200) {
+            var new_code = request.responseText;
+            editor.setValue(new_code);
+            generate_btn.style.display = 'none';
+            code_accept_btn.style.display = 'inline-block';
+            code_reject_btn.style.display = 'inline-block';
+        }
+    }
+    request.send(JSON.stringify({code: code, prompt: prompt}));
+    code_accept_btn.addEventListener('click', function() {
+        editor.clearSelection();
+        prompt_input.value = '';
+        generate_btn.style.display = 'inline-block';
+        code_accept_btn.style.display = 'none';
+        code_reject_btn.style.display = 'none';
+    });
+    code_reject_btn.addEventListener('click', function() {
+        editor.setValue(code);
+        editor.clearSelection();
+        generate_btn.style.display = 'inline-block';
+        code_accept_btn.style.display = 'none';
+        code_reject_btn.style.display = 'none';
+    });
+}
 
 // 交互式动态 logo
 

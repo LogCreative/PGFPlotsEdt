@@ -131,5 +131,7 @@ const en = {
     "coord": "Coordinate Data"
   },
   "cpytip": "Copied to Clipboard",
-  "generate": "Generate"
+  "generate": "Generate",
+  "accept": "Accept",
+  "reject": "Reject"
 }
