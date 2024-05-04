@@ -4,7 +4,7 @@
 ### A PGFPlots Statistic Graph Interactive Editor.
 
 <a href="https://logcreative.github.io/PGFPlotsEdt/index.html?lang=en"><img src="https://img.shields.io/badge/lang-EN-9CF"></a>
-<a href="https://logcreative.github.io/PGFPlotsEdt/index.html?lang=chs"><img src="https://img.shields.io/badge/语言-中文-9CF"></a>
+<a href="https://logcreative.tech/PGFPlotsEdt/index.html?lang=chs"><img src="https://img.shields.io/badge/语言-中文-9CF"></a>
 <a href="https://github.com/LogCreative/PGFPlotsEdt/releases"><img src="https://img.shields.io/github/v/release/LogCreative/PGFPlotsEdt"></a>
 <a href="https://github.com/LogCreative/PGFPlotsEdt/blob/master/LICENSE"><img src="https://img.shields.io/github/license/LogCreative/PGFPlotsEdt"></a>
 <a href="https://github.com/LogCreative/PGFPlotsEdt/commits/master"><img src="https://img.shields.io/github/last-commit/LogCreative/PGFPlotsEdt"></a>
