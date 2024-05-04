@@ -190,9 +190,13 @@
                 </details>
             </div>
             <div id="code">
-                <input id="code_prompt" type="text">
-                <button onclick="generateCodeClick()">{{$t('generate')}}</button>
                 <div id="manualfile"></div>
+                <div id="llm">
+                    <input id="code_prompt" type="text">
+                    <button id="code_generate" onclick="generateCodeClick()">{{$t('generate')}}</button>
+                    <button id="code_accept">{{$t('accept')}}</button>
+                    <button id="code_reject">{{$t('reject')}}</button>
+                </div>
             </div>
         </div> 
         <div id="panel-three" class="split">

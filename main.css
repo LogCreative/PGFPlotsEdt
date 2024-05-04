@@ -118,6 +118,10 @@ a{
     background-color: white;
 }
 
+#code {
+    display: none;
+}
+
 #manualfile {
     display: none;
     width: 100%;
@@ -719,4 +723,16 @@ input[type=text]{
 
 .mi {
     font-style: italic;
+}
+
+#llm, #code_accept, #code_reject {
+    display: none;
+}
+
+#code_prompt {
+    width: 70%;
+}
+
+#llm {
+    padding: 3px 0;
 }
