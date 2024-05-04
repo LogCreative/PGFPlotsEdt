@@ -16,8 +16,7 @@ import shutil
 from mlc_llm import MLCEngine
 
 # Create engine
-# FIXME: this model is not good enough.
-model = "HF://mlc-ai/TinyLlama-1.1B-Chat-v0.4-q4f32_1-MLC"
+model = "HF://mlc-ai/Llama-3-8B-Instruct-q4f16_1-MLC"
 engine = None
 
 import sys
