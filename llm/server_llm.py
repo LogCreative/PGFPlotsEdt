@@ -48,7 +48,7 @@ if __name__ == '__main__':
     engine = MLCEngine(model)
 
     ver = write_version_info(os.path.join(server.rootdir, "res"))
-    print("PGFPlotsEdt {} with LLM".format(ver))
+    print("PGFPlotsEdt {} with Llama 3".format(ver))
 
     # Clean up the tmpdir and create a new one.
     if os.path.isdir(server.tmpdir):
@@ -56,3 +56,5 @@ if __name__ == '__main__':
     os.mkdir(server.tmpdir)
 
     server.app.run(host="127.0.0.1", port=5678)
+
+print("\nPress CTRL+C again to exit.")

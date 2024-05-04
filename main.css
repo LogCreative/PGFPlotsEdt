@@ -735,4 +735,13 @@ input[type=text]{
 
 #llm {
     padding: 3px 0;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+}
+
+#llama3 {
+    margin-left: auto;
+    color: gray;
+    font-size: small;
 }

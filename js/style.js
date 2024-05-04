@@ -133,7 +133,7 @@ function test_llm() {
     request.open('GET', "/llm", true);
     request.onreadystatechange = function() {
         if (request.readyState === 4 && request.status === 200) {
-            document.getElementById('llm').style.display = 'block';
+            document.getElementById('llm').style.display = 'flex';
             document.getElementById('manualfile').style.height = '430px';
         }
     }
@@ -163,9 +163,11 @@ generateCodeClick = function(obj) {
         }
     }
     request.send(JSON.stringify({code: code, prompt: prompt}));
+    generate_btn.disabled = true;
     code_accept_btn.addEventListener('click', function() {
         editor.clearSelection();
         prompt_input.value = '';
+        generate_btn.disabled = false;
         generate_btn.style.display = 'inline-block';
         code_accept_btn.style.display = 'none';
         code_reject_btn.style.display = 'none';
@@ -173,6 +175,7 @@ generateCodeClick = function(obj) {
     code_reject_btn.addEventListener('click', function() {
         editor.setValue(code);
         editor.clearSelection();
+        generate_btn.disabled = false;
         generate_btn.style.display = 'inline-block';
         code_accept_btn.style.display = 'none';
         code_reject_btn.style.display = 'none';
