@@ -24,6 +24,8 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
 
     <a href="https://logcreative.github.io/PGFPlotsEdt/"><img src="res/logo/logo.svg" width="16px">https://logcreative.github.io/PGFPlotsEdt/ </a>
 
+![PGFPlotsEdt](res/demo/main.jpg)
+
 - If you want to make sure the data won't go anywhere in the Internet, or try to compile the document faster, use the offline version by downloading the repo and fire up a local server to handle the compling tasks:
     - Install TeX distribution on your local computer.
     - Install python and the dependencies by
@@ -37,7 +39,7 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
     - Open `http://127.0.0.1:5678` in your browser.
     > For Windows users, the server side will automatically change the fontset used by CJK for a larger compatibility.
 
-- If you want to use LLM to supercharge your PGFPlotsEdt coding experience, use the local server in the [llm/](llm/) directory. PGFPlotsEdt with LLM uses [Llama 3](https://llama.meta.com/llama3/) model deployed by [MLC](https://llm.mlc.ai), 6GB free VARM is required.
+- If you want to use LLM to supercharge your PGFPlotsEdt coding experience, use the local server in the [llm/](llm/) directory. PGFPlotsEdt with LLM uses [Llama 3](https://llama.meta.com/llama3/) model deployed by [MLC](https://llm.mlc.ai), 6GB free VARM is required (typical supported device like MacBook Pro).
     - Install [Anaconda](https://www.anaconda.com/download/success) first.
     - Use the commands to start the PGFPlotsEdt server with LLM:
     ```bash
@@ -47,7 +49,9 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
     python server_llm.py
     ```
     - Open `http://127.0.0.1:5678` in your browser, then press "Edit code manually" button. If there is a LLM toolbar at the bottom of the text editor, then LLM is ready to go.
-    - If you want to terminate PGFPlotsEdt with LLM, input `CTRL+C` twice in the server console.
+    - If you want to terminate PGFPlotsEdt with LLM, input <kbd>CTRL</kbd><kbd>C</kbd> twice in the server console.
+
+    ![PGFPlotsEdt with LLM](res/demo/llm.jpg)
 
 - If you want to deploy the server in the LAN, use the deployment server in the directory [deploy/](deploy/), please follow the [LICENSE](LICENSE) for deployment:
     - If you are using *nix operating system for deployment, finish the configuration in the previous step, and `pip install gunicorn` to install the additional package. Then run the deployment server directly by:
