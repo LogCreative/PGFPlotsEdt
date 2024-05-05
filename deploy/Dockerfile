@@ -21,5 +21,8 @@ COPY . /PGFPlotsEdt
 # Set the working directory to the deploy folder
 WORKDIR /PGFPlotsEdt/deploy
 
+# Expose the port 5678
+EXPOSE 5678
+
 # Set the entrypoint command to start the Flask app using Gunicorn
 CMD ["python", "gunicorn-deploy.py"]
