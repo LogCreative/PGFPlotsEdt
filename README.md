@@ -41,15 +41,19 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
 
 - If you want to use LLM to supercharge your PGFPlotsEdt coding experience, use the local server in the [llm/](llm/) directory. PGFPlotsEdt with LLM uses [Llama 3](https://llama.meta.com/llama3/) model deployed by [MLC](https://llm.mlc.ai), 6GB free VARM is required (typical supported device like MacBook Pro).
     - Install [Anaconda](https://www.anaconda.com/download/success) first.
-    - Use the commands to start the PGFPlotsEdt server with LLM:
+    - Use the commands to setup the environment:
     ```bash
     cd llm
     conda env update -n ppedt -f llm.yml
+    ```
+    - Stay in [llm/](llm/) folder, use the commands to start PGFPlotsEdt server with LLM:
+    ```bash
     conda activate ppedt
     python server_llm.py
     ```
+    On the first run, the model will be downloaded, which takes some time and disk space. The Llama 3 model will be saved in a temporary folder and the loading time will be much faster in the following runs.
     - Open `http://127.0.0.1:5678` in your browser, then press "Edit code manually" button. If there is a LLM toolbar at the bottom of the text editor, then LLM is ready to go.
-    - If you want to terminate PGFPlotsEdt with LLM, input <kbd>CTRL</kbd><kbd>C</kbd> twice in the server console.
+    - If you want to terminate PGFPlotsEdt with LLM, input <kbd>CTRL</kbd><kbd>C</kbd> *twice* in the server console.
 
     ![PGFPlotsEdt with LLM](res/demo/llm.jpg)
 
