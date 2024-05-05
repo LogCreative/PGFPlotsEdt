@@ -1469,6 +1469,12 @@ var app = new Vue({
             }
             request.send();
         },
+        promptKeyUp: function(e) {
+            if (document.getElementById('code_generate').style.display !== 'none' && e.key == "Enter") {
+                generateCodeClick();
+                document.getElementById('code_prompt').blur();
+            }
+        }
     },
 });
 

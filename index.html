@@ -194,11 +194,11 @@
             <div id="code">
                 <div id="manualfile"></div>
                 <div id="llm" v-show="llm">
-                    <input id="code_prompt" type="text" :placeholder="$t('llm.prompt')">
+                    <input id="code_prompt" type="text" :placeholder="$t('llm.prompt')" @keyup="promptKeyUp">
                     <button id="code_generate" onclick="generateCodeClick()">{{$t('llm.generate')}}</button>
                     <button id="code_accept">{{$t('llm.accept')}}</button>
                     <button id="code_reject">{{$t('llm.reject')}}</button>
-                    <div id="generating">{{$t('llm.generating')}}</div>
+                    <div id="generating" class="loader"></div>
                     <div id="llama3">{{$t('llm.llama3')}}</div>
                 </div>
             </div>
