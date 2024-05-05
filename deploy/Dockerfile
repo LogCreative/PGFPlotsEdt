@@ -1,14 +1,14 @@
-# Labels
-LABEL org.opencontainers.image.title="PGFPlotsEdt"
-LABEL org.opencontainers.image.authors="LogCreative"
-LABEL org.opencontainers.image.licenses="AGPL-3.0"
-LABEL org.opencontainers.image.source="https://github.com/LogCreative/PGFPlotsEdt"
-
 # Use the official base image
 FROM texlive/texlive:latest
 
 # Set the working directory inside the container
 WORKDIR /PGFPlotsEdt
+
+# Labels
+LABEL org.opencontainers.image.title="PGFPlotsEdt"
+LABEL org.opencontainers.image.authors="LogCreative"
+LABEL org.opencontainers.image.licenses="AGPL-3.0"
+LABEL org.opencontainers.image.source="https://github.com/LogCreative/PGFPlotsEdt"
 
 # Replace debian update to a local mirror if necessary
 # RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debian.sources &&  \
