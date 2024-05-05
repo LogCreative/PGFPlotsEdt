@@ -1,3 +1,9 @@
+# Labels
+LABEL org.opencontainers.image.title=PGFPlotsEdt
+LABEL org.opencontainers.image.authors=LogCreative
+LABEL org.opencontainers.image.licenses=AGPL-3.0
+LABEL org.opencontainers.image.source=https://github.com/LogCreative/PGFPlotsEdt
+
 # Use the official base image
 FROM texlive/texlive:latest
 
