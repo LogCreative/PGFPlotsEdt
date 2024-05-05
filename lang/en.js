@@ -137,7 +137,6 @@ const en = {
     "generate": "Generate",
     "accept": "Accept",
     "reject": "Reject",
-    "llama3": "Built with Llama3",
-    "generating": "Generating..."
+    "llama3": "Built with Llama3"
   }
 }

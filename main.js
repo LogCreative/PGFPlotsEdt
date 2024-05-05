@@ -1470,7 +1470,8 @@ var app = new Vue({
             request.send();
         },
         promptKeyUp: function(e) {
-            if (document.getElementById('code_generate').style.display !== 'none' && e.key == "Enter") {
+            var code_prompt = document.getElementById('code_prompt');
+            if (code_prompt.style.display !== 'none' && code_prompt.disabled === false && e.key == "Enter") {
                 generateCodeClick();
                 document.getElementById('code_prompt').blur();
             }

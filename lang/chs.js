@@ -136,7 +136,6 @@ const chs = {
     "generate": "生成",
     "accept": "接受",
     "reject": "拒绝",
-    "llama3": "使用 Llama 3 构建",
-    "generating": "生成中……"
+    "llama3": "使用 Llama 3 构建"
   }
 }
