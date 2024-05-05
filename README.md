@@ -63,11 +63,17 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
     cd deploy
     python gunicorn-deploy.py
     ```
-    - If you are using Windows for deployment or you want to containerize your deployment, you could use the docker virtualization by:
-    ```bash
-    cd deploy
-    docker-compose up --build
-    ```
+    - Or you could use [Docker](https://www.docker.com/products/docker-desktop/) for virtualization:
+        - Use one of the pre-built images directly ([Docker Hub](https://hub.docker.com/repository/docker/logcreative/pgfplotsedt/tags) or [GitHub Packages](https://github.com/LogCreative/PGFPlotsEdt/pkgs/container/pgfplotsedt)):
+        ```bash
+        docker pull logcreative/pgfplotsedt:master          # Docker Hub
+        docker pull ghcr.io/logcreative/pgfplotsedt:master  # GitHub Packages
+        ```
+        - Or you could build a docker container from the source:
+        ```bash
+        cd deploy
+        docker-compose up --build
+        ```
     - Then the deployment will be on `[IP]:5678`.
 
 
