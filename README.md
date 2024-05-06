@@ -52,7 +52,7 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
     python server_llm.py
     ```
     On the first run, the model will be downloaded, which takes some time and disk space. The Llama 3 model will be saved in a temporary folder (in `~/.cache/mlc_llm` directory) and the loading time will be much faster in the following runs.
-    - Open `http://127.0.0.1:5678` in your browser, then press "Edit code manually" button. If there is a LLM toolbar at the bottom of the text editor, then LLM is ready to go.
+    - Open `http://127.0.0.1:5678` in your browser, then press "Edit code manually" button (or just open `http://127.0.0.1:5678?code_only` directly). If there is a LLM toolbar at the bottom of the text editor, then LLM is ready to go.
     - If you want to terminate PGFPlotsEdt with LLM, input <kbd>CTRL</kbd><kbd>C</kbd> *twice* in the server console.
 
     ![PGFPlotsEdt with LLM](res/demo/llm.jpg)
