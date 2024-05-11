@@ -311,7 +311,7 @@ var about = function(){
         // expand
         nav.style.height = '100vh';
         logo.style.float = 'none';
-        logo.style.marginTop = '10vh';
+        logo.style.marginTop = '5vh';
         nav.style.textAlign = 'center';
         extlinks.style.float = 'none';
         extlinks.style.textAlign = 'center';
