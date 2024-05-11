@@ -126,6 +126,49 @@ var manuallibchange = function(libstr){
     mf.innerHTML = mf.innerHTML.replace("\\begin{document}", libstr + "\\begin{document}");
 };
 
+getCodeDiff = function(oldcode, newcode){
+    // return the the changed line number in newcode
+    var oldlines = oldcode.split('\n');
+    var newlines = newcode.split('\n');
+    var minLineLength = Math.min(oldlines.length, newlines.length);
+    var start_row = 0, end_row = newlines.length - 1;
+    var start_col = 0, end_col = -1;
+    var oldRow, newRow, minRowLength = 0;
+    for (var i = 0; i < minLineLength; i++) {
+        oldRow = oldlines[i];
+        newRow = newlines[i];
+        if (oldRow !== newRow) {
+           start_row = i;
+           minRowLength = Math.min(oldRow.length, newRow.length);
+           start_col = minRowLength;
+           for (var j = 0; j < minRowLength; j++) {
+               if (oldRow[j] !== newRow[j]) {
+                   start_col = j + 1;
+                   break;
+               }
+           }
+           break;
+        }
+    }
+    for (var i = 0; i < minLineLength - start_row; i++) {
+        oldRow = oldlines[oldlines.length - 1 - i];
+        newRow = newlines[newlines.length - 1 - i];
+        if (oldRow !== newRow) {
+            end_row = newlines.length - 1 - i;
+            minRowLength = Math.min(oldRow.length, newRow.length);
+            end_col = 1;
+            for (var j = 0; j < minRowLength; j++) {
+                if (oldRow[oldRow.length - 1 - j] !== newRow[newRow.length - 1 - j]) {
+                    end_col = newRow.length - j;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+    return {start: {row: start_row, column: start_col}, end: {row: end_row, column: end_col}};
+};
+
 generateCodeClick = function(obj) {
     if (app.llm) {
         var editor = ace.edit("manualfile");
@@ -143,7 +186,11 @@ generateCodeClick = function(obj) {
             request.onreadystatechange = function() {
                 if (request.readyState === 4 && request.status === 200) {
                     var new_code = request.responseText;
+                    var diffRange = getCodeDiff(code, new_code);
                     editor.setValue(new_code);
+                    editor.clearSelection();
+                    editor.selection.moveCursorToPosition({row: diffRange.end.row, column: diffRange.end.column});
+                    editor.selection.setSelectionRange(diffRange);
                     generate_btn.style.display = 'none';
                     code_accept_btn.style.display = 'inline-block';
                     code_reject_btn.style.display = 'inline-block';

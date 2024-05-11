@@ -39,7 +39,7 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
     - Open `http://127.0.0.1:5678` in your browser.
     > For Windows users, the server side will automatically change the fontset used by CJK for a larger compatibility.
 
-- **Local version supercharged by LLM** If you want to use LLM to supercharge your PGFPlotsEdt coding experience, use the local server in the [llm/](llm/) directory. PGFPlotsEdt with LLM uses [Llama 3](https://llama.meta.com/llama3/) model deployed by [MLC](https://llm.mlc.ai), 6GB free VARM is required (typical supported device like MacBook Pro).
+- **Local version supercharged by LLM** If you want to use LLM to supercharge your PGFPlotsEdt coding experience, use the local server in the [llm/](llm/) directory. PGFPlotsEdt with LLM uses [Llama 3](https://llama.meta.com/llama3/) model deployed by [MLC](https://llm.mlc.ai), 6GB free VRAM is required (typical supported device like MacBook Pro).
     - Install [Anaconda](https://www.anaconda.com/download/success) first.
     - Use the commands to setup the environment:
     ```bash
