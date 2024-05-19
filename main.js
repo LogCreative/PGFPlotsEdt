@@ -371,8 +371,10 @@ var seriesMixin = {
                         app.axistype = "4";
                         if(app.manual){
                             manuallibchange(app.packages[6]);
-                            var mf = document.getElementById('manualfile');
-                            mf.innerHTML = mf.innerHTML.replace("\\begin{axis}", "\\begin{polaraxis}");
+                            var editor = ace.edit("manualfile");
+                            var code = editor.getValue();
+                            code = code.replace("\\begin{axis}", "\\begin{polaraxis}");
+                            editor.setValue(code);
                         }
                         break;
                 }

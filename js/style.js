@@ -122,8 +122,12 @@ var manualrefresh = function(){
 };
 
 var manuallibchange = function(libstr){
-    var mf = document.getElementById('manualfile');
-    mf.innerHTML = mf.innerHTML.replace("\\begin{document}", libstr + "\\begin{document}");
+    var editor = ace.edit("manualfile");
+    var code = editor.getValue();
+    if (code.indexOf(libstr) === -1) {
+        code = code.replace("\\begin{document}", libstr + "\\begin{document}");
+        editor.setValue(code);
+    }
 };
 
 getCodeDiff = function(oldcode, newcode){
