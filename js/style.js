@@ -187,11 +187,12 @@ generateCodeClick = function(obj) {
             var request = new XMLHttpRequest();
             request.open('POST', "/llm", true);
             request.setRequestHeader("Content-Type", "application/json");
+            // https://stackoverflow.com/a/31951077/24189749
             request.onreadystatechange = function() {
-                if (request.readyState === 4 && request.status === 200) {
-                    var new_code = request.responseText;
+                var new_code = request.responseText;
+                editor.setValue(new_code);
+                if (request.readyState == XMLHttpRequest.DONE) {
                     var diffRange = getCodeDiff(code, new_code);
-                    editor.setValue(new_code);
                     editor.clearSelection();
                     editor.selection.moveCursorToPosition({row: diffRange.end.row, column: diffRange.end.column});
                     editor.selection.setSelectionRange(diffRange);

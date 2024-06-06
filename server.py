@@ -231,8 +231,7 @@ def llm_test():
 def code_llm():
     if request.method == 'POST':
         llm_input = request.get_json()
-        new_code = llm_hook(llm_input['code'], llm_input['prompt'])
-        return Response(new_code, mimetype="text/plain")
+        return Response(llm_hook(llm_input['code'], llm_input['prompt']), mimetype="text/plain")
     else:
         llm_string, llm_status = llm_test()
         return Response(llm_string, status=llm_status, mimetype="text/plain")

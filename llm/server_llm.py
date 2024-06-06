@@ -25,14 +25,14 @@ import server
 from res.version_updater import write_version_info
 
 def llm_hook(code, prompt):
-    response = engine.chat.completions.create(
+    for response in engine.chat.completions.create(
         messages=[
             {"role": "user", "content": "You are a LaTeX code helper, especially for the code of package pgfplots. Return only the modified version of the following code without any additional text. {}: {}".format(prompt, code)}
         ],
         model=model,
-        stream=False,
-    )
-    return response.choices[0].message.content
+        stream=True,
+    ):
+        yield response.choices[0].delta.content
 
 server.llm_hook = llm_hook
 
