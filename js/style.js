@@ -147,7 +147,7 @@ getCodeDiff = function(oldcode, newcode){
            start_col = minRowLength;
            for (var j = 0; j < minRowLength; j++) {
                if (oldRow[j] !== newRow[j]) {
-                   start_col = j + 1;
+                   start_col = j;
                    break;
                }
            }
@@ -168,6 +168,9 @@ getCodeDiff = function(oldcode, newcode){
                 }
             }
             break;
+        } else {
+            end_row = newlines.length - 1 - i;
+            end_col = 0;
         }
     }
     return {start: {row: start_row, column: start_col}, end: {row: end_row, column: end_col}};
@@ -187,9 +190,9 @@ generateCodeClick = function(obj) {
             var request = new XMLHttpRequest();
             request.open('POST', "/llm", true);
             request.setRequestHeader("Content-Type", "application/json");
-            // https://stackoverflow.com/a/31951077/24189749
             request.onreadystatechange = function() {
                 var new_code = request.responseText;
+                // TODO: only set value when the code is different
                 editor.setValue(new_code);
                 if (request.readyState == XMLHttpRequest.DONE) {
                     var diffRange = getCodeDiff(code, new_code);
