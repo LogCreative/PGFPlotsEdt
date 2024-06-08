@@ -192,8 +192,21 @@ generateCodeClick = function(obj) {
             request.setRequestHeader("Content-Type", "application/json");
             request.onreadystatechange = function() {
                 var new_code = request.responseText;
-                // TODO: only set value when the code is different
-                editor.setValue(new_code);
+                // only fully update when the new code is different
+                var oldlines = code.split('\n');
+                var newlines = new_code.split('\n');
+                var composed_lines = oldlines;
+                if (oldlines.length > newlines.length && code.startsWith(new_code)) {
+                    for (var i = 0; i < newlines.length; i++) {
+                        composed_lines[i] = newlines[i];
+                    }
+                    editor.setValue(composed_lines.join('\n'));
+                    editor.clearSelection();
+                    editor.selection.moveCursorToPosition({row: newlines.length - 1, column: newlines[newlines.length - 1].length});
+                    editor.selection.setSelectionRange({start: {row: 0, column: 0}, end: {row: newlines.length - 1, column: newlines[newlines.length - 1].length}});
+                } else {
+                    editor.setValue(new_code);
+                }
                 if (request.readyState == XMLHttpRequest.DONE) {
                     var diffRange = getCodeDiff(code, new_code);
                     editor.clearSelection();
