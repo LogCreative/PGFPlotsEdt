@@ -16,7 +16,10 @@ import shutil
 from mlc_llm import MLCEngine
 
 # Create engine
+## The original Llama 3 model:
 model = "HF://mlc-ai/Llama-3-8B-Instruct-q4f16_1-MLC"
+## The experimental finetuned Llama 3 model:
+# model = "HF://LogCreative/Llama-3-8B-Instruct-pgfplots-finetune-q4f16_1-MLC"
 engine = None
 
 import sys
