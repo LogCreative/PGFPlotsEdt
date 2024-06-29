@@ -6,15 +6,32 @@
 // 采用 highlight.js 库
 Vue.use(hljs.vuePlugin);
 
+// 暗色模式
+
+const darkModePreference = window.matchMedia("(prefers-color-scheme: dark)");
+
+var updateDarkMode = function(e) {
+    var editor = ace.edit("manualfile");
+    if (e.matches) {
+        // dark mode
+        editor.setTheme("ace/theme/tomorrow_night");
+    } else {
+        // light mode
+        editor.setTheme("ace/theme/textmate");
+    }
+}
+
+darkModePreference.addEventListener("change", e => updateDarkMode(e));
+
 // 删除线样式
 Vue.directive('soutline',function(el,binding){
     if(binding.value){
         // el.style['text-decoration'] = 'none';
-        el.style['color'] = '#666';
+        el.style['color'] = '#777';
         el.style['opacity'] = '1.0';
     } else {
         // el.style['text-decoration'] = 'line-through';
-        el.style['color'] = '#999';
+        el.style['color'] = '#777';
         el.style['opacity'] = '0.5';
     }
 });
@@ -53,7 +70,7 @@ var warnCode = function (qselector) {
 }
 
 var blurCode = function (qselector) {
-    highlightCode(qselector,"transparent");
+    highlightCode(qselector,"light-dark(white, rgb(30,30,30))");
 }
 
 // 设置分割栏的高度
@@ -99,7 +116,7 @@ var gomanual = function(){
     })
     langTools=ace.require("ace/ext/language_tools");
     langTools.setCompleters([customCompleter]);
-    editor.setTheme("ace/theme/textmate");
+    updateDarkMode(darkModePreference);
     editor.session.setMode("ace/mode/latex");
     editor.session.setValue(app.file);
     editor.session.setUseWrapMode(true);

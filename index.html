@@ -25,7 +25,6 @@
                 </div>
                 <div id="poweredby" class="accordion">
                     <a class="acckey" href="https://logcreative.github.io/LaTeXSparkle/src/art/chapter06.html" target="_blank"><img class="icon">🔖</img><div class="value">{{ $t('nav.quickstart') }}</div></a>
-                    <!-- darkmode -->
                     <a class="acckey" href="https://mirrors.sjtug.sjtu.edu.cn/CTAN/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf" target="_blank"><img src="res/poweredby/book.ico" class="icon"><div class="value">{{ $t('nav.doc') }}</div></a>
                     <a class="acckey" href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank"><img src="res/poweredby/github.png"><div class="value">GitHub</div></a>
                     <a class="acckey" href="https://cn.vuejs.org/" target="_blank"><img class="icon" src="res/poweredby/vue.png"><div class="value">Vue.js</div></a>
@@ -460,12 +459,14 @@
     <script src="lib/vue-clipboard.js"></script>
     <script src="lib/highlight.min.js"></script>
     <script src="lib/latex.min.js"></script>
-    <link href="lib/vs.min.css" rel="stylesheet">
+    <link href="lib/vs.min.css" rel="stylesheet" media="(prefers-color-scheme: light)">
+    <link href="lib/vs2015.min.css" rel="stylesheet" media="(prefers-color-scheme: dark)">
     <script src="lib/split.min.js"></script>
     <script src="lib/vue-i18n.min.js"></script>
     <script src="lib/ace.min.js"></script>
     <script src="lib/mode-latex.min.js"></script>
     <script src="lib/theme-textmate.min.js"></script>
+    <script src="lib/theme-tomorrow_night.min.js"></script>
     <script src="lib/ext-language_tools.min.js"></script>
     <script src="lib/mode-snippets.js"></script>
     <script src="lib/snippets-latex.min.js"></script>
