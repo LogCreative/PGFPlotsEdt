@@ -7,7 +7,7 @@
 </clipPath>
 </defs>
 <g id='page1'>
-<path d='M-7.9375 11.77734L-8.1445 11.85547' stroke='#f4fbf1' fill='none' stroke-width='1.79329' stroke-miterlimit='10' clip-path='url(#clip1)'/>
+<!-- <path d='M-7.9375 11.77734L-8.1445 11.85547' stroke='#f4fbf1' fill='none' stroke-width='1.79329' stroke-miterlimit='10' clip-path='url(#clip1)'/>
 <path d='M-8.1445 11.85547L-8.3555 11.92969' stroke='#f4fbf1' fill='none' stroke-width='1.79329' stroke-miterlimit='10' clip-path='url(#clip1)'/>
 <path d='M-8.3555 11.92969L-8.5664 12.00391' stroke='#f4fbf1' fill='none' stroke-width='1.79329' stroke-miterlimit='10' clip-path='url(#clip1)'/>
 <path d='M-8.5664 12.00391L-8.7773 12.07812' stroke='#f4fbf1' fill='none' stroke-width='1.79329' stroke-miterlimit='10' clip-path='url(#clip1)'/>
@@ -105,7 +105,7 @@
 <path d='M-28.3633 12.07812L-28.5742 12.00391' stroke='#f4fbf1' fill='none' stroke-width='1.79329' stroke-miterlimit='10' clip-path='url(#clip1)'/>
 <path d='M-28.5742 12.00391L-28.7813 11.92969' stroke='#f4fbf1' fill='none' stroke-width='1.79329' stroke-miterlimit='10' clip-path='url(#clip1)'/>
 <path d='M-28.7813 11.92969L-28.9922 11.85547' stroke='#f4fbf1' fill='none' stroke-width='1.79329' stroke-miterlimit='10' clip-path='url(#clip1)'/>
-<path d='M-28.9922 11.85547L-29.2031 11.77734' stroke='#f4fbf1' fill='none' stroke-width='1.79329' stroke-miterlimit='10' clip-path='url(#clip1)'/>
+<path d='M-28.9922 11.85547L-29.2031 11.77734' stroke='#f4fbf1' fill='none' stroke-width='1.79329' stroke-miterlimit='10' clip-path='url(#clip1)'/> -->
 <path d='M-67.019532-4.2031L-62.98047-5.6602V-7.3984L-67.019532-5.6602Z' fill='#c9eac2' clip-path='url(#clip1)' fill-opacity='.08'/>
 <path d='M-67.019532-4.2031L-62.98047-5.6602V-7.3984L-67.019532-5.6602Z' stroke='#c9eac2' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-opacity='.08' clip-path='url(#clip1)'/>
 <path d='M-62.98047-5.6602L-58.94531-7.2383V-9.2891L-62.98047-7.3984Z' fill='#c4e8bd' clip-path='url(#clip1)' fill-opacity='.08'/>
