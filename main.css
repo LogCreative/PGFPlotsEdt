@@ -75,8 +75,13 @@ a{
     opacity: 1;
 }
 
-#poweredby > a > img {
+#poweredby > a img {
     height: 16px;
+}
+
+#subtitle {
+    display: inline-block;
+    color: light-dark(rgba(128, 128, 128, 0.5), rgba(255, 255, 255, 0.5));
 }
 
 #title, #extlinks {
@@ -617,7 +622,7 @@ input[type=text]{
 .paramhead{
     font-size: smaller;
     margin: 4px 0px;
-    color: gray;
+    color: light-dark(gray, lightgray);
     display: block;
 }
 

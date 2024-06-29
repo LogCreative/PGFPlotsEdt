@@ -1172,8 +1172,11 @@ Vue.component('tplbutton', {
         tplid: Number,
     },
     computed:{
-        iconadd: function(){
+        iconaddl: function(){
             return "res/tpl/icon/" + this.tplid + "i.svg";
+        },
+        iconaddd: function() {
+            return "res/tpl/icon/" + this.tplid + "id.svg";
         }
     },
     methods:{

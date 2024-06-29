@@ -26,9 +26,13 @@
                 <div id="poweredby" class="accordion">
                     <a class="acckey" href="https://logcreative.github.io/LaTeXSparkle/src/art/chapter06.html" target="_blank"><img class="icon">🔖</img><div class="value">{{ $t('nav.quickstart') }}</div></a>
                     <a class="acckey" href="https://mirrors.sjtug.sjtu.edu.cn/CTAN/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf" target="_blank"><img src="res/poweredby/book.ico" class="icon"><div class="value">{{ $t('nav.doc') }}</div></a>
-                    <a class="acckey" href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank"><img src="res/poweredby/github.png"><div class="value">GitHub</div></a>
+                    <a class="acckey" href="https://github.com/LogCreative/PGFPlotsEdt" target="_blank"><picture>
+                        <source srcset="res/poweredby/github_white.png" media="(prefers-color-scheme: dark)" />
+                        <source srcset="res/poweredby/github.png" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" /><img src="res/poweredby/github.png"></picture><div class="value">GitHub</div></a>
                     <a class="acckey" href="https://cn.vuejs.org/" target="_blank"><img class="icon" src="res/poweredby/vue.png"><div class="value">Vue.js</div></a>
-                    <a class="acckey" href="https://latexonline.cc/" target="_blank"><img class="icon" src="res/poweredby/latexonline.png"><div class="value">LaTeXOnline</div></a>
+                    <a class="acckey" href="https://latexonline.cc/" target="_blank"><picture>
+                        <source srcset="res/poweredby/latexonline_white.png" media="(prefers-color-scheme: dark)" />
+                        <source srcset="res/poweredby/latexonline.png" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" /><img class="icon" src="res/poweredby/latexonline.png"></picture><div class="value">LaTeXOnline</div></a>
                     <a class="acckey" href="https://www.mathjax.org/" target="_blank"><img class="icon" src="res/poweredby/mathjax.ico"><div class="value">MathJax</div></a>
                     <a class="acckey" href="https://llama.meta.com/llama3/" target="_blank" v-show="llm"><img class="icon" src="res/poweredby/meta.svg"><div class="value">Llama 3</div></a>
                 </div>
@@ -36,7 +40,7 @@
             <img id="logo" src="res/logo/logo.svg" @click="about" :title="$t('about')">
             <div>
                 <a href="https://github.com/LogCreative/PGFPlotsEdt" :title="$t('repo')" target="_blank">{{ $t('PGFPlotsEdt') }}</a><br>
-                <div style="display: inline-block; color: rgba(128, 128, 128, 0.5);">{{ $t('Faster to PGFPlot in LaTeX') }} <div id="version" style="display: inline-block;"></div></div>
+                <div id="subtitle">{{ $t('Faster to PGFPlot in LaTeX') }} <div id="version" style="display: inline-block;"></div></div>
                 <div id="template" class="accordion">
                     <tplbutton :tplname="$t('nav.tpl1')" :tplid="1"></tplbutton>
                     <tplbutton :tplname="$t('nav.tpl2')" :tplid="2"></tplbutton>
@@ -452,7 +456,12 @@
     </template>
     <template id="tplbutton">
         <div class="acckey">
-            <button class="acccon" @click="addtpl" @mouseenter="preview" @mouseleave="flush"><img class="icon" :src="iconadd"><div class="value">{{tplname}}</div></button>
+            <button class="acccon" @click="addtpl" @mouseenter="preview" @mouseleave="flush">
+                <picture>
+                    <source :srcset="iconaddd" media="(prefers-color-scheme: dark)" />
+                    <source :srcset="iconaddl" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" />
+                    <img class="icon" :src="iconaddl">
+                </picture><div class="value">{{tplname}}</div></button>
         </div>
     </template>
     <script src="lib/vue.min.js"></script>
