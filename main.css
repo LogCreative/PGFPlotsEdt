@@ -177,8 +177,17 @@ textarea{
     margin-bottom: 7px;
     border-radius: 0px 0px 10px 10px;
     border: 1.5px solid green;
+}
+
+/* The svg previewer should not be in dark mode */
+#stylePrev {
     background-color: white;
     color: black;
+}
+
+#compilePrev {
+    background-color: Canvas;
+    color: CanvasText;
 }
 
 .container{

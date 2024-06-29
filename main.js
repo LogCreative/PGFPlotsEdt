@@ -1308,7 +1308,7 @@ var app = new Vue({
         s_premable: "\\documentclass[tikz]{standalone}\n\\usepackage{pgfplots}\n\\pgfplotsset{compat=newest}\n",
         e_premable: "\\begin{document}\n",
         suffix: "" + s_suffix,
-        curl:"",
+        curl:"res/view/idle.html",   // make Safari happy
         sources:[],
         expressions:[],
         coordinates:[],
