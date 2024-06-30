@@ -94,7 +94,7 @@ const chs = {
     "delete": "删除系列",
     "td": "三维坐标",
     "style": "样式连续",
-    "area": "循环面积",
+    "area": "封闭曲线",
     "paramter": "参数",
     "funcxfull": "函数式(x)",
     "funcx": "x轴",

@@ -90,7 +90,7 @@ const en = {
   "series": {
     "fn": "fn",
     "showLayer": "Show Layer",
-    "area": "Fill the area",
+    "area": "Closed plots",
     "delete": "Delete series",
     "funcxfull": "function(x)",
     "funcx" : "x axis",
