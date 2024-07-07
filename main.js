@@ -1329,6 +1329,12 @@ var app = new Vue({
         llm: false,
     },
     mounted: function (){
+        window.onbeforeunload = (e) => {
+            if (seriescnt===0) return;
+            e.preventDefault();
+            e.returnValue = ''; // hint the user to save the data before reload
+        };
+
         this.dc_content = this.content;
         this.lang = in_lang;
 
