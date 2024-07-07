@@ -1,0 +1,34 @@
+\documentclass[dvisvgm]{standalone}
+\usepackage{xcolor}
+\usepackage{MnSymbol}
+\usepackage{amsmath}
+\usepackage{listings}
+\lstset{language=[LaTeX]TeX,flexiblecolumns,basicstyle=\ttfamily,keywordstyle=\color{blue},texcsstyle=*\color{blue}}
+\usepackage{fontawesome5}
+\usepackage{tcolorbox}
+\begin{document}
+
+\begin{tcolorbox}
+$\blacktriangledown$ Code \colorbox{green!50!black}{\strut\makebox[2em]{\textcolor{white}{\faFile*[regular] $\filledsquare$}}}  \framebox[2em]{\strut $\filledmedsquare$} \framebox[2em]{\strut \faExclamationTriangle} \colorbox{green!50!black}{\textcolor{white}{Copied to clipboard}}
+
+\begin{lstlisting}
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\begin{document}
+\end{lstlisting}
+\begin{tcolorbox}[boxsep=0pt,grow to left by=4pt,left*=0pt,right*=0pt,top=1pt,bottom=1pt,colframe=green!50!black,sharp corners]
+\begin{lstlisting}
+\begin{tikzpicture}
+\begin{axis}[]
+ \addplot [] {x/2};
+\end{axis}
+\end{tikzpicture}
+\end{lstlisting}
+\end{tcolorbox}
+\begin{lstlisting}
+\end{document}
+\end{lstlisting}
+\end{tcolorbox}
+
+\end{document}
