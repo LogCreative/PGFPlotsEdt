@@ -34,7 +34,7 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
     ```
     - Start the server.
     ```bash
-    python server.py
+    python ppedt_server.py
     ```
     - Open `http://127.0.0.1:5678` in your browser.
     > For Windows users, the server side will automatically change the fontset used by CJK for a larger compatibility.
@@ -43,12 +43,12 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
     - Install [Anaconda](https://www.anaconda.com/download/success) first.
     - Use the commands to set the environment, you don't have to setup the environment repeatedly on later runs:
     ```bash
-    conda env update -n ppedt -f llm.yml
+    conda env update -n ppedt -f ppedt_server_llm.yml
     ```
     - Use the commands to start the PGFPlotsEdt server with LLM:
     ```bash
     conda activate ppedt
-    python server_llm.py
+    python ppedt_server_llm.py
     ```
     On the first run, the model will be downloaded, which takes some time and disk space. The Llama 3 model will be saved in a temporary folder (in `~/.cache/mlc_llm` directory) and the loading time will be much faster in the following runs.
     - Open `http://127.0.0.1:5678` in your browser, then press "Edit code manually" button (or just open `http://127.0.0.1:5678?code_only` directly). If there is a LLM toolbar at the bottom of the text editor, then LLM is ready to go.
