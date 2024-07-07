@@ -8,7 +8,7 @@ HOST = '0.0.0.0'
 # Change docker-compose.yml as well if you change the port number.
 PORT = '5678'
 
-# Number of workers: default is 'auto' which will use the number of CPU cores.
+# Number of workers: default is 'auto' which will use the number of CPU cores + 1 (redundency).
 # You can also set it to a fixed number.
 WORKERS = 'auto'
 

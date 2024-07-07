@@ -183,6 +183,8 @@ def get_reqid(request):
         return None
     return reqid_hook(reqid)
 
+def avail_hook():
+    return True
 
 @app.route('/', methods=['GET'])
 def index():
@@ -191,6 +193,9 @@ def index():
 
 @app.route('/compile', methods=['GET', 'POST'])
 def compile():
+    if not avail_hook():
+        app.logger.warning("Server is currently downgraded, number of occupied workers: {}".format(len(compiling_sessions.keys())))
+        return "PGFPlotsEdt Server is currently downgraded.", 503
     if request.method == 'POST':
         reqid = get_reqid(request)
         if reqid is None:

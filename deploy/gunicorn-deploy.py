@@ -28,8 +28,10 @@ from config import *
 def number_of_workers():
     # Should not use full amount of cpu cores, 
     # since there should be cores handling the compiling task.
-    return multiprocessing.cpu_count()
+    # the plus 1 is for the main loop to have a chance to response 503.
+    return multiprocessing.cpu_count() + 1
 
+NUM_WORKERS = number_of_workers() if WORKERS == 'auto' else int(WORKERS)
 
 def run_cmd_with_timeout(cmd: str):
     try:
@@ -98,6 +100,21 @@ def reqid_hook(reqid: str):
     reqhash += sys.maxsize + 1  # make it positive, https://stackoverflow.com/a/18766856
     return hex(reqhash)[2:]     # remove the '0x'
 ppedt_server.reqid_hook = reqid_hook
+
+
+def avail_hook():
+    # If the number is already NUM_WORKERS,
+    # then other clients will be waited depend on the backlog setting.
+    # And the server will not have the chance to response 503 for quick switching.
+    # 
+    # Since the compiling task is time-consuming,
+    # it is better for the client to switch to another server as quickly as possible,
+    # which bypasses the backlog setting.
+    if len(ppedt_server.compiling_sessions.keys()) >= NUM_WORKERS - 1:
+        return False
+    return True
+# Patch server avail_hook
+ppedt_server.avail_hook = avail_hook
 
 
 class StandaloneApplication(gunicorn.app.base.BaseApplication):
@@ -170,7 +187,7 @@ def pre_request(worker, req):
 if __name__ == '__main__':
     options = {
         'bind': '{}:{}'.format(HOST, PORT),
-        'workers': number_of_workers() if WORKERS == 'auto' else int(WORKERS),
+        'workers': NUM_WORKERS,
         'on_starting': on_starting,
         'pre_request': pre_request,
         'errorlog': 'error.log',
