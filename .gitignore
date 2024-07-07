@@ -5,3 +5,4 @@ __pycache__/
 res/version.js
 res/VERSION
 deploy/error.log
+.pkl_memoize_py3/

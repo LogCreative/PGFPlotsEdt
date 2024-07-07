@@ -1,5 +1,5 @@
 """
-PGFPlotsEdt Private Server with LLM
+PGFPlotsEdt Local Server with LLM
 """
 
 #  Copyright (c) Log Creative 2020--2024.
@@ -23,7 +23,6 @@ model = "HF://mlc-ai/Llama-3-8B-Instruct-q4f16_1-MLC"
 engine = None
 
 import sys
-sys.path.append('..')
 import server
 from res.version_updater import write_version_info
 

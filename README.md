@@ -39,14 +39,13 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
     - Open `http://127.0.0.1:5678` in your browser.
     > For Windows users, the server side will automatically change the fontset used by CJK for a larger compatibility.
 
-- **Local version supercharged by LLM** If you want to use LLM to supercharge your PGFPlotsEdt coding experience, use the local server in the [llm/](llm/) directory. PGFPlotsEdt with LLM uses [Llama 3](https://llama.meta.com/llama3/) model deployed by [MLC](https://llm.mlc.ai), 6GB free VRAM is required (typical supported device like MacBook Pro).
+- **Local version supercharged by LLM** If you want to use LLM to supercharge your PGFPlotsEdt coding experience, use PGFPlotsEdt with LLM. It uses [Llama 3](https://llama.meta.com/llama3/) model deployed by [MLC](https://llm.mlc.ai), 6GB free VRAM is required (a typical supported device is a MacBook Pro).
     - Install [Anaconda](https://www.anaconda.com/download/success) first.
-    - Use the commands to setup the environment:
+    - Use the commands to set the environment, you don't have to setup the environment repeatedly on later runs:
     ```bash
-    cd llm
     conda env update -n ppedt -f llm.yml
     ```
-    - Stay in [llm/](llm/) folder, use the commands to start PGFPlotsEdt server with LLM:
+    - Use the commands to start the PGFPlotsEdt server with LLM:
     ```bash
     conda activate ppedt
     python server_llm.py
@@ -66,8 +65,8 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
     - Or you could use [Docker](https://www.docker.com/products/docker-desktop/) for virtualization:
         - Use one of the pre-built images directly ([Docker Hub](https://hub.docker.com/repository/docker/logcreative/pgfplotsedt/tags) or [GitHub Packages](https://github.com/LogCreative/PGFPlotsEdt/pkgs/container/pgfplotsedt)):
         ```bash
-        docker pull logcreative/pgfplotsedt:master          # Docker Hub
-        docker pull ghcr.io/logcreative/pgfplotsedt:master  # GitHub Packages
+        docker run logcreative/pgfplotsedt:master          # Docker Hub
+        docker run ghcr.io/logcreative/pgfplotsedt:master  # GitHub Packages
         ```
         - Or you could build a docker container from the source:
         ```bash

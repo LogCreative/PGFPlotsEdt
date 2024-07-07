@@ -1,5 +1,5 @@
 """
-A basic PGFPlotsEdt LaTeX backend server for local runtime
+PGFPlotsEdt main LaTeX backend server
 """
 
 #  Copyright (c) Log Creative 2020--2024.
