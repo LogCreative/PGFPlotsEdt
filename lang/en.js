@@ -83,13 +83,13 @@ const en = {
   "Code": "Code",
   "code": {
     "cpyall": "Copy all code to clipboard",
-    "cpydraw": "Copy draw code to clipboard",
+    "cpydraw": "Copy plot code to clipboard",
     "manedt": "Edit code manually"
   },
   "Parameter Settings": "Parameter Settings",
   "series": {
     "fn": "fn",
-    "showLayer": "Show Layer",
+    "showLayer": "Show layer",
     "area": "Closed plots",
     "delete": "Delete series",
     "funcxfull": "function(x)",
@@ -100,7 +100,7 @@ const en = {
     "funcxmin": "x axis",
     "style": "In cycle list",
     "td": "3D",
-    "top": "Put it to top",
+    "top": "Move to top",
     "coord": "coord",
     "coordinate": "cd",
     "twotip": "x y enter",
@@ -115,7 +115,7 @@ const en = {
     "pin": "pn",
     "pinyellow": "Yellow pin",
     "rotatepin": "rotation degree",
-    "transpose": "transpose the table source"
+    "transpose": "transpose source"
   },
   "bar": {
     "enter": "x y enter",
@@ -133,7 +133,7 @@ const en = {
   },
   "cpytip": "Copied to Clipboard",
   "llm": {
-    "prompt": "Input natural language prompt to update the code",
+    "prompt": "Input the natural language prompt to update the code",
     "generate": "Generate",
     "accept": "Accept",
     "reject": "Reject",
