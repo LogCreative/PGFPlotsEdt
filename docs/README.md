@@ -2,13 +2,13 @@
 
 ## Introduction
 
-[PGFPlots](https://github.com/pgf-tikz/pgfplots) is a remarkable tool for creating high-quality statistical graphs in $\text{\LaTeX}$, developed by Dr. Christian Feuersänger based on [PGF/TikZ](https://github.com/pgf-tikz/pgf). Since the popularity of ChatGPT, it has been increasingly used by researchers as a code-based medium for creating plots. However, many people are still hesitant to apply PGFPlots to their daily work due to its extensive 500-page [documentation](https://mirrors.ctan.org/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf) or the frequent inquiries to ChatGPT.
+[PGFPlots](https://github.com/pgf-tikz/pgfplots) is a remarkable tool for creating high-quality statistical graphs in $\mathrm{\LaTeX}$, developed by Dr. Christian Feuersänger based on [PGF/TikZ](https://github.com/pgf-tikz/pgf). Since the popularity of ChatGPT, it has been increasingly used by researchers as a code-based medium for creating plots. However, many people are still hesitant to apply PGFPlots to their daily work due to its extensive 500-page [documentation](https://mirrors.ctan.org/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf) or the frequent inquiries to ChatGPT.
 
-PGFPlotsEdt: a PGFPlots statistic graph interactive editor, is a better entry tool for PGFPlots. It also offers faster compilation speed and provides stronger data privacy, helping users faster to PGFPlot in $\text{\LaTeX}$.
+PGFPlotsEdt: a PGFPlots statistic graph interactive editor, is a better entry tool for PGFPlots. It also offers faster compilation speed and provides stronger data privacy, helping users faster to PGFPlot in $\mathrm{\LaTeX}$.
 
 **Better entry tool**: PGFPlotsEdt presents the main features of PGFPlots clearly through a graphical menu. You can customize your statistical graph code using familiar modular graphical options.
 
-**Faster compilation speed**: PGFPlotsEdt server, with the help of $\varepsilon\text{-\TeX}$ caching technology, allows you to test $\text{\TeX}$ code faster. With moderate $\text{\TeX}$ file lengths, it can achieve compilation speed in near real-time[^1].
+**Faster compilation speed**: PGFPlotsEdt server, with the help of $\varepsilon\mathrm{-\TeX}$ caching technology, allows you to test $\mathrm{\TeX}$ code faster. With moderate $\mathrm{\TeX}$ file lengths, it can achieve compilation speed in near real-time[^1].
 
 [^1]: Local deployment is required. Real-time performance requires the use of the pdfLaTeX compiler.
 
@@ -37,7 +37,7 @@ You can hover over the "+ Series" button in the data area and then click one of 
 ![Data series](figs/function.svg)
 
 ### Code Area
-After entering the data, you can see that the code in the code area is also updated, with a black block marking the last modified position. You can click the "Compile" button again to view the compilation result. If you are satisfied, you can click the first button in the code selection title bar to copy the PGFPlots code to the clipboard, and then you can insert it into your $\text{\TeX}$ file[^3]; or you can download the PDF from the preview area and insert it into your $\text{\TeX}$ file as an image[^4].
+After entering the data, you can see that the code in the code area is also updated, with a black block marking the last modified position. You can click the "Compile" button again to view the compilation result. If you are satisfied, you can click the first button in the code selection title bar to copy the PGFPlots code to the clipboard, and then you can insert it into your $\mathrm{\TeX}$ file[^3]; or you can download the PDF from the preview area and insert it into your $\mathrm{\TeX}$ file as an image[^4].
 
 ![Code copy](figs/code.svg)
 
@@ -196,7 +196,7 @@ In the "Data" section, the button of **+ Series** is the most prominent. With th
 ```
 
 ##### sr (Source name)
-Used for subsequent name indexing and should not contain numbers (strictly speaking, it should comply with $\text{\LaTeX}$ macro naming requirements). If the source name is invalid, it will be highlighted in red.
+Used for subsequent name indexing and should not contain numbers (strictly speaking, it should comply with $\mathrm{\LaTeX}$ macro naming requirements). If the source name is invalid, it will be highlighted in red.
 ##### Source number
 Since sources are not displayed on the chart and are not included in the layer numbering, the number is enclosed in parentheses.
 ##### Show Layer √
@@ -384,7 +384,7 @@ Select the compiler to use: pdfLaTeX or XeLaTeX. It is recommended to use XeLaTe
 #### External Links
 Some related links. Click on the corresponding button to view details.
 ##### Quick start
-$\text{\LaTeX}$ Sparkle Project ["Chapter 6: Simple Statistical Charts"](https://logcreative.github.io/LaTeXSparkle/src/art/chapter06.html) page. This page provides a beginner's tutorial for the PGFPlots package, as well as an index of markers, colorbrewer, and colormaps.
+$\mathrm{\LaTeX}$ Sparkle Project ["Chapter 6: Simple Statistical Charts"](https://logcreative.github.io/LaTeXSparkle/src/art/chapter06.html) page. This page provides a beginner's tutorial for the PGFPlots package, as well as an index of markers, colorbrewer, and colormaps.
 ##### Package documentation
 The official [documentation](https://mirrors.ctan.org/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf) of the PGFPlots package.
 ##### GitHub

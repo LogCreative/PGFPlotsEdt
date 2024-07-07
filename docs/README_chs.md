@@ -2,13 +2,13 @@
 
 ## 引言
 
-[PGFPlots](https://github.com/pgf-tikz/pgfplots) 由 Dr. Christian Feuersänger 基于 [PGF/TikZ](https://github.com/pgf-tikz/pgf) 开发，是 $\text{\LaTeX}$ 中绘制高质量统计图的重要工具。在 ChatGPT 爆火之后，作为绘图的代码式媒介，它已经被越来越多的研究人员使用。但是面对 500 多页的[文档](https://mirrors.sjtug.sjtu.edu.cn/CTAN/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)或频繁的 ChatGPT 询问，很多人对于将 PGFPlots 应用于日常学习工作中仍然望而却步。
+[PGFPlots](https://github.com/pgf-tikz/pgfplots) 由 Dr. Christian Feuersänger 基于 [PGF/TikZ](https://github.com/pgf-tikz/pgf) 开发，是 $\mathrm{\LaTeX}$ 中绘制高质量统计图的重要工具。在 ChatGPT 爆火之后，作为绘图的代码式媒介，它已经被越来越多的研究人员使用。但是面对 500 多页的[文档](https://mirrors.sjtug.sjtu.edu.cn/CTAN/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)或频繁的 ChatGPT 询问，很多人对于将 PGFPlots 应用于日常学习工作中仍然望而却步。
 
-PGFPlotsEdt：统计绘图交互式编辑器，是 PGFPlots 更好的入门工具、具有更快的编译速度、提供更强的数据隐私，可以帮助用户更快地使用 $\text{\LaTeX}$ 编辑 PGFPlots 图形。
+PGFPlotsEdt：统计绘图交互式编辑器，是 PGFPlots 更好的入门工具、具有更快的编译速度、提供更强的数据隐私，可以帮助用户更快地使用 $\mathrm{\LaTeX}$ 编辑 PGFPlots 图形。
 
 **更好的入门工具** PGFPlotsEdt 通过图形式菜单将 PGFPlots 的主要功能清晰呈现，您可以通过熟悉的模块化图形选单调配出个性化的统计图代码。
 
-**更快的编译速度** PGFPlotsEdt 服务程序借助于 $\varepsilon\text{-\TeX}$ 的缓存技术可以帮助您更快地测试 $\text{\TeX}$ 代码，在适中 $\text{\TeX}$ 文件长度下可以达到接近实时的编译速度[^1]。
+**更快的编译速度** PGFPlotsEdt 服务程序借助于 $\varepsilon\mathrm{-\TeX}$ 的缓存技术可以帮助您更快地测试 $\mathrm{\TeX}$ 代码，在适中 $\mathrm{\TeX}$ 文件长度下可以达到接近实时的编译速度[^1]。
 
 [^1]: 需要本地部署或使用[官方网站](https://logcreative.tech/PGFPlotsEdt)，即时性的效果需要使用 pdfLaTeX 编译器。
 
@@ -37,7 +37,7 @@ PGFPlotsEdt 的界面大致由 4 个部分组成，顶部为导航栏，左侧�
 ![数据系列](figs/function.svg)
 
 ### 代码区
-完成数据的输入后，可以看到代码区的代码也得到了更新，黑色方块标记着上次修改的位置。您可以再次点击“编译”按钮查看编译结果，如果认为满意，可以点击代码选区标题栏第一个按钮，将绘图代码复制到剪贴板，之后就可以插入您的 $\text{\TeX}$ 文件中使用了[^3]；或者下载预览区的 PDF 通过插入图片的方式插入到您的 $\text{\TeX}$ 文件中[^4]。
+完成数据的输入后，可以看到代码区的代码也得到了更新，黑色方块标记着上次修改的位置。您可以再次点击“编译”按钮查看编译结果，如果认为满意，可以点击代码选区标题栏第一个按钮，将绘图代码复制到剪贴板，之后就可以插入您的 $\mathrm{\TeX}$ 文件中使用了[^3]；或者下载预览区的 PDF 通过插入图片的方式插入到您的 $\mathrm{\TeX}$ 文件中[^4]。
 
 ![代码复制](figs/code.svg)
 
@@ -127,7 +127,7 @@ PGFPlotsEdt 提供了符合原始 PGFPlots 代码结构的调整选项。为了�
 
 #### CTeX/CJK
 
-是否使用中文支持宏包 $\text{C\TeX}$ 或 CJK，当统计图中有中文字符时需要启用该项。当编译器被设定为 XeLaTeX 时，启用该项将会使用 [`ctex` 宏包](https://mirrors.sjtug.sjtu.edu.cn/CTAN/language/chinese/ctex/ctex.pdf)（推荐）；当编译器被设定为 pdfLaTeX 时，启用该项将会使用 [CJK 宏包](https://www.ctan.org/pkg/cjk)（更确切地说，是 `CJKutf8` 宏包）。
+是否使用中文支持宏包 $\mathrm{C\TeX}$ 或 CJK，当统计图中有中文字符时需要启用该项。当编译器被设定为 XeLaTeX 时，启用该项将会使用 [`ctex` 宏包](https://mirrors.sjtug.sjtu.edu.cn/CTAN/language/chinese/ctex/ctex.pdf)（推荐）；当编译器被设定为 pdfLaTeX 时，启用该项将会使用 [CJK 宏包](https://www.ctan.org/pkg/cjk)（更确切地说，是 `CJKutf8` 宏包）。
 
 #### 幻灯优化
 
@@ -194,7 +194,7 @@ PGFPlotsEdt 提供了符合原始 PGFPlots 代码结构的调整选项。为了�
 ```
 
 ##### 表源名称
-用于后续的名称索引，不能包含数字（严格来说应当符合 $\text{\LaTeX}$ 宏的命名要求），如果表源名称违规将被标红。
+用于后续的名称索引，不能包含数字（严格来说应当符合 $\mathrm{\LaTeX}$ 宏的命名要求），如果表源名称违规将被标红。
 ##### 表源编号
 由于表源不会被显示在图表上，不会纳入图层编号，所以使用小括号包裹编号。
 ##### 显示图层√
@@ -353,7 +353,7 @@ PGFPlotsEdt 提供了符合原始 PGFPlots 代码结构的调整选项。为了�
 转变为该模式后可以手动修改代码。
 
 ##### 代码编辑器
-代码编辑器会提供 $\text{\LaTeX}$ 代码补全，特别是 PGFPlots 宏包的代码补全。按下 Ctrl+S（或 Command+S）快捷键可以触发编译。
+代码编辑器会提供 $\mathrm{\LaTeX}$ 代码补全，特别是 PGFPlots 宏包的代码补全。按下 Ctrl+S（或 Command+S）快捷键可以触发编译。
 ##### 大模型代码补全
 *仅本地大模型启用时可用* 使用本地部署的 [Llama3](https://llama.meta.com/llama3/) 模型对代码智能补全。
 ###### 大模型补全指令
@@ -382,7 +382,7 @@ PGFPlots 提供了多种统计图类型预设，点击模板按钮，在自动�
 #### 外链
 一些相关链接，点击对应按钮查看详情。
 ##### 宏包入门
-像模像样 $\text{\LaTeX}$ [“第六节 简约统计图”](https://logcreative.github.io/LaTeXSparkle/src/art/chapter06.html) 页面。该页面提供 PGFPlots 宏包的入门教程，以及标记、颜色、渐变的索引。
+像模像样 $\mathrm{\LaTeX}$ [“第六节 简约统计图”](https://logcreative.github.io/LaTeXSparkle/src/art/chapter06.html) 页面。该页面提供 PGFPlots 宏包的入门教程，以及标记、颜色、渐变的索引。
 ##### 宏包文档
 PGFPlots 宏包的[官方文档](https://mirrors.sjtug.sjtu.edu.cn/CTAN/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)。
 ##### GitHub
