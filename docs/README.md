@@ -532,4 +532,4 @@ Copyright © 2016 Andrey Lushnikov, licensed under the [MIT License](https://git
 
 Copyright © 2013-present, Yuxi (Evan) You, licensed under the [MIT License](https://github.com/vuejs/vue/blob/main/LICENSE).
 
-> Copyright information for other third-party libraries used by PGFPlotsEdt is listed in a [separate file](https://github.com/LogCreative/PGFPlotsEdt/lib/README.md).
+> Copyright information for other third-party libraries used by PGFPlotsEdt is listed in a [separate file](https://github.com/LogCreative/PGFPlotsEdt/blob/master/lib/README.md).

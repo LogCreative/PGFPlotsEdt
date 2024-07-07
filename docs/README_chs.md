@@ -529,4 +529,4 @@ MathJax 遵循 [Apache-2.0 协议](https://github.com/mathjax/MathJax-src/blob/m
 
 Copyright © 2013-现在, Yuxi (Evan) You，遵循 [MIT 协议](https://github.com/vuejs/vue/blob/main/LICENSE)。
 
-> PGFPlotsEdt 引用的其他第三方库版权信息列举于 [单独的文件](https://github.com/LogCreative/PGFPlotsEdt/lib/README.md) 中。
+> PGFPlotsEdt 引用的其他第三方库版权信息列举于 [单独的文件](https://github.com/LogCreative/PGFPlotsEdt/blob/master/lib/README.md) 中。
