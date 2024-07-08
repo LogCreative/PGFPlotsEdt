@@ -18,6 +18,8 @@ jobs:
           run: |
             apk add ghostscript imagemagick gnupg
             sed -i "s|<policy domain=\"coder\" rights=\"none\" pattern=\"PDF\" />|<policy domain=\"coder\" rights=\"read\|write\" pattern=\"PDF\" />|g" /etc/ImageMagick-*/policy.xml
+            cd res
+            python3 version_updater.py
             cd docs
             mkdir pdf
             PPEDT_LANG=chs l3build doc
