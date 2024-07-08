@@ -3,12 +3,7 @@
 ## PGFPlotsEdt - Faster to PGFPlot in LaTeX
 ### A PGFPlots Statistic Graph Interactive Editor.
 
-<a href="https://logcreative.github.io/PGFPlotsEdt/index.html?lang=en"><img src="https://img.shields.io/badge/lang-EN-9CF"></a>
-<a href="https://logcreative.tech/PGFPlotsEdt/index.html?lang=chs"><img src="https://img.shields.io/badge/语言-中文-9CF"></a>
-<a href="https://github.com/LogCreative/PGFPlotsEdt/releases"><img src="https://img.shields.io/github/v/release/LogCreative/PGFPlotsEdt"></a>
-<a href="https://github.com/LogCreative/PGFPlotsEdt/blob/master/LICENSE"><img src="https://img.shields.io/github/license/LogCreative/PGFPlotsEdt"></a>
-<a href="https://github.com/LogCreative/PGFPlotsEdt/commits/master"><img src="https://img.shields.io/github/last-commit/LogCreative/PGFPlotsEdt"></a>
-<a href="https://logcreative.github.io/LaTeXSparkle/"><img src="https://img.shields.io/badge/Under-LaTeX%20Sparkle%20Project-yellowgreen"></a>
+[Online website](https://logcreative.github.io/PGFPlotsEdt/index.html) | [网站(简体中文)](https://logcreative.tech/PGFPlotsEdt/index.html?lang=chs) | [Documentation](https://logcreative.github.io/PGFPlotsEdt-doc/pgfplotsedt.pdf) | [文档(简体中文)](https://logcreative.tech/PGFPlotsEdt-doc/pgfplotsedt_chs.pdf)
 
 #### Introduction
 
@@ -26,55 +21,19 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
 
     ![PGFPlotsEdt](res/demo/main.jpg)
 
-- **Local version with faster compilation** If you want to make sure the data won't go anywhere in the Internet, or try to compile the document faster, use the offline version by downloading the repo and fire up a local server to handle the compling tasks:
-    - Install TeX distribution on your local computer.
-    - Install python and the dependencies by
-    ```bash
-    pip install flask
-    ```
-    - Start the server.
-    ```bash
-    python ppedt_server.py
-    ```
-    - Open `http://127.0.0.1:5678` in your browser.
-    > For Windows users, the server side will automatically change the fontset used by CJK for a larger compatibility.
+- **Deployment version** PGFPlotsEdt also provides several local deployment methods for faster compilation and other features, refer to the [documentation](https://github.com/LogCreative/PGFPlotsEdt/tree/master/docs#advanced) for details:
+  - **Open locally**: open [index.html](index.html) in the browser.
+  - **Local compilation**: use `ppedt_server.py` to compile the tex files locally.
+  - **LLM**: use `ppedt_server_llm.py` to enable code completion with Llama 3.
+  ![PGFPlotsEdt with LLM](res/demo/llm.jpg)
+  - **Deployment compilation**: use `deploy/gunicorn-deploy.py` for production use.
 
-- **Local version supercharged by LLM** If you want to use LLM to supercharge your PGFPlotsEdt coding experience, use PGFPlotsEdt with LLM. It uses [Llama 3](https://llama.meta.com/llama3/) model deployed by [MLC](https://llm.mlc.ai), 6GB free VRAM is required (a typical supported device is a MacBook Pro).
-    - Install [Anaconda](https://www.anaconda.com/download/success) first.
-    - Use the commands to set the environment, you don't have to setup the environment repeatedly on later runs:
-    ```bash
-    conda env update -n ppedt -f ppedt_server_llm.yml
-    ```
-    - Use the commands to start the PGFPlotsEdt server with LLM:
-    ```bash
-    conda activate ppedt
-    python ppedt_server_llm.py
-    ```
-    On the first run, the model will be downloaded, which takes some time and disk space. The Llama 3 model will be saved in a temporary folder (in `~/.cache/mlc_llm` directory) and the loading time will be much faster in the following runs.
-    - Open `http://127.0.0.1:5678` in your browser, then press "Edit code manually" button (or just open `http://127.0.0.1:5678?code_only` directly). If there is a LLM toolbar at the bottom of the text editor, then LLM is ready to go.
-    - If you want to terminate PGFPlotsEdt with LLM, input <kbd>CTRL</kbd><kbd>C</kbd> *twice* in the server console.
 
-    ![PGFPlotsEdt with LLM](res/demo/llm.jpg)
+#### Documentation
 
-- **Deployment version** If you want to deploy the server in the LAN, use the deployment server in the directory [deploy/](deploy/), please follow the [LICENSE](LICENSE) for deployment:
-    - If you are using *nix operating system for deployment, finish the configuration in **Local version with faster compilation** step, and `pip install gunicorn` to install the additional package. Then run the deployment server directly by:
-    ```bash
-    cd deploy
-    python gunicorn-deploy.py
-    ```
-    - Or you could use [Docker](https://www.docker.com/products/docker-desktop/) for virtualization:
-        - Use one of the pre-built images directly ([Docker Hub](https://hub.docker.com/repository/docker/logcreative/pgfplotsedt/tags) or [GitHub Packages](https://github.com/LogCreative/PGFPlotsEdt/pkgs/container/pgfplotsedt)):
-        ```bash
-        docker run logcreative/pgfplotsedt:master          # Docker Hub
-        docker run ghcr.io/logcreative/pgfplotsedt:master  # GitHub Packages
-        ```
-        - Or you could build a docker container from the source:
-        ```bash
-        cd deploy
-        docker-compose up --build
-        ```
-    - Then the deployment will be on `[IP]:5678`.
+This repo contains documentation in [Markdown format](docs/), which could be compiled into PDFs through `l3build doc` in the folder. The generated PDFs are automatically updated in [PGFPlotsEdt-doc](https://github.com/LogCreative/PGFPlotsEdt-doc) repo.
 
+Welcome to contribute your translation to PGFPlotsEdt! See [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 #### Acknowledgements
 
