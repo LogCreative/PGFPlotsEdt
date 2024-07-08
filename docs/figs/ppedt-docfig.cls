@@ -1,6 +1,6 @@
 % You need to install imagemagick to convert pdf to png
 % And requires --shell-escape to run the conversion
-\LoadClass[convert={density=300,outext=.png}]{standalone}
+\LoadClass[convert={density=300,outext=.png,size=640}]{standalone}
 % Get the translation and stored in the variable: trans
 \directlua{require("translation.lua")}
 \usepackage{xcolor}

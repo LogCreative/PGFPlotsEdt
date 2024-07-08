@@ -24,9 +24,9 @@ jobs:
             cd docs
             mkdir pdf
             PPEDT_LANG=chs l3build doc
-            mv doc.pdf pdf/doc_chs.pdf
+            mv docs.pdf pdf/docs_chs.pdf
             l3build doc
-            mv doc.pdf pdf/doc.pdf
+            mv docs.pdf pdf/docs.pdf
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
