@@ -3,7 +3,7 @@ name: Generate PDF Documentation
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
