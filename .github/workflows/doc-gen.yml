@@ -11,6 +11,8 @@ jobs:
     steps: 
       - uses: actions/checkout@v4
         name: checkout code
+        with:
+          fetch-depth: 0
       - uses: xu-cheng/texlive-action@v2
         name: generate doc
         with:
@@ -25,9 +27,9 @@ jobs:
             cd docs
             mkdir pdf
             PPEDT_LANG=chs l3build doc
-            mv docs.pdf pdf/docs_chs.pdf
+            mv pgfplotsedt.pdf pdf/pgfplotsedt_chs.pdf
             l3build doc
-            mv docs.pdf pdf/docs.pdf
+            mv pgfplotsedt.pdf pdf/pgfplotsedt.pdf
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -36,3 +38,4 @@ jobs:
           external_repository: LogCreative/PGFPlotsEdt-doc
           publish_branch: main
           keep_files: true
+          force_orphan: true

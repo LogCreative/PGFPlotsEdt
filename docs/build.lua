@@ -12,7 +12,7 @@ typesetopts = "-interaction=nonstopmode --shell-escape"
 supportdir = "."
 typesetsuppfiles = {"*.md"}
 
-typesetfiles = {"docs.tex"}
+typesetfiles = {"pgfplotsedt.tex"}
 
 figdir = "figs/"
 
