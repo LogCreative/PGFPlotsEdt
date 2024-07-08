@@ -1,19 +1,13 @@
-\documentclass[dvisvgm]{standalone}
-\usepackage{xcolor}
-\usepackage{array}
-\usepackage{amsmath}
-\usepackage{MnSymbol}
-\usepackage{tcolorbox}
+\documentclass{ppedt-docfig}
 \linespread{1.5}
 \begin{document}
 \begin{tcolorbox}
-$\blacktriangledown$ Data
-
-\framebox{+ Series }
+$\blacktriangledown$ \directlua{tex.write(trans["Data"])}
+\framebox{\directlua{tex.write(trans["Series"])}}
 
 \begin{tabular}{c*{5}{|p{1em}}|p{5em}|p{5em}|}
     \cline{2-8}
-    \texttt{fn [01]} & \hfil $\checkmark$ \hfil & \hfil $\uparrow$ \hfil & \hfil X \hfil & & &\textcolor{gray}{param} & x/2 \\
+    \texttt{\directlua{tex.write(trans["series"]["fn"])} [01]} & \hfil $\checkmark$ \hfil & \hfil $\uparrow$ \hfil & \hfil X \hfil & & &\textcolor{gray}{\directlua{tex.write(trans["series"]["parameter"])}} & x/2 \\
     \cline{2-8}
 \end{tabular}
 \end{tcolorbox}

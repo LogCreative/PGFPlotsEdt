@@ -1,0 +1,84 @@
+% ! TeX program = lualatex
+
+\documentclass{l3doc}
+
+\directlua{local doc_lang = os.getenv("PPEDT_LANG")
+if doc_lang~=nil then
+    tex.print("\\newcommand{\\langSuffix}{_" .. doc_lang .. "}")
+end}
+
+% Langugae selection
+\providecommand{\langSuffix}{}
+\newcommand{\langSuffixEN}{}
+\newcommand{\langSuffixCHS}{_chs}
+\ifx\langSuffix\langSuffixCHS
+    \usepackage[fontset=fandol]{ctex}
+\else
+    \usepackage{fontspec}
+\fi
+
+% Make the number in the margin
+% https://tex.stackexchange.com/a/55198
+\usepackage{titlesec}
+\newlength\titleindent
+\setlength\titleindent{2cm}
+\titleformat{\section}
+  {\normalfont\Large\bfseries}{\llap{\parbox[t]{\titleindent}{\thesection\hfill}}}{0em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}{\llap{\parbox[t]{\titleindent}{\thesubsection\hfill}}}{0em}{\bfseries}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries}{\llap{\parbox[t]{\titleindent}{\thesubsubsection}}}{0em}{\bfseries}
+\titlespacing*{\subsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\usepackage{amsmath}
+\usepackage{etoolbox}
+\usepackage{graphicx}
+% https://tex.stackexchange.com/a/316469
+\makeatletter
+\preto\Gin@extensions{png,}
+\DeclareGraphicsRule{.png}{pdf}{.pdf}{\noexpand\Gin@base.pdf}
+\makeatother
+\graphicspath{{../../}} % compatible with l3build
+
+\usepackage{minted}
+\setminted{linenos}
+
+\usepackage{markdown}
+\markdownSetup{
+    cacheDir=cache,
+    underscores=false,
+    fencedCode,
+    contentBlocks,
+    pipeTables,
+    tableCaptions,
+    hybrid,
+    notes,
+    gfmAutoIdentifiers,
+    renderers = {
+        headingOne = {\title{#1}},
+        headingTwo = {\section{#1}},
+        headingThree = {\subsection{#1}},
+        headingFour = {\subsubsection{#1}},
+        headingFive = {\paragraph{#1}},
+        headingSix = {\subparagraph{#1}},
+        link = {\href{#3}{#1}},
+        image = {\begin{figure}[h]\centering\includegraphics{#2}\caption{#1}\end{figure}},
+        blockQuoteBegin = {\begin{quote}},
+        blockQuoteEnd = {\end{quote}},
+    }
+}
+
+\let\oldTeX\TeX
+\def\TeX{\text{\oldTeX}}
+\let\oldLaTeX\LaTeX
+\def\LaTeX{\text{\oldLaTeX}}
+
+\let\oldtitle\title
+\def\title#1{\oldtitle{#1}\maketitle}
+\author{\href{https://github.com/LogCreative}{Log Creative}}
+\date{\InputIfFileExists{../res/VERSION}{}{}}
+
+\begin{document}
+    \edef\mdFilename{README\langSuffix.md}
+    \markdownInput\mdFilename
+\end{document}

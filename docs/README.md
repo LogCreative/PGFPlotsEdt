@@ -2,11 +2,11 @@
 
 ## Introduction
 
-[PGFPlots](https://github.com/pgf-tikz/pgfplots) is a remarkable tool for creating high-quality statistical graphs in $\mathrm{\LaTeX}$, developed by Dr. Christian Feuersänger based on [PGF/TikZ](https://github.com/pgf-tikz/pgf). Since the popularity of ChatGPT, it has been increasingly used by researchers as a code-based medium for creating plots. However, many people are still hesitant to apply PGFPlots to their daily work due to its extensive 500-page [documentation](https://mirrors.ctan.org/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf) or the frequent inquiries to ChatGPT.
+[PGFPlots](https://github.com/pgf-tikz/pgfplots) is a remarkable tool for creating high-quality statistical graphs in $\mathrm{\LaTeX}$, developed by Dr. Christian Feuersänger based on [PGF/TikZ](https://github.com/pgf-tikz/pgf). Since the popularity of Large Language Models (LLMs) like ChatGPT, it has been increasingly used by researchers as a code-based medium for creating plots. However, many people are still hesitant to apply PGFPlots to their daily work due to its extensive 500-page [documentation](https://mirrors.ctan.org/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf) or the frequent inquiries to ChatGPT.
 
 PGFPlotsEdt: a PGFPlots statistic graph interactive editor, is a better entry tool for PGFPlots. It also offers faster compilation speed and provides stronger data privacy, helping users faster to PGFPlot in $\mathrm{\LaTeX}$.
 
-**Better entry tool**: PGFPlotsEdt presents the main features of PGFPlots clearly through a graphical menu. You can customize your statistical graph code using familiar modular graphical options.
+**Better entry tool**: PGFPlotsEdt presents the main features of PGFPlots clearly through a graphical user interface. You can customize your statistical graph code using familiar modular graphical options.
 
 **Faster compilation speed**: PGFPlotsEdt server, with the help of $\varepsilon\mathrm{-\TeX}$ caching technology, allows you to test $\mathrm{\TeX}$ code faster. With moderate $\mathrm{\TeX}$ file lengths, it can achieve compilation speed in near real-time[^1].
 
@@ -24,26 +24,26 @@ You can quickly experience PGFPlotsEdt through the following website:
 
 The interface of PGFPlotsEdt consists of four main parts: the navigation bar at the top, the preview area on the left, the data area in the middle, and the code area on the right.
 
-![Interface layout](figs/interface.svg)
+![Interface layout](figs/interface.png)
 
 ### Compilation Area
 You can directly click the "Compile" button in the preview area to view the compilation result of the current chart. At this point, the result should only contain coordinate axes.
 
-![Compilation result](figs/compile.svg)
+![Compilation result](figs/compile.png)
 
 ### Data Area
 You can hover over the "+ Series" button in the data area and then click one of the data types: function, coordinate, or file. For example, after selecting the "function" type, you can see that a data series is generated, and you can enter an expression in the "function(x)" input box, such as `x/2`. When you are typing, you can see the mathematical formula $\frac{x}{2}$ is previewed automatically on the left.
 
-![Data series](figs/function.svg)
+![Data series](figs/function.png)
 
 ### Code Area
 After entering the data, you can see that the code in the code area is also updated, with a black block marking the last modified position. You can click the "Compile" button again to view the compilation result. If you are satisfied, you can click the first button in the code selection title bar to copy the PGFPlots code to the clipboard, and then you can insert it into your $\mathrm{\TeX}$ file[^3]; or you can download the PDF from the preview area and insert it into your $\mathrm{\TeX}$ file as an image[^4].
 
-![Code copy](figs/code.svg)
+![Code copy](figs/code.png)
 
 [^3]: You need to load the necessary packages in the preamble of your own file.
 
-[^4]: It is recommended to click the "Copy All Code" button (the second button in the code area) to save the plotting code next to the PDF file for later use.
+[^4]: It is recommended to click the "Copy all code" button (the second button in the Code area) to save the plot code next to the PDF file for later use.
 
 Congratulations! You have generated your first statistical graph using PGFPlotsEdt!
 

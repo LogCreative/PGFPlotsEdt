@@ -1,7 +1,4 @@
-\documentclass[dvisvgm]{standalone}
-\usepackage{xcolor}
-\usepackage{MnSymbol}
-\usepackage{amsmath}
+\documentclass{ppedt-docfig}
 \usepackage{listings}
 \lstset{language=[LaTeX]TeX,flexiblecolumns,basicstyle=\ttfamily,keywordstyle=\color{blue},texcsstyle=*\color{blue}}
 \usepackage{fontawesome5}
@@ -9,7 +6,7 @@
 \begin{document}
 
 \begin{tcolorbox}
-$\blacktriangledown$ Code \colorbox{green!50!black}{\strut\makebox[2em]{\textcolor{white}{\faFile*[regular] $\filledsquare$}}}  \framebox[2em]{\strut $\filledmedsquare$} \framebox[2em]{\strut \faExclamationTriangle} \colorbox{green!50!black}{\textcolor{white}{Copied to clipboard}}
+$\blacktriangledown$ \directlua{tex.write(trans["Code"])} \colorbox{green!50!black}{\strut\makebox[2em]{\textcolor{white}{\faFile*[regular] $\filledsquare$}}}  \framebox[2em]{\strut $\filledmedsquare$} \framebox[2em]{\strut \faExclamationTriangle} \colorbox{green!50!black}{\textcolor{white}{\directlua{tex.write(trans["cpytip"])}}}
 
 \begin{lstlisting}
 \documentclass[tikz]{standalone}

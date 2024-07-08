@@ -1,9 +1,9 @@
-\documentclass[dvisvgm,varwidth=8.5cm]{standalone}
-\usepackage{tcolorbox}
+\PassOptionsToClass{varwidth=8.5cm}{standalone}
+\documentclass{ppedt-docfig}
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
 \begin{document}
-\begin{tcolorbox}[title=Compile, colbacktitle=green!50!black,colback=white,colframe=green!50!black,center title]
+\begin{tcolorbox}[title={\directlua{tex.write(trans["Compile"])}}, colbacktitle=green!50!black,colback=white,colframe=green!50!black,center title]
 \centering
 \begin{tikzpicture}
 \begin{axis}
