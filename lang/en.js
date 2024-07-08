@@ -96,7 +96,7 @@ const en = {
     "funcx" : "x axis",
     "funcy": "y axis",
     "funcz": "z axis",
-    "paramter": "param",
+    "parameter": "param",
     "funcxmin": "x axis",
     "style": "In cycle list",
     "td": "3D",

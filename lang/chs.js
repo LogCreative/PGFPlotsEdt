@@ -95,7 +95,7 @@ const chs = {
     "td": "三维坐标",
     "style": "样式连续",
     "area": "封闭曲线",
-    "paramter": "参数",
+    "parameter": "参数",
     "funcxfull": "函数式(x)",
     "funcx": "x轴",
     "funcy": "y轴",
