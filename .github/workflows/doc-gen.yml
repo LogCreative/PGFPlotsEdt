@@ -38,4 +38,3 @@ jobs:
           external_repository: LogCreative/PGFPlotsEdt-doc
           publish_branch: main
           keep_files: true
-          force_orphan: true

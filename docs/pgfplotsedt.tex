@@ -76,7 +76,7 @@ end}
 \let\oldtitle\title
 \def\title#1{\oldtitle{#1}\maketitle}
 \author{\href{https://github.com/LogCreative}{Log Creative}}
-\date{\InputIfFileExists{../res/VERSION}{}{}}
+\date{\InputIfFileExists{../res/VERSION}{}{}\InputIfFileExists{../../../res/VERSION}{}{}} % make sure one of the file could be read
 
 \begin{document}
     \edef\mdFilename{README\langSuffix.md}
