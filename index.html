@@ -55,14 +55,18 @@
                 </div>
             </div>
             <div id="about">
+                <div class="about-buttons">
+                    <button class="about-button" onclick="about()">{{ $t('start') }}</button>
+                    <a :href="docPrefix + '/pgfplotsedt'+$t('docSuffix')+'.pdf'" target="_blank"><button class="about-button">{{ $t('documentation') }}</button></a>
+                </div>
+                <div><input type="checkbox" v-model="notusefast"> {{$t('copyright.fast-compiler-not-use')}}</input></div>
+                <div id="server-announce" v-html="$t('copyright.server-announce')"></div>
                 <div id="copyright" v-html="$t('copyright.line')"></div>
                 <div id="about-detail">
                     <div id="copyright-detail" v-html="$t('copyright.detail')"></div>
                     <div id="llama-detail" v-show="llm" v-html="$t('copyright.llama3')"></div>
                     <div id="privacy-policy" v-show="!notusefast" v-html="$t('copyright.privacy')"></div>
                 </div>
-                <div><input type="checkbox" v-model="notusefast"> {{$t('copyright.fast-compiler-not-use')}}</input></div>
-                <div id="server-announce" v-html="$t('copyright.server-announce')"></div>
                 <div id="copyright-hint" v-html="$t('copyright.hint')"></div>
             </div>
     </div>

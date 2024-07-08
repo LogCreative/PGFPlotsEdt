@@ -4,7 +4,7 @@ if lang == "chs" then
     -- -- luatex-ja could not output DVI, use babel as a workaround
     -- -- https://tex.stackexchange.com/a/717269
     -- tex.print("\\usepackage[chinese, provide=*]{babel}\\babelfont{rm}{FandolSong}\\babelfont{tt}{FandolSong}")
-    tex.print("\\usepackage{ctex}")
+    tex.print("\\usepackage[fontset=fandol]{ctex}")
 end
 if lang == nil then
     lang = "en"

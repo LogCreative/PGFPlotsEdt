@@ -107,6 +107,24 @@ a{
     font-weight: bold;
 }
 
+.about-buttons {
+    margin-bottom: 3vh;
+}
+
+.about-button {
+    width: 8em;
+    height: 2em;
+    margin: 0 1vh;
+}
+
+.about-button:hover::after {
+    content: ' 〉';
+}
+
+#server-announce {
+    margin: 2vh 0;
+}
+
 /* .container{
     padding: 15px;
 } */

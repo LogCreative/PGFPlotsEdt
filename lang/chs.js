@@ -3,6 +3,9 @@ const chs = {
   "Faster to PGFPlot in LaTeX": "PGFPlotsEdt",
   "about": "关于 PGFPlotsEdt",
   "repo": "PGFPlots GitHub 仓库",
+  "start": "开始使用",
+  "documentation": "帮助文档",
+  "docSuffix": "_chs",
   "copyright": {
     "line": "版权所有 © 2020&ndash;2024 Log Creative",
     "detail": "<p>本程序为自由软件，在自由软件联盟发布的 GNU Affero 通用公共许可协议的约束下，你可以对其进行再发布及修改。协议版本为第三版或（随你）更新的版本。</p><p>我们希望发布的这款程序有用，但不提供任何担保，甚至不保证它有经济价值和适合特定用途。详情参见 <a href='https://github.com/LogCreative/PGFPlotsEdt/blob/master/LICENSE' target='_blank'>GNU Affero 通用公共许可协议</a>。</p>",

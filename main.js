@@ -1327,6 +1327,7 @@ var app = new Vue({
         chnpkg:"CJK",
         notusefast:false,
         llm: false,
+        docPrefix: "/PGFPlotsEdt-doc",
     },
     mounted: function (){
         window.onbeforeunload = (e) => {
@@ -1337,6 +1338,15 @@ var app = new Vue({
 
         this.dc_content = this.content;
         this.lang = in_lang;
+
+        var request = new XMLHttpRequest();
+        request.open('GET', "/docs/pgfplotsedt.pdf", true);
+        request.onreadystatechange = function() {
+            if (request.status === 200) {
+                app.docPrefix = "/docs"
+            }
+        }
+        request.send();
 
         this.compilerTest(function(){
             app.requestid = Date.now() * 10000 + Math.floor(Math.random() * 10000);
