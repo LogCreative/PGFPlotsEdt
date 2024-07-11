@@ -9,6 +9,13 @@ PGFPlotsEdt LaTeX backend server
 #  the Free Software Foundation, either version 3 of the License, or
 #  (at your option) any later version.
 
+#  Method: Open locally
+#  Usage:
+#  1. Meet system requirements: TeX Distribution (TeX Live/MiKTeX/MacTeX) and Python 3.6+ with flask package.
+#  2. Run this script by `python ppedt_server.py`
+#  3. Open your browser and visit `http://127.0.0.1:5678/`. Terminate the server by `Ctrl+C`.
+#  See the documentation https://github.com/LogCreative/PGFPlotsEdt/blob/master/docs/README.md#open-locally for details.
+
 import os
 import shutil
 import subprocess

@@ -1,6 +1,6 @@
 #!/usr/bin/env texlua
 -- typeset the documentation for a certain language:
--- PPEDT_LANG=chs l3build doc
+-- `PPEDT_LANG=chs l3build doc`
 -- You need to rename the file manually.
 -- Please typeset the English documentation in the last run.
 

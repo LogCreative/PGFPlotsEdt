@@ -9,6 +9,13 @@ PGFPlotsEdt Local Server with LLM
 #  the Free Software Foundation, either version 3 of the License, or
 #  (at your option) any later version.
 
+#  Method: PGFPlotsEdt with LLM
+#  Usage:
+#  1. Meet system requirements: GPU with 6GB VRAM, TeX Distribution (TeX Live/MiKTeX/MacTeX) and Anaconda.
+#  2. Create the conda environment by `conda env update -n ppedt -f ppedt_server_llm.yml`.
+#  3. Activate the conda environment: `conda activate ppedt`.
+#  4. Run: `python ppedt_server_llm.py`.
+#  See the documentation https://github.com/LogCreative/PGFPlotsEdt/blob/master/docs/README.md#pgfplots-with-llm for details.
 
 import os
 import shutil

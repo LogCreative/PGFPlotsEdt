@@ -9,6 +9,12 @@ PGFPlotsEdt Deployment Server
 #  the Free Software Foundation, either version 3 of the License, or
 #  (at your option) any later version.
 
+#  Method: Deployment compilation
+#  Usage:
+#  1. Meet system requirements: macOS or Linux Operating Systems, TeX Distribution (TeX Live/MiKTeX/MacTeX) and Python 3.6+ with flask and gunicorn packages.
+#  2. Run this script by `python gunicorn-deploy.py`.
+#  See the documentation https://github.com/LogCreative/PGFPlotsEdt/blob/master/docs/README.md#deployment-compilation for details.
+
 import multiprocessing
 from pathlib import Path
 import os
