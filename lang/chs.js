@@ -140,5 +140,9 @@ const chs = {
     "accept": "接受",
     "reject": "拒绝",
     "llama3": "使用 Llama 3 构建"
+  },
+  "doc": {
+    "Navigation": "导航",
+    "Preview": "预览"
   }
 }

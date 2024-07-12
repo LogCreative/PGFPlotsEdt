@@ -141,5 +141,9 @@ const en = {
     "accept": "Accept",
     "reject": "Reject",
     "llama3": "Built with Llama3"
+  },
+  "doc": {
+    "Navigation": "Navigation",
+    "Preview": "Preview"
   }
 }
