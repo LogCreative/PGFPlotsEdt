@@ -149,6 +149,7 @@ var globalparamDic = {
     "symbolic y coords":["y轴离散坐标",{
         "{Alice,Bob,Tom}":                              ["离散坐标集合","none",""],
     }],
+    "nodes near coords":["数据标签"],
 };
 
 // 三维参数增补字典

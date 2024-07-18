@@ -149,6 +149,7 @@ var globalparamDic = {
     "symbolic y coords":["",{
         "{Alice,Bob,Tom}":                              ["Symbolic set in y.","none",""],
     }],
+    "nodes near coords":["Data label."],
 };
 
 // 三维参数增补字典
