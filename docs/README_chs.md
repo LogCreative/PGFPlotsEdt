@@ -2,19 +2,27 @@
 
 ## 引言
 
-[PGFPlots](https://github.com/pgf-tikz/pgfplots) 由 Dr. Christian Feuersänger 基于 [PGF/TikZ](https://github.com/pgf-tikz/pgf) 开发，是 $\mathrm{\LaTeX}$ 中绘制高质量统计图的重要工具。在 ChatGPT 爆火之后，作为绘图的代码式媒介，它已经被越来越多的研究人员使用。但是面对 500 多页的[文档](https://mirrors.sjtug.sjtu.edu.cn/CTAN/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)或频繁的 ChatGPT 询问，很多人对于将 PGFPlots 应用于日常学习工作中仍然望而却步。
+[PGFPlots](https://github.com/pgf-tikz/pgfplots) 由 Dr. Christian Feuersänger 基于 [PGF/TikZ](https://github.com/pgf-tikz/pgf) 开发，是 $\mathrm{\LaTeX}$ 中绘制高质量统计图的重要工具。在 ChatGPT 爆火之后，作为绘图的代码式媒介，它已经被越来越多的研究人员使用。但是面对 500 多页的[文档](https://mirrors.sjtug.sjtu.edu.cn/CTAN/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)或频繁的 ChatGPT 询问，很多人对于将 PGFPlots 应用于日常学习工作中仍望而却步。
 
 PGFPlotsEdt：统计绘图交互式编辑器，是 PGFPlots 更好的入门工具、具有更快的编译速度、提供更强的数据隐私，可以帮助用户更快地使用 $\mathrm{\LaTeX}$ 编辑 PGFPlots 图形。
 
 **更好的入门工具** PGFPlotsEdt 通过图形式菜单将 PGFPlots 的主要功能清晰呈现，您可以通过熟悉的模块化图形选单调配出个性化的统计图代码。
 
-**更快的编译速度** PGFPlotsEdt 服务程序借助于 $\varepsilon\mathrm{-\TeX}$ 的缓存技术可以帮助您更快地测试 $\mathrm{\TeX}$ 代码，在适中 $\mathrm{\TeX}$ 文件长度下可以达到接近实时的编译速度[^1]。
+![PGFPlotsEdt 主页](figs/home_chs.jpg)
 
-[^1]: 需要本地部署或使用[官方网站](https://logcreative.tech/PGFPlotsEdt)，即时性的效果需要使用 pdfLaTeX 编译器。
+**更快的编译速度** PGFPlotsEdt 服务程序借助于 [mylatexformat](https://www.ctan.org/pkg/mylatexformat) 缓存技术[^1] 可以帮助您更快地测试 $\mathrm{\TeX}$ 代码，在适中 $\mathrm{\TeX}$ 文件长度下可以达到接近实时的编译速度[^2]。
 
-**更强的数据隐私** PGFPlotsEdt 可以自行被部署于本地环境，在不联网的情况下仍然可以运行从而保护隐私，免受向在线工具泄漏数据的风险。PGFPlotsEdt 还内置了 [Llama3](https://llama.meta.com/llama3/) 的部署方案[^2]，可以直接使用本地大语言模型获得代码见解。
+![PGFPlots 基准测试](figs/avg_chs.png)
 
-[^2]: 本地部署 Llama3-8b 模型至少需要 6GB 可用显存。
+[^1]: 基于 $\varepsilon-\mathrm{\TeX}$ 引擎，XeLaTeX 下的中文缓存支持方法来源于 David Carlisle。
+
+[^2]: 需要本地部署或使用[官方网站](https://logcreative.tech/PGFPlotsEdt)，即时性的效果需要使用 pdfLaTeX 编译器。详情见 [pgfplots-benchmark](https://github.com/LogCreative/pgfplots-benchmark) 存储库。
+
+**更强的数据隐私** PGFPlotsEdt 可以被自行部署于本地环境，在不联网的情况下仍然可以运行从而保护隐私，免受向在线工具泄漏数据的风险。PGFPlotsEdt 还内置了 [Llama3](https://llama.meta.com/llama3/) 部署方案[^3]，可以直接使用本地大语言模型获得代码见解。
+
+![PGFPlots 本地大模型部署](figs/llm_chs.jpg)
+
+[^3]: 本地部署 Llama3-8b 模型至少需要 6GB 可用显存。
 
 ## 入门
 
@@ -37,13 +45,13 @@ PGFPlotsEdt 的界面大致由 4 个部分组成，顶部为导航栏，左侧�
 ![数据系列](figs/function_chs.png)
 
 ### 代码区
-完成数据的输入后，可以看到代码区的代码也得到了更新，黑色方块标记着上次修改的位置。您可以再次点击“编译”按钮查看编译结果，如果认为满意，可以点击代码选区标题栏第一个按钮，将绘图代码复制到剪贴板，之后就可以插入您的 $\mathrm{\TeX}$ 文件中使用了[^3]；或者下载预览区的 PDF 通过插入图片的方式插入到您的 $\mathrm{\TeX}$ 文件中[^4]。
+完成数据的输入后，可以看到代码区的代码也得到了更新，黑色方块标记着上次修改的位置。您可以再次点击“编译”按钮查看编译结果，如果认为满意，可以点击代码选区标题栏第一个按钮，将绘图代码复制到剪贴板，之后就可以插入您的 $\mathrm{\TeX}$ 文件中使用了[^4]；或者下载预览区的 PDF 通过插入图片的方式插入到您的 $\mathrm{\TeX}$ 文件中[^5]。
 
 ![代码复制](figs/code_chs.png)
 
-[^3]: 需要在自己文件的导言区加载必要的宏包。
+[^4]: 需要在自己文件的导言区加载必要的宏包。
 
-[^4]: 推荐按下复制全部代码按钮（代码区第二个按钮），将绘图代码保存至 PDF 文件旁备用。
+[^5]: 推荐按下复制全部代码按钮（代码区第二个按钮），将绘图代码保存至 PDF 文件旁备用。
 
 至此，您已经通过 PGFPlotsEdt 生成了第一个统计图！
 

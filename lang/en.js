@@ -144,6 +144,7 @@ const en = {
   },
   "doc": {
     "Navigation": "Navigation",
-    "Preview": "Preview"
+    "Preview": "Preview",
+    "CompTime": "Average Compilation Time"
   }
 }

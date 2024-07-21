@@ -8,13 +8,21 @@ PGFPlotsEdt: a PGFPlots statistic graph interactive editor, is a better entry to
 
 **Better entry tool**: PGFPlotsEdt presents the main features of PGFPlots clearly through a graphical user interface. You can customize your statistical graph code using familiar modular graphical options.
 
-**Faster compilation speed**: PGFPlotsEdt server, with the help of $\varepsilon\mathrm{-\TeX}$ caching technology, allows you to test $\mathrm{\TeX}$ code faster. With moderate $\mathrm{\TeX}$ file lengths, it can achieve compilation speed in near real-time[^1].
+![PGFPlotsEdt home page](figs/home.jpg)
 
-[^1]: Local deployment is required. Real-time performance requires the use of the pdfLaTeX compiler.
+**Faster compilation speed**: PGFPlotsEdt server, with the help of [mylatexformat](https://www.ctan.org/pkg/mylatexformat) caching technology [^1], allows you to test $\mathrm{\TeX}$ code faster. With moderate $\mathrm{\TeX}$ file lengths, it can achieve compilation speed in near real-time[^2].
 
-**Stronger data privacy**: PGFPlotsEdt can be deployed locally, allowing it to run without internet connections, thus protecting privacy and avoiding the risk of data leakage to online tools. PGFPlotsEdt also includes a deployment solution for [Llama3](https://llama.meta.com/llama3/), which provides code insights using a local large language model[^2].
+![PGFPlots benchmark](figs/avg.png)
 
-[^2]: Local deployment of the Llama3-8b model requires at least 6GB of available VRAM.
+[^1]: It is based on $\varepsilon-\mathrm{\TeX}$ engine. Acknowledge David Carlisle for the Chinese caching support method in the XeLaTeX program.
+
+[^2]: Local deployment is required. Real-time performance requires the use of the pdfLaTeX compiler. See [pgfplots-benchmark](https://github.com/LogCreative/pgfplots-benchmark) repo for details.
+
+**Stronger data privacy**: PGFPlotsEdt can be deployed locally, allowing it to run without internet connections, thus protecting privacy and avoiding the risk of data leakage to online tools. PGFPlotsEdt also includes a deployment solution for [Llama3](https://llama.meta.com/llama3/), which provides code insights using a local large language model[^3].
+
+![PGFPlotsEdt with LLM](figs/llm.jpg)
+
+[^3]: Local deployment of the Llama3-8b model requires at least 6GB of available VRAM.
 
 ## Getting Started
 
@@ -37,13 +45,13 @@ You can hover over the "+ Series" button in the data area and then click one of 
 ![Data series](figs/function.png)
 
 ### Code Area
-After entering the data, you can see that the code in the code area is also updated, with a black block marking the last modified position. You can click the "Compile" button again to view the compilation result. If you are satisfied, you can click the first button in the code selection title bar to copy the PGFPlots code to the clipboard, and then you can insert it into your $\mathrm{\TeX}$ file[^3]; or you can download the PDF from the preview area and insert it into your $\mathrm{\TeX}$ file as an image[^4].
+After entering the data, you can see that the code in the code area is also updated, with a black block marking the last modified position. You can click the "Compile" button again to view the compilation result. If you are satisfied, you can click the first button in the code selection title bar to copy the PGFPlots code to the clipboard, and then you can insert it into your $\mathrm{\TeX}$ file[^4]; or you can download the PDF from the preview area and insert it into your $\mathrm{\TeX}$ file as an image[^5].
 
 ![Code copy](figs/code.png)
 
-[^3]: You need to load the necessary packages in the preamble of your own file.
+[^4]: You need to load the necessary packages in the preamble of your own file.
 
-[^4]: It is recommended to click the "Copy all code" button (the second button in the Code area) to save the plot code next to the PDF file for later use.
+[^5]: It is recommended to click the "Copy all code" button (the second button in the Code area) to save the plot code next to the PDF file for later use.
 
 Congratulations! You have generated your first statistical graph using PGFPlotsEdt!
 

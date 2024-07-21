@@ -4,12 +4,12 @@
 
 \documentclass{l3doc}
 
+% Language selection
 \directlua{local doc_lang = os.getenv("PPEDT_LANG")
 if doc_lang~=nil then
     tex.print("\\newcommand{\\langSuffix}{_" .. doc_lang .. "}")
 end}
 
-% Langugae selection
 \providecommand{\langSuffix}{}
 \newcommand{\langSuffixEN}{}
 \newcommand{\langSuffixCHS}{_chs}
@@ -37,10 +37,24 @@ end}
 \usepackage{graphicx}
 % https://tex.stackexchange.com/a/316469
 \makeatletter
+% jpg will be inserted directly
+% png will be replaced by pdf
 \preto\Gin@extensions{png,}
 \DeclareGraphicsRule{.png}{pdf}{.pdf}{\noexpand\Gin@base.pdf}
+% Limit the figure width
+\setkeys{Gin}{width=\ifdim\Gin@nat@width>\linewidth
+    \linewidth
+\else
+    \Gin@nat@width
+\fi}
 \makeatother
 \graphicspath{{../../}} % compatible with l3build
+
+\usepackage{float}
+% make table `h' for here
+\makeatletter
+\renewcommand*{\fps@table}{H}
+\makeatother
 
 \usepackage{minted}
 \setminted{linenos}
@@ -64,12 +78,13 @@ end}
         headingFive = {\paragraph{#1}},
         headingSix = {\subparagraph{#1}},
         link = {\href{#3}{#1}},
-        image = {\begin{figure}[h]\centering\includegraphics{#2}\caption{#1}\end{figure}},
+        image = {\begin{figure}[H]\centering\includegraphics{#2}\caption{#1}\end{figure}},
         blockQuoteBegin = {\begin{quote}},
         blockQuoteEnd = {\end{quote}},
     }
 }
 
+% Workaround for those logos
 \let\oldTeX\TeX
 \def\TeX{\text{\oldTeX}}
 \let\oldLaTeX\LaTeX

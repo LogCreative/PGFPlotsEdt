@@ -19,14 +19,16 @@ TikzEdt is the inspiration of this project, to create LaTeX TikZ graph in WYSIWY
 
     <a href="https://logcreative.github.io/PGFPlotsEdt/"><img src="res/logo/logo.svg" width="16px">https://logcreative.github.io/PGFPlotsEdt/ </a>
 
-    ![PGFPlotsEdt](res/demo/main.jpg)
+    ![PGFPlotsEdt](docs/figs/home.jpg)
 
 - **Deployment version** PGFPlotsEdt also provides several local deployment methods for faster compilation and other features, refer to the [documentation](https://github.com/LogCreative/PGFPlotsEdt/tree/master/docs#advanced) for details:
   - **Open locally**: open [index.html](index.html) in the browser.
-  - **Local compilation**: use `ppedt_server.py` to compile the tex files locally.
+  - **Local compilation**: use `ppedt_server.py` to compile standalone tex files locally in near real-time (see [pgfplots-benchmark](https://github.com/LogCreative/pgfplots-benchmark) repo for details).
+  ![PGFPlots benchmark](docs/figs/avg.png)
   - **LLM**: use `ppedt_server_llm.py` to enable code completion with Llama 3.
-  ![PGFPlotsEdt with LLM](res/demo/llm.jpg)
-  - **Deployment compilation**: use `deploy/gunicorn-deploy.py` for production use.
+  ![PGFPlotsEdt with LLM](docs/figs/llm.jpg)
+  - **Deployment compilation**: use `deploy/gunicorn-deploy.py` for production use to serve multiple users.
+
 
 
 #### Documentation

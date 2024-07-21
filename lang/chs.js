@@ -143,6 +143,7 @@ const chs = {
   },
   "doc": {
     "Navigation": "导航",
-    "Preview": "预览"
+    "Preview": "预览",
+    "CompTime": "平均编译时间"
   }
 }

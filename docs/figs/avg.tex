@@ -1,0 +1,17 @@
+\documentclass{ppedt-docfig}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usetikzlibrary{backgrounds}
+\begin{document}
+\begin{tikzpicture}[background rectangle/.style={fill=white},show background rectangle]
+\begin{axis}[xmin={0},
+xlabel={\directlua{tex.write(trans["doc"]["CompTime"])} (s)},
+height={5cm},
+width={10cm},
+grid={major},
+symbolic y coords={PGFPlotsEdt-deploy,PGFPlotsEdt,Overleaf,LaTeXOnline}, ytick=data,
+xbar,nodes near coords,enlarge y limits=0.3,extra x ticks={1},extra x tick style={grid style={blue},xticklabel=\empty},]
+ \addplot+ [] table[row sep=crcr,y=method,x=avg,] {method avg\\PGFPlotsEdt-deploy 0.6981601432847828\\PGFPlotsEdt 0.7784030871970631\\Overleaf 1.5030321224456265\\LaTeXOnline 1.97887559323296\\\\};
+\end{axis}
+\end{tikzpicture}
+\end{document}
