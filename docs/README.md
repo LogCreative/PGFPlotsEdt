@@ -475,14 +475,17 @@ Press <kbd>Ctrl</kbd>+<kbd>C</kbd> in the terminal to stop the server. Configs c
 
 > **System Requirements**: GPU with 6GB available VRAM, [TeX distribution](https://www.ctan.org/starter) (TeX Live, MacTeX, MiKTeX, etc.), [Anaconda](https://www.anaconda.com/download/success)
 
-Enter the following command in the terminal to install the dependencies:
+First, create a conda environment:
 ```bash
-    conda env update -n ppedt -f ppedt_server_llm.yml
+  conda create -n ppedt python=3.8
 ```
-Then activate the created conda environment and start the PGFPlots with LLM:
+Activate the newly created conda environment:
 ```bash
-    conda activate ppedt
-    python ppedt_server_llm.py
+  conda activate ppedt
+```
+Then, enter the following commands in the terminal to install dependencies or update dependencies after version updates:
+```bash
+  conda env update -f ppedt_server_llm.yml
 ```
 The first time you start, it will download the LLM weights (which will be saved in `~/.cache/mlc_llm`) and optimize the deployment using the [MLC LLM](https://llm.mlc.ai) library. Open [http://127.0.0.1:5678](http://127.0.0.1:5678) in your browser to use the fast compilation service and activate the large language model feature. Press <kbd>Ctrl</kbd>+<kbd>C</kbd> *twice* in the terminal to stop the large model server.
 

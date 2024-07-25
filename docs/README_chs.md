@@ -473,13 +473,20 @@ PGFPlotsEdt 提供多种高级部署模式，表中为多种部署模式的特�
 
 > **系统要求**：GPU 具有 6GB 可用显存，[TeX 发行版](https://www.ctan.org/starter)（TeX Live、MacTeX、MiKTeX等），[Anaconda](https://www.anaconda.com/download/success)
 
-在终端内输入以下命令以安装依赖：
+首先创建 conda 环境：
 ```bash
-  conda env update -n ppedt -f ppedt_server_llm.yml
+  conda create -n ppedt python=3.8
 ```
-国内建议先激活[镜像服务](https://hf-mirror.com)，然后激活刚刚创建的 conda 环境并启动 PGFPlots 大模型服务器：
+激活刚刚创建的 conda 环境：
 ```bash
   conda activate ppedt
+```
+然后在终端内输入以下命令以安装依赖或版本更新后更新依赖：
+```bash
+  conda env update -f ppedt_server_llm.yml
+```
+国内建议先激活[镜像服务](https://hf-mirror.com)，然后在刚刚准备好的 `ppedt` conda 环境中启动 PGFPlots 大模型服务器：
+```bash
   python ppedt_server_llm.py
 ```
 首次启动需要下载大语言模型权重文件（会被保存于 `~/.cache/mlc_llm`），并使用 [MLC LLM](https://llm.mlc.ai) 库进行优化部署。在浏览器中打开 [http://127.0.0.1:5678](http://127.0.0.1:5678) 以使用快速本地编译服务并激活大语言模型功能，在终端内按下*两次* <kbd>Ctrl</kbd>+<kbd>C</kbd> 结束大模型服务器。
