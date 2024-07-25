@@ -13,12 +13,13 @@ PGFPlotsEdt Local Server with LLM
 #  Usage:
 #  1. Meet system requirements: GPU with 6GB VRAM, TeX Distribution (TeX Live/MiKTeX/MacTeX) and Anaconda.
 #  2. Create the conda environment by `conda env update -n ppedt -f ppedt_server_llm.yml`.
-#  3. Activate the conda environment: `conda activate ppedt`.
+#  3. Activate the conda environment: `conda activate ppedt`. You can update the packages by `conda env update -f ppedt_server_llm.yml` later on.
 #  4. Run: `python ppedt_server_llm.py`.
 #  See the documentation https://github.com/LogCreative/PGFPlotsEdt/blob/master/docs/README.md#pgfplots-with-llm for details.
 
 import os
 import shutil
+import subprocess
 
 from mlc_llm import MLCEngine
 
@@ -52,7 +53,31 @@ def llm_test():
 ppedt_server.llm_test = llm_test
 
 
+def get_doc_path():
+    try:
+        # Try to get the documentation from the local TeX distribution.
+        doc_output = subprocess.check_output(["texdoc", "-l", "pgfplots.pdf"], input=b'x').decode("utf-8") # press x to cancel the opening of the PDF
+        doc_output_parts = doc_output.splitlines()[0].split()
+        doc_path = None
+        for part in doc_output_parts: # Find the path of the documentation
+            if part.endswith("pgfplots.pdf"):
+                doc_path = part
+                break
+        return doc_path
+    except subprocess.CalledProcessError:
+        return None
+
 if __name__ == '__main__':
+    # FIXME: It should be latex file based
+    doc_path = get_doc_path()
+    if doc_path is None:
+        print("The documentation of pgfplots is not found. Please install the package and make sure the documentation is available.")
+    else:
+        # Enable langchain
+        print("Loading the documentation of pgfplots...")
+
+
+
     print("Loading LLM model...")
     engine = MLCEngine(model)
 
