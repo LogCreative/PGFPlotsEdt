@@ -4,6 +4,9 @@ dependencies:
   - pip
   - pip:
     - flask
+    - langchain
+    - langchain_community
+    - pdfminer.six
     - mlc-ai-nightly
     - mlc-llm-nightly
     - -f https://mlc.ai/wheels 

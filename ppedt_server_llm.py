@@ -75,7 +75,9 @@ if __name__ == '__main__':
     else:
         # Enable langchain
         print("Loading the documentation of pgfplots...")
-
+        from langchain_community.document_loaders import PDFMinerLoader
+        loader = PDFMinerLoader(doc_path)
+        documents = loader.load()
 
 
     print("Loading LLM model...")
