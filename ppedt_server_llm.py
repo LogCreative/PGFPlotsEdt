@@ -20,6 +20,7 @@ PGFPlotsEdt Local Server with LLM
 import os
 import shutil
 import subprocess
+import tarfile
 
 from mlc_llm import MLCEngine
 
@@ -61,23 +62,40 @@ def get_doc_path():
         doc_path = None
         for part in doc_output_parts: # Find the path of the documentation
             if part.endswith("pgfplots.pdf"):
-                doc_path = part
+                doc_path = part.replace("pgfplots.pdf", "pgfplots.doc.src.tar.bz2")
                 break
         return doc_path
     except subprocess.CalledProcessError:
         return None
 
 if __name__ == '__main__':
-    # FIXME: It should be latex file based
+    # Clean up the tmpdir and create a new one.
+    if os.path.isdir(ppedt_server.tmpdir):
+        shutil.rmtree(ppedt_server.tmpdir)
+    os.mkdir(ppedt_server.tmpdir)
+
     doc_path = get_doc_path()
     if doc_path is None:
         print("The documentation of pgfplots is not found. Please install the package and make sure the documentation is available.")
     else:
+        # Unzip the documentation
+        print("Unzipping the documentation of pgfplots...")
+        doc_extracted_path = os.path.join(ppedt_server.tmpdir, "pgfplots_doc")
+        with tarfile.open(doc_path, "r:bz2") as tar:
+            tar.extractall(doc_extracted_path)
         # Enable langchain
         print("Loading the documentation of pgfplots...")
-        from langchain_community.document_loaders import PDFMinerLoader
-        loader = PDFMinerLoader(doc_path)
+        from langchain_community.document_loaders import DirectoryLoader, TextLoader
+        from langchain.text_splitter import LatexTextSplitter
+        loader = DirectoryLoader(
+            doc_extracted_path,
+            glob="pgfplots*.tex",
+            show_progress=True,
+            loader_cls=TextLoader,
+        )
         documents = loader.load()
+        text_splitter = LatexTextSplitter(chunk_size=1000, chunk_overlap=100)
+        texts = text_splitter.split_documents(documents)
 
 
     print("Loading LLM model...")
@@ -85,11 +103,6 @@ if __name__ == '__main__':
 
     ver = write_version_info(os.path.join(ppedt_server.rootdir, "res"))
     print("PGFPlotsEdt {} with Llama 3".format(ver))
-
-    # Clean up the tmpdir and create a new one.
-    if os.path.isdir(ppedt_server.tmpdir):
-        shutil.rmtree(ppedt_server.tmpdir)
-    os.mkdir(ppedt_server.tmpdir)
 
     ppedt_server.app.run(host="127.0.0.1", port=5678)
 
