@@ -38,7 +38,7 @@ from res.version_updater import write_version_info
 
 
 def prompt_construction(code, prompt):
-    return "You are a LaTeX code helper, especially for the code of package pgfplots. Return only the modified version of the following code without any additional text. {}: {}".format(prompt, code)
+    return "You are a LaTeX code helper, especially for the code of package pgfplots. Return only the modified version of the following code without any additional text or explanation. {}: {}".format(prompt, code)
 
 
 def llm_hook(code, prompt):
