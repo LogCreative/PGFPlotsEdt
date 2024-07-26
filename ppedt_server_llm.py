@@ -133,8 +133,6 @@ def rag_load(doc_path):
                 stream=False,
             )
             text = response.choices[0].message.content
-            if text.find(code_begin_identifier) != -1:
-                text = text[text.index(code_begin_identifier):]
             return CompletionResponse(text=text)
 
         @llm_completion_callback()
@@ -153,6 +151,7 @@ def rag_load(doc_path):
 
     Settings.llm = MLCLLM()
 
+    # FIXME: Maybe prompt translation to English is needed.
     # FIXME: Modify the prompt to make the documentation only as a reference.
     # FIXME: check the compilation result. Chain of Thought.
     query_engine = index.as_query_engine(streaming=True)
