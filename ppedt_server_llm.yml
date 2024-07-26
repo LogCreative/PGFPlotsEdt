@@ -4,9 +4,9 @@ dependencies:
   - pip
   - pip:
     - flask
+    - llama-index
+    - llama-index-embeddings-huggingface
     - langchain
-    - langchain_community
-    - pdfminer.six
     - mlc-ai-nightly
     - mlc-llm-nightly
     - -f https://mlc.ai/wheels 

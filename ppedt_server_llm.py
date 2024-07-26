@@ -21,6 +21,7 @@ import os
 import shutil
 import subprocess
 import tarfile
+from typing import Any
 
 from mlc_llm import MLCEngine
 
@@ -35,17 +36,20 @@ import sys
 import ppedt_server
 from res.version_updater import write_version_info
 
+
+def prompt_construction(code, prompt):
+    return "You are a LaTeX code helper, especially for the code of package pgfplots. Return only the modified version of the following code without any additional text. {}: {}".format(prompt, code)
+
+
 def llm_hook(code, prompt):
     for response in engine.chat.completions.create(
         messages=[
-            {"role": "user", "content": "You are a LaTeX code helper, especially for the code of package pgfplots. Return only the modified version of the following code without any additional text. {}: {}".format(prompt, code)}
+            {"role": "user", "content": prompt_construction(prompt, code)}
         ],
         model=model,
         stream=True,
     ):
         yield response.choices[0].delta.content
-
-ppedt_server.llm_hook = llm_hook
 
 
 def llm_test():
@@ -62,11 +66,94 @@ def get_doc_path():
         doc_path = None
         for part in doc_output_parts: # Find the path of the documentation
             if part.endswith("pgfplots.pdf"):
-                doc_path = part.replace("pgfplots.pdf", "pgfplots.doc.src.tar.bz2")
-                break
+                maybe_doc_path = part.replace("pgfplots.pdf", "pgfplots.doc.src.tar.bz2")
+                if os.path.isfile(maybe_doc_path):
+                    doc_path = maybe_doc_path
+                    break
         return doc_path
     except subprocess.CalledProcessError:
         return None
+
+
+from llama_index.core import Settings, SimpleDirectoryReader, VectorStoreIndex
+from llama_index.core.node_parser import LangchainNodeParser
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from langchain.text_splitter import LatexTextSplitter
+from llama_index.core.callbacks import CallbackManager
+from llama_index.core.llms import (
+    CustomLLM,
+    CompletionResponse,
+    CompletionResponseGen,
+    LLMMetadata,
+)
+from llama_index.core.llms.callbacks import llm_completion_callback
+
+
+def rag_load(doc_path, engine):
+    doc_extracted_path = os.path.join(ppedt_server.tmpdir, "pgfplots_doc")
+    with tarfile.open(doc_path, "r:bz2") as tar:
+        tar.extractall(doc_extracted_path)
+    documents = SimpleDirectoryReader(doc_extracted_path, required_exts=[".tex"]).load_data()
+    # unfortunately, tree-sitter does not support latex
+    splitter = LangchainNodeParser(LatexTextSplitter(chunk_size=1000, chunk_overlap=100))
+    nodes = splitter.get_nodes_from_documents(documents)
+
+    print("Loading embedding model...")
+    Settings.embed_model = HuggingFaceEmbedding(
+        model_name="BAAI/bge-small-en-v1.5"
+    )
+
+    print("Building the index...")
+    index = VectorStoreIndex(nodes)
+
+    class MLCLlama3LLM(CustomLLM):
+        context_window: int = engine.max_input_sequence_length
+        num_output: int = engine.engine_config.max_num_sequence
+        model_name: str = model
+
+        @property
+        def metadata(self) -> LLMMetadata:
+            """Get LLM metadata."""
+            return LLMMetadata(
+                context_window=self.context_window,
+                num_output=self.num_output,
+                model_name=self.model_name,
+            )
+
+        @llm_completion_callback()
+        def complete(self, prompt: str, **kwargs: Any) -> CompletionResponse:
+            response = engine.chat.completions.create(
+                messages=[{"role": "user", "content": prompt}],
+                model=model,
+                stream=False,
+            )
+            text = response.choices[0].message.content
+            return CompletionResponse(text=text)
+
+        @llm_completion_callback()
+        def stream_complete(
+            self, prompt: str, **kwargs: Any
+        ) -> CompletionResponseGen:
+            full_response = ""
+            for response in engine.chat.completions.create(
+                messages=[{"role": "user", "content": prompt}],
+                model=model,
+                stream=True,
+            ):
+                delta_response = response.choices[0].delta.content
+                full_response += delta_response
+                yield CompletionResponse(text=full_response, delta=delta_response)
+
+    Settings.llm = MLCLlama3LLM()
+
+    query_engine = index.as_query_engine(streaming=True)
+    
+    def llm_hook(code, prompt):
+        for text in query_engine.query(prompt_construction(code, prompt)).response_gen:
+            yield text
+    
+    ppedt_server.llm_hook = llm_hook
+
 
 if __name__ == '__main__':
     # Clean up the tmpdir and create a new one.
@@ -74,32 +161,17 @@ if __name__ == '__main__':
         shutil.rmtree(ppedt_server.tmpdir)
     os.mkdir(ppedt_server.tmpdir)
 
-    doc_path = get_doc_path()
-    if doc_path is None:
-        print("The documentation of pgfplots is not found. Please install the package and make sure the documentation is available.")
-    else:
-        # Unzip the documentation
-        print("Unzipping the documentation of pgfplots...")
-        doc_extracted_path = os.path.join(ppedt_server.tmpdir, "pgfplots_doc")
-        with tarfile.open(doc_path, "r:bz2") as tar:
-            tar.extractall(doc_extracted_path)
-        # Enable langchain
-        print("Loading the documentation of pgfplots...")
-        from langchain_community.document_loaders import DirectoryLoader, TextLoader
-        from langchain.text_splitter import LatexTextSplitter
-        loader = DirectoryLoader(
-            doc_extracted_path,
-            glob="pgfplots*.tex",
-            show_progress=True,
-            loader_cls=TextLoader,
-        )
-        documents = loader.load()
-        text_splitter = LatexTextSplitter(chunk_size=1000, chunk_overlap=100)
-        texts = text_splitter.split_documents(documents)
-
-
     print("Loading LLM model...")
     engine = MLCEngine(model)
+
+    doc_path = get_doc_path()
+    if doc_path is None:
+        print("The documentation of pgfplots is not found. RAG is disabled. Please install the package and make sure the documentation is available.")
+        ppedt_server.llm_hook = llm_hook
+    else:
+        # Unzip the documentation
+        print("Loading RAG...")
+        rag_load(doc_path, engine)
 
     ver = write_version_info(os.path.join(ppedt_server.rootdir, "res"))
     print("PGFPlotsEdt {} with Llama 3".format(ver))
