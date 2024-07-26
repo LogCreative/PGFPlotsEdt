@@ -487,7 +487,7 @@ Then, enter the following commands in the terminal to install dependencies or up
 ```bash
   conda env update -f ppedt_server_llm.yml
 ```
-The first time you start, it will download the LLM weights (which will be saved in `~/.cache/mlc_llm`) and optimize the deployment using the [MLC LLM](https://llm.mlc.ai) library. Open [http://127.0.0.1:5678](http://127.0.0.1:5678) in your browser to use the fast compilation service and activate the large language model feature. Press <kbd>Ctrl</kbd>+<kbd>C</kbd> *twice* in the terminal to stop the large model server.
+The first time you start, it will download the LLM weights (which will be saved in `~/.cache/mlc_llm`) and optimize the deployment using the [MLC LLM](https://llm.mlc.ai) and [llama-index](https://www.llamaindex.ai) library. Open [http://127.0.0.1:5678](http://127.0.0.1:5678) in your browser to use the fast compilation service and activate the large language model feature. Press <kbd>Ctrl</kbd>+<kbd>C</kbd> *twice* in the terminal to stop the large model server.
 
 ## URL Shortcuts
 

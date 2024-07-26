@@ -489,7 +489,7 @@ PGFPlotsEdt 提供多种高级部署模式，表中为多种部署模式的特�
 ```bash
   python ppedt_server_llm.py
 ```
-首次启动需要下载大语言模型权重文件（会被保存于 `~/.cache/mlc_llm`），并使用 [MLC LLM](https://llm.mlc.ai) 库进行优化部署。在浏览器中打开 [http://127.0.0.1:5678](http://127.0.0.1:5678) 以使用快速本地编译服务并激活大语言模型功能，在终端内按下*两次* <kbd>Ctrl</kbd>+<kbd>C</kbd> 结束大模型服务器。
+首次启动需要下载大语言模型权重文件（会被保存于 `~/.cache/mlc_llm`），并使用 [MLC LLM](https://llm.mlc.ai) 库与 [llama-index](https://www.llamaindex.ai) 库进行优化部署。在浏览器中打开 [http://127.0.0.1:5678](http://127.0.0.1:5678) 以使用快速本地编译服务并激活大语言模型功能，在终端内按下*两次* <kbd>Ctrl</kbd>+<kbd>C</kbd> 结束大模型服务器。
 
 ## 网址快捷方式
 

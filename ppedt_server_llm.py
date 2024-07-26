@@ -84,7 +84,6 @@ from llama_index.core import Settings, SimpleDirectoryReader, VectorStoreIndex
 from llama_index.core.node_parser import LangchainNodeParser
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from langchain.text_splitter import LatexTextSplitter
-from llama_index.core.callbacks import CallbackManager
 from llama_index.core.llms import (
     CustomLLM,
     CompletionResponse,
@@ -175,7 +174,7 @@ if __name__ == '__main__':
 
     doc_path = get_doc_path()
     if doc_path is None:
-        print("The documentation of pgfplots is not found. RAG is disabled. Please install the package and make sure the documentation is available.")
+        print("The documentation of pgfplots is not found. RAG is disabled. Please install the package and make sure the documentation is available on your TeX distribution.")
         
         def mlc_basic(code, prompt):
             for response in engine.chat.completions.create(
