@@ -41,15 +41,20 @@ def prompt_construction(code, prompt):
     return "You are a LaTeX code helper, especially for the code of package pgfplots. Return only the modified version of the following code without any additional text or explanation. {}: {}".format(prompt, code)
 
 
-def llm_hook(code, prompt):
-    for response in engine.chat.completions.create(
-        messages=[
-            {"role": "user", "content": prompt_construction(prompt, code)}
-        ],
-        model=model,
-        stream=True,
-    ):
-        yield response.choices[0].delta.content
+code_begin_identifier = "\\documentclass"
+
+def code_filter(gen):
+    # filter the explanation part by finding \documentclass
+    full_code = ""
+    for delta in gen:
+        if full_code is not None:
+            full_code += delta
+            if full_code.find(code_begin_identifier) != -1:
+                start_code = full_code[full_code.index(code_begin_identifier):]
+                full_code = None
+                yield start_code
+        else:
+            yield delta
 
 
 def llm_test():
@@ -89,7 +94,8 @@ from llama_index.core.llms import (
 from llama_index.core.llms.callbacks import llm_completion_callback
 
 
-def rag_load(doc_path, engine):
+def rag_load(doc_path):
+    global engine
     doc_extracted_path = os.path.join(ppedt_server.tmpdir, "pgfplots_doc")
     with tarfile.open(doc_path, "r:bz2") as tar:
         tar.extractall(doc_extracted_path)
@@ -106,7 +112,7 @@ def rag_load(doc_path, engine):
     print("Building the index...")
     index = VectorStoreIndex(nodes)
 
-    class MLCLlama3LLM(CustomLLM):
+    class MLCLLM(CustomLLM):
         context_window: int = engine.max_input_sequence_length
         num_output: int = engine.engine_config.max_num_sequence
         model_name: str = model
@@ -128,6 +134,8 @@ def rag_load(doc_path, engine):
                 stream=False,
             )
             text = response.choices[0].message.content
+            if text.find(code_begin_identifier) != -1:
+                text = text[text.index(code_begin_identifier):]
             return CompletionResponse(text=text)
 
         @llm_completion_callback()
@@ -144,13 +152,14 @@ def rag_load(doc_path, engine):
                 full_response += delta_response
                 yield CompletionResponse(text=full_response, delta=delta_response)
 
-    Settings.llm = MLCLlama3LLM()
+    Settings.llm = MLCLLM()
 
+    # FIXME: Modify the prompt to make the documentation only as a reference.
+    # FIXME: check the compilation result. Chain of Thought.
     query_engine = index.as_query_engine(streaming=True)
     
     def llm_hook(code, prompt):
-        for text in query_engine.query(prompt_construction(code, prompt)).response_gen:
-            yield text
+        yield from code_filter(query_engine.query(prompt_construction(code, prompt)).response_gen)
     
     ppedt_server.llm_hook = llm_hook
 
@@ -167,11 +176,24 @@ if __name__ == '__main__':
     doc_path = get_doc_path()
     if doc_path is None:
         print("The documentation of pgfplots is not found. RAG is disabled. Please install the package and make sure the documentation is available.")
+        
+        def mlc_basic(code, prompt):
+            for response in engine.chat.completions.create(
+                messages=[
+                    {"role": "user", "content": prompt_construction(prompt, code)}
+                ],
+                model=model,
+                stream=True,
+            ):
+                yield response.choices[0].delta.content
+        
+        def llm_hook(code, prompt):
+            yield from code_filter(mlc_basic(code, prompt))
         ppedt_server.llm_hook = llm_hook
     else:
         # Unzip the documentation
         print("Loading RAG...")
-        rag_load(doc_path, engine)
+        rag_load(doc_path)
 
     ver = write_version_info(os.path.join(ppedt_server.rootdir, "res"))
     print("PGFPlotsEdt {} with Llama 3".format(ver))
