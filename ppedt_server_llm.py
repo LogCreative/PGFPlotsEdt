@@ -80,7 +80,7 @@ def get_doc_path():
         return None
 
 
-from llama_index.core import Settings, SimpleDirectoryReader, VectorStoreIndex
+from llama_index.core import Settings, SimpleDirectoryReader, VectorStoreIndex, get_response_synthesizer, set_global_handler, PromptTemplate
 from llama_index.core.node_parser import LangchainNodeParser
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from langchain.text_splitter import LatexTextSplitter
@@ -91,13 +91,22 @@ from llama_index.core.llms import (
     LLMMetadata,
 )
 from llama_index.core.llms.callbacks import llm_completion_callback
+from llama_index.core.retrievers import VectorIndexRetriever
+from llama_index.core.query_engine import RetrieverQueryEngine
+from llama_index.core.postprocessor import SimilarityPostprocessor
+
+# Check out LLM input and output in the console.
+set_global_handler("simple")
 
 
 def rag_load(doc_path):
     global engine
+    
+    # Extract the documentation source
     doc_extracted_path = os.path.join(ppedt_server.tmpdir, "pgfplots_doc")
     with tarfile.open(doc_path, "r:bz2") as tar:
         tar.extractall(doc_extracted_path)
+    
     documents = SimpleDirectoryReader(doc_extracted_path, required_exts=[".tex"]).load_data()
     # unfortunately, tree-sitter does not support latex
     splitter = LangchainNodeParser(LatexTextSplitter(chunk_size=1000, chunk_overlap=100))
@@ -152,12 +161,39 @@ def rag_load(doc_path):
     Settings.llm = MLCLLM()
 
     # FIXME: Maybe prompt translation to English is needed.
-    # FIXME: Modify the prompt to make the documentation only as a reference.
     # FIXME: check the compilation result. Chain of Thought.
-    query_engine = index.as_query_engine(streaming=True)
+
+    retriever = VectorIndexRetriever(
+        index=index,
+        similarity_top_k=3,
+    )
+
+    ppedt_text_qa_template = PromptTemplate((
+        "Context information is below.\n"
+        "---------------------\n"
+        "{context_str}\n"
+        "---------------------\n"
+        "You are a LaTeX code helper, especially for the code of package pgfplots."
+        "Given the context information and not prior knowledge, return only the modified version of the following code without any additional text or explanation. You have to make sure the code could compile successfully. "
+        "Answer the query.\n"
+        "Query: {query_str}\n"
+        "Answer: "
+    ))
+
+    response_synthesizer = get_response_synthesizer(
+        response_mode="compact",
+        streaming=True,
+        text_qa_template=ppedt_text_qa_template,
+    )
+
+    query_engine = RetrieverQueryEngine(
+        retriever=retriever,
+        response_synthesizer=response_synthesizer,
+        node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=0.75)],
+    )
     
     def llm_hook(code, prompt):
-        yield from code_filter(query_engine.query(prompt_construction(code, prompt)).response_gen)
+        yield from code_filter(query_engine.query(prompt + "\n" + code).response_gen)
     
     ppedt_server.llm_hook = llm_hook
 
