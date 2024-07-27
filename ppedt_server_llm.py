@@ -30,18 +30,19 @@ from mlc_llm import MLCEngine
 model = "HF://mlc-ai/Llama-3-8B-Instruct-q4f16_1-MLC"
 ## The experimental finetuned Llama 3 model:
 # model = "HF://LogCreative/Llama-3-8B-Instruct-pgfplots-finetune-q4f16_1-MLC"
+
+# RAG is enabled or not
+rag = True
+
 engine = None
 
-import sys
 import ppedt_server
 from res.version_updater import write_version_info
 
 
-def prompt_construction(code, prompt):
-    return "You are a LaTeX code helper, especially for the code of package pgfplots. Return only the modified version of the following code without any additional text or explanation. You have to make sure the code could compile successfully. {}: {}".format(prompt, code)
+PRE_PROMPT = "You are a LaTeX code helper, especially for the code of package pgfplots. Return only the modified version of the following code without any additional text or explanation. You have to make sure the code could compile successfully."
 
-
-code_begin_identifier = "\\documentclass"
+CODE_BEGIN_IDENTIFIER = "\\documentclass"
 
 def code_filter(gen):
     # filter the explanation part by finding \documentclass
@@ -49,8 +50,8 @@ def code_filter(gen):
     for delta in gen:
         if full_code is not None:
             full_code += delta
-            if full_code.find(code_begin_identifier) != -1:
-                start_code = full_code[full_code.index(code_begin_identifier):]
+            if full_code.find(CODE_BEGIN_IDENTIFIER) != -1:
+                start_code = full_code[full_code.index(CODE_BEGIN_IDENTIFIER):]
                 full_code = None
                 yield start_code
         else:
@@ -78,6 +79,22 @@ def get_doc_path():
         return doc_path
     except subprocess.CalledProcessError:
         return None
+
+
+def basic_load():
+    def mlc_basic(code, prompt):
+        for response in engine.chat.completions.create(
+            messages=[
+                {"role": "user", "content": PRE_PROMPT + " " + prompt + ":\n" + code}
+            ],
+            model=model,
+            stream=True,
+        ):
+            yield response.choices[0].delta.content
+    
+    def llm_hook(code, prompt):
+        yield from code_filter(mlc_basic(code, prompt))
+    ppedt_server.llm_hook = llm_hook
 
 
 def rag_load(doc_path):
@@ -168,17 +185,16 @@ def rag_load(doc_path):
         similarity_top_k=3,
     )
 
-    ppedt_text_qa_template = PromptTemplate((
-        "Context information is below.\n"
-        "---------------------\n"
-        "{context_str}\n"
-        "---------------------\n"
-        "You are a LaTeX code helper, especially for the code of package pgfplots."
-        "Given the context information and not prior knowledge, return only the modified version of the following code without any additional text or explanation. You have to make sure the code could compile successfully. "
-        "Answer the query.\n"
-        "Query: {query_str}\n"
+    ppedt_text_qa_template = PromptTemplate(
+        "Context information is below.\n" +
+        "---------------------\n" +
+        "{context_str}\n" +
+        "---------------------\n" +
+        PRE_PROMPT + " " +
+        "Answer the query.\n" +
+        "Query: {query_str}\n" +
         "Answer: "
-    ))
+    )
 
     response_synthesizer = get_response_synthesizer(
         response_mode="compact",
@@ -207,27 +223,18 @@ if __name__ == '__main__':
     print("Loading LLM model...")
     engine = MLCEngine(model)
 
-    doc_path = get_doc_path()
-    if doc_path is None:
-        print("The documentation of pgfplots is not found. RAG is disabled. Please install the package and make sure the documentation is available on your TeX distribution.")
-        
-        def mlc_basic(code, prompt):
-            for response in engine.chat.completions.create(
-                messages=[
-                    {"role": "user", "content": prompt_construction(prompt, code)}
-                ],
-                model=model,
-                stream=True,
-            ):
-                yield response.choices[0].delta.content
-        
-        def llm_hook(code, prompt):
-            yield from code_filter(mlc_basic(code, prompt))
-        ppedt_server.llm_hook = llm_hook
+    if not rag:
+        print("RAG is disabled.")
+        basic_load()
     else:
-        # Unzip the documentation
-        print("Loading RAG...")
-        rag_load(doc_path)
+        doc_path = get_doc_path()
+        if doc_path is None:
+            print("The documentation of pgfplots is not found. RAG is disabled. Please install the package and make sure the documentation is available on your TeX distribution.")
+            basic_load()
+        else:
+            # Unzip the documentation
+            print("Loading RAG...")
+            rag_load(doc_path)
 
     ver = write_version_info(os.path.join(ppedt_server.rootdir, "res"))
     print("PGFPlotsEdt {} with Llama 3".format(ver))
