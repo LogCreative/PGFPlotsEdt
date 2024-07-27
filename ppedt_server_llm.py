@@ -17,6 +17,14 @@ PGFPlotsEdt Local Server with LLM
 #  4. Run: `python ppedt_server_llm.py`.
 #  See the documentation https://github.com/LogCreative/PGFPlotsEdt/blob/master/docs/README.md#pgfplots-with-llm for details.
 
+# The following pre commands may be helpful
+# (the first is to set the model cache dir,
+#  the second is to set the mlc model cache dir,
+#  the third is to set hugging face mirror):
+# export HF_HOME=cache/
+# export MLC_LLM_HOME=mlc_cache/
+# export HF_ENDPOINT=https://hf-mirror.com
+
 import os
 import shutil
 import subprocess
@@ -77,7 +85,7 @@ def get_doc_path():
                     doc_path = maybe_doc_path
                     break
         return doc_path
-    except subprocess.CalledProcessError:
+    except Exception:
         return None
 
 
@@ -132,7 +140,8 @@ def rag_load(doc_path):
 
     print("Loading embedding model...")
     Settings.embed_model = HuggingFaceEmbedding(
-        model_name="BAAI/bge-small-en-v1.5"
+        model_name="BAAI/bge-small-en-v1.5",
+        # cache_folder="cache"  # if you set HF_HOME to cache/
     )
 
     print("Building the index...")
