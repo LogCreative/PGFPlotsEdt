@@ -38,7 +38,7 @@ from res.version_updater import write_version_info
 
 
 def prompt_construction(code, prompt):
-    return "You are a LaTeX code helper, especially for the code of package pgfplots. Return only the modified version of the following code without any additional text or explanation. {}: {}".format(prompt, code)
+    return "You are a LaTeX code helper, especially for the code of package pgfplots. Return only the modified version of the following code without any additional text or explanation. You have to make sure the code could compile successfully. {}: {}".format(prompt, code)
 
 
 code_begin_identifier = "\\documentclass"
@@ -80,36 +80,37 @@ def get_doc_path():
         return None
 
 
-from llama_index.core import Settings, SimpleDirectoryReader, VectorStoreIndex, get_response_synthesizer, set_global_handler, PromptTemplate
-from llama_index.core.node_parser import LangchainNodeParser
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-from langchain.text_splitter import LatexTextSplitter
-from llama_index.core.llms import (
-    CustomLLM,
-    CompletionResponse,
-    CompletionResponseGen,
-    LLMMetadata,
-)
-from llama_index.core.llms.callbacks import llm_completion_callback
-from llama_index.core.retrievers import VectorIndexRetriever
-from llama_index.core.query_engine import RetrieverQueryEngine
-from llama_index.core.postprocessor import SimilarityPostprocessor
-
-# Check out LLM input and output in the console.
-set_global_handler("simple")
-
-
 def rag_load(doc_path):
-    global engine
+    from llama_index.core import Settings, SimpleDirectoryReader, VectorStoreIndex, get_response_synthesizer, set_global_handler, PromptTemplate
+    from llama_index.core.node_parser import LangchainNodeParser
+    from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+    from langchain.text_splitter import LatexTextSplitter
+    from llama_index.core.llms import (
+        CustomLLM,
+        CompletionResponse,
+        CompletionResponseGen,
+        LLMMetadata,
+    )
+    from llama_index.core.llms.callbacks import llm_completion_callback
+    from llama_index.core.retrievers import VectorIndexRetriever
+    from llama_index.core.query_engine import RetrieverQueryEngine
+    from llama_index.core.postprocessor import SimilarityPostprocessor
     
     # Extract the documentation source
     doc_extracted_path = os.path.join(ppedt_server.tmpdir, "pgfplots_doc")
     with tarfile.open(doc_path, "r:bz2") as tar:
         tar.extractall(doc_extracted_path)
+
+    # Check out LLM input and output in the console.
+    set_global_handler("simple")
     
-    documents = SimpleDirectoryReader(doc_extracted_path, required_exts=[".tex"]).load_data()
+    documents = SimpleDirectoryReader(
+        doc_extracted_path,
+        required_exts=[".tex"],
+        exclude=["pgfplotstodo.tex", "TeX-programming-notes.tex", "pgfmanual-en-macros.tex"]
+    ).load_data()
     # unfortunately, tree-sitter does not support latex
-    splitter = LangchainNodeParser(LatexTextSplitter(chunk_size=1000, chunk_overlap=100))
+    splitter = LangchainNodeParser(LatexTextSplitter(chunk_size=500, chunk_overlap=100))
     nodes = splitter.get_nodes_from_documents(documents)
 
     print("Loading embedding model...")
@@ -161,7 +162,6 @@ def rag_load(doc_path):
     Settings.llm = MLCLLM()
 
     # FIXME: Maybe prompt translation to English is needed.
-    # FIXME: check the compilation result. Chain of Thought.
 
     retriever = VectorIndexRetriever(
         index=index,
