@@ -187,7 +187,16 @@ def rag_load(doc_path):
 
     Settings.llm = MLCLLM()
 
-    # FIXME: Maybe prompt translation to English is needed.
+    ppedt_translate_template = PromptTemplate(
+        "Translate the query to English.\n" +
+        "Query: {query_str}\n" +
+        "Translation: "
+    )
+
+    def translate_query(prompt):
+        # translate the query by the same LLM model to reduce the deployment complexity
+        response = Settings.llm.predict(ppedt_translate_template, query_str=prompt).replace("Translation: ", "", 1)
+        return response
 
     retriever = VectorIndexRetriever(
         index=index,
@@ -218,6 +227,11 @@ def rag_load(doc_path):
     )
     
     def llm_hook(code, prompt):
+        # detect whether the prompt is English by detecting whether is ascii
+        if not all(ord(c) < 128 for c in prompt):
+            # query rewrite
+            prompt = translate_query(prompt)
+        # perform the query
         yield from code_filter(query_engine.query(prompt + "\n" + code).response_gen)
     
     ppedt_server.llm_hook = llm_hook
