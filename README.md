@@ -3,7 +3,7 @@
 ## PGFPlotsEdt - Faster to PGFPlot in LaTeX
 ### A PGFPlots Statistic Graph Interactive Editor.
 
-[Online website](https://logcreative.github.io/PGFPlotsEdt/index.html) | [网站(简体中文)](https://logcreative.tech/PGFPlotsEdt/index.html?lang=chs) | [Documentation](https://logcreative.github.io/PGFPlotsEdt-doc/pgfplotsedt.pdf) | [文档(简体中文)](https://logcreative.tech/PGFPlotsEdt-doc/pgfplotsedt_chs.pdf)
+[Online website](https://logcreative.github.io/PGFPlotsEdt/index.html) | [Documentation](https://logcreative.github.io/PGFPlotsEdt-doc/pgfplotsedt.pdf) | [网站(简体中文)](https://logcreative.tech/PGFPlotsEdt/index.html?lang=chs) | [文档(简体中文)](https://logcreative.tech/PGFPlotsEdt-doc/pgfplotsedt_chs.pdf)
 
 #### Introduction
 

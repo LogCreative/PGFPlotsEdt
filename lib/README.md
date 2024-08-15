@@ -2,7 +2,7 @@
 
 This folder contains some libraries to support the website. 
 
-The license of those libraries have been checked to be compatible with GPL-3.0 License.
+The license of those libraries have been checked to be compatible with AGPL-3.0 License.
 
 ## ACE Editor 
 

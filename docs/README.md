@@ -40,7 +40,7 @@ You can directly click the "Compile" button in the preview area to view the comp
 ![Compilation result](figs/compile.png)
 
 ### Data Area
-You can hover over the "+ Series" button in the data area and then click one of the data types: function, coordinate, or file. For example, after selecting the "function" type, you can see that a data series is generated, and you can enter an expression in the "function(x)" input box, such as `x/2`. When you are typing, you can see the mathematical formula $\frac{x}{2}$ is previewed automatically on the left.
+You can hover over the "+ Series" button in the data area and then click one of the data types: function, coordinate, or table. For example, after selecting the "function" type, you can see that a data series is generated, and you can enter an expression in the "function(x)" input box, such as `x/2`. When you are typing, you can see the mathematical formula $\frac{x}{2}$ is previewed automatically on the left.
 
 ![Data series](figs/function.png)
 
