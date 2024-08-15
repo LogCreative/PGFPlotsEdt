@@ -58,6 +58,7 @@
                 <div class="about-buttons">
                     <button class="about-button" onclick="about()">{{ $t('start') }}</button>
                     <a :href="docPrefix + '/pgfplotsedt'+$t('docSuffix')+'.pdf'" target="_blank"><button class="about-button">{{ $t('documentation') }}</button></a>
+                    <a :href="$t('videoLink')" target="_blank"><button class="about-button">{{ $t('video') }}</button></a>
                 </div>
                 <div><input type="checkbox" v-model="notusefast"> {{$t('copyright.fast-compiler-not-use')}}</input></div>
                 <div id="server-announce" v-html="$t('copyright.server-announce')"></div>

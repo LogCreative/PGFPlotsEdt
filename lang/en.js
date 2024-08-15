@@ -5,6 +5,8 @@ const en = {
   "repo": "PGFPlots GitHub Repository",
   "start": "Start",
   "documentation": "Docs",
+  "video": "Video",
+  "videoLink": "https://www.youtube.com/watch?v=SRZqbhqBcZY&list=PLLu4lSdFKgjXGxlWuPDG-g1sfzzidUrrV",
   "docSuffix": "",
   "copyright": {
     "line": "Copyright © 2020&ndash;2024 Log Creative",

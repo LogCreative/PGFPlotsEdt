@@ -5,6 +5,8 @@ const chs = {
   "repo": "PGFPlots GitHub 仓库",
   "start": "开始使用",
   "documentation": "帮助文档",
+  "video": "演示视频",
+  "videoLink": "https://www.bilibili.com/video/BV1f5ebeREet",
   "docSuffix": "_chs",
   "copyright": {
     "line": "版权所有 © 2020&ndash;2024 Log Creative",
