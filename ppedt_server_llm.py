@@ -35,7 +35,8 @@ from mlc_llm import MLCEngine
 
 # Create engine
 ## The original Llama 3 model:
-model = "HF://mlc-ai/Llama-3-8B-Instruct-q4f16_1-MLC"
+# model = "HF://mlc-ai/Llama-3-8B-Instruct-q4f16_1-MLC"
+model = "HF://mlc-ai/DeepSeek-R1-Distill-Llama-8B-q4f16_1-MLC"
 ## The experimental finetuned Llama 3 model:
 # model = "HF://LogCreative/Llama-3-8B-Instruct-pgfplots-finetune-q4f16_1-MLC"
 
@@ -48,17 +49,26 @@ import ppedt_server
 from res.version_updater import write_version_info
 
 
-PRE_PROMPT = "You are a LaTeX code helper, especially for the code of package pgfplots. Return only the modified version of the following code without any additional text or explanation. You have to make sure the code could compile successfully."
+PRE_PROMPT = "You are a LaTeX code helper, especially for the code of package pgfplots. Return only the modified version of the following code without any additional text or explanation. You have to make sure the code could compile successfully and don't omit the code of documentclass."
 
 CODE_BEGIN_IDENTIFIER = "\\documentclass"
+THINK_BEGIN_IDENTIFIER = "<think>"
+THINK_END_IDENTIFIER = "</think>"
 
 def code_filter(gen):
-    # filter the explanation part by finding \documentclass
+    # filter the explanation part by finding \documentclass and <think>...</think>
     full_code = ""
+    in_think = False
     for delta in gen:
         if full_code is not None:
             full_code += delta
-            if full_code.find(CODE_BEGIN_IDENTIFIER) != -1:
+            if not in_think and full_code.find(THINK_BEGIN_IDENTIFIER) != -1:
+                in_think = True
+            if in_think and full_code.find(THINK_END_IDENTIFIER) != -1:
+                in_think = False
+                full_code = None
+                continue
+            if not in_think and full_code.find(CODE_BEGIN_IDENTIFIER) != -1:
                 start_code = full_code[full_code.index(CODE_BEGIN_IDENTIFIER):]
                 full_code = None
                 yield start_code
