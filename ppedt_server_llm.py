@@ -114,6 +114,8 @@ def basic_load():
         yield from code_filter(mlc_basic(code, prompt))
     ppedt_server.llm_hook = llm_hook
 
+# Disable warning
+os.environ['TOKENIZERS_PARALLELISM'] = 'true'
 
 def rag_load(doc_path):
     from llama_index.core import Settings, SimpleDirectoryReader, VectorStoreIndex, get_response_synthesizer, set_global_handler, PromptTemplate
