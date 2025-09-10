@@ -2,7 +2,7 @@
 PGFPlotsEdt Deployment Server
 """
 
-#  Copyright (c) Log Creative 2020--2024.
+#  Copyright (c) Log Creative 2020--2025.
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU Affero General Public License as published by
@@ -148,7 +148,7 @@ def on_starting(serv):
     
     PGFPlotsEdt Deployment Server
     
-    Copyright (C) 2020--2024  Log Creative
+    Copyright (C) 2020--2025  Log Creative
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by

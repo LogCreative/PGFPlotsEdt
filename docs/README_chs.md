@@ -526,7 +526,7 @@ PGFPlotsEdt 提供多种高级部署模式，表中为多种部署模式的特�
 
 ##### PGFPlotsEdt
 
-版权所有 © 2020-2024 Log Creative
+版权所有 © 2020-2025 Log Creative
 
 本程序为自由软件，在自由软件联盟发布的 GNU Affero 通用公共许可协议的约束下，你可以对其进行再发布及修改。协议版本为第三版或（随你）更新的版本。
 
@@ -550,6 +550,11 @@ MathJax 遵循 [Apache-2.0 协议](https://github.com/mathjax/MathJax-src/blob/m
 
 ##### Vue.js
 
-Copyright © 2013-现在, Yuxi (Evan) You，遵循 [MIT 协议](https://github.com/vuejs/vue/blob/main/LICENSE)。
+Copyright © 2013-现在，Yuxi (Evan) You，遵循 [MIT 协议](https://github.com/vuejs/vue/blob/main/LICENSE)。
+
+##### Llama Index
+
+版权所有 © Jerry Liu，遵循 [MIT 协议](https://github.com/run-llama/llama_index/blob/main/LICENSE)。
+
 
 > PGFPlotsEdt 引用的其他第三方库版权信息列举于 [单独的文件](https://github.com/LogCreative/PGFPlotsEdt/blob/master/lib/README.md) 中。

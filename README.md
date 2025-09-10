@@ -47,4 +47,4 @@ Welcome to contribute your translation to PGFPlotsEdt! See [CONTRIBUTING](CONTRI
 
 <a href="https://llama.meta.com/llama3/" target="_blank"><img class="icon" src="res/poweredby/meta.svg" height="16px">Llama 3</a> is the chosen large language model to generate code. The LLM model is deployed by <a href="https://llm.mlc.ai" target="_blank"><img class="icon" src="res/poweredby/mlc.png" height="16px">MLC LLM</a>. The RAG framework is provided by <a href="https://www.llamaindex.ai" target="_blank"><img class="icon" src="res/poweredby/LlamaSquareBlack.svg" height="16px">llama-index</a>.
 
->Copyright (c) 2020-2024 Log Creative & LaTeX Sparkle Project
+>Copyright (c) 2020-2025 Log Creative & LaTeX Sparkle Project
