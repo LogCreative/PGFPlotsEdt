@@ -475,7 +475,7 @@ PGFPlotsEdt 提供多种高级部署模式，表中为多种部署模式的特�
 
 首先创建 conda 环境：
 ```bash
-  conda create -n ppedt python=3.8
+  conda create -n ppedt python=3.11
 ```
 激活刚刚创建的 conda 环境：
 ```bash

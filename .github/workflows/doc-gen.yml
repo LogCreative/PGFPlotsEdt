@@ -18,7 +18,7 @@ jobs:
         with:
           scheme: full
           run: |
-            apk add ghostscript imagemagick gnupg
+            apk add ghostscript imagemagick gnupg ncurses
             sed -i "s|<policy domain=\"coder\" rights=\"none\" pattern=\"PDF\" />|<policy domain=\"coder\" rights=\"read\|write\" pattern=\"PDF\" />|g" /etc/ImageMagick-*/policy.xml
             cd res
             git config --global --add safe.directory /home/runner/work/PGFPlotsEdt/PGFPlotsEdt

@@ -477,7 +477,7 @@ Press <kbd>Ctrl</kbd>+<kbd>C</kbd> in the terminal to stop the server. Configs c
 
 First, create a conda environment:
 ```bash
-  conda create -n ppedt python=3.8
+  conda create -n ppedt python=3.11
 ```
 Activate the newly created conda environment:
 ```bash
