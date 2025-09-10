@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Log Creative 2020--2024,
+ * Copyright (c) Log Creative 2020--2025,
  * released under the GNU Affero General Public License v3.
  */
 

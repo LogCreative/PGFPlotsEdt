@@ -527,7 +527,7 @@ Use `&` to separate multiple options, for example:
 
 ##### PGFPlotsEdt
 
-Copyright © 2020-2024 Log Creative
+Copyright © 2020-2025 Log Creative
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
@@ -552,5 +552,9 @@ Copyright © 2016 Andrey Lushnikov, licensed under the [MIT License](https://git
 ##### Vue.js
 
 Copyright © 2013-present, Yuxi (Evan) You, licensed under the [MIT License](https://github.com/vuejs/vue/blob/main/LICENSE).
+
+##### Llama Index
+
+Copyright © Jerry Liu, licensed under the [MIT License](https://github.com/run-llama/llama_index/blob/main/LICENSE).
 
 > Copyright information for other third-party libraries used by PGFPlotsEdt is listed in a [separate file](https://github.com/LogCreative/PGFPlotsEdt/blob/master/lib/README.md).
