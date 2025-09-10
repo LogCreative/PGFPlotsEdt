@@ -1,7 +1,7 @@
 """
 PGFPlotsEdt Local Server with LLM
 """
-import logging
+
 #  Copyright (c) Log Creative 2020--2025.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -135,6 +135,7 @@ def rag_load(doc_path):
 
     # Hide the embedding progress bar
     from sentence_transformers.SentenceTransformer import logger
+    import logging
     logger.setLevel(logging.WARNING)
     
     # Extract the documentation source
