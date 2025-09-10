@@ -23,13 +23,19 @@ if ppedt_lang ~= nil then
 end
 
 function typeset_demo_tasks()
+    local target_figdir = typesetdir .. "/" .. figdir
     for _, p in ipairs(filelist(figdir, "*.tex")) do
         local name = string.match(p, "(%w+).tex")
         local cmd = "lualatex -interaction=nonstopmode --shell-escape " ..  name .. ".tex"
         if (run(figdir, cmd) ~= 0) then
             return -1
         end
-        ren(figdir, name .. ".pdf", name .. lang_suffix .. ".pdf")
+        local figfile = name .. lang_suffix .. ".pdf"
+        ren(figdir, name .. ".pdf", figfile)
+        if (cp(figfile, figdir, target_figdir) ~= 0) then
+            print("Copy file failed: " .. figfile)
+            return -1
+        end
         ren(figdir, name .. ".png", name .. lang_suffix .. ".png")
     end
     return 0
