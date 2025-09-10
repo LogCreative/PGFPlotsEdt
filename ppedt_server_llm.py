@@ -1,7 +1,7 @@
 """
 PGFPlotsEdt Local Server with LLM
 """
-
+import logging
 #  Copyright (c) Log Creative 2020--2025.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -132,6 +132,10 @@ def rag_load(doc_path):
     from llama_index.core.retrievers import VectorIndexRetriever
     from llama_index.core.query_engine import RetrieverQueryEngine
     from llama_index.core.postprocessor import SimilarityPostprocessor
+
+    # Hide the embedding progress bar
+    from sentence_transformers.SentenceTransformer import logger
+    logger.setLevel(logging.WARNING)
     
     # Extract the documentation source
     doc_extracted_path = os.path.join(ppedt_server.tmpdir, "pgfplots_doc")
@@ -157,7 +161,7 @@ def rag_load(doc_path):
     )
 
     print("Building the index...")
-    index = VectorStoreIndex(nodes)
+    index = VectorStoreIndex(nodes, show_progress=True)
 
     class MLCLLM(CustomLLM):
         context_window: int = engine.max_input_sequence_length
@@ -277,3 +281,5 @@ if __name__ == '__main__':
     ppedt_server.app.run(host="127.0.0.1", port=5678)
 
 print("\nPress CTRL+C again to exit.")
+engine.terminate()
+exit(0)
