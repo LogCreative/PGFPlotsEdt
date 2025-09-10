@@ -489,14 +489,13 @@ PGFPlotsEdt 提供多种高级部署模式，表中为多种部署模式的特�
 ```bash
   python ppedt_server_llm.py
 ```
-首次启动需要下载大语言模型权重文件（会被保存于 `~/.cache/mlc_llm`），并使用 [MLC LLM](https://llm.mlc.ai) 库与 [llama-index](https://www.llamaindex.ai) 库进行优化部署。在浏览器中打开 [http://127.0.0.1:5678](http://127.0.0.1:5678) 以使用快速本地编译服务并激活大语言模型功能，在终端内按下*两次* <kbd>Ctrl</kbd>+<kbd>C</kbd> 结束大模型服务器。
+首次启动需要下载大语言模型权重文件（会被保存于 `~/.cache/mlc_llm`）和嵌入模型，并使用 [MLC LLM](https://llm.mlc.ai) 库与 [llama-index](https://www.llamaindex.ai) 库进行优化部署。在浏览器中打开 [http://127.0.0.1:5678](http://127.0.0.1:5678) 以使用快速本地编译服务并激活大语言模型功能，在终端内按下*两次* <kbd>Ctrl</kbd>+<kbd>C</kbd> 结束大模型服务器。
 
 对于 Windows 用户，请参照 [MLC LLM 安装指南](https://llm.mlc.ai/docs/install/mlc_llm.html) 安装相关依赖，并根据 [该 Issue](https://github.com/mlc-ai/mlc-llm/issues/3177#issuecomment-2745407613) 的说法，可能还需要在 Anaconda 里安装 `gcc`。
 
 现在，通过对 PGFPlots 文档的检索增强生成（RAG），并基于对 $\mathrm{\LaTeX}$ 源码的切分，代码生成的准确率得到了大幅度提高。RAG 工作流大致如下：
 ```
-    用户问题 -> 翻译成英文
-           -> 匹配相似文档片段 -> 大模型生成
+    用户问题 -> 翻译成英文 -> 匹配相似文档片段 -> 大模型生成
 ```
 
 ## 网址快捷方式
