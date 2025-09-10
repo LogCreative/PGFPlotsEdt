@@ -36,7 +36,7 @@ app = Flask(__name__, static_url_path='', static_folder=".", template_folder="."
 
 
 def run_cmd(cmd: str):
-    subprocess.call("cd {} && {}".format(tmpdir, cmd), shell=True)
+    subprocess.call(cmd, cwd=tmpdir, shell=True)
 
 
 def get_header_name(sessid: str):
@@ -98,7 +98,8 @@ def clean_log(filename: str):
 
 def header_cmd(jobname: str, compiler: str):
     ecompiler = "xetex" if compiler == "xelatex" else "etex"
-    return '{} -ini -interaction=nonstopmode -halt-on-error -jobname={} "&{}" mylatexformat.ltx """{}.tex"""'.format(
+    # used to be """ but to avoid issue on Windows XeLaTeX
+    return '{} -ini -interaction=nonstopmode -halt-on-error -jobname={} "&{}" mylatexformat.ltx ""{}.tex""'.format(
         ecompiler, jobname, compiler, jobname)
 
 
