@@ -489,6 +489,16 @@ Then, enter the following commands in the terminal to install dependencies or up
 ```
 The first time you start, it will download the LLM weights (which will be saved in `~/.cache/mlc_llm`) and optimize the deployment using the [MLC LLM](https://llm.mlc.ai) and [llama-index](https://www.llamaindex.ai) library. Open [http://127.0.0.1:5678](http://127.0.0.1:5678) in your browser to use the fast compilation service and activate the large language model feature. Press <kbd>Ctrl</kbd>+<kbd>C</kbd> *twice* in the terminal to stop the large model server.
 
+For Windows users, please refer to the [MLC LLM installation guide](https://llm.mlc.ai/docs/install/mlc_llm.html) to install the necessary dependencies. According to [this GitHub issue](https://github.com/mlc-ai/mlc-llm/issues/3177#issuecomment-2745407613), you may also need to install gcc within Anaconda.
+
+By using Retrieval-Augmented Generation (RAG) on the PGFPlots documentation, with a focus on chunking the $\mathrm{\LaTeX}$ source code, the accuracy of code generation is significantly improved. The RAG workflow is as follows:
+
+```
+    User query -> Translate to English
+               -> Match similar document chunks -> LLM generation
+```
+
+
 ## URL Shortcuts
 
 The url supports passing options in a RESTful manner. Opening a URL with options will preserve the options when reloading. In the table, `PGFPlots://` represents the url corresponding to your deployment mode, for example:
