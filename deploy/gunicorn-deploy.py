@@ -42,7 +42,8 @@ NUM_WORKERS = number_of_workers() if WORKERS == 'auto' else int(WORKERS)
 def run_cmd_with_timeout(cmd: str):
     try:
         p = subprocess.Popen(
-            "cd {} && {}".format(ppedt_server.tmpdir, cmd),  # cmd
+            cmd,
+            cwd=ppedt_server.tmpdir,
             stdout=subprocess.PIPE,  # hide output
             shell=True,  # run in shell to prevent error
             start_new_session=True  # create a process group
