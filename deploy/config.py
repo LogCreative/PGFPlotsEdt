@@ -27,3 +27,6 @@ TIMEOUT = 30
 # the server will return an error.
 LENGTH_LIMIT = 8196
 
+# PG Vector URI
+# create a database of "ppedt", and create extension vector; first.
+POSTGRES_URI = "postgresql://username:password@localhost:5432"
