@@ -1,11 +1,12 @@
 # Set up the conda environment for the LLM server -- ppedt_server_llm.py
 dependencies:
-  - python=3.8
+  - python=3.11
   - pip
   - pip:
     - flask
     - llama-index
     - llama-index-embeddings-huggingface
+    - llama-index-readers-file
     - langchain
     - mlc-ai-nightly
     - mlc-llm-nightly

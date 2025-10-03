@@ -31,8 +31,6 @@ import subprocess
 import tarfile
 from typing import Any
 
-from mlc_llm import MLCEngine
-
 # Create engine
 ## The original Llama 3 model:
 model = "HF://mlc-ai/Llama-3-8B-Instruct-q4f16_1-MLC"
@@ -42,6 +40,7 @@ model = "HF://mlc-ai/Llama-3-8B-Instruct-q4f16_1-MLC"
 
 # RAG is enabled or not
 rag = True
+embed_model = "BAAI/bge-small-en-v1.5"
 
 engine = None
 
@@ -82,6 +81,23 @@ def llm_test():
 ppedt_server.llm_test = llm_test
 
 
+def basic_load():
+    def mlc_basic(code, prompt):
+        for response in engine.chat.completions.create(
+                messages=[
+                    {"role": "user", "content": PRE_PROMPT + " " + prompt + ":\n" + code}
+                ],
+                model=model,
+                stream=True,
+        ):
+            yield response.choices[0].delta.content
+
+    def llm_hook(code, prompt):
+        yield from code_filter(mlc_basic(code, prompt))
+
+    ppedt_server.llm_hook = llm_hook
+
+
 def get_doc_path():
     try:
         # Try to get the documentation from the local TeX distribution.
@@ -99,29 +115,38 @@ def get_doc_path():
         return None
 
 
-def basic_load():
-    def mlc_basic(code, prompt):
-        for response in engine.chat.completions.create(
-            messages=[
-                {"role": "user", "content": PRE_PROMPT + " " + prompt + ":\n" + code}
-            ],
-            model=model,
-            stream=True,
-        ):
-            yield response.choices[0].delta.content
-    
-    def llm_hook(code, prompt):
-        yield from code_filter(mlc_basic(code, prompt))
-    ppedt_server.llm_hook = llm_hook
-
 # Disable warning
 os.environ['TOKENIZERS_PARALLELISM'] = 'true'
 
-def rag_load(doc_path):
-    from llama_index.core import Settings, SimpleDirectoryReader, VectorStoreIndex, get_response_synthesizer, set_global_handler, PromptTemplate
+
+def get_documents_nodes(doc_path):
+    from llama_index.core import SimpleDirectoryReader
     from llama_index.core.node_parser import LangchainNodeParser
-    from llama_index.embeddings.huggingface import HuggingFaceEmbedding
     from langchain.text_splitter import LatexTextSplitter
+
+    # Hide the embedding progress bar
+    from sentence_transformers.SentenceTransformer import logger
+    import logging
+    logger.setLevel(logging.WARNING)
+
+    # Extract the documentation source
+    doc_extracted_path = os.path.join(ppedt_server.tmpdir, "pgfplots_doc")
+    with tarfile.open(doc_path, "r:bz2") as tar:
+        tar.extractall(doc_extracted_path)
+    documents = SimpleDirectoryReader(
+        doc_extracted_path,
+        required_exts=[".tex"],
+        exclude=["pgfplotstodo.tex", "TeX-programming-notes.tex", "pgfmanual-en-macros.tex"]
+    ).load_data()
+    # unfortunately, tree-sitter does not support latex
+    splitter = LangchainNodeParser(LatexTextSplitter(chunk_size=500, chunk_overlap=100))
+    nodes = splitter.get_nodes_from_documents(documents)
+    return nodes
+
+
+def rag_load(doc_path):
+    from llama_index.core import Settings, VectorStoreIndex, get_response_synthesizer, set_global_handler, PromptTemplate
+    from llama_index.embeddings.huggingface import HuggingFaceEmbedding
     from llama_index.core.llms import (
         CustomLLM,
         CompletionResponse,
@@ -133,31 +158,15 @@ def rag_load(doc_path):
     from llama_index.core.query_engine import RetrieverQueryEngine
     from llama_index.core.postprocessor import SimilarityPostprocessor
 
-    # Hide the embedding progress bar
-    from sentence_transformers.SentenceTransformer import logger
-    import logging
-    logger.setLevel(logging.WARNING)
-    
-    # Extract the documentation source
-    doc_extracted_path = os.path.join(ppedt_server.tmpdir, "pgfplots_doc")
-    with tarfile.open(doc_path, "r:bz2") as tar:
-        tar.extractall(doc_extracted_path)
-
     # Check out LLM input and output in the console.
     set_global_handler("simple")
-    
-    documents = SimpleDirectoryReader(
-        doc_extracted_path,
-        required_exts=[".tex"],
-        exclude=["pgfplotstodo.tex", "TeX-programming-notes.tex", "pgfmanual-en-macros.tex"]
-    ).load_data()
-    # unfortunately, tree-sitter does not support latex
-    splitter = LangchainNodeParser(LatexTextSplitter(chunk_size=500, chunk_overlap=100))
-    nodes = splitter.get_nodes_from_documents(documents)
+
+    # Get document nodes
+    nodes = get_documents_nodes(doc_path)
 
     print("Loading embedding model...")
     Settings.embed_model = HuggingFaceEmbedding(
-        model_name="BAAI/bge-small-en-v1.5",
+        model_name=embed_model,
         # cache_folder="cache"  # if you set HF_HOME to cache/
     )
 
@@ -254,15 +263,7 @@ def rag_load(doc_path):
     ppedt_server.llm_hook = llm_hook
 
 
-if __name__ == '__main__':
-    # Clean up the tmpdir and create a new one.
-    if os.path.isdir(ppedt_server.tmpdir):
-        shutil.rmtree(ppedt_server.tmpdir)
-    os.mkdir(ppedt_server.tmpdir)
-
-    print("Loading LLM model...")
-    engine = MLCEngine(model)
-
+def setup_rag():
     if not rag:
         print("RAG is disabled.")
         basic_load()
@@ -276,11 +277,22 @@ if __name__ == '__main__':
             print("Loading RAG...")
             rag_load(doc_path)
 
+
+if __name__ == '__main__':
+    # Clean up the tmpdir and create a new one.
+    if os.path.isdir(ppedt_server.tmpdir):
+        shutil.rmtree(ppedt_server.tmpdir)
+    os.mkdir(ppedt_server.tmpdir)
+
+    print("Loading LLM model...")
+    from mlc_llm import MLCEngine
+    engine = MLCEngine(model)
+
+    setup_rag()
+
     ver = write_version_info(os.path.join(ppedt_server.rootdir, "res"))
     print("PGFPlotsEdt {} with Llama 3".format(ver))
 
     ppedt_server.app.run(host="127.0.0.1", port=5678)
-
-print("\nPress CTRL+C again to exit.")
-engine.terminate()
-exit(0)
+    engine.terminate()
+    # print("\nPress CTRL+C again to exit.")
