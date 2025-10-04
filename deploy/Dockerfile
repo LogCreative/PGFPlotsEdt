@@ -17,9 +17,13 @@ LABEL org.opencontainers.image.source="https://github.com/LogCreative/PGFPlotsEd
 # Update apt-get
 RUN apt-get update
 
-# Install Flask and Gunicorn
-RUN apt-get install python3-flask -y
-RUN apt-get install python3-gunicorn -y
+# Install requirements
+RUN apt-get install python3-venv -y --no-install-recommends
+COPY ./deploy/requirements.txt .
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+RUN pip install -r requirements.txt
+RUN rm requirements.txt
 
 # Copy the previous directory into the container
 COPY . /PGFPlotsEdt
