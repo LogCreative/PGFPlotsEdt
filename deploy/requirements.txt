@@ -1,0 +1,6 @@
+flask
+gunicorn
+llama-index
+llama-index-llms-openai-like
+llama-index-embeddings-openai-like
+llama-index-vector-stores-postgres
