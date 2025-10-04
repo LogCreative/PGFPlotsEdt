@@ -12,18 +12,11 @@ from config import *
 
 def basic_load_noop():
     print("No documents found.")
-ppedt_server_llm.basic_load = basic_load_noop
 
-def rag_store(doc_path):
-    from llama_index.vector_stores.postgres import PGVectorStore # llama-index-vector-stores-postgres
-    from llama_index.core import StorageContext, Settings, VectorStoreIndex
-    from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+
+def get_vector_store():
+    from llama_index.vector_stores.postgres import PGVectorStore  # llama-index-vector-stores-postgres
     from sqlalchemy import make_url
-
-    # Get document nodes
-    nodes = ppedt_server_llm.get_documents_nodes(doc_path)
-
-    # create a Redis client connection
     url = make_url(POSTGRES_URI)
     vector_store = PGVectorStore.from_params(
         database="ppedt",
@@ -40,6 +33,18 @@ def rag_store(doc_path):
             "hnsw_dist_method": "vector_cosine_ops",
         },
     )
+    return vector_store
+
+
+def rag_store(doc_path):
+    from llama_index.core import StorageContext, Settings, VectorStoreIndex
+    from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+
+    # Get document nodes
+    nodes = ppedt_server_llm.get_documents_nodes(doc_path)
+
+    # Get vector store
+    vector_store = get_vector_store()
 
     # load storage context
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
@@ -52,8 +57,9 @@ def rag_store(doc_path):
 
     print("Building the index...")
     index = VectorStoreIndex(nodes, show_progress=True, storage_context=storage_context)
-ppedt_server_llm.rag_load = rag_store
 
 if __name__ == '__main__':
+    ppedt_server_llm.basic_load = basic_load_noop
+    ppedt_server_llm.rag_load = rag_store
     ppedt_server_llm.setup_rag()
     print("Knowledge base initialized.")
