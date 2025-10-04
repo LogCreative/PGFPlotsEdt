@@ -27,6 +27,24 @@ TIMEOUT = 30
 # the server will return an error.
 LENGTH_LIMIT = 8196
 
+# LLM Settings
+# Whether to enable LLM, finish the configuration below then set it to True
+LLM_ENABLED = False
+
+# LLM API Settings: OpenAI Compatible API
+LLM_MODEL_NAME = "gpt-4o"
+LLM_API_BASE = "https://hostname.com/v1"
+LLM_API_KEY = "sk-..."
+
+# RAG Settings
+# Whether to enable RAG, finish the configuration below then set it to True
+RAG_ENABLED = False
+
 # PG Vector URI
 # create a database of "ppedt", and create extension vector; first.
 POSTGRES_URI = "postgresql://username:password@localhost:5432"
+
+# Embedding Model Settings
+# Deploy your embedding model in OpenAI Embedding Compatible API
+EMBED_MODEL_NAME = "/data/bge-small-en-v1.5"
+EMBED_API_BASE = "http://hostname.com"

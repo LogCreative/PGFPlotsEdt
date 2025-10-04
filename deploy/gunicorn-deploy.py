@@ -22,13 +22,25 @@ import signal
 import subprocess
 import hashlib
 
+from llama_index.core.base.llms.types import ChatMessage
+
+from config import *
+
+if LLM_ENABLED:
+    from llama_index.llms.openai_like import OpenAILike # llama-index-llms-openai-like
+    from llama_index.core import Settings
+    if RAG_ENABLED:
+        from llama_index.core import VectorStoreIndex
+        from llama_index.embeddings.openai_like import OpenAILikeEmbedding
+
+import init_kb
 import gunicorn.app.base
 
 import sys
 sys.path.append('..')
 import ppedt_server
+import ppedt_server_llm
 from res.version_updater import write_version_info
-from config import *
 
 
 def number_of_workers():
@@ -122,6 +134,40 @@ def avail_hook():
     return True
 # Patch server avail_hook
 ppedt_server.avail_hook = avail_hook
+
+
+if LLM_ENABLED:
+    Settings.llm = OpenAILike(
+        model=LLM_MODEL_NAME,
+        api_base=LLM_API_BASE,
+        api_key=LLM_API_KEY,
+        is_chat_model=True,
+    )
+    if RAG_ENABLED:
+        Settings.embed_model = OpenAILikeEmbedding(
+            model_name=EMBED_MODEL_NAME,
+            api_base=EMBED_API_BASE,
+        )
+        vector_store = init_kb.get_vector_store()
+        index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
+        ppedt_server.llm_hook = ppedt_server_llm.get_rag_pipline(index)
+    else:
+        def model_gen(code, prompt):
+            for response in Settings.llm.stream_chat([
+                ChatMessage(
+                    role="user",
+                    content=ppedt_server_llm.PRE_PROMPT + " " + prompt + ":\n" + code
+                )
+            ]):
+                yield response.delta
+
+        def online_llm_hook(code, prompt):
+            yield from ppedt_server_llm.code_filter(model_gen(code, prompt))
+        ppedt_server.llm_hook = online_llm_hook
+
+    def llm_test():
+        return "PGFPlotsEdt LaTeX Server: POST a request (code, prompt) to LLM.\n", 200
+    ppedt_server.llm_test = llm_test
 
 
 class StandaloneApplication(gunicorn.app.base.BaseApplication):
