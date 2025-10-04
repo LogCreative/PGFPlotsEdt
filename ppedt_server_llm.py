@@ -144,8 +144,64 @@ def get_documents_nodes(doc_path):
     return nodes
 
 
+def get_rag_pipline(index):
+    from llama_index.core import Settings, get_response_synthesizer, PromptTemplate
+    from llama_index.core.retrievers import VectorIndexRetriever
+    from llama_index.core.query_engine import RetrieverQueryEngine
+    from llama_index.core.postprocessor import SimilarityPostprocessor
+
+    ppedt_translate_template = PromptTemplate(
+        "Translate the query to English and modify unicode symbols to LaTeX commands.\n" +
+        "Query: {query_str}\n" +
+        "Translation: "
+    )
+
+    def translate_query(prompt):
+        # translate the query by the same LLM model to reduce the deployment complexity
+        response = Settings.llm.predict(ppedt_translate_template, query_str=prompt).replace("Translation: ", "", 1)
+        return response
+
+    retriever = VectorIndexRetriever(
+        index=index,
+        similarity_top_k=3,
+    )
+
+    ppedt_text_qa_template = PromptTemplate(
+        "Context information is below.\n" +
+        "---------------------\n" +
+        "{context_str}\n" +
+        "---------------------\n" +
+        PRE_PROMPT + " " +
+        "Answer the query.\n" +
+        "Query: {query_str}\n" +
+        "Answer: "
+    )
+
+    response_synthesizer = get_response_synthesizer(
+        response_mode="compact",
+        streaming=True,
+        text_qa_template=ppedt_text_qa_template,
+    )
+
+    query_engine = RetrieverQueryEngine(
+        retriever=retriever,
+        response_synthesizer=response_synthesizer,
+        node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=0.75)],
+    )
+
+    def llm_hook(code, prompt):
+        # detect whether the prompt is English by detecting whether is ascii
+        if not all(ord(c) < 128 for c in prompt):
+            # query rewrite
+            prompt = translate_query(prompt)
+        # perform the query
+        yield from code_filter(query_engine.query(prompt + "\n" + code).response_gen)
+
+    return llm_hook
+
+
 def rag_load(doc_path):
-    from llama_index.core import Settings, VectorStoreIndex, get_response_synthesizer, set_global_handler, PromptTemplate
+    from llama_index.core import Settings, VectorStoreIndex, set_global_handler
     from llama_index.embeddings.huggingface import HuggingFaceEmbedding
     from llama_index.core.llms import (
         CustomLLM,
@@ -154,9 +210,6 @@ def rag_load(doc_path):
         LLMMetadata,
     )
     from llama_index.core.llms.callbacks import llm_completion_callback
-    from llama_index.core.retrievers import VectorIndexRetriever
-    from llama_index.core.query_engine import RetrieverQueryEngine
-    from llama_index.core.postprocessor import SimilarityPostprocessor
 
     # Check out LLM input and output in the console.
     set_global_handler("simple")
@@ -213,54 +266,7 @@ def rag_load(doc_path):
 
     Settings.llm = MLCLLM()
 
-    ppedt_translate_template = PromptTemplate(
-        "Translate the query to English.\n" +
-        "Query: {query_str}\n" +
-        "Translation: "
-    )
-
-    def translate_query(prompt):
-        # translate the query by the same LLM model to reduce the deployment complexity
-        response = Settings.llm.predict(ppedt_translate_template, query_str=prompt).replace("Translation: ", "", 1)
-        return response
-
-    retriever = VectorIndexRetriever(
-        index=index,
-        similarity_top_k=3,
-    )
-
-    ppedt_text_qa_template = PromptTemplate(
-        "Context information is below.\n" +
-        "---------------------\n" +
-        "{context_str}\n" +
-        "---------------------\n" +
-        PRE_PROMPT + " " +
-        "Answer the query.\n" +
-        "Query: {query_str}\n" +
-        "Answer: "
-    )
-
-    response_synthesizer = get_response_synthesizer(
-        response_mode="compact",
-        streaming=True,
-        text_qa_template=ppedt_text_qa_template,
-    )
-
-    query_engine = RetrieverQueryEngine(
-        retriever=retriever,
-        response_synthesizer=response_synthesizer,
-        node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=0.75)],
-    )
-    
-    def llm_hook(code, prompt):
-        # detect whether the prompt is English by detecting whether is ascii
-        if not all(ord(c) < 128 for c in prompt):
-            # query rewrite
-            prompt = translate_query(prompt)
-        # perform the query
-        yield from code_filter(query_engine.query(prompt + "\n" + code).response_gen)
-    
-    ppedt_server.llm_hook = llm_hook
+    ppedt_server.llm_hook = get_rag_pipline(index)
 
 
 def setup_rag():
