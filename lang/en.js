@@ -90,7 +90,8 @@ const en = {
   "code": {
     "cpyall": "Copy all code to clipboard",
     "cpydraw": "Copy plot code to clipboard",
-    "manedt": "Edit code manually"
+    "manedt": "Edit code manually",
+    "smartedt": "Edit code smartly"
   },
   "Parameter Settings": "Parameter Settings",
   "series": {

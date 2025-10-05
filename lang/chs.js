@@ -90,7 +90,8 @@ const chs = {
   "code": {
     "cpydraw": "复制绘图代码",
     "cpyall": "复制全部代码",
-    "manedt": "手动编辑代码"
+    "manedt": "手动编辑代码",
+    "smartedt": "智能编辑代码"
   },
   "Parameter Settings": "\n参数设置\n",
   "series": {
