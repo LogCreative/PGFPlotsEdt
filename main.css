@@ -797,7 +797,7 @@ input[type=text]{
     gap: 3px;
 }
 
-#llama3 {
+#llama3, #glm {
     margin-left: auto;
     color: gray;
     font-size: small;

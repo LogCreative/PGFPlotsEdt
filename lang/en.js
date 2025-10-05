@@ -12,6 +12,7 @@ const en = {
     "line": "Copyright © 2020&ndash;2025 Log Creative",
     "detail": "<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p><p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the <a href='https://github.com/LogCreative/PGFPlotsEdt/blob/master/LICENSE' target='_blank'>GNU Affero General Public License</a> for more details.</p>",
     "llama3": "Meta Llama 3 is licensed under the <a href='https://llama.meta.com/llama3/license/' target='_blank'>Meta Llama 3 Community License</a>, Copyright © Meta Platforms, Inc. All Rights Reserved.",
+    "glm4": "GLM 4.6 is licensed under <a href='https://github.com/zai-org/GLM-4.5/blob/main/LICENSE' target='_blank'>Apache License 2.0</a>, Copyright © Zhipu AI.",
     "privacy": "<p>Privacy policy: To compile the TeX document on the online server and improve the user experience, your necessary anonymous temporary code data will be collected by this site or the third-party provider <a href='https://latexonline.cc/' target='_blank'>LaTeX Online</a>. These data will be secured in a containerized form without any external connection other than the site itself and will be routinely deleted. You could inspect our code on the <a href='https://github.com/LogCreative/PGFPlotsEdt' target='_blank'>GitHub repository</a>. You are agree to this policy if the checkbox of do not use the fast compiler service is not checked.</p>",
     "fast-compiler-not-use": "Do not use the fast compiler service",
     "server-announce": "",
@@ -142,7 +143,8 @@ const en = {
     "generate": "Generate",
     "accept": "Accept",
     "reject": "Reject",
-    "llama3": "Built with Llama3"
+    "llama3": "Built with Llama3",
+    "glm4": "Built with GLM-4.6"
   },
   "doc": {
     "Navigation": "Navigation",
