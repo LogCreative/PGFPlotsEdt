@@ -24,6 +24,7 @@ RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 RUN pip install -r requirements.txt
 RUN rm requirements.txt
+RUN rm -rf /var/lib/apt/lists/*
 
 # Copy the previous directory into the container
 COPY . /PGFPlotsEdt
