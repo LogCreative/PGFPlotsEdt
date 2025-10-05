@@ -411,12 +411,12 @@ MathJax [homepage](https://www.mathjax.org/). The function preview feature of PG
 PGFPlotsEdt provides multiple advanced deployment modes. The table below compares the features of different deployment modes.
 
 | Mode | URL | Comp. Scheme | Comp. Speed | LLM |
-| ---- | --- | ----------------- | ----------------- | ----------- |
-| Online | [online link](https://logcreative.github.io/PGFPlotsEdt) | LaTeX Online | Normal | |
-| Open locally | `index.html` | LaTeX Online | Normal | |
-| Local Compilation | [http://127.0.0.1:5678](http://127.0.0.1:5678) | Header format cache | Fast | |
-| Deployment Compilation | [http://0.0.0.0:5678](http://127.0.0.1:5678) | Header format hash cache | Faster | |
+| ---- | --- | ----------------- | ----------------- |-----|
+| Online | [online link](https://logcreative.github.io/PGFPlotsEdt) | LaTeX Online | Normal |     |
+| Open locally | `index.html` | LaTeX Online | Normal |     |
+| Local Compilation | [http://127.0.0.1:5678](http://127.0.0.1:5678) | Header format cache | Fast |     |
 | LLM | [http://127.0.0.1:5678](http://127.0.0.1:5678) | Header format cache | Fast | Yes |
+| Deployment Compilation | [http://0.0.0.0:5678](http://127.0.0.1:5678) | Header format hash cache | Faster | Yes |
 
 : Comparison of deployment modes, Comp.=Compilation
 
@@ -494,7 +494,7 @@ For Windows users, please refer to the [MLC LLM installation guide](https://llm.
 By using Retrieval-Augmented Generation (RAG) on the PGFPlots documentation, with a focus on chunking the $\mathrm{\LaTeX}$ source code, the accuracy of code generation is significantly improved. The RAG workflow is as follows:
 
 ```
-    User query -> Translate to English
+    User query -> Translate to English and LaTeX query transformation
                -> Match similar document chunks -> LLM generation
 ```
 
