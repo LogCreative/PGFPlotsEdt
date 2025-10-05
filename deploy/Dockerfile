@@ -22,7 +22,7 @@ RUN apt-get install python3-venv -y --no-install-recommends
 COPY ./deploy/requirements.txt .
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt # -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 RUN rm requirements.txt
 RUN rm -rf /var/lib/apt/lists/*
 
