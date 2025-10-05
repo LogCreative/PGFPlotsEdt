@@ -36,6 +36,14 @@ def get_vector_store():
     return vector_store
 
 
+def get_embedding_model():
+    from llama_index.embeddings.openai_like import OpenAILikeEmbedding
+    return OpenAILikeEmbedding(
+        model_name=EMBED_MODEL_NAME,
+        api_base=EMBED_API_BASE,
+    )
+
+
 def rag_store(doc_path):
     from llama_index.core import StorageContext, Settings, VectorStoreIndex
     from llama_index.embeddings.huggingface import HuggingFaceEmbedding
@@ -50,10 +58,7 @@ def rag_store(doc_path):
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
     print("Loading embedding model...")
-    Settings.embed_model = HuggingFaceEmbedding(
-        model_name=ppedt_server_llm.embed_model,
-        # cache_folder="cache"  # if you set HF_HOME to cache/
-    )
+    Settings.embed_model = get_embedding_model()
 
     print("Building the index...")
     index = VectorStoreIndex(nodes, show_progress=True, storage_context=storage_context)

@@ -31,7 +31,6 @@ if LLM_ENABLED:
     from llama_index.core import Settings
     if RAG_ENABLED:
         from llama_index.core import VectorStoreIndex
-        from llama_index.embeddings.openai_like import OpenAILikeEmbedding
 
 import init_kb
 import gunicorn.app.base
@@ -144,10 +143,7 @@ if LLM_ENABLED:
         is_chat_model=True,
     )
     if RAG_ENABLED:
-        Settings.embed_model = OpenAILikeEmbedding(
-            model_name=EMBED_MODEL_NAME,
-            api_base=EMBED_API_BASE,
-        )
+        Settings.embed_model = init_kb.get_embedding_model()
         vector_store = init_kb.get_vector_store()
         index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
         ppedt_server.llm_hook = ppedt_server_llm.get_rag_pipline(index)
