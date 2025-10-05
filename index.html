@@ -220,7 +220,7 @@
                 <summary>
                     {{$t('Code')}} <button v-clipboard:copy="content" id="btnDrawCode" @mouseover="hintDrawCode" @mouseleave="blurDrawCode" :title="$t('code.cpydraw')" @click="copytip">▪</button>
                     <button v-clipboard:copy="file" id="btnAllCode"  @mouseover="hintAllCode" @mouseleave="blurAllCode" :title="$t('code.cpyall')" @click="copytip">◼</button>
-                    <button onclick="gomanual()" id="btnEdtCode" @mouseover="warnAllCode" @mouseleave="blurAllCode" :title="$t('code.manedt')">⚠</button>
+                    <button onclick="gomanual()" id="btnEdtCode" @mouseover="warnAllCode" @mouseleave="blurAllCode" :title="llm === false ? $t('code.manedt') : $t('code.smartedt')">{{llm === false ? '⚠' : '✨'}}</button>
                     <div id="cpytip">{{$t('cpytip')}}</div>
                 </summary>
                 <div id="texAllCode">
@@ -265,7 +265,7 @@
                     </div>
                 </div>
                 <div v-for="(value,key,index) in submenu" v-show="eq">
-                    <div class="matchkey" v-html="key"></div><div class="matchnote">{{value[0]}}<colorsbox :colors="value[2]" v-show="value[1]=='colors'"></div><div class="matchside"><colorbox :color="value[2]" v-show="value[1]=='color'"></colorbox><colormapbox :colormap="value[2]" v-show="value[1]=='colormap'"></colormapbox></div>
+                    <div class="matchkey" v-html="key"></div><div class="matchnote">{{value[0]}}<colorsbox :colors="value[2]" v-show="value[1]=='colors'"/></div><div class="matchside"><colorbox :color="value[2]" v-show="value[1]=='color'"></colorbox><colormapbox :colormap="value[2]" v-show="value[1]=='colormap'"></colormapbox></div>
                 </div>
             </div>
         </div>
