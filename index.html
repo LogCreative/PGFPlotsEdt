@@ -68,6 +68,7 @@
                     <div id="copyright-detail" v-html="$t('copyright.detail')"></div>
                     <div id="llama-detail" v-show="llm==='llama'" v-html="$t('copyright.llama3')"></div>
                     <div id="glm-detail" v-show="llm==='glm'" v-html="$t('copyright.glm4')"></div>
+                    <div id="ai-limitation" v-show="llm !== false" v-html="$t('copyright.ai-limitation')"></div>
                     <div id="privacy-policy" v-show="!notusefast" v-html="$t('copyright.privacy')"></div>
                 </div>
                 <div id="copyright-hint" v-html="$t('copyright.hint')"></div>
@@ -210,7 +211,7 @@
                     <button id="code_reject">{{$t('llm.reject')}}</button>
                     <div id="generating" class="loader"></div>
                     <div id="llama3" v-show="llm==='llama'">{{$t('llm.llama3')}}</div>
-                    <div id="glm" v-show="llm==='glm'">{{$t('llm.glm4')}}</div>
+                    <div id="glm" v-show="llm==='glm'" v-html="$t('llm.glm4')"></div>
                 </div>
             </div>
         </div> 

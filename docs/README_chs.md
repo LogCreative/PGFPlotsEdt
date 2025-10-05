@@ -403,19 +403,21 @@ LaTeX Online [主页](https://latexonline.cc/)。PGFPlotsEdt 可能会使用 LaT
 MathJax [主页](https://www.mathjax.org/)。PGFPlotsEdt 的函数预览功能基于 MathJax。
 ##### Llama3
 *仅本地大模型启用时可用*  Llama 3 [主页](https://llama.meta.com/llama3/)。PGFPlotsEdt 使用 Llama3 大语言模型用于辅助代码生成。
+##### GLM4.6
+*主站可用*  GLM 4.6 [主页](https://github.com/zai-org/GLM-4.5)。PGFPlotsEdt 也可以使用 GLM 4.6 大语言模型用于辅助代码生成。
 
 ## 高级
 
 PGFPlotsEdt 提供多种高级部署模式，表中为多种部署模式的特性比较。
 
-|模式|地址|编译方案|编译速度|大模型|
-|----|----|----|----|----|
-|国内在线|[https://logcreative.tech/PGFPlotsEdt](https://logcreative.tech/PGFPlotsEdt)|头文件哈希缓存|更加快速||
-|国际在线|[https://logcreative.github.io/PGFPlotsEdt](https://logcreative.github.io/PGFPlotsEdt)|LaTeX Online|一般||
-|本地打开|`index.html`|LaTeX Online|一般||
-|本地编译|[http://127.0.0.1:5678](http://127.0.0.1:5678)|头文件缓存|快速||
-|部署编译|[http://0.0.0.0:5678](http://127.0.0.1:5678)|头文件哈希缓存|更加快速||
+|模式|地址|编译方案|编译速度| 大模型 |
+|----|----|----|----|--|
+|国内在线|[https://logcreative.tech/PGFPlotsEdt](https://logcreative.tech/PGFPlotsEdt)|头文件哈希缓存|更加快速|支持|
+|国际在线|[https://logcreative.github.io/PGFPlotsEdt](https://logcreative.github.io/PGFPlotsEdt)|LaTeX Online|一般|  |
+|本地打开|`index.html`|LaTeX Online|一般|  |
+|本地编译|[http://127.0.0.1:5678](http://127.0.0.1:5678)|头文件缓存|快速|  |
 |本地大模型|[http://127.0.0.1:5678](http://127.0.0.1:5678)|头文件缓存|快速|支持|
+|部署编译|[http://0.0.0.0:5678](http://127.0.0.1:5678)|头文件哈希缓存|更加快速|支持|
 
   : 部署模式比较
 
@@ -495,7 +497,7 @@ PGFPlotsEdt 提供多种高级部署模式，表中为多种部署模式的特�
 
 现在，通过对 PGFPlots 文档的检索增强生成（RAG），并基于对 $\mathrm{\LaTeX}$ 源码的切分，代码生成的准确率得到了大幅度提高。RAG 工作流大致如下：
 ```
-    用户问题 -> 翻译成英文 -> 匹配相似文档片段 -> 大模型生成
+    用户问题 -> 翻译成英文并 LaTeX 符号改写 -> 匹配相似文档片段 -> 大模型生成
 ```
 
 ## 网址快捷方式
@@ -538,6 +540,10 @@ PGFPlotsEdt 提供多种高级部署模式，表中为多种部署模式的特�
 ##### Llama 3
 
 Meta Llama 3 由 Meta Platforms, Inc. 版权所有，遵循 [Meta Llama 3 社区许可协议](https://llama.meta.com/llama3/license/)。
+
+##### GLM 4.6
+
+GLM 4.6 由智谱 AI 版权所有，遵循 [Apache 2.0 协议](https://github.com/zai-org/GLM-4.5/blob/main/LICENSE)。
 
 ##### MathJax
 
