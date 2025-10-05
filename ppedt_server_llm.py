@@ -144,21 +144,25 @@ def get_documents_nodes(doc_path):
     return nodes
 
 
-def get_rag_pipline(index):
+def get_rag_pipeline(index):
     from llama_index.core import Settings, get_response_synthesizer, PromptTemplate
     from llama_index.core.retrievers import VectorIndexRetriever
     from llama_index.core.query_engine import RetrieverQueryEngine
     from llama_index.core.postprocessor import SimilarityPostprocessor
+    from llama_index.core.base.llms.types import ChatMessage
 
-    ppedt_translate_template = PromptTemplate(
-        "Translate the query to English and modify unicode symbols to LaTeX commands.\n" +
-        "Query: {query_str}\n" +
+    ppedt_translate_template = \
+        "Translate the query to English and modify mathematics unicode symbols to LaTeX commands if necessary without any explanation.\n" + \
+        "Query: {query_str}\n" + \
         "Translation: "
-    )
 
     def translate_query(prompt):
         # translate the query by the same LLM model to reduce the deployment complexity
-        response = Settings.llm.predict(ppedt_translate_template, query_str=prompt).replace("Translation: ", "", 1)
+        response = Settings.llm.chat(
+            messages=[
+                ChatMessage(role="user", content=ppedt_translate_template.format(query_str=prompt)),
+            ]
+        ).message.content.replace("Translation: ", "", 1)
         return response
 
     retriever = VectorIndexRetriever(
@@ -266,7 +270,7 @@ def rag_load(doc_path):
 
     Settings.llm = MLCLLM()
 
-    ppedt_server.llm_hook = get_rag_pipline(index)
+    ppedt_server.llm_hook = get_rag_pipeline(index)
 
 
 def setup_rag():

@@ -146,7 +146,7 @@ if LLM_ENABLED:
         Settings.embed_model = init_kb.get_embedding_model()
         vector_store = init_kb.get_vector_store()
         index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
-        ppedt_server.llm_hook = ppedt_server_llm.get_rag_pipline(index)
+        ppedt_server.llm_hook = ppedt_server_llm.get_rag_pipeline(index)
     else:
         def model_gen(code, prompt):
             for response in Settings.llm.stream_chat([
