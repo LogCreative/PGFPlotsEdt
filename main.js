@@ -1484,7 +1484,11 @@ var app = new Vue({
             request.open('GET', "/llm", true);
             request.onreadystatechange = function() {
                 if (request.readyState === 4 && request.status === 200) {
-                    that.llm = true;
+                    if (request.responseText.includes("glm")) {
+                        that.llm = "glm";
+                    } else {
+                        that.llm = "llama";
+                    }
                     document.getElementById('manualfile').style.height = '430px';
                 }
             }

@@ -166,7 +166,7 @@ if LLM_ENABLED:
         ppedt_server.llm_hook = online_llm_hook
 
     def llm_test():
-        return "PGFPlotsEdt LaTeX Server: POST a request (code, prompt) to LLM.\n", 200
+        return f"PGFPlotsEdt LaTeX Server: POST a request (code, prompt) to LLM. LLM is powered by {LLM_MODEL_NAME}.\n", 200
     ppedt_server.llm_test = llm_test
 
 
