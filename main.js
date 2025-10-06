@@ -1497,15 +1497,15 @@ var app = new Vue({
             }
             request.send();
             if (this.llm === false) {
-                var request = new XMLHttpRequest();
-                request.open('GET', "https://ppedt.logcreative.workers.dev/", true);
-                request.onreadystatechange = function() {
-                    if (request.readyState === 4 && request.status === 200) {
+                var request_dev = new XMLHttpRequest();
+                request_dev.open('GET', "https://ppedt.logcreative.workers.dev/", true);
+                request_dev.onreadystatechange = function() {
+                    if (request_dev.readyState === 4 && request_dev.status === 200) {
                         that.llm = "llama-serverless";
                         shrinkCodeArea();
                     }
                 }
-                request.send();
+                request_dev.send();
             }
         },
         promptKeyUp: function(e) {
