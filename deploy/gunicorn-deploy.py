@@ -24,12 +24,12 @@ import hashlib
 
 from llama_index.core.base.llms.types import ChatMessage
 
-from config import *
+from config import config
 
-if LLM_ENABLED:
+if config.LLM_ENABLED:
     from llama_index.llms.openai_like import OpenAILike # llama-index-llms-openai-like
     from llama_index.core import Settings
-    if RAG_ENABLED:
+    if config.RAG_ENABLED:
         from llama_index.core import VectorStoreIndex
 
 import init_kb
@@ -48,7 +48,7 @@ def number_of_workers():
     # the plus 1 is for the main loop to have a chance to response 503.
     return multiprocessing.cpu_count() + 1
 
-NUM_WORKERS = number_of_workers() if WORKERS == 'auto' else int(WORKERS)
+NUM_WORKERS = number_of_workers() if config.WORKERS == 'auto' else int(config.WORKERS)
 
 def run_cmd_with_timeout(cmd: str):
     try:
@@ -59,16 +59,16 @@ def run_cmd_with_timeout(cmd: str):
             shell=True,  # run in shell to prevent error
             start_new_session=True  # create a process group
         )
-        p.wait(timeout=TIMEOUT)  # timeout
+        p.wait(timeout=config.TIMEOUT)  # timeout
     except subprocess.TimeoutExpired:
         os.killpg(os.getpgid(p.pid), signal.SIGTERM)  # prevent background running
-        raise subprocess.TimeoutExpired(p.args, TIMEOUT)  # raise the exception for the main loop
+        raise subprocess.TimeoutExpired(p.args, config.TIMEOUT)  # raise the exception for the main loop
 # Patch server run_cmd
 ppedt_server.run_cmd = run_cmd_with_timeout
 
 
 def tex_length_limit_hook(tex: str):
-    if len(tex) > LENGTH_LIMIT:
+    if len(tex) > config.LENGTH_LIMIT:
         raise Exception("The length of the LaTeX source is too long.")
 # Patch server tex_length_limit_hook
 ppedt_server.tex_length_limit_hook = tex_length_limit_hook
@@ -135,14 +135,14 @@ def avail_hook():
 ppedt_server.avail_hook = avail_hook
 
 
-if LLM_ENABLED:
+if config.LLM_ENABLED:
     Settings.llm = OpenAILike(
-        model=LLM_MODEL_NAME,
-        api_base=LLM_API_BASE,
-        api_key=LLM_API_KEY,
+        model=config.LLM_MODEL_NAME,
+        api_base=config.LLM_API_BASE,
+        api_key=config.LLM_API_KEY,
         is_chat_model=True,
     )
-    if RAG_ENABLED:
+    if config.RAG_ENABLED:
         Settings.embed_model = init_kb.get_embedding_model()
         vector_store = init_kb.get_vector_store()
         index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
@@ -162,7 +162,7 @@ if LLM_ENABLED:
         ppedt_server.llm_hook = online_llm_hook
 
     def llm_test():
-        return f"PGFPlotsEdt LaTeX Server: POST a request (code, prompt) to LLM. LLM is powered by {LLM_MODEL_NAME}.\n", 200
+        return f"PGFPlotsEdt LaTeX Server: POST a request (code, prompt) to LLM. LLM is powered by {config.LLM_MODEL_NAME}.\n", 200
     ppedt_server.llm_test = llm_test
 
 
@@ -219,7 +219,7 @@ def dir_clean_LRU(dirpath: str, key_suffix: str = '.tex'):
     sessid_list = [f.stem.split('_')[0] for f in header_list]
     # remove compiling sessions
     sessid_list = list(filter(lambda x: x not in ppedt_server.compiling_sessions.keys(), sessid_list))
-    if len(sessid_list) >= CACHE_SIZE:
+    if len(sessid_list) >= config.CACHE_SIZE:
         # Remove one at a time.
         sessid_removal = sessid_list[0]
         for filepath in filter(lambda x: sessid_removal in x.stem, file_list):
@@ -235,7 +235,7 @@ def pre_request(worker, req):
 
 if __name__ == '__main__':
     options = {
-        'bind': '{}:{}'.format(HOST, PORT),
+        'bind': '{}:{}'.format(config.HOST, config.PORT),
         'workers': NUM_WORKERS,
         'on_starting': on_starting,
         'pre_request': pre_request,

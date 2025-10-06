@@ -1,5 +1,6 @@
 flask
 gunicorn
+pydantic-settings
 llama-index
 llama-index-llms-openai-like
 llama-index-embeddings-openai-like

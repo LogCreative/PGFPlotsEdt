@@ -1,50 +1,74 @@
 """PGFPlotsEdt Deployment Server Configuration
+
+This module provides a Pydantic `Settings` (BaseSettings) class which
+loads configuration from environment variables and a local `.env` file.
+Instantiate `settings` to access typed configuration values.
 """
 
-# Host name: default is '0.0.0.0' for public access
-HOST = '0.0.0.0'
+from typing import Union, Optional
 
-# Port number: default is '5678'.
-# Change docker-compose.yml as well if you change the port number.
-PORT = '5678'
+from pydantic import Field, model_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-# Number of workers: default is 'auto' which will use the number of CPU cores + 1 (redundency).
-# You can also set it to a fixed number.
-WORKERS = 'auto'
 
-# Cache LRU size:
-# The deployment server will remove the least recent used (LRU) files
-# for both the header fmt cache and the pdf cache.
-CACHE_SIZE = 50
+class PGFPlotsEdtSettings(BaseSettings):
+	"""Application settings loaded from environment or .env file.
 
-# Timeout for each compilation (in seconds):
-# If the compilation takes longer than this time, 
-# the server will return a timeout error.
-TIMEOUT = 30
+	Fields are typed and have sensible defaults that match the previous
+	module-level constants.
+	"""
+	model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8',env_prefix='PPEDT_')
 
-# Limit for the length of the input:
-# If the input length is longer than this limit,
-# the server will return an error.
-LENGTH_LIMIT = 8196
+	HOST: str = Field("0.0.0.0", description="Host name for server")
+	PORT: int = Field(5678, description="Port number for server")
+	WORKERS: Union[int, str] = Field("auto", description="Number of workers or 'auto'")
 
-# LLM Settings
-# Whether to enable LLM, finish the configuration below then set it to True
-LLM_ENABLED = False
+	CACHE_SIZE: int = Field(50, description="LRU cache size")
+	TIMEOUT: int = Field(30, description="Timeout for compilation in seconds")
+	LENGTH_LIMIT: int = Field(8196, description="Maximum input length")
 
-# LLM API Settings: OpenAI Compatible API
-LLM_MODEL_NAME = "gpt-4o"
-LLM_API_BASE = "https://hostname.com/v1"
-LLM_API_KEY = "sk-..."
+	# LLM settings
+	LLM_ENABLED: bool = Field(False, description="Whether to enable LLM features")
+	LLM_MODEL_NAME: Optional[str] = Field(None, examples=["gpt-4o"], description="LLM model name")
+	LLM_API_BASE: Optional[str] = Field(None, examples=["https://hostname.com/v1"], description="LLM API base URL")
+	LLM_API_KEY: Optional[str] = Field(None, description="LLM API key")
 
-# RAG Settings
-# Whether to enable RAG, finish the configuration below then set it to True
-RAG_ENABLED = False
+	# RAG settings
+	RAG_ENABLED: bool = Field(False, description="Whether to enable RAG")
 
-# PG Vector URI
-# create a database of "ppedt", and create extension vector; first.
-POSTGRES_URI = "postgresql://username:password@localhost:5432"
+	# Postgres / vector DB URI
+	POSTGRES_URI: Optional[str] = Field(None, examples=["postgresql://username:password@localhost:5432"], description="Postgres connection URI")
 
-# Embedding Model Settings
-# Deploy your embedding model in OpenAI Embedding Compatible API
-EMBED_MODEL_NAME = "/data/bge-small-en-v1.5"
-EMBED_API_BASE = "http://hostname.com"
+	# Embedding model settings
+	EMBED_MODEL_NAME: Optional[str] = Field(None, examples=["/data/bge-small-en-v1.5"], description="Embedding model identifier or path")
+	EMBED_API_BASE: Optional[str] = Field(None, examples=["http://hostname.com"], description="Embedding API base URL")
+
+	@model_validator(mode="after")
+	def _validate_enabled_features(self):
+		"""Validate dependent fields when feature flags are enabled.
+
+		- If LLM_ENABLED is True, require LLM_MODEL_NAME, LLM_API_BASE and LLM_API_KEY.
+		- If RAG_ENABLED is True, require POSTGRES_URI, EMBED_MODEL_NAME and EMBED_API_BASE.
+		"""
+		if self.LLM_ENABLED:
+			missing = [
+				name for name in ("LLM_MODEL_NAME", "LLM_API_BASE", "LLM_API_KEY")
+				if not getattr(self, name)
+			]
+			if missing:
+				raise ValueError(f"LLM_ENABLED is True but missing required LLM config: {', '.join(missing)}")
+
+		if self.RAG_ENABLED:
+			missing = [
+				name for name in ("POSTGRES_URI", "EMBED_MODEL_NAME", "EMBED_API_BASE")
+				if not getattr(self, name)
+			]
+			if missing:
+				raise ValueError(f"RAG_ENABLED is True but missing required RAG config: {', '.join(missing)}")
+
+		return self
+
+
+# module-level settings singleton
+config = PGFPlotsEdtSettings()
+

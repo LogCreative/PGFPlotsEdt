@@ -7,7 +7,7 @@ import sys
 sys.path.append('..')
 import ppedt_server_llm
 
-from config import *
+from config import config
 
 
 def basic_load_noop():
@@ -17,7 +17,7 @@ def basic_load_noop():
 def get_vector_store():
     from llama_index.vector_stores.postgres import PGVectorStore  # llama-index-vector-stores-postgres
     from sqlalchemy import make_url
-    url = make_url(POSTGRES_URI)
+    url = make_url(config.POSTGRES_URI)
     vector_store = PGVectorStore.from_params(
         database="ppedt",
         host=url.host,
@@ -39,8 +39,8 @@ def get_vector_store():
 def get_embedding_model():
     from llama_index.embeddings.openai_like import OpenAILikeEmbedding
     return OpenAILikeEmbedding(
-        model_name=EMBED_MODEL_NAME,
-        api_base=EMBED_API_BASE,
+        model_name=config.EMBED_MODEL_NAME,
+        api_base=config.EMBED_API_BASE,
     )
 
 

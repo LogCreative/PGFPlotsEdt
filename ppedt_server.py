@@ -199,7 +199,7 @@ def index():
     return send_from_directory(rootdir, "index.html")
 
 
-@app.route('/deploy/config.py', methods=['GET'])
+@app.route('/deploy/.env', methods=['GET'])
 def deploy_config():
     return "Forbidden", 403 # hide credentials
 
