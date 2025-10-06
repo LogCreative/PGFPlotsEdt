@@ -38,6 +38,13 @@
 		"directory": "./public/",
 		"binding": "ASSETS"
 	},
+	"vectorize": [
+		{
+			"binding": "VECTORIZE",
+			"index_name": "ppedt-embed",
+			"remote": true
+		}
+	],
 	"ai": {
 		"binding": "AI",
 	}

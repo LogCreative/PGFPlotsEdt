@@ -167,3 +167,5 @@ dist
 .wrangler/
 
 package-lock.json
+# Dumped embedding data
+data_embed.jsonl
