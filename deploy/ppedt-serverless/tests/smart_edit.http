@@ -1,0 +1,10 @@
+###
+POST http://localhost:8787
+Content-Type: Application/json
+
+{
+    "code": "\\documentclass[tikz]{standalone}\n\\usepackage{pgfplots}\n\\pgfplotsset{compat=newest}\n\\begin{document}\n\\begin{tikzpicture}\n\\begin{axis}[]\n\\end{axis}\n\\end{tikzpicture}\n\\end{document}",
+    "prompt": "plot x^2"
+}
+
+###

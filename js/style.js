@@ -194,7 +194,7 @@ getCodeDiff = function(oldcode, newcode){
 };
 
 generateCodeClick = function(obj) {
-    if (app.llm) {
+    if (app.llm !== false) {
         var editor = ace.edit("manualfile");
         var prompt_input = document.getElementById('code_prompt');
         var generate_btn = document.getElementById('code_generate');
@@ -205,7 +205,7 @@ generateCodeClick = function(obj) {
         if (prompt !== "") {
             var code = editor.getValue();
             var request = new XMLHttpRequest();
-            request.open('POST', "/llm", true);
+            request.open('POST', app.llm === "llama-serverless" ? "https://ppedt.logcreative.workers.dev/" : "/llm", true);
             request.setRequestHeader("Content-Type", "application/json");
             request.onreadystatechange = function() {
                 var new_code = request.responseText;

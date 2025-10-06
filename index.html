@@ -34,7 +34,7 @@
                         <source srcset="res/poweredby/latexonline_white.png" media="(prefers-color-scheme: dark)" />
                         <source srcset="res/poweredby/latexonline.png" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" /><img class="icon" src="res/poweredby/latexonline.png"></picture><div class="value">LaTeXOnline</div></a>
                     <a class="acckey" href="https://www.mathjax.org/" target="_blank"><img class="icon" src="res/poweredby/mathjax.ico"><div class="value">MathJax</div></a>
-                    <a class="acckey" href="https://llama.meta.com/llama3/" target="_blank" v-show="llm==='llama'"><img class="icon" src="res/poweredby/meta.svg"><div class="value">Llama 3</div></a>
+                    <a class="acckey" href="https://llama.meta.com/llama3/" target="_blank" v-show="llm==='llama'||llm==='llama-serverless'"><img class="icon" src="res/poweredby/meta.svg"><div class="value">Llama 3</div></a>
                     <a class="acckey" href="https://github.com/zai-org/GLM-4.5" target="_blank" v-show="llm==='glm'"><img class="icon" src="res/poweredby/zhipu.svg"><div class="value">GLM 4.6</div></a>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                 <div id="copyright" v-html="$t('copyright.line')"></div>
                 <div id="about-detail">
                     <div id="copyright-detail" v-html="$t('copyright.detail')"></div>
-                    <div id="llama-detail" v-show="llm==='llama'" v-html="$t('copyright.llama3')"></div>
+                    <div id="llama-detail" v-show="llm==='llama'||llm==='llama-serverless'" v-html="$t('copyright.llama3')"></div>
                     <div id="glm-detail" v-show="llm==='glm'" v-html="$t('copyright.glm4')"></div>
                     <div id="ai-limitation" v-show="llm !== false" v-html="$t('copyright.ai-limitation')"></div>
                     <div id="privacy-policy" v-show="!notusefast" v-html="$t('copyright.privacy')"></div>
@@ -210,7 +210,7 @@
                     <button id="code_accept">{{$t('llm.accept')}}</button>
                     <button id="code_reject">{{$t('llm.reject')}}</button>
                     <div id="generating" class="loader"></div>
-                    <div id="llama3" v-show="llm==='llama'">{{$t('llm.llama3')}}</div>
+                    <div id="llama3" v-show="llm==='llama'||llm==='llama-serverless'">{{$t('llm.llama3')}}</div>
                     <div id="glm" v-show="llm==='glm'" v-html="$t('llm.glm4')"></div>
                 </div>
             </div>
