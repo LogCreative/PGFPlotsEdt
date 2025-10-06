@@ -1480,6 +1480,9 @@ var app = new Vue({
         },
         llm_test: function () {
             var that = this;
+            function shrinkCodeArea() {
+                document.getElementById('manualfile').style.height = '430px';
+            }
             var request = new XMLHttpRequest();
             request.open('GET', "/llm", true);
             request.onreadystatechange = function() {
@@ -1489,7 +1492,7 @@ var app = new Vue({
                     } else {
                         that.llm = "llama";
                     }
-                    document.getElementById('manualfile').style.height = '430px';
+                    shrinkCodeArea();
                 }
             }
             request.send();
@@ -1499,6 +1502,7 @@ var app = new Vue({
                 request.onreadystatechange = function() {
                     if (request.readyState === 4 && request.status === 200) {
                         that.llm = "llama-serverless";
+                        shrinkCodeArea();
                     }
                 }
                 request.send();
