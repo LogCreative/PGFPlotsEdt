@@ -210,7 +210,8 @@
                     <button id="code_accept">{{$t('llm.accept')}}</button>
                     <button id="code_reject">{{$t('llm.reject')}}</button>
                     <div id="generating" class="loader"></div>
-                    <div id="llama3" v-show="llm==='llama'||llm==='llama-serverless'">{{$t('llm.llama3')}}</div>
+                    <div id="llama3" v-show="llm==='llama'">{{$t('llm.llama3')}}</div>
+                    <div id="llama3-serverless" v-show="llm==='llama-serverless'" v-html="$t('llm.llama3-serverless')"></div>
                     <div id="glm" v-show="llm==='glm'" v-html="$t('llm.glm4')"></div>
                 </div>
             </div>

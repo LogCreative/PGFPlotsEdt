@@ -146,6 +146,7 @@ const en = {
     "accept": "Accept",
     "reject": "Reject",
     "llama3": "Built with Llama3",
+    "llama3-serverless": "Llama 3 <a href='https://developers.cloudflare.com/workers-ai/platform/data-usage/' target='_blank' style='text-decoration: underline'>Privacy Policy</a>",
     "glm4": "GLM-4.6 <a href='https://docs.z.ai/legal-agreement/privacy-policy' target='_blank' style='text-decoration: underline'>Privacy Policy</a>"
   },
   "doc": {

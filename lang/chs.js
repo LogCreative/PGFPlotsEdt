@@ -145,6 +145,7 @@ const chs = {
     "accept": "接受",
     "reject": "拒绝",
     "llama3": "使用 Llama 3 构建",
+    "llama3-serverless": "Llama 3 <a href='https://developers.cloudflare.com/workers-ai/platform/data-usage/' target='_blank' style='text-decoration: underline'>隐私政策</a>",
     "glm4": "GLM-4.6 <a href='https://docs.bigmodel.cn/cn/terms/privacy-policy' target='_blank' style='text-decoration: underline'>隐私政策</a>"
   },
   "doc": {
