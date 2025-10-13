@@ -545,6 +545,10 @@ Meta Llama 3 由 Meta Platforms, Inc. 版权所有，遵循 [Meta Llama 3 社区
 
 GLM 4.6 由智谱 AI 版权所有，遵循 [Apache 2.0 协议](https://github.com/zai-org/GLM-4.5/blob/main/LICENSE)。
 
+##### Cloudflare Workers AI
+
+相关 Workers 参考源代码由 Cloudflare, Inc. 版权所有，遵循 [MIT 协议](https://github.com/cloudflare/templates/blob/v5.5.1/LICENSE)。
+
 ##### MathJax
 
 MathJax 遵循 [Apache-2.0 协议](https://github.com/mathjax/MathJax-src/blob/master/LICENSE)。

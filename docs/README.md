@@ -541,6 +541,14 @@ Copyright © 2007-2020 Christian Feuersaenger, licensed under the [GNU-3.0 Licen
 
 Copyright © Meta Platforms, Inc. All Rights Reserved. Meta Llama 3 is licensed under the [Meta Llama 3 Community License](https://llama.meta.com/llama3/license/).
 
+##### GLM 4.6
+
+Copyright © 2025 Zhipu AI, GLM 4.6 is licensed under the [Apache 2.0 License](https://github.com/zai-org/GLM-4.5/blob/main/LICENSE).
+
+##### Cloudflare Workers AI
+
+Copyright © 2018, Cloudflare, Inc. Referenced source code is licensed under the [MIT License](https://github.com/cloudflare/templates/blob/v5.5.1/LICENSE).
+
 ##### MathJax
 
 MathJax is licensed under the [Apache-2.0 License](https://github.com/mathjax/MathJax-src/blob/master/LICENSE).
