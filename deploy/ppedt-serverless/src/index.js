@@ -27,7 +27,7 @@ export default {
             let final_prompt = prompt;
             if (/[^\x00-\x7F]+/.test(prompt)) {
                 const response = await env.AI.run(
-                '@cf/meta/llama-3-8b-instruct',
+                '@cf/meta/llama-3.1-8b-instruct-fp8',
                 {
                     messages: [
                         { role: 'system', content: 'Translate the query to English and modify mathematics unicode symbols to LaTeX commands if necessary without any explanation.' },
@@ -68,7 +68,7 @@ export default {
                 { role: 'user', content: final_prompt + ':\n' + code }
             ];
             const response = await env.AI.run(
-                '@cf/meta/llama-3-8b-instruct',
+                '@cf/meta/llama-3.1-8b-instruct-fp8',
                 {
                     messages,
                     stream: true
