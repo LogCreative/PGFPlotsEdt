@@ -1462,7 +1462,7 @@ var app = new Vue({
 
             function onlineCompiler() {
                 // 使用在线服务
-                app.curl = "https://texlive2020.latexonline.cc/compile?command="+app.compiler+"&text="+urlencoder(compile_tex);
+                app.curl = "https://latexonline.cc/compile?command="+app.compiler+"&text="+urlencoder(compile_tex);
             }
 
             if (!this.notusefast && this.requestid >= 0) {
